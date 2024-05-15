@@ -82,7 +82,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
 
-        //UpdateDisplay();
+        UpdateDisplay();
 
         if (imageId == -1) { return; }
 
