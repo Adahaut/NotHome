@@ -282,11 +282,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: _jumpForce
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: _sensitivity
-      value: 15
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: _sprintValue
@@ -302,35 +302,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_ActionId
-      value: 8e367892-1730-4ece-9706-cca3cb7893de
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
       value: 0729585b-4b7e-4b4a-9672-cfac5897a590
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
       value: 1bcdd9e9-6997-46ca-834c-c566a5400a29
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
       value: 1bb2eb89-8222-447e-929a-f4bf7667cd14
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
-      value: Player/Look[/Mouse/delta]
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: 727c040b-94f0-44c0-88cc-8681ed87e05c
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
       value: Player/OpenInventory[/Keyboard/tab]
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
       value: Player/Interaction[/Keyboard/f]
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
       value: Player/GamePause[/Keyboard/escape]
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -438,19 +438,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GetMouseDelta
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OpenInventory
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Interaction
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OpenMenuPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetMouseDelta
       objectReference: {fileID: 0}
     - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

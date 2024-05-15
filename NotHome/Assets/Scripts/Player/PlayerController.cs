@@ -1,21 +1,24 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Transform" + "\n")]
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private Transform _camera;
 
-    private Rigidbody _rigidbodyPlayer;
-    private bool _isGrounded;
-    private float _initSpeed;
-
+    [Header("Value" + "\n")]
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintValue;
     [SerializeField] private float _sensitivity = 1f;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _inertia = 0.97f;
+
+    private Rigidbody _rigidbodyPlayer;
+    private bool _isGrounded;
+    private float _initSpeed;
 
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _moveDir;
@@ -70,7 +73,6 @@ public class PlayerController : MonoBehaviour
     {
         _rotation.x += ctx.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
         _rotation.y -= ctx.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
-
     }
     private void RotateCamera()
     {
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour
     }
     private void MovePlayer()
     {
-        if (_moveDir == Vector2.zero)
+        if (_moveDir.x == 0)
         {
             _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x * _inertia, _rigidbodyPlayer.velocity.y, _rigidbodyPlayer.velocity.z * _inertia);
         }
