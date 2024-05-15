@@ -141,11 +141,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             return;
         }
 
-        for (int i = 0; i < playerNameTexts.Length; i++)
-        {
-            playerNameTexts[i].text = "Waiting For Player...";
-            playerReadyTexts[i].text = string.Empty;
-        }
+        //for (int i = 0; i < playerNameTexts.Length; i++)
+        //{
+        //    playerNameTexts[i].text = "Waiting For Player...";
+        //    playerReadyTexts[i].text = string.Empty;
+        //}
 
         for(int i = 0; i < Room._roomPlayers.Count; i++)
         {
