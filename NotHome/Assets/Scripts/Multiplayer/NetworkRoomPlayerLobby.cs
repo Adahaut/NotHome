@@ -91,6 +91,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         _displayImage = GetSteamImageAsTexture(imageId);
 
+        UpdateDisplay();
+
     }
 
     private Texture2D GetSteamImageAsTexture(int iImage)
@@ -128,50 +130,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         this.steamId = steamId;
     }
 
-    //private void UpdateDisplay()
-    //{
-    //    if (!isOwned)
-    //    {
-    //        foreach(var player in Room._roomPlayers)
-    //        {
-    //            if(player.isOwned)
-    //            {
-    //                player.UpdateDisplay();
-    //                break;
-    //            }
-    //        }
-
-    //        return;
-    //    }
-
-    //    for (int i = 0; i < playerNameTexts.Length; i++)
-    //    {
-    //        playerNameTexts[i].text = "Waiting For Player...";
-    //        playerReadyTexts[i].text = string.Empty;
-    //    }
-
-    //    for (int i = 0; i < Room._roomPlayers.Count; i++)
-    //    {
-    //        playerNameTexts[i].text = Room._roomPlayers[i]._displayName;
-    //        if(i == 0)
-    //            playerNameTexts[i].text += " (host)";
-    //        playerReadyTexts[i].text = Room._roomPlayers[i]._isReady ?
-    //            "<color=green>Ready</color>" :
-    //            "<color=red>Not Ready</color>";
-
-    //        _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
-
-    //    }
-    //}
-
     private void UpdateDisplay()
     {
         for (int i = 0; i < Room._roomPlayers.Count; i++)
         {
-            // Vérifie si l'index est supérieur ou égal au nombre de joueurs précédemment affichés
             if (i >= playerNameTexts.Length)
             {
-                break; // Sort de la boucle si l'index est plus grand que la capacité du tableau d'affichage
+                break;
             }
 
             playerNameTexts[i].text = Room._roomPlayers[i]._displayName;
@@ -184,7 +149,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
         }
 
-        // Efface les données des joueurs qui ont quitté le lobby
         for (int j = Room._roomPlayers.Count; j < playerNameTexts.Length; j++)
         {
             playerNameTexts[j].text = "Waiting For Player...";
