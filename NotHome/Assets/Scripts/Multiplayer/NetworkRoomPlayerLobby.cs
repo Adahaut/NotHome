@@ -82,7 +82,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
 
-        UpdateDisplay();
+        //UpdateDisplay();
 
         if (imageId == -1) { return; }
 
@@ -141,13 +141,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             return;
         }
 
-        //for (int i = 0; i < playerNameTexts.Length; i++)
-        //{
-        //    playerNameTexts[i].text = "Waiting For Player...";
-        //    playerReadyTexts[i].text = string.Empty;
-        //}
+        for (int i = 0; i < playerNameTexts.Length; i++)
+        {
+            playerNameTexts[i].text = "Waiting For Player...";
+            playerReadyTexts[i].text = string.Empty;
+        }
 
-        for(int i = 0; i < Room._roomPlayers.Count; i++)
+        for (int i = 0; i < Room._roomPlayers.Count; i++)
         {
             playerNameTexts[i].text = Room._roomPlayers[i]._displayName;
             if(i == 0)
