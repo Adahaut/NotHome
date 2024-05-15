@@ -99,15 +99,15 @@ public class PlayerController : MonoBehaviour
     }
     private void MovePlayer()
     {
-        _rigidbodyPlayer.AddForce(_moveDir.y * transform.forward * Time.deltaTime * _speed);
-        _rigidbodyPlayer.AddForce(_moveDir.x * transform.right * Time.deltaTime * _speed);
-        
-        _rigidbodyPlayer.velocity = new Vector3(Mathf.Clamp(_rigidbodyPlayer.velocity.x, -_maxSpeed, _maxSpeed), _rigidbodyPlayer.velocity.y,
-            Mathf.Clamp(_rigidbodyPlayer.velocity.z, -_maxSpeed, _maxSpeed));
-        if (_moveAction.ReadValue<Vector2>() == Vector2.zero)
+        if (_moveDir == Vector2.zero)
         {
-            _rigidbodyPlayer.velocity *= _inertia;
+            _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x * _inertia, _rigidbodyPlayer.velocity.y, _rigidbodyPlayer.velocity.z * _inertia);
         }
-        print(_rigidbodyPlayer.velocity);
+        else
+        {
+            _rigidbodyPlayer.AddForce(_moveDir.y * transform.forward * _speed * Time.deltaTime);
+            _rigidbodyPlayer.AddForce(_moveDir.x * transform.right * _speed * Time.deltaTime);
+            _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
+        }
     }
 }

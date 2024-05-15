@@ -280,89 +280,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: _speed
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: _inertia
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: _maxSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: _jumpForce
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: _sprintValue
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6243920400758648300, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_ActionId
-      value: 6d5ff11e-85a4-485e-a9f0-d864e25691dd
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
-      value: 50f9421e-3c98-4ff7-9dff-111217788750
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
-      value: cbf17d1c-aced-42b2-9b22-bdc36f5a273e
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_ActionName
-      value: Player/Jump[/Keyboard/space]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
-      value: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
-      value: Player/Sprint[/Keyboard/shift]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      propertyPath: m_Mass
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1849679574}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GetInputPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -673,17 +593,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1849679574 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
-  m_PrefabInstance: {fileID: 604185808}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abf94b33df83a148a69230bc74fdbfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
