@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     }
     private void MovePlayer()
     {
-        if (_moveDir.x == 0)
+        if (_moveDir == Vector2.zero)
         {
             _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x * _inertia, _rigidbodyPlayer.velocity.y, _rigidbodyPlayer.velocity.z * _inertia);
         }
