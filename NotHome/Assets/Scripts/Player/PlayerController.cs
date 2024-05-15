@@ -14,18 +14,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float _speed;
     private float _initSpeed;
+
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintValue;
     [SerializeField] private float _sensitivity = 1f;
     [SerializeField] private float _maxSpeed;
 
-    private Vector2 rotation = Vector2.zero;
-    const string xAxis = "Mouse X";
-    const string yAxis = "Mouse Y";
+    private Vector2 _rotation = Vector2.zero;
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Vector2 _moveDir;
 
-    public float _inertia = 0.97f;
+    [SerializeField] private float _inertia = 0.97f;
     private void Awake()
     {
         _playerInputs = new PlayerInputs();
@@ -82,16 +81,19 @@ public class PlayerController : MonoBehaviour
         RotateCamera();
         MovePlayer();
     }
+
+    public void GetMouseDelta(InputAction.CallbackContext ctx)
+    {
+        _rotation = ctx.ReadValue<Vector2>();
+        
+    }
     private void RotateCamera()
     {
-        rotation.x += Input.GetAxis(xAxis) * _sensitivity;
-        rotation.y += Input.GetAxis(yAxis) * _sensitivity;
-        rotation.y = Mathf.Clamp(rotation.y, -yRotationLimit, yRotationLimit);
-        var xQuat = Quaternion.AngleAxis(rotation.x, Vector3.up);
-        var yQuat = Quaternion.AngleAxis(rotation.y, Vector3.left);
-
-        transform.localRotation = xQuat;
-        _camera.localRotation = yQuat;
+        transform.rotation *= Quaternion.AngleAxis(_rotation.x * Time.deltaTime * _sensitivity, Vector3.up);
+        if (_camera.eulerAngles.x < 90 || _camera.eulerAngles.x > 270)
+        {
+            _camera.rotation *= Quaternion.AngleAxis(_rotation.y * Time.deltaTime * -_sensitivity, Vector3.right);
+        }
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {

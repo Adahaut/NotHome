@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 554738485}
   - component: {fileID: 554738484}
   - component: {fileID: 554738483}
+  - component: {fileID: 554738487}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -228,6 +229,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &554738487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554738482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f1524bae149eea44a94312fde71b60e3, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &604185808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -279,6 +310,54 @@ PrefabInstance:
     - target: {fileID: 3667293984986487829, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: _sensitivity
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243920400758648300, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: 8e367892-1730-4ece-9706-cca3cb7893de
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: Player/Look[/Mouse/delta]
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1449623544}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetMouseDelta
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597210717048121538, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -484,6 +563,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1449623544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4037221924443848814, guid: 7ef69294dd2b05c46a4e623e8fa06b16, type: 3}
+  m_PrefabInstance: {fileID: 604185808}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abf94b33df83a148a69230bc74fdbfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1755348834
 GameObject:
   m_ObjectHideFlags: 0
