@@ -8,10 +8,6 @@ public class SteamLobby : MonoBehaviour
 {
     [SerializeField] private GameObject _landingPagePanel = null;
 
-    /*************TEMP TEST***************/
-    public TMP_Text debug = null;
-    /************************************/
-
     protected Callback<LobbyCreated_t> _lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> _gameLobbyJoinRequested;
     protected Callback<LobbyEnter_t> _lobbyEntered;
@@ -19,6 +15,8 @@ public class SteamLobby : MonoBehaviour
     private const string _hostAdressKey = "HostAdress";
 
     private NetworkManager _networkManager;
+
+    public static CSteamID _lobbyId {  get; private set; }
 
     private void Start()
     {
@@ -30,11 +28,6 @@ public class SteamLobby : MonoBehaviour
         _gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         _lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
 
-
-        /*************TEMP TEST***************/
-        Debug.Log(SteamFriends.GetPersonaName());
-        debug.text = SteamFriends.GetPersonaName();
-        /************************************/
     }
 
     public void HostLobby()
@@ -42,10 +35,6 @@ public class SteamLobby : MonoBehaviour
         _landingPagePanel?.SetActive(false);
 
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, _networkManager.maxConnections);
-
-        /*************TEMP TEST***************/
-        debug.text = "STEAM LOADED";
-        /************************************/
     }
 
     private void OnLobbyCreated(LobbyCreated_t callback)
@@ -57,14 +46,14 @@ public class SteamLobby : MonoBehaviour
             return; 
         }
 
+        _lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+
+        _networkManager.StartHost();
+
         SteamMatchmaking.SetLobbyData(
             new CSteamID(callback.m_ulSteamIDLobby),
             _hostAdressKey,
             SteamUser.GetSteamID().ToString());
-
-        
-        _networkManager.StartHost();
-
 }
 
 private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)

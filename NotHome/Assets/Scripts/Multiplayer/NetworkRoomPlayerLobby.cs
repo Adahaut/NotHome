@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +12,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject _lobbyUI = null;
+    [SerializeField] private RawImage[] _playerImages = new RawImage[4];
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
+
+    [SyncVar(hook = nameof(HandleSteamIdUpdated))]
+    private ulong steamId;
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string _displayName = "Loading...";
@@ -42,7 +47,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        CmdSetDisplayName(PlayerNameInput.DisplayName);
+        //CmdSetDisplayName(PlayerNameInput.DisplayName);
 
         _lobbyUI.SetActive(true);
     }
@@ -63,10 +68,23 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public void HandleReadyStatusChanged(bool oldValue, bool newValue) => UpdateDisplay();
     public void HandleDisplayNameChanged(string oldValue, string newValue) => UpdateDisplay();
+    public void HandleSteamIdUpdated(ulong oldSteamId, ulong newSteamId)
+    {
+        var cSteamId = new CSteamID(newSteamId);
+
+        CmdSetDisplayName(SteamFriends.GetFriendPersonaName(cSteamId));
+
+        UpdateDisplay();
+    }
+
+    public void SetSteamId(ulong steamId)
+    {
+        this.steamId = steamId;
+    }
 
     private void UpdateDisplay()
     {
-        if(!isOwned)
+        if (!isOwned)
         {
             foreach(var player in Room._roomPlayers)
             {

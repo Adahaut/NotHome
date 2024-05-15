@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +82,13 @@ public class NetworkLobbyManager : NetworkManager
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
         }
+
+        CSteamID steamId = SteamMatchmaking.GetLobbyMemberByIndex(
+            SteamLobby._lobbyId,
+            numPlayers - 1);
+
+        var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+        playerInfosDisplay.SetSteamId(steamId.m_SteamID);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
