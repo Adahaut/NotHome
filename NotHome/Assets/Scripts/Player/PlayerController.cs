@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     const string yAxis = "Mouse Y";
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Vector2 _moveDir;
+
+    public float _inertia = 0.97f;
     private void Awake()
     {
         _playerInputs = new PlayerInputs();
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour
             Mathf.Clamp(_rigidbodyPlayer.velocity.z, -_maxSpeed, _maxSpeed));
         if (_moveAction.ReadValue<Vector2>() == Vector2.zero)
         {
-            _rigidbodyPlayer.velocity = new Vector3(0.25f, _rigidbodyPlayer.velocity.y, 0.25f);
+            _rigidbodyPlayer.velocity *= _inertia;
         }
         print(_rigidbodyPlayer.velocity);
     }
