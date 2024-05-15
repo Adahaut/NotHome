@@ -1,10 +1,16 @@
 using Mirror;
 using Steamworks;
+using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 
 public class SteamLobby : MonoBehaviour
 {
-    [SerializeField] private GameObject _buttons = null;
+    [SerializeField] private GameObject _landingPagePanel = null;
+
+    /*************TEMP TEST***************/
+    public TMP_Text debug = null;
+    /************************************/
 
     protected Callback<LobbyCreated_t> _lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> _gameLobbyJoinRequested;
@@ -23,32 +29,45 @@ public class SteamLobby : MonoBehaviour
         _lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         _gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         _lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
+
+
+        /*************TEMP TEST***************/
+        Debug.Log(SteamFriends.GetPersonaName());
+        debug.text = SteamFriends.GetPersonaName();
+        /************************************/
     }
 
     public void HostLobby()
     {
-        _buttons.SetActive(false);
+        _landingPagePanel?.SetActive(false);
 
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, _networkManager.maxConnections);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, _networkManager.maxConnections);
+
+        /*************TEMP TEST***************/
+        debug.text = "STEAM LOADED";
+        /************************************/
     }
 
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
-        if(callback.m_eResult != EResult.k_EResultOK)
+
+        if (callback.m_eResult != EResult.k_EResultOK)
         {
-            _buttons.SetActive(true);
+            _landingPagePanel?.SetActive(true);
             return; 
         }
-
-        _networkManager.StartHost();
 
         SteamMatchmaking.SetLobbyData(
             new CSteamID(callback.m_ulSteamIDLobby),
             _hostAdressKey,
             SteamUser.GetSteamID().ToString());
-    }
 
-    private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
+        
+        _networkManager.StartHost();
+
+}
+
+private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
@@ -64,6 +83,6 @@ public class SteamLobby : MonoBehaviour
         _networkManager.networkAddress = hostAdress;
         _networkManager.StartClient();
 
-        _buttons.SetActive(false);
+        _landingPagePanel?.SetActive(false);
     }
 }
