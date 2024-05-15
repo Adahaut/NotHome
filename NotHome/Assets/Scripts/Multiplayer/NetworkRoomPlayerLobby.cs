@@ -25,6 +25,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool _isReady = false;
 
+    public Texture2D _displayImage;
+
+    protected Callback<AvatarImageLoaded_t> _avatarImageLoaded;
+
     private bool _isLeader;
     public bool IsLeader
     {
@@ -54,6 +58,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public override void OnStartClient()
     {
+        _avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
+
         Room._roomPlayers.Add(this);
 
         UpdateDisplay();
@@ -74,7 +80,44 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         CmdSetDisplayName(SteamFriends.GetFriendPersonaName(cSteamId));
 
+        int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
+
         UpdateDisplay();
+
+        if (imageId == -1) { return; }
+
+        _displayImage = GetSteamImageAsTexture(imageId);
+
+    }
+
+    private Texture2D GetSteamImageAsTexture(int iImage)
+    {
+        Texture2D texture = null;
+
+        bool isValid = SteamUtils.GetImageSize(iImage, out uint width, out uint height);
+
+        if (isValid)
+        {
+            byte[] image = new byte[width * height * 4];
+
+            isValid = SteamUtils.GetImageRGBA(iImage, image, (int)(width * height * 4));
+
+            if(isValid)
+            {
+                texture = new Texture2D((int)width, (int)height, TextureFormat.RGBA32, false, true);
+                texture.LoadRawTextureData(image);
+                texture.Apply();
+            }
+        }
+
+        return texture;
+    }
+
+    private void OnAvatarImageLoaded(AvatarImageLoaded_t callback)
+    {
+        if(callback.m_steamID.m_SteamID != steamId) { return; }
+
+        _displayImage = GetSteamImageAsTexture(callback.m_iImage);
     }
 
     public void SetSteamId(ulong steamId)
@@ -112,6 +155,9 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             playerReadyTexts[i].text = Room._roomPlayers[i]._isReady ?
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
+
+            _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
+
         }
     }
 
