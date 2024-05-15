@@ -1,5 +1,7 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
@@ -84,16 +86,15 @@ public class PlayerController : MonoBehaviour
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
     {
-        _rotation = ctx.ReadValue<Vector2>();
-        
+        _rotation.x += ctx.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
+        _rotation.y -= ctx.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+
     }
     private void RotateCamera()
     {
-        transform.rotation *= Quaternion.AngleAxis(_rotation.x * Time.deltaTime * _sensitivity, Vector3.up);
-        if (_camera.eulerAngles.x < 90 || _camera.eulerAngles.x > 270)
-        {
-            _camera.rotation *= Quaternion.AngleAxis(_rotation.y * Time.deltaTime * -_sensitivity, Vector3.right);
-        }
+        _rotation.y = Mathf.Clamp(_rotation.y, -yRotationLimit, yRotationLimit);
+        transform.localEulerAngles = new Vector3(0, _rotation.x, 0);
+        _camera.localEulerAngles = new Vector3(_rotation.y, 0, 0);
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
