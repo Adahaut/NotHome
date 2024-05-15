@@ -31,10 +31,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     protected Callback<AvatarImageLoaded_t> _avatarImageLoaded;
 
 
-    /*************TEMP TEST***************/
-    public TMP_Text debug = null;
-    /************************************/
-
     private bool _isLeader;
     public bool IsLeader
     {
@@ -61,8 +57,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         //CmdSetDisplayName(PlayerNameInput.DisplayName);
 
         _lobbyUI.SetActive(true);
-
-        debug = GameObject.Find("DEBUGTEXTBUILD").GetComponent<TMP_Text>();
     }
 
     public override void OnStartClient()
@@ -155,9 +149,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             playerNameTexts[i].text = "Waiting For Player...";
             playerReadyTexts[i].text = string.Empty;
         }
-
-        if(debug != null)
-            debug.text = Room._roomPlayers.Count.ToString();
 
         for (int i = 0; i < Room._roomPlayers.Count; i++)
         {
