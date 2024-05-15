@@ -3,6 +3,7 @@ using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -155,7 +156,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             playerReadyTexts[i].text = string.Empty;
         }
 
-        debug.text = Room._roomPlayers.Count.ToString();
+        if(debug != null)
+            debug.text = Room._roomPlayers.Count.ToString();
 
         for (int i = 0; i < Room._roomPlayers.Count; i++)
         {
