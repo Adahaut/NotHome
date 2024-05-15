@@ -1,35 +1,29 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private Transform _camera;
 
-    private PlayerInputs _playerInputs;
-    private InputAction _moveAction;
-
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
-
-    [SerializeField] private float _speed;
     private float _initSpeed;
 
+    [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintValue;
     [SerializeField] private float _sensitivity = 1f;
     [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _inertia = 0.97f;
 
     private Vector2 _rotation = Vector2.zero;
-    [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Vector2 _moveDir;
 
-    [SerializeField] private float _inertia = 0.97f;
+    [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
+    
     private void Awake()
     {
-        _playerInputs = new PlayerInputs();
         _rigidbodyPlayer = GetComponent<Rigidbody>();
         _initSpeed = _speed;
     }
@@ -38,48 +32,36 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    private void OnEnable()
+    public void OpenInventory(InputAction.CallbackContext ctx)
     {
-        _moveAction = _playerInputs.Player.Move;
-        _moveAction.Enable();
-
-        _playerInputs.Player.Sprint.performed += SprintPlayer;
-        _playerInputs.Player.Sprint.Enable();
-
-        _playerInputs.Player.Jump.performed += OnJump;
-        _playerInputs.Player.Jump.Enable();
+        Debug.Log("OpenInventory");
     }
-    private void OnDisable()
+    public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
-        _moveAction.Disable();
-
-        _playerInputs.Player.Sprint.performed -= SprintPlayer;
-        _playerInputs.Player.Sprint.Disable();
-
-        _playerInputs.Player.Jump.performed -= OnJump;
-        _playerInputs.Player.Jump.Disable();
+        Debug.Log("OpenMenuPause");
     }
-
-    private void OnJump(InputAction.CallbackContext context)
+    public void Interaction(InputAction.CallbackContext ctx)
     {
-        if (_isGrounded)
+        Debug.Log("Interaction");
+    }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        Debug.Log("Jump");
+        if (_isGrounded && context.performed)
             _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }
-    private void SprintPlayer(InputAction.CallbackContext context)
+    public void SprintPlayer(InputAction.CallbackContext context)
     {
+        Debug.Log("Sprint");
         _speed = _initSpeed * _sprintValue;
-    }
-
-    private void FixedUpdate()
-    {
-        _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
-        if (!_playerInputs.Player.Sprint.inProgress)
+        if (context.canceled)
+        {
             _speed = _initSpeed;
-
+        }
     }
     void Update()
     {
+        _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
         RotateCamera();
         MovePlayer();
     }
@@ -108,8 +90,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _rigidbodyPlayer.AddForce(_moveDir.y * transform.forward * _speed * Time.deltaTime);
-            _rigidbodyPlayer.AddForce(_moveDir.x * transform.right * _speed * Time.deltaTime);
+            _rigidbodyPlayer.AddForce(_moveDir.y * _speed * Time.deltaTime * transform.forward);
+            _rigidbodyPlayer.AddForce(_moveDir.x * _speed * Time.deltaTime * transform.right);
             _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
         }
     }
