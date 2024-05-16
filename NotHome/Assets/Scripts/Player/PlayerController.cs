@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float _initSpeed;
 
     private Vector2 _rotation = Vector2.zero;
+    private Vector2 _rotation2 = Vector2.zero;
     private Vector2 _moveDir;
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
@@ -71,14 +72,15 @@ public class PlayerController : MonoBehaviour
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
     {
-        _rotation.x += ctx.ReadValue<Vector2>().x * _sensitivity * Time.deltaTime;
-        _rotation.y -= ctx.ReadValue<Vector2>().y * _sensitivity * Time.deltaTime;
+        _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
     }
     private void RotateCamera()
     {
-        _rotation.y = Mathf.Clamp(_rotation.y, -yRotationLimit, yRotationLimit);
-        transform.localEulerAngles = new Vector3(0, _rotation.x, 0);
-        _camera.localEulerAngles = new Vector3(_rotation.y, 0, 0);
+        _rotation2.x += _rotation.x * Time.deltaTime;
+        _rotation2.y -= _rotation.y * Time.deltaTime;
+        _rotation2.y = Mathf.Clamp(_rotation2.y, -yRotationLimit, yRotationLimit);
+        transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
+        _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
