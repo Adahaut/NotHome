@@ -156,8 +156,8 @@ public class NetworkLobbyManager : NetworkManager
                 var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
                 gamePlayerInstance.SetDisplayName(_roomPlayers[i]._displayName);
 
-                NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
                 NetworkServer.Destroy(conn.identity.gameObject);
+                NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }
         }
 
@@ -168,8 +168,11 @@ public class NetworkLobbyManager : NetworkManager
     {
         if(sceneName.StartsWith("Scene_Map"))
         {
-            GameObject playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
-            NetworkServer.Spawn(playerSpawnSystemInstance);
+            foreach(var player in _roomPlayers)
+            {
+                GameObject playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
+                NetworkServer.Spawn(playerSpawnSystemInstance);
+            }
         }
     }
 
