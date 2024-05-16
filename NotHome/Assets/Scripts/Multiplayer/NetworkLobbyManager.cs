@@ -168,11 +168,8 @@ public class NetworkLobbyManager : NetworkManager
     {
         if(sceneName.StartsWith("Scene_Map"))
         {
-            foreach(var player in _roomPlayers)
-            {
-                GameObject playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
-                NetworkServer.Spawn(playerSpawnSystemInstance);
-            }
+            GameObject playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
+            NetworkServer.Spawn(playerSpawnSystemInstance);
         }
     }
 
