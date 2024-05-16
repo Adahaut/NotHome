@@ -77,7 +77,7 @@ public class NetworkLobbyManager : NetworkManager
         {
             bool isLeader = _roomPlayers.Count == 0;
 
-            NetworkRoomPlayerLobby roomPlayerInstance = InstantiateRoomPlayer();
+            NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
 
             roomPlayerInstance.IsLeader = isLeader;
 
@@ -90,12 +90,6 @@ public class NetworkLobbyManager : NetworkManager
 
         var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
         playerInfosDisplay.SetSteamId(steamId.m_SteamID);
-    }
-
-    [Client]
-    private NetworkRoomPlayerLobby InstantiateRoomPlayer()
-    {
-         return Instantiate(roomPlayerPrefab);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)

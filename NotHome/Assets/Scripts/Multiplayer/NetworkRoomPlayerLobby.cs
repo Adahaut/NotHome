@@ -58,6 +58,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public override void OnStartClient()
     {
+        if(_isLeader) { return; }
+
         _avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
 
         Room._roomPlayers.Add(this);

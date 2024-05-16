@@ -70,6 +70,7 @@ public class SteamLobby : MonoBehaviour
             _hostAdressKey);
 
         _networkManager.networkAddress = hostAdress;
+        
         _networkManager.StartClient();
 
         _landingPagePanel?.SetActive(false);
