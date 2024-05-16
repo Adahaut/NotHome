@@ -36,6 +36,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         {
             _isLeader = value;
             startGameButton.gameObject.SetActive(value);
+            readyButton.gameObject.SetActive(true);
         }
     }
 
@@ -62,14 +63,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
 
         Room._roomPlayers.Add(this);
-
-        foreach (var player in Room._roomPlayers)
-        {
-            if (player != this)
-            {
-                player.readyButton.gameObject.SetActive(false);
-            }
-        }
 
         UpdateDisplay();
     }
