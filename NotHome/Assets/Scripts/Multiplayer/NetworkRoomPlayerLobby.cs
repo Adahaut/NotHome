@@ -1,9 +1,5 @@
 using Mirror;
 using Steamworks;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +7,6 @@ using UnityEngine.UI;
 
 public class NetworkRoomPlayerLobby : NetworkBehaviour
 {
-
-    /*TEMP*/
-    public TMP_Text temp;
-    /******/
-
     [Header("UI")]
     [SerializeField] private GameObject _lobbyUI = null;
     [SerializeField] private RawImage[] _playerImages = new RawImage[4];
@@ -89,13 +80,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         CmdSetDisplayName(SteamFriends.GetFriendPersonaName(cSteamId));
 
-        int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
+        //int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
 
         UpdateDisplay();
 
-        if (imageId == -1) { return; }
+        //if (imageId == -1) { return; }
 
-        _displayImage = GetSteamImageAsTexture(imageId);
+        //_displayImage = GetSteamImageAsTexture(imageId);
 
         UpdateDisplay();
 
@@ -182,10 +173,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         _isReady = !_isReady;
 
-        temp.text = _displayName;
-        temp.color = UnityEngine.Random.ColorHSV();
-
-        //Room.NotifyPlayersOfReadyState();
+        Room.NotifyPlayersOfReadyState();
 
     }
 
