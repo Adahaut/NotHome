@@ -8,8 +8,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class NetworkRoomPlayerLobby : NetworkBehaviour
 {
+
+    /*TEMP*/
+    public TMP_Text temp;
+    /******/
 
     [Header("UI")]
     [SerializeField] private GameObject _lobbyUI = null;
@@ -18,6 +23,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
 
+   
     [SyncVar(hook = nameof(HandleSteamIdUpdated))]
     private ulong steamId;
 
@@ -177,6 +183,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _isReady = !_isReady;
 
         Room.NotifyPlayersOfReadyState();
+
+        temp.text = "Pressed";
+        temp.color = UnityEngine.Random.ColorHSV();
+
     }
 
     [Command]
