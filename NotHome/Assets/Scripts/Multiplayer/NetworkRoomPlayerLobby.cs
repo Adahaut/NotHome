@@ -146,6 +146,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
 
+
+
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
         }
 
