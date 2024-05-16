@@ -78,9 +78,7 @@ public class NetworkLobbyManager : NetworkManager
             bool isLeader = _roomPlayers.Count == 0;
 
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
-
             roomPlayerInstance.IsLeader = isLeader;
-
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
         }
 
