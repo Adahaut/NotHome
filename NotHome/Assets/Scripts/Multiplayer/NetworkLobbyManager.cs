@@ -114,6 +114,7 @@ public class NetworkLobbyManager : NetworkManager
         foreach(var player in _roomPlayers)
         {
             player.HandleReadyToStart(IsReadyToStart());
+            player.UpdateDisplay();
         }
     }
 
@@ -124,6 +125,7 @@ public class NetworkLobbyManager : NetworkManager
         foreach (var player in _roomPlayers)
         {
             if (!player._isReady) { return false; }
+            player.UpdateDisplay();
         }
 
         return true;

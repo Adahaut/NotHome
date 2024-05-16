@@ -129,7 +129,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         this.steamId = steamId;
     }
 
-    private void UpdateDisplay()
+    public void UpdateDisplay()
     {
         for (int i = 0; i < Room._roomPlayers.Count; i++)
         {
