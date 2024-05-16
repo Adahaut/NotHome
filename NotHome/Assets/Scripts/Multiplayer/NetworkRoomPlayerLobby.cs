@@ -63,13 +63,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         Room._roomPlayers.Add(this);
 
-        foreach (var player in Room._roomPlayers)
-        {
-            if (player != this)
-            {
-                player.readyButton.gameObject.SetActive(false);
-            }
-        }
+        //foreach (var player in Room._roomPlayers)
+        //{
+        //    if (player != this)
+        //    {
+        //        player.readyButton.gameObject.SetActive(false);
+        //    }
+        //}
 
         UpdateDisplay();
     }
