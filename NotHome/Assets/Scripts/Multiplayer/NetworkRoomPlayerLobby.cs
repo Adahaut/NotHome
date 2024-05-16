@@ -182,7 +182,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         _isReady = !_isReady;
 
-        temp.text = _displayName + _isReady.ToString();
+        temp.text = _displayName;
         temp.color = UnityEngine.Random.ColorHSV();
 
         Room.NotifyPlayersOfReadyState();

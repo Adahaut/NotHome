@@ -120,7 +120,7 @@ public class NetworkLobbyManager : NetworkManager
 
     private bool IsReadyToStart()
     {
-        if (numPlayers < _minPlayer - 1) { return false; }
+        if (numPlayers < _minPlayer) { return false; }
 
         foreach (var player in _roomPlayers)
         {
