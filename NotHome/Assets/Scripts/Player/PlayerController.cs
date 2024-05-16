@@ -1,7 +1,9 @@
+using Mirror;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [Header("Transform" + "\n")]
     [SerializeField] private Transform _groundCheck;
@@ -34,17 +36,17 @@ public class PlayerController : MonoBehaviour
     private Vector2 _scrollDir;
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
-    
-    private void Awake()
+
+    public override void OnStartAuthority()
     {
         _rigidbodyPlayer = GetComponent<Rigidbody>();
         _initSpeed = _speed;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        _camera.gameObject.SetActive(true);
+        enabled = true;
     }
 
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
         _inventory.SetActive(!_inventory.activeInHierarchy);

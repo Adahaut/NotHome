@@ -169,6 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abf94b33df83a148a69230bc74fdbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _groundCheck: {fileID: 9141703135805941483}
   _camera: {fileID: 6521726842588744728}
   _speed: 5000
@@ -226,12 +229,12 @@ GameObject:
   - component: {fileID: 492221263109505223}
   - component: {fileID: 6232055340226933387}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: PlayerCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6521726842588744728
 Transform:
   m_ObjectHideFlags: 0
