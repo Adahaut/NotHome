@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintValue;
-    [SerializeField] private float _sensitivity = 1f;
+    [SerializeField] private float _sensitivity;
+    [SerializeField] private float _sensitivityController;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _inertia = 0.97f;
 
@@ -72,7 +72,10 @@ public class PlayerController : MonoBehaviour
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
     {
-        _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
+        if (ctx.control.name == "rightStick")
+            _rotation = ctx.ReadValue<Vector2>() * _sensitivityController;
+        else
+            _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
     }
     private void RotateCamera()
     {
