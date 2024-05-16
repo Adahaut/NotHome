@@ -96,7 +96,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335510724213132089}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a6aafae32d865ee4a835844c6cc84c7f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   _groundCheck: {fileID: 9141703135805941483}
   _camera: {fileID: 6521726842588744728}
   _speed: 5000
+
   _jumpForce: 6
   _sprintValue: 5
   _sensitivity: 5
@@ -163,6 +164,7 @@ MonoBehaviour:
   _itemTag: Item
   _itemPickRange: 2
   _hotBar: {fileID: 0}
+
   yRotationLimit: 88
 --- !u!1 &432300775465033795
 GameObject:
@@ -460,7 +462,9 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4037221924443848814}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+
         m_MethodName: MouseScrollY
+
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -470,8 +474,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+
     m_ActionId: b2dfc4f1-920e-44dd-8444-d4d6c99efba7
     m_ActionName: Player/MouseScrollY[/Mouse/scroll]
+
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
