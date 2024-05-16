@@ -182,11 +182,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         _isReady = !_isReady;
 
-        Room.NotifyPlayersOfReadyState();
-
-        temp.text = "Pressed";
+        temp.text = _displayName + _isReady.ToString();
         temp.color = UnityEngine.Random.ColorHSV();
 
+        Room.NotifyPlayersOfReadyState();
     }
 
     [Command]
