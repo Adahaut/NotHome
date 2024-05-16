@@ -28,11 +28,11 @@ public class UseCrafter : MonoBehaviour
     {
         for (int i = 0;  i < _listButton.Count; i++)
         {
-            _listButton[i].transform.position += new Vector3(200 * direction, 0, 0);
+            _listButton[i].transform.position += new Vector3(100 * Screen.width / 1920 * direction, 0, 0);
         }
         if (direction < 0)
         {
-            _listButton[_indexMove].transform.position += new Vector3(200 * _listButton.Count, 0, 0);
+            _listButton[_indexMove].transform.position += new Vector3(100 * Screen.width / 1920 * _listButton.Count, 0, 0);
             _indexMove += 1;
             if (_indexMove == _listButton.Count)
                 _indexMove = 0;
@@ -41,14 +41,14 @@ public class UseCrafter : MonoBehaviour
         {
             if (_indexMove != 0)
             {
-                _listButton[_indexMove - 1].transform.position -= new Vector3(200 * _listButton.Count, 0, 0);
+                _listButton[_indexMove - 1].transform.position -= new Vector3(100 * Screen.width / 1920 * _listButton.Count, 0, 0);
                 _indexMove -= 1;
                 if (_indexMove < 0)
                     _indexMove = _listButton.Count - 1;
             }
             else
             {
-                _listButton[_listButton.Count - 1].transform.position -= new Vector3(200 * _listButton.Count, 0, 0);
+                _listButton[_listButton.Count - 1].transform.position -= new Vector3(100 * Screen.width / 1920 * _listButton.Count, 0, 0);
                 _indexMove = _listButton.Count - 1;
             }
         }
