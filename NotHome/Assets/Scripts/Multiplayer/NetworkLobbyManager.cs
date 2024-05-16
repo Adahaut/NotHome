@@ -42,6 +42,14 @@ public class NetworkLobbyManager : NetworkManager
         }
     }
 
+    private void Update()
+    {
+        foreach(var player in _roomPlayers)
+        {
+            player.UpdateDisplay();
+        }
+    }
+
     public override void OnClientConnect()
     {
         base.OnClientConnect();
@@ -114,7 +122,6 @@ public class NetworkLobbyManager : NetworkManager
         foreach(var player in _roomPlayers)
         {
             player.HandleReadyToStart(IsReadyToStart());
-            player.UpdateDisplay();
         }
     }
 
@@ -124,7 +131,6 @@ public class NetworkLobbyManager : NetworkManager
 
         foreach (var player in _roomPlayers)
         {
-            player.UpdateDisplay();
             if (!player._isReady) { return false; }
         }
 
