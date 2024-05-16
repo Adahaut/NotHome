@@ -185,7 +185,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         temp.text = _displayName;
         temp.color = UnityEngine.Random.ColorHSV();
 
-        Room.NotifyPlayersOfReadyState();
+        //Room.NotifyPlayersOfReadyState();
+
     }
 
     [Command]
