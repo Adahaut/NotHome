@@ -54,9 +54,9 @@ public class SteamLobby : MonoBehaviour
             new CSteamID(callback.m_ulSteamIDLobby),
             _hostAdressKey,
             SteamUser.GetSteamID().ToString());
-}
+    }
 
-private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
+    private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }

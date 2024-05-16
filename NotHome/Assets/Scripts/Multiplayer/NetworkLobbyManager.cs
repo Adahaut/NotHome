@@ -3,6 +3,7 @@ using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -76,7 +77,7 @@ public class NetworkLobbyManager : NetworkManager
         {
             bool isLeader = _roomPlayers.Count == 0;
 
-            NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
+            NetworkRoomPlayerLobby roomPlayerInstance = InstantiateRoomPlayer();
 
             roomPlayerInstance.IsLeader = isLeader;
 
@@ -89,6 +90,12 @@ public class NetworkLobbyManager : NetworkManager
 
         var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
         playerInfosDisplay.SetSteamId(steamId.m_SteamID);
+    }
+
+    [ClientRpc]
+    private NetworkRoomPlayerLobby InstantiateRoomPlayer()
+    {
+         return Instantiate(roomPlayerPrefab);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
