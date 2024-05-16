@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
+    private float _timer;
 
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _rotation2 = Vector2.zero;
@@ -78,6 +79,15 @@ public class PlayerController : MonoBehaviour
         _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
         RotateCamera();
         MovePlayer();
+        Timer();
+    }
+
+    private void Timer()
+    {
+        if (_timer > 0)
+        {
+            _timer -= Time.deltaTime;
+        }
     }
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
@@ -120,9 +130,37 @@ public class PlayerController : MonoBehaviour
 
     public void MouseScrollY(InputAction.CallbackContext ctx)
     {
-        _hotBar.gameObject.SetActive(true);
-        _scrollDir = ctx.ReadValue<Vector2>();
-        Debug.Log(_scrollDir);
+        if(_timer <= 0)
+        {
+            if (!_hotBar.GetComponent<HotBarManager>().IsOpen())
+            {
+                _hotBar.GetComponent<HotBarManager>().StartFadeInFadeOut();
+            }
+            _hotBar.GetComponent<HotBarManager>().ResetTimer();
+            _scrollDir = ctx.ReadValue<Vector2>();
+            int _indexAddition = 0;
+            if (_scrollDir.y > 0) _indexAddition = 1;
+            else if (_scrollDir.y < 0) _indexAddition = -1;
+            _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition);
+
+            _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
+            _timer = 0.01f;
+        }
+    }
+
+    private int UpdateHotBarIndex(int _index, int _indexAddition)
+    {
+        _index += _indexAddition;
+
+        if(_index < 0)
+        {
+            _index = 3;
+        }
+        else if (_index > 3)
+        {
+            _index = 0;
+        }
+        return _index;
     }
 
     // Methode to add an object to the inventory
