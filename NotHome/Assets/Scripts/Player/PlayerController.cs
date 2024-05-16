@@ -99,7 +99,12 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbodyPlayer.AddForce(_moveDir.y * _speed * Time.deltaTime * transform.forward);
             _rigidbodyPlayer.AddForce(_moveDir.x * _speed * Time.deltaTime * transform.right);
-            _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
+            if (_rigidbodyPlayer.velocity.magnitude > _maxSpeed)
+            {
+                float velocityY = _rigidbodyPlayer.velocity.y;
+                _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
+                _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x, velocityY, _rigidbodyPlayer.velocity.z);
+            }
         }
     }
 }
