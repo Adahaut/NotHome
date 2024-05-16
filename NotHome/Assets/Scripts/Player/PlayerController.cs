@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +15,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _inertia = 0.97f;
 
+    [Header("Inventory")]
+    [SerializeField] private GameObject _inventory;
+    [SerializeField] private string _itemTag;
+    [SerializeField] private int _itemPickRange;
+
+    [Header("HotBar")]
+    [SerializeField] private GameObject _hotBar;
+
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
@@ -23,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _rotation2 = Vector2.zero;
     private Vector2 _moveDir;
+    private Vector2 _scrollDir;
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     
@@ -38,7 +46,8 @@ public class PlayerController : MonoBehaviour
     }
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
-        Debug.Log("OpenInventory");
+        _inventory.SetActive(!_inventory.activeInHierarchy);
+        Cursor.lockState = _inventory.activeInHierarchy? CursorLockMode.None : CursorLockMode.Locked;
     }
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
@@ -46,7 +55,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Interaction");
+        PickUpObject();
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -97,6 +106,33 @@ public class PlayerController : MonoBehaviour
             _rigidbodyPlayer.AddForce(_moveDir.y * _speed * Time.deltaTime * transform.forward);
             _rigidbodyPlayer.AddForce(_moveDir.x * _speed * Time.deltaTime * transform.right);
             _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
+        }
+    }
+
+    public void MouseScrollY(InputAction.CallbackContext ctx)
+    {
+        _hotBar.gameObject.SetActive(true);
+        _scrollDir = ctx.ReadValue<Vector2>();
+        Debug.Log(_scrollDir);
+    }
+
+    // Methode to add an object to the inventory
+    private void PickUpObject()
+    {
+        RaycastHit[] _hits = Physics.SphereCastAll(transform.position, _itemPickRange, transform.up);
+
+        if (_hits.Length > 0)
+        {
+            print("items");
+            for (int i = 0; i < _hits.Length; i++)
+            {
+                if (_hits[i].collider.name == "TestItem")
+                {
+                    print(_hits[i].collider.name);
+                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite());
+                    Destroy(_hits[i].collider);
+                }
+            }
         }
     }
 }
