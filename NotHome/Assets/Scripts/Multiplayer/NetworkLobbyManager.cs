@@ -114,6 +114,7 @@ public class NetworkLobbyManager : NetworkManager
         foreach(var player in _roomPlayers)
         {
             player.HandleReadyToStart(IsReadyToStart());
+            player.UpdateDisplay();
         }
     }
 
