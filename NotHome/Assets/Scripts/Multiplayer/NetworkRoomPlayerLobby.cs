@@ -64,14 +64,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         Room._roomPlayers.Add(this);
 
-        UpdateDisplay();
     }
 
     public override void OnStopClient()
     {
         Room._roomPlayers.Remove(this);
 
-        UpdateDisplay();
     }
 
     public void HandleReadyStatusChanged(bool oldValue, bool newValue) => UpdateDisplay();
@@ -84,13 +82,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
 
-        UpdateDisplay();
 
         if (imageId == -1) { return; }
 
         _displayImage = GetSteamImageAsTexture(imageId);
 
-        UpdateDisplay();
 
     }
 
@@ -177,7 +173,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         Room.NotifyPlayersOfReadyState();
 
-        UpdateDisplay();
     }
 
     [Command]
