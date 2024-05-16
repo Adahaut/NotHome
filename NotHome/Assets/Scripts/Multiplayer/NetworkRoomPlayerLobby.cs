@@ -13,6 +13,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
+    [SerializeField] private Button readyButton = null;
 
    
     [SyncVar(hook = nameof(HandleSteamIdUpdated))]
@@ -52,7 +53,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnStartAuthority()
     {
         //CmdSetDisplayName(PlayerNameInput.DisplayName);
-
+        
         _lobbyUI.SetActive(true);
     }
 
@@ -61,6 +62,14 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
 
         Room._roomPlayers.Add(this);
+
+        foreach(var player in Room._roomPlayers)
+        {
+            if(player != this)
+            {
+                readyButton.gameObject.SetActive(false);
+            }
+        }
 
         UpdateDisplay();
     }
