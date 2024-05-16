@@ -92,7 +92,7 @@ public class NetworkLobbyManager : NetworkManager
         playerInfosDisplay.SetSteamId(steamId.m_SteamID);
     }
 
-    [ClientRpc]
+    [Client]
     private NetworkRoomPlayerLobby InstantiateRoomPlayer()
     {
          return Instantiate(roomPlayerPrefab);
