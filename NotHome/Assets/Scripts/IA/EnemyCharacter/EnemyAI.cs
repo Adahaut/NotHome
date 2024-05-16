@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +14,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float _timeBetweenAttacks;
     private bool _alreadyAttacked;
     private bool _canAttack;
+    [SerializeField] private int _damages;
+    [SerializeField] private Collider _playerDetectionCollider;
 
     Node start;
 
@@ -24,6 +24,7 @@ public class EnemyAI : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _playerRef = GameObject.FindWithTag("Player");
         _initialPos = transform.position;
+        _playerDetectionCollider = GetComponent<BoxCollider>();
 
         //BT
         Patrol patrol = new Patrol(_walkingRadius, _agent, _initialPos);
@@ -51,7 +52,7 @@ public class EnemyAI : MonoBehaviour
         if (!_alreadyAttacked)
         {
             _alreadyAttacked = true;
-            //damages
+            _playerDetectionCollider.enabled = true;
             Debug.Log("Attack");
             Invoke(nameof(ResetAttack), _timeBetweenAttacks);
         }
@@ -59,6 +60,15 @@ public class EnemyAI : MonoBehaviour
 
     private void ResetAttack()
     {
+        _playerDetectionCollider.enabled = false;
         _alreadyAttacked = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            _playerRef.GetComponent<LifeManager>().TakeDamage(_damages);
+        }
     }
 }
