@@ -80,13 +80,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         CmdSetDisplayName(SteamFriends.GetFriendPersonaName(cSteamId));
 
-        //int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
+        int imageId = SteamFriends.GetLargeFriendAvatar(cSteamId);
 
         UpdateDisplay();
 
-        //if (imageId == -1) { return; }
+        if (imageId == -1) { return; }
 
-        //_displayImage = GetSteamImageAsTexture(imageId);
+        _displayImage = GetSteamImageAsTexture(imageId);
 
         UpdateDisplay();
 
@@ -174,7 +174,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _isReady = !_isReady;
 
         Room.NotifyPlayersOfReadyState();
-
     }
 
     [Command]
