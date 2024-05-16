@@ -63,11 +63,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         Room._roomPlayers.Add(this);
 
-        foreach(var player in Room._roomPlayers)
+        foreach (var player in Room._roomPlayers)
         {
-            if(player != this)
+            if (player != this)
             {
-                readyButton.gameObject.SetActive(false);
+                player.readyButton.gameObject.SetActive(false);
             }
         }
 
@@ -152,7 +152,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
 
-
+            
 
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
         }
