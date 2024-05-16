@@ -36,7 +36,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         {
             _isLeader = value;
             startGameButton.gameObject.SetActive(value);
-            readyButton.gameObject.SetActive(true);
         }
     }
 
@@ -54,7 +53,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnStartAuthority()
     {
         //CmdSetDisplayName(PlayerNameInput.DisplayName);
-        
+
+        readyButton.gameObject.SetActive(true);
         _lobbyUI.SetActive(true);
     }
 
