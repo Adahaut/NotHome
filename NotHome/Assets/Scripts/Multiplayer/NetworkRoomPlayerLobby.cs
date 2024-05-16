@@ -174,6 +174,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _isReady = !_isReady;
 
         Room.NotifyPlayersOfReadyState();
+
+        UpdateDisplay();
     }
 
     [Command]
