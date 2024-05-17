@@ -13,7 +13,7 @@ public class QG_Manager : MonoBehaviour
     [HideInInspector] public GameObject _gameObjectUi;
     public TextMeshProUGUI _textUi;
 
-    public PlayerController _playerController;
+    public PC _playerController;
     public static QG_Manager Instance;
 
     private void Awake()
