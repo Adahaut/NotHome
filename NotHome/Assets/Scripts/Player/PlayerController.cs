@@ -57,9 +57,13 @@ public class PlayerController : MonoBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Interaction");
-        QG_Manager.Instance.OpenUi();
-        PickUpObject();
+        if (_timer <= 0)
+        {
+            Debug.Log("Interaction");
+            //QG_Manager.Instance.OpenUi();
+            PickUpObject();
+            _timer = 2;
+        }
     }
     public void OnJump(InputAction.CallbackContext context)
     {
