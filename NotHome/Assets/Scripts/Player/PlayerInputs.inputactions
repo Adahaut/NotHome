@@ -76,6 +76,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "HotBarSelect1",
+                    "type": "Button",
+                    "id": "b8bb466a-1396-41bd-8db3-23ee14be91e9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HotBarSelect2",
+                    "type": "Button",
+                    "id": "c8b450c2-c417-4f74-8f3c-72fd54cc4f15",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HotBarSelect3",
+                    "type": "Button",
+                    "id": "a3bfdc87-837f-46a9-912a-9fd8f10e729b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HotBarSelect4",
+                    "type": "Button",
+                    "id": "26aef05d-7dfd-4598-8cb0-e10719c35508",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -318,6 +354,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseScrollY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e84bb9e9-cdc7-48e8-9087-898a5f388ebd",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HotBarSelect1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5c5832c-89b2-46d8-a752-317c6eb37a2c",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HotBarSelect2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5db6f7f-22d2-470a-af7b-823c48ea8183",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HotBarSelect3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "531596c3-1335-490d-b2cf-61626e2b4f54",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HotBarSelect4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
