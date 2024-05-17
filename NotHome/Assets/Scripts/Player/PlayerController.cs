@@ -47,6 +47,25 @@ public class PlayerController : NetworkBehaviour
         enabled = true;
     }
 
+    void CmdSendPositionToServer(Vector3 position)
+    {
+        // Mettre à jour la position du joueur sur le serveur
+        transform.position = position;
+
+        // Envoyer la position mise à jour à tous les clients
+        RpcUpdatePositionOnClients(position);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePositionOnClients(Vector3 position)
+    {
+        if (!isLocalPlayer)
+        {
+            // Mettre à jour la position du joueur sur les clients
+            transform.position = position;
+        }
+    }
+
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
         _inventory.SetActive(!_inventory.activeInHierarchy);
@@ -78,8 +97,13 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
-        RotateCamera();
-        MovePlayer();
+
+        if(isLocalPlayer)
+        {
+            RotateCamera();
+            MovePlayer();
+            CmdSendPositionToServer(transform.position);
+        }
     }
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
