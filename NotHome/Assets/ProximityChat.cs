@@ -49,16 +49,13 @@ public class ProximityChat : NetworkBehaviour
         }
     }
 
-    // RPC pour recevoir le chat vocal sur le client
     [ClientRpc]
     void RpcReceiveVoiceChat(uint playerId)
     {
-        // Vérifie si le client local est l'émetteur du chat vocal
-        if (isLocalPlayer)
+        GameObject playerObject = NetworkClient.connection.identity.gameObject;
+
+        if (playerObject != null && playerObject.GetComponent<NetworkIdentity>().netId == playerId)
         {
-            // Joue le chat vocal sur la source audio locale
-            // Remplacez cette ligne avec le code pour jouer le chat vocal
-            // depuis votre système de chat vocal en temps réel (par exemple, Photon Voice ou Unity's built-in Voice Chat)
             audioSource.Play();
         }
     }
