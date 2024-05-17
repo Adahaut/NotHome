@@ -98,12 +98,9 @@ public class PlayerController : NetworkBehaviour
     {
         _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
 
-        if(isLocalPlayer)
-        {
-            RotateCamera();
-            MovePlayer();
-            CmdSendPositionToServer(transform.position);
-        }
+        RotateCamera();
+        MovePlayer();
+        CmdSendPositionToServer(transform.position);
     }
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
