@@ -59,6 +59,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Interaction");
         QG_Manager.Instance.OpenUi();
         PickUpObject();
+        if (AnimationManager.Instance._doorIsOpen)
+            AnimationManager.Instance.CloseDoor();
+        else
+            AnimationManager.Instance.OpenDoor();
     }
     public void OnJump(InputAction.CallbackContext context)
     {
