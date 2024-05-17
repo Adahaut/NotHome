@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5582172115057890066}
   - component: {fileID: 6243920400758648300}
   - component: {fileID: 3384152752826813832}
-  - component: {fileID: 4037221924443848814}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
@@ -162,37 +161,8 @@ MonoBehaviour:
   _maxSpeed: 6
   _inertia: 0.97
   _inventory: {fileID: 0}
-  _itemTag: 
-  _itemPickRange: 0
-  _hotBar: {fileID: 0}
-  yRotationLimit: 88
---- !u!114 &4037221924443848814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335510724213132089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abf94b33df83a148a69230bc74fdbfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _groundCheck: {fileID: 9141703135805941483}
-  _camera: {fileID: 6521726842588744728}
-  _speed: 5000
-  _jumpForce: 6
-  _sprintValue: 5
-  _sensitivity: 30
-  _sensitivityController: 300
-  _maxSpeed: 6
-  _inertia: 0.97
-  _inventory: {fileID: 0}
-  _itemTag: 
-  _itemPickRange: 0
+  _itemTag: Item
+  _itemPickRange: 2
   _hotBar: {fileID: 0}
   yRotationLimit: 88
 --- !u!1 &432300775465033795
@@ -377,7 +347,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4037221924443848814}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
@@ -393,7 +363,7 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4037221924443848814}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: GetInputPlayer
         m_Mode: 0
@@ -409,7 +379,7 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4037221924443848814}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: SprintPlayer
         m_Mode: 0
@@ -425,7 +395,7 @@ MonoBehaviour:
     m_ActionName: Player/Sprint[/Keyboard/shift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4037221924443848814}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OpenInventory
         m_Mode: 0
@@ -441,7 +411,7 @@ MonoBehaviour:
     m_ActionName: Player/OpenInventory[/Keyboard/tab]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4037221924443848814}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: Interaction
         m_Mode: 0
@@ -457,7 +427,7 @@ MonoBehaviour:
     m_ActionName: Player/Interaction[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4037221924443848814}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OpenMenuPause
         m_Mode: 0
@@ -473,7 +443,7 @@ MonoBehaviour:
     m_ActionName: Player/GamePause[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4037221924443848814}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: GetMouseDelta
         m_Mode: 0

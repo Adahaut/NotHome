@@ -43,8 +43,8 @@ public class InventoryManager : MonoBehaviour
         {
             if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
             {
-                _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite);
                 _slotList[i].GetComponent<InventorySlot>().SetNumber(1);
+                _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite);
                 break;
             }
             else if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)

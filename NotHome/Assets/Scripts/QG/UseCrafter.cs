@@ -9,7 +9,10 @@ public class UseCrafter : MonoBehaviour
     [SerializeField] private List<CraftScriptableObject> _listCraft = new();
     [SerializeField] private Image _spriteCraft;
     [SerializeField] private TextMeshProUGUI _textCraft;
+
+    [SerializeField] private InventoryBaseManager _baseInventory;
     private int _indexMove;
+
     public void OnClick(Button button)
     {
         int index;
@@ -56,8 +59,8 @@ public class UseCrafter : MonoBehaviour
 
     public void CraftObject()
     {
-        _textCraft.text = "";
-        _spriteCraft.gameObject.SetActive(false);
+        print("craft");
+        
     }
     private void SetMaterialsCraft(int index)
     {

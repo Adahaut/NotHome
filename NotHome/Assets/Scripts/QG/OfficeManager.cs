@@ -69,7 +69,7 @@ public class OfficeManager : MonoBehaviour
     }
     public void MouvToChair()
     {
-        print("oui");
+        //print("oui");
         if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag("Chair"))
         {
             print("enter");

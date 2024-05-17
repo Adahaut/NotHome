@@ -7,7 +7,7 @@ public class InventoryBaseManager : InventoryManager
 {
     [SerializeField] private Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
 
-    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private PC _playerController;
 
     [SerializeField] private EventSystem _eventSystem;
     [SerializeField] GraphicRaycaster _raycaster;
@@ -18,6 +18,17 @@ public class InventoryBaseManager : InventoryManager
 
     private bool _draging = false;
     private GameObject _itemImage;
+
+    public bool CheckForMaterial(string _itemName)
+    {
+        return _baseInventory.ContainsKey(_itemName);
+    }
+
+    public bool CheckForNumber(string _itemName, int _number) 
+    { 
+        return _baseInventory[_itemName] >= _number;
+    }
+
 
     private void OnEnable()
     {
