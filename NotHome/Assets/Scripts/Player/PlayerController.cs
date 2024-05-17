@@ -67,13 +67,13 @@ public class PlayerController : MonoBehaviour
 
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
-        Debug.Log("OpenMenuPause");
+        //Debug.Log("OpenMenuPause");
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
         if (_timer <= 0)
         {
-            Debug.Log("Interaction");
+            //Debug.Log("Interaction");
             QG_Manager.Instance.OpenUi();
             PickUpObject();
             _timer = 0.05f;
@@ -225,9 +225,8 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < _hits.Length; i++)
             {
-                if (_hits[i].collider.name == "TestItem")
+                if (_hits[i].collider.CompareTag(_itemTag))
                 {
-                    print(_hits[i].collider.name);
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite());
                     Destroy(_hits[i].collider);
                 }

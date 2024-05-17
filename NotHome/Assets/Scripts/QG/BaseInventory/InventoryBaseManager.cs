@@ -14,6 +14,7 @@ public class InventoryBaseManager : InventoryManager
     [SerializeField] private GameObject _dragNDrop;
 
     [SerializeField] private string _itemContainerTag;
+    [SerializeField] private string _itemBaseContainerTag;
 
     private bool _draging = false;
     private GameObject _itemImage;
@@ -39,17 +40,28 @@ public class InventoryBaseManager : InventoryManager
         InventoryInitialisation();
     }
 
-    public void AddItemInBase(string _name, int _number, GameObject _slot, GameObject _oldSlot)
+    private void AddItemInBase(string _name, int _number, GameObject _slot, GameObject _oldSlot)
     {
         if (_baseInventory.ContainsKey(_name))
         {
             _baseInventory[_name] += _number;
+            _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
         }
         else
         {
             _baseInventory.Add(_name, _number);
             _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite());
+            _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
         }
+        _oldSlot.GetComponent<InventorySlot>().ResetItem();
+    }
+
+    private void RemoveItemFromBase(string _name, GameObject _slot, GameObject _oldSlot)
+    {
+        _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite());
+        _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
+        _oldSlot.GetComponent<InventorySlot>().ResetItem();
+        _baseInventory.Remove(_name);
     }
 
     private void Update()
@@ -70,16 +82,22 @@ public class InventoryBaseManager : InventoryManager
             {
                 ChangeChildParent(_dragNDrop.transform, _itemImage.transform);
                 _draging = false;
-                if (results[0].gameObject.CompareTag(_itemContainerTag) && CheckIfParentsNotAreSame(_itemImage, results[0].gameObject))
+                if (CheckIfHasGoodTag(results[0].gameObject) && CheckIfParentsNotAreSame(_itemImage, results[0].gameObject))
                 {
-                    print("change l'item");
-                    AddItemInBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), _itemImage.GetComponent<InventorySlot>().Number(), results[0].gameObject, _itemImage);
+                    if(results[0].gameObject.CompareTag(_itemBaseContainerTag))
+                    {
+                        AddItemInBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), _itemImage.GetComponent<InventorySlot>().Number(), results[0].gameObject, _itemImage);
+                    }
+                    else
+                    {
+                        RemoveItemFromBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), results[0].gameObject, _itemImage);
+                    }
                 }
             }
-            if (Input.GetMouseButtonDown(0) && !_draging)
+            if (Input.GetMouseButtonDown(0) && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None" && !_draging)
             {
                 _itemImage = results[0].gameObject;
-                if (_itemImage.CompareTag(_itemContainerTag))
+                if (CheckIfHasGoodTag(_itemImage))
                 {
                     _draging = true;
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
@@ -94,6 +112,10 @@ public class InventoryBaseManager : InventoryManager
         return _gameobject1.transform.parent.gameObject != _gameobject2.transform.parent.gameObject;
     }
 
+    private bool CheckIfHasGoodTag(GameObject _check)
+    {
+        return _check.CompareTag(_itemBaseContainerTag) || _check.CompareTag(_itemContainerTag);
+    }
 
     private void ChangeChildParent(Transform _gameObject, Transform _newParent)
     {
