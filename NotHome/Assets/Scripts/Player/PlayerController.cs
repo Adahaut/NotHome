@@ -89,7 +89,7 @@ public class PlayerController : NetworkBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump");
-        if (_isGrounded && context.performed && !QG_Manager.Instance._isOpen)
+        if (_isGrounded && context.performed /*&& !QG_Manager.Instance._isOpen*/)
             _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }
     public void SprintPlayer(InputAction.CallbackContext context)

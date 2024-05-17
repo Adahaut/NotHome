@@ -8,22 +8,25 @@ public class ProximityChat : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
+        _audioSource = GetComponent<AudioSource>();
+
         if (Microphone.devices.Length > 0)
         {
             _microphone = Microphone.devices[0];
-            Debug.Log("Using microphone: " + _microphone);
+
+
+            _audioSource.clip = Microphone.Start(_microphone, true, 10, 44100);
+            _audioSource.loop = true;
+            _audioSource.mute = true;
+
+            while (!(Microphone.GetPosition(_microphone) > 0)) { }
+
+            _audioSource.Play();
         }
         else
         {
             Debug.LogError("No microphone found!");
-            return;
         }
-
-        _audioSource = GetComponent<AudioSource>();
-        
-        _audioSource.clip = Microphone.Start(_microphone, true, 10, 44100);
-        while (!(Microphone.GetPosition(_microphone) > 0)) { }
-        _audioSource.Play();
     }
 
     void OnApplicationQuit()
