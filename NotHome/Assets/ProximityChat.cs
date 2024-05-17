@@ -4,58 +4,70 @@ using UnityEngine;
 
 public class ProximityChat : NetworkBehaviour
 {
-    // Distance maximale pour la communication vocale
-    public float maxVoiceDistance = 10f;
+    public float maxVoiceDistance = 10f; // Distance maximale pour la communication vocale
+    public List<AudioClip> audioClips; // Liste des clips audio disponibles
 
-    // Référence à la source audio du joueur
-    AudioSource audioSource;
+    private AudioSource audioSource;
+    private AudioClip recordedClip;
+    private int microphoneDeviceIndex = 0; // Index du périphérique de microphone à utiliser
 
-    // Initialisation
     void Start()
     {
-        // Récupère la source audio attachée à ce GameObject
-        audioSource = GetComponent<AudioSource>();
+        // Créez une source audio pour jouer l'audio capturé
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.loop = true;
 
+        // Commencez à capturer l'audio du microphone au démarrage
+        StartMicrophoneCapture();
     }
 
     void Update()
     {
-        CmdSendVoiceChat();
-    }
-
-    // Commande pour envoyer le chat vocal aux joueurs à proximité
-    [Command]
-    void CmdSendVoiceChat()
-    {
-        // Récupère tous les joueurs sur le serveur
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        // Parcourt tous les joueurs
-        foreach (GameObject player in players)
+        // Si ce joueur est l'émetteur du son
+        if (isLocalPlayer)
         {
-            // Vérifie si le joueur est à portée de voix
-            if (Vector3.Distance(player.transform.position, transform.position) <= maxVoiceDistance)
-            {
-                // Obtient le composant NetworkIdentity du joueur
-                NetworkIdentity playerIdentity = player.GetComponent<NetworkIdentity>();
+            // Arrêtez l'enregistrement et récupérez l'audio capturé
+            StopMicrophoneCapture();
 
-                // Vérifie si le joueur possède un identifiant réseau
-                if (playerIdentity != null)
-                {
-                    // Envoie le chat vocal au joueur à proximité via le client
-                    RpcReceiveVoiceChat(playerIdentity.netId);
-                }
-            }
+            // Choisissez un clip audio aléatoire à jouer
+            AudioClip clipToPlay = audioClips[Random.Range(0, audioClips.Count)];
+
+            // Envoyez l'identifiant du clip audio aux joueurs à proximité
+            int clipIndex = audioClips.IndexOf(clipToPlay);
+            CmdSendVoiceChat(clipIndex);
+
+            // Redémarrez l'enregistrement pour capturer de nouveaux échantillons audio
+            StartMicrophoneCapture();
         }
     }
 
-    [ClientRpc]
-    void RpcReceiveVoiceChat(uint playerId)
+    void StartMicrophoneCapture()
     {
-        GameObject playerObject = NetworkClient.connection.identity.gameObject;
+        // Commencez à capturer l'audio du microphone
+        string device = Microphone.devices[microphoneDeviceIndex];
+        recordedClip = Microphone.Start(device, true, 10, AudioSettings.outputSampleRate);
+    }
 
-        if (playerObject != null && playerObject.GetComponent<NetworkIdentity>().netId == playerId)
+    void StopMicrophoneCapture()
+    {
+        // Arrêtez l'enregistrement et récupérez l'audio capturé
+        Microphone.End(null);
+    }
+
+    [Command]
+    void CmdSendVoiceChat(int clipIndex)
+    {
+        // Envoyez l'identifiant du clip audio à tous les clients
+        RpcReceiveVoiceChat(clipIndex);
+    }
+
+    [ClientRpc]
+    void RpcReceiveVoiceChat(int clipIndex)
+    {
+        // Jouez le clip audio sur tous les clients
+        if (clipIndex >= 0 && clipIndex < audioClips.Count)
         {
+            audioSource.clip = audioClips[clipIndex];
             audioSource.Play();
         }
     }
