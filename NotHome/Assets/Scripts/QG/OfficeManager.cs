@@ -31,7 +31,7 @@ public class OfficeManager : MonoBehaviour
         while (time / total_time < 1)
         {
             if (Vector3.Distance(_player.transform.position, _chair.position) < 0.01)
-                time = total_time;
+                time = total_time * 2;
             time += Time.deltaTime * _speed;
             _player.transform.position = Vector3.Lerp(start_pos, end_pos, time / total_time);
             yield return null;
@@ -69,10 +69,8 @@ public class OfficeManager : MonoBehaviour
     }
     public void MouvToChair()
     {
-        print("oui");
         if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag("Chair"))
         {
-            print("enter");
             if (!_isMouv && !_isOnChair)
             {
                 StartCoroutine(CharacterMove(1));
