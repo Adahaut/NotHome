@@ -18,7 +18,7 @@ public class InventoryManager : MonoBehaviour
         _slotList.Add(_newInventorySlot);
     }
 
-    private void InventoryInitialisation()
+    public void InventoryInitialisation()
     {
         for (int i = 0;  i < _inventorySlotStartNumber; i++)
         {
@@ -39,12 +39,17 @@ public class InventoryManager : MonoBehaviour
 
     private void TryAddItem(string _ItemName, Sprite _itemSprite)
     {
-        for(int i = 0; i < _slotList.Count; i++)
+        for (int i = 0; i < _slotList.Count; i++)
         {
             if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
             {
-                print("addItem");
                 _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite);
+                _slotList[i].GetComponent<InventorySlot>().SetNumber(1);
+                break;
+            }
+            else if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
+            {
+                _slotList[i].GetComponent<InventorySlot>().AddNumber();
                 break;
             }
         }

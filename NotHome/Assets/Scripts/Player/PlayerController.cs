@@ -30,6 +30,7 @@ public class PlayerController : NetworkBehaviour
     private bool _isGrounded;
     private float _initSpeed;
     private float _timer;
+    private bool _isInBaseInventory;
 
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _rotation2 = Vector2.zero;
@@ -69,18 +70,35 @@ public class PlayerController : NetworkBehaviour
 
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
-        _inventory.SetActive(!_inventory.activeInHierarchy);
-        Cursor.lockState = _inventory.activeInHierarchy? CursorLockMode.None : CursorLockMode.Locked;
+        if(!_isInBaseInventory)
+        {
+            SetInventoryActive(!_inventory.activeInHierarchy);
+        }
     }
+
+    public void SetIsInBaseInventory(bool _isIn)
+    {
+        _isInBaseInventory = _isIn;
+    }
+
+    public void SetInventoryActive(bool _active)
+    {
+        _inventory.SetActive(_active);
+    }
+
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
-        Debug.Log("OpenMenuPause");
+        //Debug.Log("OpenMenuPause");
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Interaction");
-        QG_Manager.Instance.OpenUi();
-        PickUpObject();
+        if (_timer <= 0)
+        {
+            //Debug.Log("Interaction");
+            QG_Manager.Instance.OpenUi();
+            PickUpObject();
+            _timer = 0.05f;
+        }
         if (AnimationManager.Instance._doorIsOpen)
             AnimationManager.Instance.CloseDoor();
         else
@@ -234,12 +252,10 @@ public class PlayerController : NetworkBehaviour
 
         if (_hits.Length > 0)
         {
-            print("items");
             for (int i = 0; i < _hits.Length; i++)
             {
-                if (_hits[i].collider.name == "TestItem")
+                if (_hits[i].collider.CompareTag(_itemTag))
                 {
-                    print(_hits[i].collider.name);
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite());
                     Destroy(_hits[i].collider);
                 }
