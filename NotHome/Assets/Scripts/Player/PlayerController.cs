@@ -1,7 +1,9 @@
+using Mirror;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [Header("Transform" + "\n")]
     [SerializeField] private Transform _groundCheck;
@@ -36,17 +38,36 @@ public class PlayerController : MonoBehaviour
     private Vector2 _scrollDir;
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
-    
-    private void Awake()
+
+    public override void OnStartAuthority()
     {
         _rigidbodyPlayer = GetComponent<Rigidbody>();
         _initSpeed = _speed;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        _camera.gameObject.SetActive(true);
+        enabled = true;
     }
 
-    private void Start()
+    void CmdSendPositionToServer(Vector3 position)
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        // Mettre � jour la position du joueur sur le serveur
+        transform.position = position;
+
+        // Envoyer la position mise � jour � tous les clients
+        RpcUpdatePositionOnClients(position);
     }
+
+    [ClientRpc]
+    void RpcUpdatePositionOnClients(Vector3 position)
+    {
+        if (!isOwned)
+        {
+            // Mettre � jour la position du joueur sur les clients
+            transform.position = position;
+        }
+    }
+
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
         if(!_isInBaseInventory)
@@ -78,6 +99,10 @@ public class PlayerController : MonoBehaviour
             PickUpObject();
             _timer = 0.05f;
         }
+        if (AnimationManager.Instance._doorIsOpen)
+            AnimationManager.Instance.CloseDoor();
+        else
+            AnimationManager.Instance.OpenDoor();
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -97,9 +122,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
-        RotateCamera();
-        MovePlayer();
-        Timer();
+        if(isOwned)
+        {
+            RotateCamera();
+            MovePlayer();
+            Timer();
+            CmdSendPositionToServer(transform.position);
+        }
     }
 
     private void Timer()
