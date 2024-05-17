@@ -32,7 +32,6 @@ public class ProximityChat : NetworkBehaviour
     {
         _audioSource.clip = Microphone.Start(_microphone, true, 10, 44100);
         _audioSource.loop = true;
-        _audioSource.mute = true;
 
         while (!(Microphone.GetPosition(_microphone) > 0)) { }
 
