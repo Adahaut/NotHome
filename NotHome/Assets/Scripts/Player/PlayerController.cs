@@ -59,7 +59,7 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     void RpcUpdatePositionOnClients(Vector3 position)
     {
-        if (!isLocalPlayer)
+        if (!isOwned)
         {
             // Mettre à jour la position du joueur sur les clients
             transform.position = position;
@@ -97,10 +97,13 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
-
-        RotateCamera();
-        MovePlayer();
-        CmdSendPositionToServer(transform.position);
+        if(isOwned)
+        {
+            RotateCamera();
+            MovePlayer();
+            CmdSendPositionToServer(transform.position);
+        }
+        
     }
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
