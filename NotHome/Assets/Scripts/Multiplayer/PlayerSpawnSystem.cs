@@ -25,7 +25,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
     private void OnDestroy() => NetworkLobbyManager.OnServerReadied -= SpawnPlayer;
 
     [Server]
-    public void SpawnPlayer(NetworkConnection conn)
+    public void SpawnPlayer(NetworkConnectionToClient conn)
     {
         Transform spawnPoint = _spawnPoints.ElementAtOrDefault(_nextIndex);
 
@@ -37,6 +37,9 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
         GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
         NetworkServer.Spawn(playerInstance, conn);
+
+        NetworkServer.Destroy(conn.identity.gameObject);
+        NetworkServer.ReplacePlayerForConnection(conn, playerInstance.gameObject);
 
         _nextIndex++;
 
