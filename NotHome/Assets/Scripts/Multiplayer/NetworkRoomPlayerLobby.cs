@@ -52,8 +52,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     
     public override void OnStartAuthority()
     {
-        //CmdSetDisplayName(PlayerNameInput.DisplayName);
-
         readyButton.gameObject.SetActive(true);
         _lobbyUI.SetActive(true);
     }
@@ -69,7 +67,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnStopClient()
     {
         Room._roomPlayers.Remove(this);
-
     }
 
     public void HandleReadyStatusChanged(bool oldValue, bool newValue) => UpdateDisplay();
