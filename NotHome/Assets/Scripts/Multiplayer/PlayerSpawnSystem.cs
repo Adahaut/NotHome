@@ -25,23 +25,23 @@ public class PlayerSpawnSystem : NetworkBehaviour
     private void OnDestroy() => NetworkLobbyManager.OnServerReadied -= SpawnPlayer;
 
     [Server]
-    public void SpawnPlayer(NetworkConnectionToClient conn)
+    public void SpawnPlayer(NetworkConnection conn)
     {
-        Transform spawnPoint = _spawnPoints.ElementAtOrDefault(_nextIndex);
+        //Transform spawnPoint = _spawnPoints.ElementAtOrDefault(_nextIndex);
 
-        if (spawnPoint == null)
-        {
-            Debug.LogError($"Missing spawn point for player {_nextIndex}");
-            return;
-        }
+        //if (spawnPoint == null)
+        //{
+        //    Debug.LogError($"Missing spawn point for player {_nextIndex}");
+        //    return;
+        //}
 
-        GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
-        NetworkServer.Spawn(playerInstance, conn);
+        //GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
+        //NetworkServer.Spawn(playerInstance, conn);
 
-        NetworkServer.Destroy(conn.identity.gameObject);
-        NetworkServer.ReplacePlayerForConnection(conn, playerInstance.gameObject);
+        //NetworkServer.Destroy(conn.identity.gameObject);
+        //NetworkServer.ReplacePlayerForConnection(conn, playerInstance.gameObject);
 
-        _nextIndex++;
+        //_nextIndex++;
 
     }
 

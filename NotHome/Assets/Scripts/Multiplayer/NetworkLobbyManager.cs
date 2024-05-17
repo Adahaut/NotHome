@@ -21,7 +21,7 @@ public class NetworkLobbyManager : NetworkManager
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
-    public static event Action<NetworkConnectionToClient> OnServerReadied;
+    public static event Action<NetworkConnection> OnServerReadied;
 
     public List<NetworkRoomPlayerLobby> _roomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
     public List<NetworkGamePlayerLobby> _gamePlayers { get; } = new List<NetworkGamePlayerLobby>();
@@ -104,18 +104,18 @@ public class NetworkLobbyManager : NetworkManager
     public override void ServerChangeScene(string newSceneName)
     {
 
-        //if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Scene_Map"))
-        //{
-        //    for (int i = 0; i < _roomPlayers.Count; ++i)
-        //    {
-        //        var conn = _roomPlayers[i].connectionToClient;
-        //        var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
-        //        gamePlayerInstance.SetDisplayName(_roomPlayers[i]._displayName);
+        if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Scene_Map"))
+        {
+            for (int i = 0; i < _roomPlayers.Count; ++i)
+            {
+                var conn = _roomPlayers[i].connectionToClient;
+                var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
+                gamePlayerInstance.SetDisplayName(_roomPlayers[i]._displayName);
 
-        //        NetworkServer.Destroy(conn.identity.gameObject);
-        //        NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
-        //    }
-        //}
+                NetworkServer.Destroy(conn.identity.gameObject);
+                NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
+            }
+        }
 
         base.ServerChangeScene(newSceneName);
     }
