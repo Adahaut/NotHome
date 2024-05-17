@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private bool _isGrounded;
     private float _initSpeed;
     private float _timer;
+    private bool _isInBaseInventory;
 
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _rotation2 = Vector2.zero;
@@ -48,9 +49,22 @@ public class PlayerController : MonoBehaviour
     }
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
-        _inventory.SetActive(!_inventory.activeInHierarchy);
-        Cursor.lockState = _inventory.activeInHierarchy? CursorLockMode.None : CursorLockMode.Locked;
+        if(!_isInBaseInventory)
+        {
+            SetInventoryActive(!_inventory.activeInHierarchy);
+        }
     }
+
+    public void SetIsInBaseInventory(bool _isIn)
+    {
+        _isInBaseInventory = _isIn;
+    }
+
+    public void SetInventoryActive(bool _active)
+    {
+        _inventory.SetActive(_active);
+    }
+
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
         Debug.Log("OpenMenuPause");
@@ -60,9 +74,9 @@ public class PlayerController : MonoBehaviour
         if (_timer <= 0)
         {
             Debug.Log("Interaction");
-            //QG_Manager.Instance.OpenUi();
+            QG_Manager.Instance.OpenUi();
             PickUpObject();
-            _timer = 2;
+            _timer = 0.05f;
         }
     }
     public void OnJump(InputAction.CallbackContext context)
@@ -209,7 +223,6 @@ public class PlayerController : MonoBehaviour
 
         if (_hits.Length > 0)
         {
-            print("items");
             for (int i = 0; i < _hits.Length; i++)
             {
                 if (_hits[i].collider.name == "TestItem")

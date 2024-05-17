@@ -6,6 +6,7 @@ public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private ItemObject _itemContained;
     private GameObject _itemImage;
+    private int _number;
 
     private void Awake()
     {
@@ -13,6 +14,8 @@ public class InventorySlot : MonoBehaviour
         _itemContained = new ItemObject();
         _itemContained.SetItem("None", null);
     }
+
+    public int Number() { return _number; }
 
     public ItemObject ItemContained() {  return _itemContained; }
 

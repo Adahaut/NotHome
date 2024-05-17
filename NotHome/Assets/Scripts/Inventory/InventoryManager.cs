@@ -18,7 +18,7 @@ public class InventoryManager : MonoBehaviour
         _slotList.Add(_newInventorySlot);
     }
 
-    private void InventoryInitialisation()
+    public void InventoryInitialisation()
     {
         for (int i = 0;  i < _inventorySlotStartNumber; i++)
         {
