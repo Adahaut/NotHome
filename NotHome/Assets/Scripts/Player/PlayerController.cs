@@ -29,6 +29,7 @@ public class PlayerController : NetworkBehaviour
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
+    private float _timer;
 
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _rotation2 = Vector2.zero;
@@ -49,10 +50,10 @@ public class PlayerController : NetworkBehaviour
 
     void CmdSendPositionToServer(Vector3 position)
     {
-        // Mettre à jour la position du joueur sur le serveur
+        // Mettre ï¿½ jour la position du joueur sur le serveur
         transform.position = position;
 
-        // Envoyer la position mise à jour à tous les clients
+        // Envoyer la position mise ï¿½ jour ï¿½ tous les clients
         RpcUpdatePositionOnClients(position);
     }
 
@@ -61,7 +62,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isOwned)
         {
-            // Mettre à jour la position du joueur sur les clients
+            // Mettre ï¿½ jour la position du joueur sur les clients
             transform.position = position;
         }
     }
@@ -77,12 +78,18 @@ public class PlayerController : NetworkBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
+        Debug.Log("Interaction");
+        QG_Manager.Instance.OpenUi();
         PickUpObject();
+        if (AnimationManager.Instance._doorIsOpen)
+            AnimationManager.Instance.CloseDoor();
+        else
+            AnimationManager.Instance.OpenDoor();
     }
     public void OnJump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump");
-        if (_isGrounded && context.performed)
+        if (_isGrounded && context.performed && !QG_Manager.Instance._isOpen)
             _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }
     public void SprintPlayer(InputAction.CallbackContext context)
@@ -101,9 +108,17 @@ public class PlayerController : NetworkBehaviour
         {
             RotateCamera();
             MovePlayer();
+            Timer();
             CmdSendPositionToServer(transform.position);
         }
-        
+    }
+
+    private void Timer()
+    {
+        if (_timer > 0)
+        {
+            _timer -= Time.deltaTime;
+        }
     }
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
@@ -146,9 +161,70 @@ public class PlayerController : NetworkBehaviour
 
     public void MouseScrollY(InputAction.CallbackContext ctx)
     {
-        _hotBar.gameObject.SetActive(true);
-        _scrollDir = ctx.ReadValue<Vector2>();
-        Debug.Log(_scrollDir);
+        if(_timer <= 0)
+        {
+            CheckIfHotBarIsShowed();
+            _scrollDir = ctx.ReadValue<Vector2>();
+            int _indexAddition = 0;
+            if (_scrollDir.y > 0) _indexAddition = 1;
+            else if (_scrollDir.y < 0) _indexAddition = -1;
+            ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
+            _timer = 0.01f;
+        }
+    }
+
+    public void HotBarSelection1(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(0);
+    }
+
+    public void HotBarSelection2(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(1);
+    }
+
+    public void HotBarSelection3(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(2);
+    }
+
+    public void HotBarSelection4(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(3);
+    }
+
+    private void CheckIfHotBarIsShowed()
+    {
+        if (!_hotBar.GetComponent<HotBarManager>().IsOpen())
+        {
+            _hotBar.GetComponent<HotBarManager>().StartFadeInFadeOut();
+        }
+        _hotBar.GetComponent<HotBarManager>().ResetTimer();
+    }
+
+    private void ChangeToHotBarSlot(int _newIndex)
+    {
+        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
+        _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
+    }
+
+    private int UpdateHotBarIndex(int _index, int _indexAddition)
+    {
+        _index += _indexAddition;
+
+        if(_index < 0)
+        {
+            _index = 3;
+        }
+        else if (_index > 3)
+        {
+            _index = 0;
+        }
+        return _index;
     }
 
     // Methode to add an object to the inventory
