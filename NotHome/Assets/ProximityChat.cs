@@ -13,20 +13,30 @@ public class ProximityChat : NetworkBehaviour
         if (Microphone.devices.Length > 0)
         {
             _microphone = Microphone.devices[0];
-
-
-            _audioSource.clip = Microphone.Start(_microphone, true, 10, 44100);
-            _audioSource.loop = true;
-            _audioSource.mute = true;
-
-            while (!(Microphone.GetPosition(_microphone) > 0)) { }
-
-            _audioSource.Play();
+            CmdPlaySound();
         }
         else
         {
             Debug.LogError("No microphone found!");
         }
+    }
+
+    [Command]
+    public void CmdPlaySound()
+    {
+        RpcPlaySound();
+    }
+
+    [ClientRpc]
+    void RpcPlaySound()
+    {
+        _audioSource.clip = Microphone.Start(_microphone, true, 10, 44100);
+        _audioSource.loop = true;
+        _audioSource.mute = true;
+
+        while (!(Microphone.GetPosition(_microphone) > 0)) { }
+
+        _audioSource.Play();
     }
 
     void OnApplicationQuit()
