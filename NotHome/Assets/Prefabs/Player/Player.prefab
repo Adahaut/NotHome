@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 3667293984986487829}
   - component: {fileID: 5595089794129557664}
   - component: {fileID: 5650362243257667800}
+  - component: {fileID: 8460907543608217704}
   - component: {fileID: 5582172115057890066}
   - component: {fileID: 6243920400758648300}
   - component: {fileID: 4037221924443848814}
+  - component: {fileID: 7766289210015262959}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -89,6 +91,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8460907543608217704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335510724213132089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1396416858
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!136 &5582172115057890066
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -151,6 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abf94b33df83a148a69230bc74fdbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _groundCheck: {fileID: 9141703135805941483}
   _camera: {fileID: 6521726842588744728}
   _speed: 5000
@@ -165,6 +187,41 @@ MonoBehaviour:
   _itemPickRange: 0
   _hotBar: {fileID: 0}
   yRotationLimit: 88
+--- !u!114 &7766289210015262959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335510724213132089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 3667293984986487829}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  bufferResetMultiplier: 3
+  changedDetection: 1
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
 --- !u!1 &432300775465033795
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,12 +265,12 @@ GameObject:
   - component: {fileID: 492221263109505223}
   - component: {fileID: 6232055340226933387}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: PlayerCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6521726842588744728
 Transform:
   m_ObjectHideFlags: 0
