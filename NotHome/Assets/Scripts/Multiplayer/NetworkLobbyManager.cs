@@ -125,11 +125,6 @@ public class NetworkLobbyManager : NetworkManager
         {
             GameObject playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
-
-            foreach(var player in  _roomPlayers)
-            {
-                playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayer(player.connectionToClient);
-            }
         }
     }
 
