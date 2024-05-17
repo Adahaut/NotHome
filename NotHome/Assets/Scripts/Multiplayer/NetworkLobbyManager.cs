@@ -105,7 +105,7 @@ public class NetworkLobbyManager : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Scene_Map"))
         {
-            for (int i = _roomPlayers.Count - 1; i >= 0; i--)
+            for (int i = 0; i < _roomPlayers.Count; ++i)
             {
                 var conn = _roomPlayers[i].connectionToClient;
                 var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
