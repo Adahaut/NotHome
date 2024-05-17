@@ -132,20 +132,53 @@ public class PlayerController : MonoBehaviour
     {
         if(_timer <= 0)
         {
-            if (!_hotBar.GetComponent<HotBarManager>().IsOpen())
-            {
-                _hotBar.GetComponent<HotBarManager>().StartFadeInFadeOut();
-            }
-            _hotBar.GetComponent<HotBarManager>().ResetTimer();
+            CheckIfHotBarIsShowed();
             _scrollDir = ctx.ReadValue<Vector2>();
             int _indexAddition = 0;
             if (_scrollDir.y > 0) _indexAddition = 1;
             else if (_scrollDir.y < 0) _indexAddition = -1;
-            _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition);
-
-            _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
+            ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
             _timer = 0.01f;
         }
+    }
+
+    public void HotBarSelection1(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(0);
+    }
+
+    public void HotBarSelection2(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(1);
+    }
+
+    public void HotBarSelection3(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(2);
+    }
+
+    public void HotBarSelection4(InputAction.CallbackContext ctx)
+    {
+        CheckIfHotBarIsShowed();
+        ChangeToHotBarSlot(3);
+    }
+
+    private void CheckIfHotBarIsShowed()
+    {
+        if (!_hotBar.GetComponent<HotBarManager>().IsOpen())
+        {
+            _hotBar.GetComponent<HotBarManager>().StartFadeInFadeOut();
+        }
+        _hotBar.GetComponent<HotBarManager>().ResetTimer();
+    }
+
+    private void ChangeToHotBarSlot(int _newIndex)
+    {
+        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
+        _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
     }
 
     private int UpdateHotBarIndex(int _index, int _indexAddition)
