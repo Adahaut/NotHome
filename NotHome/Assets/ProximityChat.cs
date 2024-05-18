@@ -1,74 +1,69 @@
 using Mirror;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ProximityChat : NetworkBehaviour
 {
-    public float maxVoiceDistance = 10f; // Distance maximale pour la communication vocale
-    public List<AudioClip> audioClips; // Liste des clips audio disponibles
+    private AudioSource _audioSource;
+    [HideInInspector] public AudioClip _microphoneClip;
+    private string _microphoneName;
 
-    private AudioSource audioSource;
-    private AudioClip recordedClip;
-    private int microphoneDeviceIndex = 0; // Index du périphérique de microphone à utiliser
+    private GameObject[] _player;
 
-    void Start()
+    private void Awake()
     {
-        // Créez une source audio pour jouer l'audio capturé
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.loop = true;
+        _audioSource = GetComponent<AudioSource>();
 
-        // Commencez à capturer l'audio du microphone au démarrage
-        StartMicrophoneCapture();
+        //Get default microphone
+        if (Microphone.devices.Length > 0)
+        {
+            _microphoneName = Microphone.devices[0];
+            Debug.Log("Using microphone: " + _microphoneName);
+        }
+        else
+        {
+            Debug.LogError("No microphone found!");
+            return;
+        }
+
+        //Set the clip of the AudioSource of the other players
+        _microphoneClip = Microphone.Start(_microphoneName, true, 10, 44100);
+        _audioSource.mute = true;
+        _audioSource.loop = true;
+        _audioSource.clip = _microphoneClip;
+
+        while (!(Microphone.GetPosition(_microphoneName) > 0)) { }
     }
 
-    void Update()
+    public override void OnStartAuthority()
     {
-        // Si ce joueur est l'émetteur du son
-        if (isLocalPlayer)
+        
+        _player = GameObject.FindGameObjectsWithTag("Player");
+        _audioSource.Play();
+
+
+        foreach (var player in _player)
         {
-            // Arrêtez l'enregistrement et récupérez l'audio capturé
-            StopMicrophoneCapture();
-
-            // Choisissez un clip audio aléatoire à jouer
-            AudioClip clipToPlay = audioClips[Random.Range(0, audioClips.Count)];
-
-            // Envoyez l'identifiant du clip audio aux joueurs à proximité
-            int clipIndex = audioClips.IndexOf(clipToPlay);
-            CmdSendVoiceChat(clipIndex);
-
-            // Redémarrez l'enregistrement pour capturer de nouveaux échantillons audio
-            StartMicrophoneCapture();
+            if(player != this.gameObject)
+            {
+                GameObject playerAudio = new GameObject(player.name + " Audio");
+                AudioSource audioSource = playerAudio.AddComponent<AudioSource>();
+                audioSource.playOnAwake = false;
+                audioSource.clip = player.GetComponent<ProximityChat>()._microphoneClip;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
         }
     }
 
-    void StartMicrophoneCapture()
-    {
-        // Commencez à capturer l'audio du microphone
-        string device = Microphone.devices[microphoneDeviceIndex];
-        recordedClip = Microphone.Start(device, true, 10, AudioSettings.outputSampleRate);
-    }
 
-    void StopMicrophoneCapture()
-    {
-        // Arrêtez l'enregistrement et récupérez l'audio capturé
-        Microphone.End(null);
-    }
 
-    [Command]
-    void CmdSendVoiceChat(int clipIndex)
+    void OnApplicationQuit()
     {
-        // Envoyez l'identifiant du clip audio à tous les clients
-        RpcReceiveVoiceChat(clipIndex);
-    }
-
-    [ClientRpc]
-    void RpcReceiveVoiceChat(int clipIndex)
-    {
-        // Jouez le clip audio sur tous les clients
-        if (clipIndex >= 0 && clipIndex < audioClips.Count)
+        if (Microphone.IsRecording(_microphoneName))
         {
-            audioSource.clip = audioClips[clipIndex];
-            audioSource.Play();
+            Microphone.End(_microphoneName);
         }
     }
 }
