@@ -11,6 +11,9 @@ public class ProximityChat : NetworkBehaviour
 
     private GameObject[] _player;
 
+    public TMP_Text text;
+    int count = 0;
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -38,7 +41,6 @@ public class ProximityChat : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        
         _player = GameObject.FindGameObjectsWithTag("Player");
         _audioSource.Play();
 
@@ -48,12 +50,17 @@ public class ProximityChat : NetworkBehaviour
             if(player != this.gameObject)
             {
                 GameObject playerAudio = new GameObject(player.name + " Audio");
+                playerAudio.transform.parent = this.transform;
                 AudioSource audioSource = playerAudio.AddComponent<AudioSource>();
                 audioSource.playOnAwake = false;
                 audioSource.clip = player.GetComponent<ProximityChat>()._microphoneClip;
                 audioSource.loop = true;
                 audioSource.Play();
+
+                count++;
             }
+
+            text.text = count.ToString();
         }
     }
 
