@@ -35,7 +35,7 @@ public class InventoryBaseManager : InventoryManager
         return _baseInventory[_itemName];
     }
 
-    public void RemoveItems(string _itemName, int _number)
+    public new void RemoveItems(string _itemName, int _number)
     {
         if (_baseInventory[_itemName] > _number)
         {

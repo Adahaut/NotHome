@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class UseCrafter : MonoBehaviour
 {
     [SerializeField] private List<Button> _listButton = new();
     [SerializeField] private List<CraftScriptableObject> _listCraft = new();
+    private CraftScriptableObject _currentCraft;
     [SerializeField] private Image _spriteCraft;
     [SerializeField] private List<GameObject> _materialsText = new List<GameObject>();
     [SerializeField] private InventoryManager _playerInventory;
@@ -76,8 +78,7 @@ public class UseCrafter : MonoBehaviour
 
         if (_canCraft)
         {
-            for (int i = 0; i < _materialsNameForCraft.Count; i++)
-                CraftItem(_materialsNameForCraft[i]);
+            CraftItem();
             print("craft");
         }
         else
@@ -86,15 +87,19 @@ public class UseCrafter : MonoBehaviour
         }
     }
 
-    private void CraftItem(string _materialName)
+    private void CraftItem()
     {
-        RemoveItemsForCraft(_materialName);
+        for (int i = 0; i < _materialsNameForCraft.Count; i++)
+            RemoveItemsForCraft(_materialsNameForCraft[i]);
+        _playerInventory.AddItem(_currentCraft._resultName, _currentCraft._resultSprite);
     }
 
     private void RemoveItemsForCraft(string _materialName)
     {
-        //_playerInventory.
-        _baseInventory.RemoveItems(_materialName, _materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
+        _playerInventory.RemoveItems(_materialName, _materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
+        print(_materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
+        if(_baseInventory.CheckForMaterial(_materialName))
+            _baseInventory.RemoveItems(_materialName, _materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
     }
 
     private bool CheckInplayerInventoryAndBase()
@@ -123,15 +128,18 @@ public class UseCrafter : MonoBehaviour
 
     private bool CheckInBothInventory(int i, int y)
     {
-        if (!_baseInventory.CheckForMaterial(_materialsNameForCraft[i]) && !(_playerInventory.GetInventorySlot(y).ItemContained().ItemName() == _materialsNameForCraft[i]))
+        if (_baseInventory.CheckForMaterial(_materialsNameForCraft[i]) || (_playerInventory.GetInventorySlot(y).ItemContained().ItemName() == _materialsNameForCraft[i]))
         {
-            return false;
+            if (_baseInventory.CheckForMaterial(_materialsNameForCraft[i]) && _baseInventory.NumberOfMaterial(_materialsNameForCraft[i]) + _playerInventory.GetInventorySlot(y).Number() >= _materialsNumberForCraft[i])
+            {
+                return true;
+            }
+            else if (_playerInventory.GetInventorySlot(y).Number() >= _materialsNumberForCraft[i])
+            {
+                return true;
+            }
         }
-        else if (_baseInventory.NumberOfMaterial(_materialsNameForCraft[i]) + _playerInventory.GetInventorySlot(y).Number() < _materialsNumberForCraft[i])
-        {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     private void SetMaterialsCraft(int _index)
@@ -140,6 +148,7 @@ public class UseCrafter : MonoBehaviour
         for (int i = 0; i < _listCraft[_index]._materialName.Count; i++)
         {
             AddText(_listCraft[_index]._materialName[i], _listCraft[_index]._materialNumber[i]);
+            _currentCraft = _listCraft[_index];
         }
     }
 

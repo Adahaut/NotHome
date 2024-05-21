@@ -8,4 +8,5 @@ public class CraftScriptableObject : ScriptableObject
     public List<int> _materialNumber = new List<int>();
 
     public string _resultName;
+    public Sprite _resultSprite;
 }

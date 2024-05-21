@@ -62,24 +62,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    /*private bool CheckInSlots()
-    {
-        for(int i = 0; i < _inventorySlotStartNumber; i++)
-        {
-
-        }
-    }
-
     public void RemoveItems(string _itemName, int _number)
     {
-        if ()
+        for (int i = 0; i < _inventorySlotStartNumber; i++)
         {
+            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _itemName)
+            {
+                if (_slotList[i].GetComponent<InventorySlot>().Number() > _number)
+                {
+                    _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() - _number);
+                    _number = _slotList[i].GetComponent<InventorySlot>().Number() - _number;
+                    print(_number);
+                }
+                else
+                {
+                    _slotList[i].GetComponent<InventorySlot>().ResetItem();
+                }
+            }
             
         }
-        else
-        {
-            
-        }
-    }*/
-
+    }
 }
