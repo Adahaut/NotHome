@@ -78,6 +78,5 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         FieldManager.Instance._timerText[_indexPlant].text = "";
         ListSlotField.Instance._listPlant[_indexPlant].GetComponent<MeshRenderer>().material = FieldManager.Instance._materialBrown;
         gameObject.GetComponent<Button>().enabled = false;
-        print("Caca");
     }
 }
