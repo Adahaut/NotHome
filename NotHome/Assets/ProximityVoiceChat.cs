@@ -2,6 +2,7 @@ using UnityEngine;
 using Mirror;
 using Steamworks;
 using TMPro;
+using Unity.VisualScripting;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
@@ -19,7 +20,11 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             SteamUser.StartVoiceRecording();
             voiceDataBuffer = new byte[voiceBufferSize];
-            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
             audioSource.playOnAwake = false;
         }
     }
