@@ -19,8 +19,8 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             SteamUser.StartVoiceRecording();
             voiceDataBuffer = new byte[voiceBufferSize];
-            audioSource.playOnAwake = false;
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
         }
     }
 
@@ -73,7 +73,6 @@ public class ProximityVoiceChat : NetworkBehaviour
             if (audioSource == null)
             {
                 test.text = "audio source null   " + t.ToString();
-                audioSource = GetComponent<AudioSource>();
             }
             t += 1;
 
