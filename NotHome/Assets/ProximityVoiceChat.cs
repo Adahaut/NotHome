@@ -69,8 +69,12 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
             test.text = audioSource.clip.name; 
+            if (audioSource == null)
+            {
+                test.text = "elvin ta mère la pute !";
+            }
+            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
             float[] testa = new float[44100];
             for (int i = 0; i < testa.Length; ++i)
             {
