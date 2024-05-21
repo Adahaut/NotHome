@@ -15,7 +15,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Start()
     {
-        if (isLocalPlayer)
+        if (isOwned)
         {
             voiceDataBuffer = new byte[voiceBufferSize];
         }
@@ -23,7 +23,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Update()
     {
-        if (isLocalPlayer)
+        if (isOwned)
         {
             CaptureAndSendVoiceData();
         }
@@ -50,7 +50,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     [ClientRpc]
     private void RpcReceiveVoiceData(byte[] data, uint size)
     {
-        if (!isLocalPlayer)
+        if (!isOwned)
         {
             PlayVoiceData(data, size);
         }
