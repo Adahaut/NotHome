@@ -18,6 +18,13 @@ public class InventoryManager : MonoBehaviour
         _slotList.Add(_newInventorySlot);
     }
 
+    public InventorySlot GetInventorySlot(int _index)
+    {
+        return _slotList[_index].GetComponent<InventorySlot>();
+    } 
+
+    public int InventorySlotNumber() { return _inventorySlotStartNumber; }
+
     public void InventoryInitialisation()
     {
         for (int i = 0;  i < _inventorySlotStartNumber; i++)
@@ -54,5 +61,25 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
+
+    /*private bool CheckInSlots()
+    {
+        for(int i = 0; i < _inventorySlotStartNumber; i++)
+        {
+
+        }
+    }
+
+    public void RemoveItems(string _itemName, int _number)
+    {
+        if ()
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }*/
 
 }

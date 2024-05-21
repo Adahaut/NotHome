@@ -53,6 +53,11 @@ public class PC : MonoBehaviour
         _isInBaseInventory = _isIn;
     }
 
+    public InventoryManager GetInventory()
+    {
+        return _inventory.GetComponent<InventoryManager>();
+    }
+
     public void SetInventoryActive(bool _active)
     {
         _inventory.SetActive(_active);
@@ -64,7 +69,7 @@ public class PC : MonoBehaviour
     public void Interaction(InputAction.CallbackContext ctx)
     {
         Debug.Log("Interaction");
-        QG_Manager.Instance.OpenUi();
+        QG_Manager.Instance.OpenUi(this);
         OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
         {

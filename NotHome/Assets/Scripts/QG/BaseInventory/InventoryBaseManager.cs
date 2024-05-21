@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InventoryBaseManager : InventoryManager
 {
     [SerializeField] private Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
+    [SerializeField] private List<InventorySlot> _inventorySlots = new List<InventorySlot>();
 
     [SerializeField] private PC _playerController;
 
@@ -29,6 +30,36 @@ public class InventoryBaseManager : InventoryManager
         return _baseInventory[_itemName] >= _number;
     }
 
+    public int NumberOfMaterial(string _itemName)
+    {
+        return _baseInventory[_itemName];
+    }
+
+    public void RemoveItems(string _itemName, int _number)
+    {
+        if (_baseInventory[_itemName] > _number)
+        {
+            _baseInventory[_itemName] -= _number;
+            for (int i = 0; i < _inventorySlots.Count; i++)
+            {
+                if (_inventorySlots[i].ItemContained().ItemName() == _itemName)
+                {
+                    _inventorySlots[i].SetNumber(_inventorySlots[i].Number() - _number);
+                }
+            }
+        }
+        else
+        {
+            _baseInventory.Remove(_itemName);
+            for (int i = 0; i < _inventorySlots.Count; i++)
+            {
+                if (_inventorySlots[i].ItemContained().ItemName() == _itemName)
+                {
+                    _inventorySlots[i].ResetItem();
+                }
+            }
+        }
+    }
 
     private void OnEnable()
     {
@@ -49,6 +80,11 @@ public class InventoryBaseManager : InventoryManager
     private void Start()
     {
         InventoryInitialisation();
+        for (int i = 0; i < InventorySlotNumber(); i++)
+        {
+            _inventorySlots.Add(GetInventorySlot(i));
+        }
+        
     }
 
     private void AddItemInBase(string _name, int _number, GameObject _slot, GameObject _oldSlot)

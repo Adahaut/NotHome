@@ -8,10 +8,18 @@ public class UseCrafter : MonoBehaviour
     [SerializeField] private List<Button> _listButton = new();
     [SerializeField] private List<CraftScriptableObject> _listCraft = new();
     [SerializeField] private Image _spriteCraft;
-    [SerializeField] private TextMeshProUGUI _textCraft;
+    [SerializeField] private List<GameObject> _materialsText = new List<GameObject>();
+    [SerializeField] private InventoryManager _playerInventory;
 
     [SerializeField] private InventoryBaseManager _baseInventory;
+    private List<string> _materialsNameForCraft = new List<string>();
+    private List<int> _materialsNumberForCraft = new List<int>();
     private int _indexMove;
+
+    private void OnEnable()
+    {
+        ClearTexts();
+    }
 
     public void OnClick(Button button)
     {
@@ -22,7 +30,6 @@ public class UseCrafter : MonoBehaviour
             index = int.Parse(button.name[6].ToString()) - 1;
 
         _spriteCraft.gameObject.SetActive(true);
-        _textCraft.text = "";
         _spriteCraft.color = _listButton[index].GetComponent<Image>().color;
 
         SetMaterialsCraft(index);
@@ -57,28 +64,107 @@ public class UseCrafter : MonoBehaviour
         }
     }
 
+    public void SetPlayerInventory(InventoryManager _newInventory)
+    {
+        _playerInventory = _newInventory;
+    }
+
     public void CraftObject()
     {
-        print("craft");
-        
+        bool _canCraft = CheckInplayerInventoryAndBase();
+
+
+        if (_canCraft)
+        {
+            for (int i = 0; i < _materialsNameForCraft.Count; i++)
+                CraftItem(_materialsNameForCraft[i]);
+            print("craft");
+        }
+        else
+        {
+            print("pas assez de ressources");
+        }
     }
-    private void SetMaterialsCraft(int index)
+
+    private void CraftItem(string _materialName)
     {
-        if (_listCraft[index]._metal > 0)
-            _textCraft.text += _listCraft[index]._metal + " Metal\n\n";
-        if (_listCraft[index]._reactor > 0)
-            _textCraft.text += _listCraft[index]._reactor + " Reactor\n\n";
-        if (_listCraft[index]._suffer > 0)
-            _textCraft.text += _listCraft[index]._suffer + " Suffer\n\n";
-        if (_listCraft[index]._leaf > 0)
-            _textCraft.text += _listCraft[index]._leaf + " Leaf\n\n";
-        if (_listCraft[index]._toolKit > 0)
-            _textCraft.text += _listCraft[index]._toolKit + " ToolKit\n\n";
-        if (_listCraft[index]._seed > 0)
-            _textCraft.text += _listCraft[index]._seed + " Seed\n\n";
-        if (_listCraft[index]._tissue > 0)
-            _textCraft.text += _listCraft[index]._tissue + " Tissue\n\n";
-        if (_listCraft[index]._homium > 0)
-            _textCraft.text += _listCraft[index]._homium + " Homium\n\n";
+        RemoveItemsForCraft(_materialName);
+    }
+
+    private void RemoveItemsForCraft(string _materialName)
+    {
+        //_playerInventory.
+        _baseInventory.RemoveItems(_materialName, _materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
+    }
+
+    private bool CheckInplayerInventoryAndBase()
+    {
+        //create a bool list to check if player has enough ressources
+        List<bool> result = new List<bool>();
+        for(int i = 0; i < _materialsNameForCraft.Count; i++)
+        {
+            result.Add(false);
+        }
+
+        //check in player inventory if there are needed ressources
+        for (int i = 0; i < _materialsNameForCraft.Count; i++)
+        {
+            for (int y = 0; y < _playerInventory.InventorySlotNumber(); y++)
+            {
+                if (CheckInBothInventory(i, y))
+                {
+                    result[i] = true;
+                }
+            }
+        }
+
+        return !result.Contains(false);
+    }
+
+    private bool CheckInBothInventory(int i, int y)
+    {
+        if (!_baseInventory.CheckForMaterial(_materialsNameForCraft[i]) && !(_playerInventory.GetInventorySlot(y).ItemContained().ItemName() == _materialsNameForCraft[i]))
+        {
+            return false;
+        }
+        else if (_baseInventory.NumberOfMaterial(_materialsNameForCraft[i]) + _playerInventory.GetInventorySlot(y).Number() < _materialsNumberForCraft[i])
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void SetMaterialsCraft(int _index)
+    {
+        ClearTexts();
+        for (int i = 0; i < _listCraft[_index]._materialName.Count; i++)
+        {
+            AddText(_listCraft[_index]._materialName[i], _listCraft[_index]._materialNumber[i]);
+        }
+    }
+
+    private void ClearTexts()
+    {
+        _materialsNameForCraft.Clear();
+        _materialsNumberForCraft.Clear();
+        for (int i = 0; i < _materialsText.Count; i++)
+        {
+            _materialsText[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+            _materialsText[i].SetActive(false);
+        }
+    }
+    private void AddText(string _materialName, int _materialNumber)
+    {
+        for(int i = 0; i < _materialsText.Count; i++)
+        {
+            if (!_materialsText[i].activeInHierarchy)
+            {
+                _materialsText[i].SetActive(true);
+                _materialsText[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _materialNumber.ToString() + " " + _materialName;
+                _materialsNameForCraft.Add(_materialName);
+                _materialsNumberForCraft.Add(_materialNumber);
+                break;
+            }
+        }
     }
 }

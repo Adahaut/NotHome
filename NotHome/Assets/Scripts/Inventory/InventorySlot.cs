@@ -22,12 +22,17 @@ public class InventorySlot : MonoBehaviour
     public void AddNumber() 
     {  
         _number++;
-        _numberText.text = _number.ToString();
+        UpdateNumber();
     }
 
     public void SetNumber(int _newNumber)
     {
         _number = _newNumber;
+        UpdateNumber();
+    }
+
+    public void UpdateNumber()
+    {
         _numberText.text = _number.ToString();
     }
 
@@ -36,7 +41,7 @@ public class InventorySlot : MonoBehaviour
     public void ChangeItem(string _ItemName, Sprite _itemSprite)
     {
         _itemContained.SetItem(_ItemName, _itemSprite);
-        _numberText.text = _number.ToString();
+        UpdateNumber();
         UpdateItemVisuel();
     }
 
