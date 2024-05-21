@@ -65,34 +65,17 @@ public class ProximityVoiceChat : NetworkBehaviour
     void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume)
     {
         Debug.Log("Target");
-        byte[] destBuffer2 = new byte[44100 * 2];
+        byte[] destBuffer2 = new byte[22050 * 2];
         uint bytesWritten2;
-        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, 44100);
+        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, 22050);
         if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten2 > 0)
         {
-            //audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
+            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
 
-            //float[] test = new float[44100];
-            //for (int i = 0; i < test.Length; i++)
-            //{
-            //    test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
-            //}
-
-            //if (!isOwned) {
-            //audioSource.volume = volume;
-            //}
-
-
-            //audioSource.clip.SetData(test, 0);
-            //audioSource.Play();
-
-            int sampleCount = (int)(bytesWritten2 / 2);
-            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), sampleCount, 1, 44100, false);
-
-            float[] audioData = new float[sampleCount];
-            for (int i = 0; i < sampleCount; i++)
+            float[] test = new float[44100];
+            for (int i = 0; i < test.Length; i++)
             {
-                audioData[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
+                test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
             }
 
             if (!isOwned)
@@ -100,7 +83,8 @@ public class ProximityVoiceChat : NetworkBehaviour
                 audioSource.volume = volume;
             }
 
-            audioSource.clip.SetData(audioData, 0);
+
+            audioSource.clip.SetData(test, 0);
             audioSource.Play();
         }
     }
