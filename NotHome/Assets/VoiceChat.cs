@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class VoiceChat : NetworkBehaviour
 {
@@ -10,15 +11,16 @@ public class VoiceChat : NetworkBehaviour
 
     private void Start()
     {
-        if (isLocalPlayer)
+        if (isOwned)
         {
+            SteamUser.StartVoiceRecording();
             voiceDataBuffer = new byte[voiceBufferSize];
         }
     }
 
     private void Update()
     {
-        if (isLocalPlayer)
+        if (isOwned)
         {
             CaptureAndSendVoiceData();
         }
@@ -44,7 +46,7 @@ public class VoiceChat : NetworkBehaviour
     [ClientRpc]
     private void RpcReceiveVoiceData(byte[] data, uint size)
     {
-        if (!isLocalPlayer)
+        if (!isOwned)
         {
             PlayVoiceData(data, size);
         }
