@@ -29,12 +29,12 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             uint compressed;
             EVoiceResult ret = SteamUser.GetAvailableVoice(out compressed);
-            if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 512)
+            if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
             {
                 Debug.Log(compressed);
-                byte[] destBuffer = new byte[512];
+                byte[] destBuffer = new byte[1024];
                 uint bytesWritten;
-                ret = SteamUser.GetVoice(true, destBuffer, 512, out bytesWritten);
+                ret = SteamUser.GetVoice(true, destBuffer, 1024, out bytesWritten);
                 if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
                 {
                     Cmd_SendData(destBuffer, bytesWritten);
@@ -65,14 +65,14 @@ public class ProximityVoiceChat : NetworkBehaviour
     void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume)
     {
         Debug.Log("Target");
-        byte[] destBuffer2 = new byte[22050 * 2];
+        byte[] destBuffer2 = new byte[44100 * 2];
         uint bytesWritten2;
-        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, 22050);
+        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, 44100);
         if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten2 > 0)
         {
-            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 22050, 1, 22050, false);
+            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
 
-            float[] test = new float[22050];
+            float[] test = new float[44100];
             for (int i = 0; i < test.Length; i++)
             {
                 test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
