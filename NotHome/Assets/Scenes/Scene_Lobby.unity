@@ -393,6 +393,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1596842072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2150793972834979152, guid: 98a305bcafa81aa449af5c8d6cdba1dd, type: 3}
+  m_PrefabInstance: {fileID: 3199455216615155535}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747155208
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +629,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1546926884
       objectReference: {fileID: 0}
+    - target: {fileID: 5447253392515239954, guid: 98a305bcafa81aa449af5c8d6cdba1dd, type: 3}
+      propertyPath: _hostButton
+      value: 
+      objectReference: {fileID: 1596842072}
     - target: {fileID: 5447253392515239954, guid: 98a305bcafa81aa449af5c8d6cdba1dd, type: 3}
       propertyPath: networkManager
       value: 

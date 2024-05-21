@@ -171,8 +171,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         conn.Disconnect();
         Room.StopClient();
+        
+        if(_isLeader)
+            Room.StopHost();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameObject.Find("UI_MainMenu").GetComponent<MainMenu>().landingPagePanel.SetActive(true);
     }
 
     public void HandleReadyToStart(bool readyToStart)
