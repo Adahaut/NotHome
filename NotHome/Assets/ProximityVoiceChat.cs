@@ -8,7 +8,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     public float voiceRange = 10f;
     private const int SAMPLE_RATE = 11025;
     private byte[] voiceDataBuffer;
-    private uint voiceBufferSize = 22050; // Adjust size as needed
+    private uint voiceBufferSize = 44100; // Adjust size as needed
 
 
     public TMP_Text test;
