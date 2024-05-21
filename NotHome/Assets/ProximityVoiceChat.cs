@@ -69,7 +69,6 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            test.text = voiceResult.ToString();
             audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
             float[] testa = new float[44100];
             for (int i = 0; i < testa.Length; ++i)
@@ -78,6 +77,7 @@ public class ProximityVoiceChat : NetworkBehaviour
             }
             audioSource.clip.SetData(testa, 0);
             audioSource.Play();
+            test.text = audioSource.isPlaying.ToString();
         }
     }
 }
