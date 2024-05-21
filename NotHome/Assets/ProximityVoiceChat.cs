@@ -65,12 +65,12 @@ public class ProximityVoiceChat : NetworkBehaviour
     private void PlayVoiceData(byte[] byteBuffer, uint byteCount)
     {
         byte[] destBuffer = new byte[voiceBufferSize * 2];
-        EVoiceResult voiceResult = SteamUser.DecompressVoice(byteBuffer, byteCount, destBuffer, (uint)destBuffer.Length, out uint bytesWritten, (uint)voiceBufferSize);
+        EVoiceResult voiceResult = SteamUser.DecompressVoice(byteBuffer, byteCount, destBuffer, (uint)destBuffer.Length, out uint bytesWritten, 44100);
 
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), voiceBufferSize, 1, voiceBufferSize, false);
-            float[] test = new float[voiceBufferSize];
+            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
+            float[] test = new float[44100];
             for (int i = 0; i < test.Length; ++i)
             {
                 test[i] = (short)(destBuffer[i * 2] | destBuffer[i * 2 + 1] << 8) / 32768.0f;
