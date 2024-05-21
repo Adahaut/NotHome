@@ -35,6 +35,11 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             CaptureAndSendVoiceData();
         }
+
+        if(audioSource != null)
+        {
+            test.text = "zjeivboc j";
+        }
     }
 
     private void CaptureAndSendVoiceData()
@@ -75,11 +80,11 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            if (audioSource == null)
-            {
-                test.text = "audio source null   " + t.ToString();
-            }
-            t += 1;
+        //    if (audioSource == null)
+        //    {
+        //        test.text = "audio source null   " + t.ToString();
+        //    }
+        //    t += 1;
 
             audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
 
