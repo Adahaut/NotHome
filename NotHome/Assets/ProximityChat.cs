@@ -1,10 +1,7 @@
 using Mirror;
-using Photon.Voice.Unity;
 using Steamworks;
 using TMPro;
 using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
 
 public class ProximityChat : NetworkBehaviour
 {
@@ -176,50 +173,4 @@ public class ProximityChat : NetworkBehaviour
     //    return Vector3.zero;
     //}
     #endregion
-
-    public Recorder recorder;
-    public Speaker speaker;
-    public float voiceRange = 10f;
-
-    private void Start()
-    {
-        if (isLocalPlayer)
-        {
-            SetupRecorder();
-        }
-    }
-
-    private void Update()
-    {
-        if (isLocalPlayer)
-        {
-            CheckProximity();
-        }
-    }
-
-    private void SetupRecorder()
-    {
-        recorder = gameObject.AddComponent<Recorder>();
-        recorder.TransmitEnabled = true;
-        
-        recorder.Init(PhotonVoiceNetwork.Instance.PrimaryRecorder);
-        recorder.UnityMicrophoneDevice = Microphone.devices.Length > 0 ? Microphone.devices[0] : null;
-        recorder.AudioGroup = 0;
-        recorder.InterestGroup = 0;
-
-        speaker = gameObject.AddComponent<Speaker>();
-        PhotonVoiceNetwork.Instance.Client.AddSpeaker(speaker);
-    }
-
-    private void CheckProximity()
-    {
-        foreach (var player in FindObjectsOfType<VoiceChatController>())
-        {
-            if (player != this)
-            {
-                float distance = Vector3.Distance(transform.position, player.transform.position);
-                player.speaker.enabled = distance <= voiceRange;
-            }
-        }
-    }
 }
