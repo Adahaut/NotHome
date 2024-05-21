@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Steamworks;
@@ -29,7 +27,7 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             uint compressed;
             EVoiceResult ret = SteamUser.GetAvailableVoice(out compressed);
-            if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
+            if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 512)
             {
                 Debug.Log(compressed);
                 byte[] destBuffer = new byte[8192];
@@ -82,7 +80,6 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 audioSource.volume = volume;
             }
-
 
             audioSource.clip.SetData(test, 0);
             audioSource.Play();
