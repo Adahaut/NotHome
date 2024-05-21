@@ -8,8 +8,8 @@ public class ProximityVoiceChat : NetworkBehaviour
     public float voiceRange = 10f;
     private const int SAMPLE_RATE = 11025;
     private byte[] voiceDataBuffer;
-    private uint voiceBufferSize = 44100; // Adjust size as needed
-
+    private int voiceBufferSize = 44100; // Adjust size as needed
+    private AudioSource audioSource;
 
     public TMP_Text test;
 
@@ -17,6 +17,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     {
         if (isOwned)
         {
+            audioSource = GetComponent<AudioSource>();
             SteamUser.StartVoiceRecording();
             voiceDataBuffer = new byte[voiceBufferSize];
         }
@@ -32,18 +33,21 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void CaptureAndSendVoiceData()
     {
-        uint bytesWritten = 0;
-        EVoiceResult result = SteamUser.GetVoice(true, voiceDataBuffer, voiceBufferSize, out bytesWritten);
-        //EVoiceResult result = SteamUser.GetAvailableVoice(out bytesWritten);
+        EVoiceResult voiceResult = SteamUser.GetAvailableVoice(out uint compressed);
         
-        if (result == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
+        if (voiceResult == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
         {
-            test.text = bytesWritten.ToString();
-            foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
+            byte[] byteBuffer = new byte[1024];
+            voiceResult = SteamUser.GetVoice(true, byteBuffer, 1024, out uint bufferSize);
+
+            if (voiceResult == EVoiceResult.k_EVoiceResultOK && bufferSize > 0)
             {
-                if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
+                foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
                 {
-                    player.RpcReceiveVoiceData(voiceDataBuffer, bytesWritten);
+                    if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
+                    {
+                        player.RpcReceiveVoiceData(byteBuffer, bufferSize);
+                    }
                 }
             }
         }
@@ -58,16 +62,21 @@ public class ProximityVoiceChat : NetworkBehaviour
         }
     }
 
-    private void PlayVoiceData(byte[] data, uint size)
+    private void PlayVoiceData(byte[] byteBuffer, uint byteCount)
     {
-        AudioClip clip = AudioClip.Create("Voice", (int)size / 2, 1, SAMPLE_RATE, false);
-        float[] samples = new float[size / 2];
-        for (int i = 0; i < samples.Length; i++)
+        byte[] destBuffer = new byte[voiceBufferSize * 2];
+        EVoiceResult voiceResult = SteamUser.DecompressVoice(byteBuffer, byteCount, destBuffer, (uint)destBuffer.Length, out uint bytesWritten, (uint)voiceBufferSize);
+
+        if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            short sample = (short)(data[i * 2] | data[i * 2 + 1] << 8);
-            samples[i] = sample / 32768.0f;
+            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), voiceBufferSize, 1, voiceBufferSize, false);
+            float[] test = new float[voiceBufferSize];
+            for (int i = 0; i < test.Length; ++i)
+            {
+                test[i] = (short)(destBuffer[i * 2] | destBuffer[i * 2 + 1] << 8) / 32768.0f;
+            }
+            audioSource.clip.SetData(test, 0);
+            audioSource.Play();
         }
-        clip.SetData(samples, 0);
-        AudioSource.PlayClipAtPoint(clip, transform.position);
     }
 }
