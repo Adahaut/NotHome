@@ -33,7 +33,8 @@ public class ProximityVoiceChat : NetworkBehaviour
     private void CaptureAndSendVoiceData()
     {
         uint bytesWritten = 0;
-        EVoiceResult result = SteamUser.GetVoice(true, voiceDataBuffer, voiceBufferSize, out bytesWritten);
+        //EVoiceResult result = SteamUser.GetVoice(true, voiceDataBuffer, voiceBufferSize, out bytesWritten);
+        EVoiceResult result = SteamUser.GetAvailableVoice(out bytesWritten);
         
         if (result == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
