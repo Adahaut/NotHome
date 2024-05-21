@@ -72,7 +72,8 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             if (audioSource == null)
             {
-                test.text = "audio source null" + t.ToString();
+                test.text = "audio source null   " + t.ToString();
+                audioSource = GetComponent<AudioSource>();
             }
             t += 1;
 
