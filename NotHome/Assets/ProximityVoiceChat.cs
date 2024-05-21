@@ -17,7 +17,6 @@ public class ProximityVoiceChat : NetworkBehaviour
     {
         if (isOwned)
         {
-            test = GameObject.Find("debug").GetComponent<TMP_Text>();
             audioSource = GetComponent<AudioSource>();
             SteamUser.StartVoiceRecording();
             voiceDataBuffer = new byte[voiceBufferSize];
