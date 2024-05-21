@@ -21,6 +21,10 @@ public class ProximityVoiceChat : NetworkBehaviour
             SteamUser.StartVoiceRecording();
             voiceDataBuffer = new byte[voiceBufferSize];
         }
+        else
+        {
+            GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+        }
     }
 
     private void Update()
