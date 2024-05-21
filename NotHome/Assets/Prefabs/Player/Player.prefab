@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5582172115057890066}
   - component: {fileID: 6243920400758648300}
   - component: {fileID: 4037221924443848814}
+  - component: {fileID: 1728485283472307026}
   - component: {fileID: 3487002098307835249}
   - component: {fileID: 3988449623027610010}
   m_Layer: 7
@@ -225,6 +226,14 @@ MonoBehaviour:
   _itemPickRange: 0
   _hotBar: {fileID: 0}
   yRotationLimit: 88
+--- !u!81 &1728485283472307026
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335510724213132089}
+  m_Enabled: 1
 --- !u!82 &3487002098307835249
 AudioSource:
   m_ObjectHideFlags: 0
@@ -337,6 +346,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   voiceRange: 10
+  test: {fileID: 6918114515709889251}
 --- !u!1 &432300775465033795
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +388,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6521726842588744728}
   - component: {fileID: 492221263109505223}
-  - component: {fileID: 6232055340226933387}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -452,14 +461,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6232055340226933387
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3600960622639044877}
-  m_Enabled: 1
 --- !u!1 &3929989085073882873
 GameObject:
   m_ObjectHideFlags: 0

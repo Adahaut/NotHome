@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using TMPro;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
@@ -8,6 +9,9 @@ public class ProximityVoiceChat : NetworkBehaviour
     private const int SAMPLE_RATE = 11025;
     private byte[] voiceDataBuffer;
     private uint voiceBufferSize = 22050; // Adjust size as needed
+
+
+    public TMP_Text test;
 
     private void Start()
     {
@@ -32,6 +36,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         if (result == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
+            test.text = bytesWritten.ToString();
             foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
             {
                 if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
