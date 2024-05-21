@@ -13,7 +13,12 @@ public class ProximityVoiceChat : NetworkBehaviour
         if (isOwned)
         {
             SteamUser.StartVoiceRecording();
+            audioSource.volume = 0f;
             Debug.Log("Record Start");
+        }
+        else
+        {
+            audioSource.volume = 1f;
         }
     }
     private void Update()
