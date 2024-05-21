@@ -78,7 +78,9 @@ public class ProximityVoiceChat : NetworkBehaviour
                 test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
             }
 
+            if (!isOwned) {
             audioSource.volume = volume;
+            }
 
 
             audioSource.clip.SetData(test, 0);
