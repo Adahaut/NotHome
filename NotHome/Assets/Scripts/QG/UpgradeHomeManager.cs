@@ -17,16 +17,21 @@ public class UpgradeHomeManager : MonoBehaviour
     }
     public void UpdateBuilding()
     {
-        for (int i =  0; i < _upgarde[_levelBuilding - 1].Value.Count; i++)
+        if (_upgarde.Count >= _levelBuilding)
         {
-            if (99 < _upgarde[_levelBuilding - 1].Value[i].Value) // 99 = au nombre de materiaux que le joueur possede
+            for (int i = 0; i < _upgarde[_levelBuilding - 1].Value.Count; i++)
             {
-                Debug.Log("Pas assez de materiaux");
-                return;
+                if (99 < _upgarde[_levelBuilding - 1].Value[i].Value) // 99 = au nombre de materiaux que le joueur possede
+                {
+                    Debug.Log("Pas assez de materiaux");
+                    return;
+                }
             }
+            _levelBuilding++;
+            _textLevel.text = "Level " + _levelBuilding.ToString();
+            //Enlever les materiaux au joueur
         }
-        _levelBuilding++;
-        _textLevel.text = "Level " + _levelBuilding.ToString();
-        //Enlever les materiaux au joueur
+        else
+            Debug.Log("Level max");
     }
 }
