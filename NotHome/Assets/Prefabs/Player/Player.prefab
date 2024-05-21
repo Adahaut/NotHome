@@ -16,10 +16,9 @@ GameObject:
   - component: {fileID: 5582172115057890066}
   - component: {fileID: 6243920400758648300}
   - component: {fileID: 4037221924443848814}
-  - component: {fileID: 9093262777427231890}
   - component: {fileID: 3487002098307835249}
   - component: {fileID: 2636984730328236738}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -226,14 +225,6 @@ MonoBehaviour:
   _itemPickRange: 0
   _hotBar: {fileID: 0}
   yRotationLimit: 88
---- !u!81 &9093262777427231890
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335510724213132089}
-  m_Enabled: 1
 --- !u!82 &3487002098307835249
 AudioSource:
   m_ObjectHideFlags: 0
@@ -345,8 +336,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _microphoneClip: {fileID: 0}
-  text: {fileID: 6918114515709889251}
+  PlayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  audioSource: {fileID: 3487002098307835249}
 --- !u!1 &432300775465033795
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +474,7 @@ GameObject:
   - component: {fileID: 3047363631035137184}
   - component: {fileID: 5666797069293708466}
   - component: {fileID: 6918114515709889251}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +609,7 @@ GameObject:
   - component: {fileID: 6226110433733863481}
   - component: {fileID: 5439320904325118859}
   - component: {fileID: 6600420812330865192}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
