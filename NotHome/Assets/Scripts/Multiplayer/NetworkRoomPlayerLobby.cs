@@ -2,6 +2,7 @@ using Mirror;
 using Steamworks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -14,7 +15,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
     [SerializeField] private Button readyButton = null;
-
+    [SerializeField] private Button[] _leaveKickButtons = new Button[4];
    
     [SyncVar(hook = nameof(HandleSteamIdUpdated))]
     private ulong steamId;
@@ -138,9 +139,20 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
 
-            
-
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
+
+
+            if (Room._roomPlayers[i]._isLeader)
+            {
+                _leaveKickButtons[i].gameObject.SetActive(true);
+                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
+            }
+            if (Room._roomPlayers[i] == this)
+            {
+                _leaveKickButtons[i].gameObject.SetActive(true);
+                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
+            }
+
         }
 
         for (int j = Room._roomPlayers.Count; j < playerNameTexts.Length; j++)
@@ -149,6 +161,18 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             playerReadyTexts[j].text = string.Empty;
             _playerImages[j].texture = null;
         }
+    }
+
+    public void LeaveLobby()
+    {
+        NetworkConnectionToClient conn = null;
+
+        foreach(var player in Room._roomPlayers) { if (player == this) { conn = player.connectionToClient; } }
+
+        conn.Disconnect();
+        Room.StopClient();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void HandleReadyToStart(bool readyToStart)
