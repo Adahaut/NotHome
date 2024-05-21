@@ -33,7 +33,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     {
         uint bytesWritten = 0;
         EVoiceResult result = SteamUser.GetVoice(true, voiceDataBuffer, voiceBufferSize, out bytesWritten);
-
+        test.text = "caca";
         if (result == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
             test.text = bytesWritten.ToString();
