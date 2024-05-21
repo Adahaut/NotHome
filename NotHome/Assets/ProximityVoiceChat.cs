@@ -44,12 +44,10 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
                 {
-                    t += 1;
                     if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
                     {
                         player.RpcReceiveVoiceData(byteBuffer, bufferSize);
                     }
-                    test.text = t.ToString();
                 }
             }
         }
