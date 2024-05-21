@@ -32,18 +32,23 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void CaptureAndSendVoiceData()
     {
-        uint bytesWritten = 0;
-        //EVoiceResult result = SteamUser.GetVoice(true, voiceDataBuffer, voiceBufferSize, out bytesWritten);
-        EVoiceResult result = SteamUser.GetAvailableVoice(out bytesWritten);
-        
-        if (result == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
+        uint bytesAvailable = 0;
+        EVoiceResult voiceAvailable = SteamUser.GetAvailableVoice(out bytesAvailable);
+        if (voiceAvailable == EVoiceResult.k_EVoiceResultOK && bytesAvailable > 0)
         {
-            test.text = bytesWritten.ToString();
-            foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
+            byte[] voiceData = new byte[bytesAvailable];
+            uint bytesWritten = 0;
+            EVoiceResult result = SteamUser.GetVoice(false, voiceData, bytesAvailable, out bytesWritten);
+
+            if (result == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
             {
-                if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
+                test.text = bytesWritten.ToString();
+                foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
                 {
-                    player.RpcReceiveVoiceData(voiceDataBuffer, bytesWritten);
+                    if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
+                    {
+                        player.RpcReceiveVoiceData(voiceDataBuffer, bytesWritten);
+                    }
                 }
             }
         }
