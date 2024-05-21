@@ -1,103 +1,75 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Steamworks;
-using TMPro;
-using Unity.VisualScripting;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
-    public float voiceRange = 10f;
-    private const int SAMPLE_RATE = 11025;
-    private byte[] voiceDataBuffer;
-    private int voiceBufferSize = 44100; // Adjust size as needed
-    private AudioSource audioSource;
-    int t = 0;
-    public TMP_Text test;
+    public AudioSource audioSource;
 
     private void Start()
     {
         if (isOwned)
         {
             SteamUser.StartVoiceRecording();
-            voiceDataBuffer = new byte[voiceBufferSize];
-            audioSource = GetComponent<AudioSource>();
-            if (audioSource == null)
-            {
-                audioSource = gameObject.AddComponent<AudioSource>();
-            }
-            audioSource.playOnAwake = false;
+            Debug.Log("Record Start");
         }
     }
-
     private void Update()
     {
+
+        
+
         if (isOwned)
         {
-            CaptureAndSendVoiceData();
-        }
-
-        if(audioSource != null)
-        {
-            test.text = "zjeivboc j";
-        }
-    }
-
-    private void CaptureAndSendVoiceData()
-    {
-        EVoiceResult voiceResult = SteamUser.GetAvailableVoice(out uint compressed);
-        
-        if (voiceResult == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
-        {
-            byte[] byteBuffer = new byte[1024];
-            voiceResult = SteamUser.GetVoice(true, byteBuffer, 1024, out uint bufferSize);
-
-            if (voiceResult == EVoiceResult.k_EVoiceResultOK && bufferSize > 0)
+            uint compressed;
+            EVoiceResult ret = SteamUser.GetAvailableVoice(out compressed);
+            if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
             {
-                foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
+                Debug.Log(compressed);
+                byte[] destBuffer = new byte[1024];
+                uint bytesWritten;
+                ret = SteamUser.GetVoice(true, destBuffer, 1024, out bytesWritten);
+                if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
                 {
-                    if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
-                    {
-                        player.RpcReceiveVoiceData(byteBuffer, bufferSize);
-                    }
+                    Cmd_SendData(destBuffer, bytesWritten);
                 }
             }
         }
     }
 
-    [ClientRpc]
-    private void RpcReceiveVoiceData(byte[] data, uint size)
+    [Command(channel = 2)]
+    void Cmd_SendData(byte[] data, uint size)
     {
-        if (!isOwned)
+        Debug.Log("Command");
+        ProximityVoiceChat[] players = FindObjectsOfType<ProximityVoiceChat>();
+
+        for (int i = 0; i < players.Length; i++)
         {
-            PlayVoiceData(data, size);
+            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size);
         }
     }
 
-    private void PlayVoiceData(byte[] byteBuffer, uint byteCount)
+
+
+    [TargetRpc(channel = 2)]
+    void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten)
     {
-        byte[] destBuffer = new byte[44100 * 2];
-        EVoiceResult voiceResult = SteamUser.DecompressVoice(byteBuffer, byteCount, destBuffer, (uint)destBuffer.Length, out uint bytesWritten, 44100);
-
-        if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
+        Debug.Log("Target");
+        byte[] destBuffer2 = new byte[22050 * 2];
+        uint bytesWritten2;
+        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, 22050);
+        if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten2 > 0)
         {
-        //    if (audioSource == null)
-        //    {
-        //        test.text = "audio source null   " + t.ToString();
-        //    }
-        //    t += 1;
+            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 22050, 1, 22050, false);
 
-            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
-
-            if (audioSource.clip == null)
+            float[] test = new float[22050];
+            for (int i = 0; i < test.Length; i++)
             {
-                test.text = "audio clip null !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+                test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
             }
-            float[] testa = new float[44100];
-            for (int i = 0; i < testa.Length; ++i)
-            {
-                testa[i] = (short)(destBuffer[i * 2] | destBuffer[i * 2 + 1] << 8) / 32768.0f;
-            }
-            audioSource.clip.SetData(testa, 0);
+            audioSource.clip.SetData(test, 0);
             audioSource.Play();
         }
     }
