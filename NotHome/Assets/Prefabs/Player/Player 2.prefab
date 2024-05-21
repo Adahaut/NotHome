@@ -155,7 +155,7 @@ MonoBehaviour:
   _groundCheck: {fileID: 9141703135805941483}
   _camera: {fileID: 6521726842588744728}
   _speed: 5000
-  _jumpForce: 6
+  _jumpForce: 7
   _sprintValue: 5
   _sensitivity: 30
   _sensitivityController: 300
@@ -432,8 +432,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3384152752826813832}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -448,8 +448,8 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3384152752826813832}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
         m_MethodName: GetInputPlayer
         m_Mode: 0
         m_Arguments:
@@ -464,8 +464,8 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3384152752826813832}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
         m_MethodName: SprintPlayer
         m_Mode: 0
         m_Arguments:
@@ -480,8 +480,8 @@ MonoBehaviour:
     m_ActionName: Player/Sprint[/Keyboard/shift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3384152752826813832}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
         m_MethodName: OpenInventory
         m_Mode: 0
         m_Arguments:
@@ -496,8 +496,8 @@ MonoBehaviour:
     m_ActionName: Player/OpenInventory[/Keyboard/tab]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3384152752826813832}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
         m_MethodName: Interaction
         m_Mode: 0
         m_Arguments:
@@ -512,8 +512,8 @@ MonoBehaviour:
     m_ActionName: Player/Interaction[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3384152752826813832}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
         m_MethodName: OpenMenuPause
         m_Mode: 0
         m_Arguments:
@@ -528,8 +528,8 @@ MonoBehaviour:
     m_ActionName: Player/GamePause[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 3384152752826813832}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
         m_MethodName: GetMouseDelta
         m_Mode: 0
         m_Arguments:
@@ -546,6 +546,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b2dfc4f1-920e-44dd-8444-d4d6c99efba7
     m_ActionName: Player/MouseScrollY[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8bb466a-1396-41bd-8db3-23ee14be91e9
+    m_ActionName: Player/HotBarSelect1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c8b450c2-c417-4f74-8f3c-72fd54cc4f15
+    m_ActionName: Player/HotBarSelect2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a3bfdc87-837f-46a9-912a-9fd8f10e729b
+    m_ActionName: Player/HotBarSelect3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 26aef05d-7dfd-4598-8cb0-e10719c35508
+    m_ActionName: Player/HotBarSelect4[/Keyboard/4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
