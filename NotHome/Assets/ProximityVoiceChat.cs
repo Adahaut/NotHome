@@ -17,7 +17,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     {
         if (isOwned)
         {
-            audioSource = GetComponent<AudioSource>();
+            audioSource = gameObject.AddComponent<AudioSource>();
             SteamUser.StartVoiceRecording();
             voiceDataBuffer = new byte[voiceBufferSize];
         }
@@ -67,9 +67,9 @@ public class ProximityVoiceChat : NetworkBehaviour
         byte[] destBuffer = new byte[44100 * 2];
         EVoiceResult voiceResult = SteamUser.DecompressVoice(byteBuffer, byteCount, destBuffer, (uint)destBuffer.Length, out uint bytesWritten, 44100);
 
+            test.text = audioSource.name;
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            test.text = audioSource.name;
             if (audioSource == null)
             {
                 test.text = "elvin ta mère la pute !";
