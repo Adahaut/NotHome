@@ -10,7 +10,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     private byte[] voiceDataBuffer;
     private int voiceBufferSize = 44100; // Adjust size as needed
     private AudioSource audioSource;
-
+    int t = 0;
     public TMP_Text test;
 
     private void Start()
@@ -44,10 +44,12 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 foreach (var player in FindObjectsOfType<ProximityVoiceChat>())
                 {
+                    t += 1;
                     if (player != this && Vector3.Distance(transform.position, player.transform.position) <= voiceRange)
                     {
                         player.RpcReceiveVoiceData(byteBuffer, bufferSize);
                     }
+                    test.text = t.ToString();
                 }
             }
         }
@@ -69,7 +71,6 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            test.text = "proute";
             audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
             float[] testa = new float[44100];
             for (int i = 0; i < testa.Length; ++i)
