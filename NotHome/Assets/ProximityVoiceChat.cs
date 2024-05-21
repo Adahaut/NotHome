@@ -29,7 +29,7 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             uint compressed;
             EVoiceResult ret = SteamUser.GetAvailableVoice(out compressed);
-            if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 8192)
+            if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
             {
                 Debug.Log(compressed);
                 byte[] destBuffer = new byte[8192];
