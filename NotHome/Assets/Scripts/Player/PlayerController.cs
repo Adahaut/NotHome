@@ -95,7 +95,7 @@ public class PlayerController : NetworkBehaviour
         if (_timer <= 0)
         {
             //Debug.Log("Interaction");
-            QG_Manager.Instance.OpenUi();
+            //QG_Manager.Instance.OpenUi();
             PickUpObject();
             _timer = 0.05f;
         }

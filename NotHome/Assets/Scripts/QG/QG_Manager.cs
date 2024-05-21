@@ -1,3 +1,4 @@
+using Mirror.Examples.Chat;
 using TMPro;
 using UnityEngine;
 
@@ -43,12 +44,13 @@ public class QG_Manager : MonoBehaviour
             _textUi.text = "";
         }
     }
-    public void OpenUi()
+    public void OpenUi(PC _newPlayerController)
     {
+        _playerController = _newPlayerController;
         if (_canOpen)
         {
             _isOpen = true;
-            _gameObjectUi.GetComponent<BuildInterractable>().OpenUiGameObject();
+            _gameObjectUi.GetComponent<BuildInterractable>().OpenUiGameObject(_playerController);
         }
     }
 }

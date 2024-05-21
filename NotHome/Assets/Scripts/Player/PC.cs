@@ -28,6 +28,7 @@ public class PC : MonoBehaviour
     private bool _isGrounded;
     private float _initSpeed;
     private float _timer;
+    private bool _isInBaseInventory;
 
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _rotation2 = Vector2.zero;
@@ -46,7 +47,20 @@ public class PC : MonoBehaviour
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
         _inventory.SetActive(!_inventory.activeInHierarchy);
-        Cursor.lockState = _inventory.activeInHierarchy? CursorLockMode.None : CursorLockMode.Locked;
+    }
+    public void SetIsInBaseInventory(bool _isIn)
+    {
+        _isInBaseInventory = _isIn;
+    }
+
+    public InventoryManager GetInventory()
+    {
+        return _inventory.GetComponent<InventoryManager>();
+    }
+
+    public void SetInventoryActive(bool _active)
+    {
+        _inventory.SetActive(_active);
     }
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
@@ -55,9 +69,13 @@ public class PC : MonoBehaviour
     public void Interaction(InputAction.CallbackContext ctx)
     {
         Debug.Log("Interaction");
-        QG_Manager.Instance.OpenUi();
+        QG_Manager.Instance.OpenUi(this);
         OfficeManager.Instance.MouvToChair();
-        PickUpObject();
+        if(_timer <= 0)
+        {
+            PickUpObject();
+            _timer = 0.05f;
+        }
         if (AnimationManager.Instance._doorIsOpen)
             AnimationManager.Instance.CloseDoor();
         else
@@ -207,12 +225,10 @@ public class PC : MonoBehaviour
 
         if (_hits.Length > 0)
         {
-            print("items");
             for (int i = 0; i < _hits.Length; i++)
             {
-                if (_hits[i].collider.name == "TestItem")
+                if (_hits[i].collider.CompareTag(_itemTag))
                 {
-                    print(_hits[i].collider.name);
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite());
                     Destroy(_hits[i].collider);
                 }

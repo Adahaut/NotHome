@@ -18,6 +18,13 @@ public class InventoryManager : MonoBehaviour
         _slotList.Add(_newInventorySlot);
     }
 
+    public InventorySlot GetInventorySlot(int _index)
+    {
+        return _slotList[_index].GetComponent<InventorySlot>();
+    } 
+
+    public int InventorySlotNumber() { return _inventorySlotStartNumber; }
+
     public void InventoryInitialisation()
     {
         for (int i = 0;  i < _inventorySlotStartNumber; i++)
@@ -43,8 +50,8 @@ public class InventoryManager : MonoBehaviour
         {
             if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
             {
-                _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite);
                 _slotList[i].GetComponent<InventorySlot>().SetNumber(1);
+                _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite);
                 break;
             }
             else if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
@@ -55,4 +62,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void RemoveItems(string _itemName, int _number)
+    {
+        for (int i = 0; i < _inventorySlotStartNumber; i++)
+        {
+            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _itemName)
+            {
+                if (_slotList[i].GetComponent<InventorySlot>().Number() > _number)
+                {
+                    _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() - _number);
+                    _number = _slotList[i].GetComponent<InventorySlot>().Number() - _number;
+                    print(_number);
+                }
+                else
+                {
+                    _slotList[i].GetComponent<InventorySlot>().ResetItem();
+                }
+            }
+            
+        }
+    }
 }
