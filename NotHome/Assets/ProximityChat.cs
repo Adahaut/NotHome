@@ -1,87 +1,89 @@
 using Mirror;
+using Photon.Voice.Unity;
 using Steamworks;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class ProximityChat : NetworkBehaviour
 {
     #region Test
-    private AudioSource _audioSource;
-    [HideInInspector] public AudioClip _microphoneClip;
-    private string _microphoneName;
+    //private AudioSource _audioSource;
+    //[HideInInspector] public AudioClip _microphoneClip;
+    //private string _microphoneName;
 
-    private GameObject[] _player;
+    //private GameObject[] _player;
 
-    public TMP_Text text;
-    int count = 0;
 
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
+    //public TMP_Text text;
+    //int count = 0;
 
-        //Get default microphone
-        if (Microphone.devices.Length > 0)
-        {
-            _microphoneName = Microphone.devices[0];
-            Debug.Log("Using microphone: " + _microphoneName);
-        }
-        else
-        {
-            Debug.LogError("No microphone found!");
-            return;
-        }
+    //private void Awake()
+    //{
+    //    _audioSource = GetComponent<AudioSource>();
 
-        //Set the clip of the AudioSource of the other players
-        _microphoneClip = Microphone.Start(_microphoneName, true, 10, 44100);
-        _audioSource.mute = true;
-        _audioSource.loop = true;
-        _audioSource.clip = _microphoneClip;
+    //    //Get default microphone
+    //    if (Microphone.devices.Length > 0)
+    //    {
+    //        _microphoneName = Microphone.devices[0];
+    //        Debug.Log("Using microphone: " + _microphoneName);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("No microphone found!");
+    //        return;
+    //    }
 
-        while (!(Microphone.GetPosition(_microphoneName) > 0)) { }
+    //    //Set the clip of the AudioSource of the other players
+    //    _microphoneClip = Microphone.Start(_microphoneName, true, 10, 44100);
+    //    _audioSource.mute = true;
+    //    _audioSource.loop = true;
+    //    _audioSource.clip = _microphoneClip;
 
-        _audioSource.Play();
-    }
+    //    while (!(Microphone.GetPosition(_microphoneName) > 0)) { }
 
-    public override void OnStartAuthority()
-    {
-        StartCoroutine(GetPlayersAndAssignMics());
-    }
+    //    _audioSource.Play();
+    //}
 
-    IEnumerator GetPlayersAndAssignMics()
-    {
-        yield return new WaitForSeconds(1.0f);
+    //public override void OnStartAuthority()
+    //{
+    //    StartCoroutine(GetPlayersAndAssignMics());
+    //}
 
-        _player = GameObject.FindGameObjectsWithTag("Player");
+    //IEnumerator GetPlayersAndAssignMics()
+    //{
+    //    yield return new WaitForSeconds(1.0f);
 
-        foreach (var player in _player)
-        {
-            if (player != this.gameObject)
-            {
-                GameObject playerAudio = new GameObject(player.name + " Audio");
-                playerAudio.transform.parent = this.transform;
-                AudioSource audioSource = playerAudio.AddComponent<AudioSource>();
-                audioSource.playOnAwake = false;
-                audioSource.clip = player.GetComponent<ProximityChat>()._microphoneClip;
-                audioSource.loop = true;
-                audioSource.Play();
+    //    _player = GameObject.FindGameObjectsWithTag("Player");
 
-                count++;
-            }
+    //    foreach (var player in _player)
+    //    {
+    //        if (player != this.gameObject)
+    //        {
+    //            GameObject playerAudio = new GameObject(player.name + " Audio");
+    //            playerAudio.transform.parent = this.transform;
+    //            AudioSource audioSource = playerAudio.AddComponent<AudioSource>();
+    //            audioSource.playOnAwake = false;
+    //            audioSource.clip = player.GetComponent<ProximityChat>()._microphoneClip;
+    //            audioSource.loop = true;
+    //            audioSource.Play();
 
-            text.text = count.ToString();
-        }
+    //            count++;
+    //        }
 
-    }
+    //        text.text = count.ToString();
+    //    }
 
-    void OnApplicationQuit()
-    {
-        if (Microphone.IsRecording(_microphoneName))
-        {
-            Microphone.End(_microphoneName);
-        }
-    }
+    //}
+
+    //void OnApplicationQuit()
+    //{
+    //    if (Microphone.IsRecording(_microphoneName))
+    //    {
+    //        Microphone.End(_microphoneName);
+    //    }
+    //}
 
     #endregion
 
@@ -174,4 +176,50 @@ public class ProximityChat : NetworkBehaviour
     //    return Vector3.zero;
     //}
     #endregion
+
+    public Recorder recorder;
+    public Speaker speaker;
+    public float voiceRange = 10f;
+
+    private void Start()
+    {
+        if (isLocalPlayer)
+        {
+            SetupRecorder();
+        }
+    }
+
+    private void Update()
+    {
+        if (isLocalPlayer)
+        {
+            CheckProximity();
+        }
+    }
+
+    private void SetupRecorder()
+    {
+        recorder = gameObject.AddComponent<Recorder>();
+        recorder.TransmitEnabled = true;
+        
+        recorder.Init(PhotonVoiceNetwork.Instance.PrimaryRecorder);
+        recorder.UnityMicrophoneDevice = Microphone.devices.Length > 0 ? Microphone.devices[0] : null;
+        recorder.AudioGroup = 0;
+        recorder.InterestGroup = 0;
+
+        speaker = gameObject.AddComponent<Speaker>();
+        PhotonVoiceNetwork.Instance.Client.AddSpeaker(speaker);
+    }
+
+    private void CheckProximity()
+    {
+        foreach (var player in FindObjectsOfType<VoiceChatController>())
+        {
+            if (player != this)
+            {
+                float distance = Vector3.Distance(transform.position, player.transform.position);
+                player.speaker.enabled = distance <= voiceRange;
+            }
+        }
+    }
 }
