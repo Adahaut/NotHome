@@ -8,6 +8,8 @@ public class ProximityVoiceChat : NetworkBehaviour
 {
     public AudioSource audioSource;
 
+    [SerializeField] private float maxDistance = 15f;
+
     private void Start()
     {
         if (isOwned)
@@ -23,9 +25,6 @@ public class ProximityVoiceChat : NetworkBehaviour
     }
     private void Update()
     {
-
-        
-
         if (isOwned)
         {
             uint compressed;
@@ -52,14 +51,18 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size);
+           float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
+           float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
+
+
+            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
         }
     }
 
 
 
     [TargetRpc(channel = 2)]
-    void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten)
+    void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume)
     {
         Debug.Log("Target");
         byte[] destBuffer2 = new byte[22050 * 2];
@@ -74,6 +77,10 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
             }
+
+            audioSource.volume = volume;
+
+
             audioSource.clip.SetData(test, 0);
             audioSource.Play();
         }
