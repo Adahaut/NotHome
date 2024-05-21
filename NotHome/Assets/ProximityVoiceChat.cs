@@ -67,7 +67,7 @@ public class ProximityVoiceChat : NetworkBehaviour
         byte[] destBuffer = new byte[44100 * 2];
         EVoiceResult voiceResult = SteamUser.DecompressVoice(byteBuffer, byteCount, destBuffer, (uint)destBuffer.Length, out uint bytesWritten, 44100);
 
-            test.text = audioSource.name;
+        test.text = audioSource.gameObject.name;
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
             if (audioSource == null)
