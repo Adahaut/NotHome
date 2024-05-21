@@ -69,7 +69,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         if (voiceResult == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
         {
-            test.text = audioSource.clip.name; 
+            test.text = audioSource.name;
             if (audioSource == null)
             {
                 test.text = "elvin ta mère la pute !";
