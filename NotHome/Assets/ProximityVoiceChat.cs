@@ -77,7 +77,7 @@ public class ProximityVoiceChat : NetworkBehaviour
             }
             audioSource.clip.SetData(testa, 0);
             audioSource.Play();
-            test.text = audioSource.isPlaying.ToString();
+            test.text = audioSource.clip.name;
         }
     }
 }
