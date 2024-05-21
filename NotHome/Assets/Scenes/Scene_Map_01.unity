@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -196,7 +196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &273328570
 Light:
   m_ObjectHideFlags: 0
@@ -891,9 +891,61 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 415933664524235832, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_fontSize
+      value: 89.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 415933664524235832, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 415933664524235832, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415933664524235832, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415933664524235832, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 415933664524235832, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 89.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 415933664524235832, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190335
+      objectReference: {fileID: 0}
     - target: {fileID: 1542481848757852343, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618898883793835552, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 592.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618898883793835552, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 118.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618898883793835552, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 404.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375847564466975660, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375847564466975660, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3375847564466975660, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 4008487789703717283, guid: c1397ef3ee2f5f14792f5859de1afe69, type: 3}
       propertyPath: m_Name
