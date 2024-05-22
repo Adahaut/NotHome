@@ -19,7 +19,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     private const int sampleRate = 44100;
     private const int bufferSize = sampleRate * 2; // 2 seconds buffer
 
-    [HideInInspector] public bool buttonPressed = false;
+    private bool buttonPressed = false;
 
     public TMP_Text test;
 
@@ -48,13 +48,13 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     public void OnTalkieWalkieActive(InputAction.CallbackContext context)
     {
-        if (context.started && isOwned)
+        if (context.started && isOwned && ownTalkieWalkie)
         {
             buttonPressed = true;
 
         }
 
-        if (context.canceled && isOwned)
+        if (context.canceled && isOwned && ownTalkieWalkie)
         {
             buttonPressed = false;
         }
@@ -74,30 +74,30 @@ public class ProximityVoiceChat : NetworkBehaviour
                 ret = SteamUser.GetVoice(true, destBuffer, 8192, out bytesWritten);
                 if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
                 {
-                    Cmd_SendData(destBuffer, bytesWritten);
+                    Cmd_SendData(destBuffer, bytesWritten, this);
                 }
             }
         }
     }
 
     [Command(channel = 2)]
-    void Cmd_SendData(byte[] data, uint size)
+    void Cmd_SendData(byte[] data, uint size, ProximityVoiceChat soundOriginPlayer)
     {
         ProximityVoiceChat[] players = FindObjectsOfType<ProximityVoiceChat>();
 
         for (int i = 0; i < players.Length; i++)
         {
-            if (players[i].buttonPressed)
-            {
-                if (players[i].ownTalkieWalkie)
-                {
-                    Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
-                    continue;
-                }
-            }
+            //if (buttonPressed)
+            //{
+            //    if (players[i].ownTalkieWalkie)
+            //    {
+            //        Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
+            //        continue;
+            //    }
+            //}
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
-            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
+            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume, soundOriginPlayer);
             
         }
     }
@@ -105,7 +105,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
 
     [TargetRpc(channel = 2)]
-    void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume)
+    void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume, ProximityVoiceChat soundOriginPlayer)
     {
         byte[] destBuffer2 = new byte[sampleRate * 2];
         uint bytesWritten2;
@@ -125,7 +125,10 @@ public class ProximityVoiceChat : NetworkBehaviour
 
             if (!isOwned)
             {
-                audioSource.volume = volume;
+                if(soundOriginPlayer.buttonPressed && ownTalkieWalkie) audioSource.volume = 1f;
+                else audioSource.volume = volume;
+
+                Debug.Log("test");
             }
         }
     }
