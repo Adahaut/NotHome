@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TEMPTalkieWalkie",
+                    "type": "Button",
+                    "id": "f8bcd2dc-e927-411d-9b42-8d9ba2d1b214",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -398,6 +407,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "HotBarSelect4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a198140f-1d13-4a6f-a707-d8c8a06f9528",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TEMPTalkieWalkie",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
