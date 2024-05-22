@@ -46,12 +46,12 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     public void OnTalkieWalkieActive(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && isOwned)
         {
             buttonPressed = true;
         }
 
-        if (context.canceled)
+        if (context.canceled && isOwned)
         {
             buttonPressed = false;
         }
