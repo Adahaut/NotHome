@@ -2,6 +2,7 @@ using Mirror;
 using System.Globalization;
 using TMPro;
 using UnityEditor;
+using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -18,6 +19,16 @@ public class PlayerNetwork : NetworkBehaviour
     public void SetUIText()
     {
         _nameHoverHeadText.text = _displayName;
+    }
+
+    private void Update()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerNetwork>().SetUIText();
+        }
     }
 
 }
