@@ -90,9 +90,11 @@ public class ProximityVoiceChat : NetworkBehaviour
                 if (players[i].ownTalkieWalkie)
                 {
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
+                    audioSource.spatialBlend = 0f;
                     continue;
                 }
             }
+            audioSource.spatialBlend = 1f;
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
