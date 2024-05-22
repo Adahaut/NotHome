@@ -1,4 +1,5 @@
 using Mirror;
+using System.Globalization;
 using TMPro;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -10,6 +11,17 @@ public class PlayerNetwork : NetworkBehaviour
     public void SetDisplayName(string name)
     {
         _displayName = name;
-        nameHoverHeadText.text = _displayName;
+        
     }
+
+    private void Update()
+    {
+        nameHoverHeadText.text = _displayName;
+
+        if(!isOwned)
+        {
+            nameHoverHeadText.text = _displayName;
+        }
+    }
+
 }
