@@ -40,6 +40,7 @@ public class PC : MonoBehaviour
 
     public void Start()
     {
+        Physics.gravity = new Vector3(0, -9.81f * 2, 0);
         _rigidbodyPlayer = GetComponent<Rigidbody>();
         _initSpeed = _speed;
         Cursor.lockState = CursorLockMode.Locked;
@@ -82,27 +83,12 @@ public class PC : MonoBehaviour
         else
             AnimationManager.Instance.OpenDoor();
     }
-    private IEnumerator ChangeGravity()
-    {
-        yield return new WaitForSeconds(0.1f);
-        if (_isGrounded)
-        {
-            Physics.gravity /= 2;
-            yield return null;
-        }
-        else
-        {
-            StartCoroutine(ChangeGravity());
-        }
-    }
     public void OnJump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump");
-        print(Physics.gravity.y);
-        if (_isGrounded && context.performed && !QG_Manager.Instance._isOpen && Physics.gravity.y > -10)
+        if (_isGrounded && context.performed && !QG_Manager.Instance._isOpen)
         {
-            Physics.gravity *= 2;
-            StartCoroutine(ChangeGravity());
+            _isGrounded = false;
             _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         } 
     }
@@ -117,7 +103,7 @@ public class PC : MonoBehaviour
     }
     void Update()
     {
-        _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
+        //_isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
         RotateCamera();
         MovePlayer();
         Timer();
@@ -253,5 +239,14 @@ public class PC : MonoBehaviour
                 }
             }
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        _isGrounded = false;
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.isTrigger)
+            _isGrounded = true;
     }
 }

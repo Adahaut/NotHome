@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 3667293984986487829}
   - component: {fileID: 5595089794129557664}
   - component: {fileID: 5650362243257667800}
-  - component: {fileID: 5582172115057890066}
   - component: {fileID: 6243920400758648300}
   - component: {fileID: 3384152752826813832}
-  m_Layer: 0
+  - component: {fileID: 721856267327225360}
+  m_Layer: 2
   m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,29 +90,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5582172115057890066
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335510724213132089}
-  m_Material: {fileID: 13400000, guid: a6aafae32d865ee4a835844c6cc84c7f, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6243920400758648300
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -166,6 +143,27 @@ MonoBehaviour:
   _itemPickRange: 2
   _hotBar: {fileID: 0}
   yRotationLimit: 88
+--- !u!65 &721856267327225360
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335510724213132089}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &432300775465033795
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9141703135805941483}
+  - component: {fileID: 1725607937478771003}
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -191,12 +190,33 @@ Transform:
   m_GameObject: {fileID: 432300775465033795}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.99, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3667293984986487829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1725607937478771003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432300775465033795}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9, y: 0.01, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3600960622639044877
 GameObject:
   m_ObjectHideFlags: 0
