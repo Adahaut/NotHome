@@ -19,7 +19,7 @@ public class ProximityVoiceChat : NetworkBehaviour
     private const int sampleRate = 44100;
     private const int bufferSize = sampleRate * 2; // 2 seconds buffer
 
-    private bool buttonPressed = false;
+    [HideInInspector] public bool buttonPressed = false;
 
     public TMP_Text test;
 
@@ -62,8 +62,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Update()
     {
-
-        test.text = "ddaoubcozud";
+        test.text = buttonPressed.ToString();
         if (isOwned)
         {
             uint compressed;
@@ -88,9 +87,8 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            if(buttonPressed)
+            if (players[i].buttonPressed)
             {
-                
                 if (players[i].ownTalkieWalkie)
                 {
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
