@@ -41,23 +41,7 @@ public class TalkieWalkieManager : NetworkBehaviour
         audioSource.Play();
     }
 
-    public void OnTalkieWalkieActive(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            buttonPressed = true;
-        }
-
-        if(context.canceled)
-        {
-            buttonPressed = false;
-
-            if (!isOwned)
-            {
-                audioSource.volume = 0f;
-            }
-        }
-    }
+    
 
     private void Update()
     {

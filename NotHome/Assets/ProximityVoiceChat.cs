@@ -2,10 +2,13 @@ using UnityEngine;
 using Mirror;
 using Steamworks;
 using UnityEditor;
+using UnityEngine.InputSystem;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
     public AudioSource audioSource;
+    public bool ownTalkieWalkie = true;
+
 
     [SerializeField] private float maxDistance = 15f;
 
@@ -14,6 +17,10 @@ public class ProximityVoiceChat : NetworkBehaviour
     private int playbackOffset = 0;
     private const int sampleRate = 44100;
     private const int bufferSize = sampleRate * 2; // 2 seconds buffer
+
+    private bool buttonPressed = false;
+
+    
 
     private void Start()
     {
@@ -34,6 +41,20 @@ public class ProximityVoiceChat : NetworkBehaviour
         audioSource.loop = true;
         audioSource.Play();
     }
+
+    public void OnTalkieWalkieActive(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            buttonPressed = true;
+        }
+
+        if (context.canceled)
+        {
+            buttonPressed = false;
+        }
+    }
+
     private void Update()
     {
         if (isOwned)
@@ -60,11 +81,18 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
+            if(buttonPressed)
+            {
+                if (players[i].ownTalkieWalkie)
+                {
+                    Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
+                }
+            }
+            
+
            float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
            float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
-
-
-            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
+           Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
         }
     }
 
