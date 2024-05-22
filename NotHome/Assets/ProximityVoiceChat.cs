@@ -89,8 +89,8 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 if (players[i].ownTalkieWalkie)
                 {
-                    Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                     audioSource.spatialBlend = 0f;
+                    Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                     continue;
                 }
             }
