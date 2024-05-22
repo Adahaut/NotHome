@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -81,11 +82,29 @@ public class PC : MonoBehaviour
         else
             AnimationManager.Instance.OpenDoor();
     }
+    private IEnumerator ChangeGravity()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (_isGrounded)
+        {
+            Physics.gravity /= 2;
+            yield return null;
+        }
+        else
+        {
+            StartCoroutine(ChangeGravity());
+        }
+    }
     public void OnJump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump");
-        if (_isGrounded && context.performed && !QG_Manager.Instance._isOpen)
+        print(Physics.gravity.y);
+        if (_isGrounded && context.performed && !QG_Manager.Instance._isOpen && Physics.gravity.y > -10)
+        {
+            Physics.gravity *= 2;
+            StartCoroutine(ChangeGravity());
             _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        } 
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
