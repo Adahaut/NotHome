@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99bff95fa26294f4bb53c91c3e563b13, type: 3}
-  m_Name: Craft 8
+  m_Name: DistanceWeapon T4 Craft
   m_EditorClassIdentifier: 
-  _reactor: 3
-  _suffer: 0
-  _leaf: 0
-  _toolKit: 3
-  _seed: 3
-  _metal: 0
-  _tissue: 0
-  _homium: 0
+  _materialName:
+  - ToolKit
+  - Sulfur
+  - Homium
+  _materialNumber: 030000000900000009000000
+  _resultName: DistanceWeapon T4
+  _resultSprite: {fileID: 0}
+  _isAnEquipement: 1

@@ -9,4 +9,5 @@ public class CraftScriptableObject : ScriptableObject
 
     public string _resultName;
     public Sprite _resultSprite;
+    public bool _isAnEquipement;
 }

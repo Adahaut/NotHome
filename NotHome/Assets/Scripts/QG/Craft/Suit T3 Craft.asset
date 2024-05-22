@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99bff95fa26294f4bb53c91c3e563b13, type: 3}
-  m_Name: Craft 7
+  m_Name: Suit T3 Craft
   m_EditorClassIdentifier: 
-  _reactor: 5
-  _suffer: 4
-  _leaf: 0
-  _toolKit: 2
-  _seed: 0
-  _metal: 0
-  _tissue: 2
-  _homium: 0
+  _materialName:
+  - ToolKit
+  - Fabric
+  - Homium
+  _materialNumber: 010000000800000001000000
+  _resultName: Suit T3
+  _resultSprite: {fileID: 0}
+  _isAnEquipement: 1
