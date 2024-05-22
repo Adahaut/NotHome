@@ -1,6 +1,7 @@
 using Mirror;
 using System.Globalization;
 using TMPro;
+using UnityEditor;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -11,6 +12,11 @@ public class PlayerNetwork : NetworkBehaviour
     public void SetDisplayName(string name)
     {
         _displayName = name;
+        SetUIText();
+    }
+
+    public void SetUIText()
+    {
         _nameHoverHeadText.text = _displayName;
     }
 
