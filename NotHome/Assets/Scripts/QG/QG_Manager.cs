@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QG_Manager : MonoBehaviour
 {
-    [SerializeField] private GameObject _camera;
+    public GameObject _camera;
     [SerializeField] private float _distRayCast;
     [SerializeField] private string _text;
     
