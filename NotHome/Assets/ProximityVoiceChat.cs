@@ -3,6 +3,7 @@ using Mirror;
 using Steamworks;
 using UnityEditor;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
@@ -20,7 +21,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private bool buttonPressed = false;
 
-    
+    public TMP_Text test;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class ProximityVoiceChat : NetworkBehaviour
             SteamUser.StartVoiceRecording();
             audioSource.volume = 0f;
             Debug.Log("Record Start");
+            test.gameObject.SetActive(true);
         }
         else
         {
@@ -85,6 +87,7 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 if (players[i].ownTalkieWalkie)
                 {
+                    test.text = "caca";
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                 }
             }
@@ -94,8 +97,6 @@ public class ProximityVoiceChat : NetworkBehaviour
                 float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
                 Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
             }
-
-           
         }
     }
 
