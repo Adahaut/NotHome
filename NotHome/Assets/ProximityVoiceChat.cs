@@ -1,12 +1,19 @@
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using UnityEditor;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
     public AudioSource audioSource;
 
     [SerializeField] private float maxDistance = 15f;
+
+    private CircularBuffer circularBuffer;
+    private float[] playbackBuffer;
+    private int playbackOffset = 0;
+    private const int sampleRate = 44100;
+    private const int bufferSize = sampleRate * 2; // 2 seconds buffer
 
     private void Start()
     {
@@ -20,6 +27,13 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             audioSource.volume = 1f;
         }
+
+        circularBuffer = new CircularBuffer(bufferSize);
+        playbackBuffer = new float[sampleRate];
+
+        audioSource.clip = AudioClip.Create("VoiceChatBuffer", playbackBuffer.Length, 1, sampleRate, true, OnAudioRead);
+        audioSource.loop = true;
+        audioSource.Play();
     }
     private void Update()
     {
@@ -43,7 +57,6 @@ public class ProximityVoiceChat : NetworkBehaviour
     [Command(channel = 2)]
     void Cmd_SendData(byte[] data, uint size)
     {
-        Debug.Log("Command");
         ProximityVoiceChat[] players = FindObjectsOfType<ProximityVoiceChat>();
 
         for (int i = 0; i < players.Length; i++)
@@ -61,18 +74,22 @@ public class ProximityVoiceChat : NetworkBehaviour
     [TargetRpc(channel = 2)]
     void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume)
     {
-        Debug.Log("Target");
-        byte[] destBuffer2 = new byte[44100 * 2];
+        byte[] destBuffer2 = new byte[sampleRate * 2];
         uint bytesWritten2;
-        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, 44100);
+        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, sampleRate);
         if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten2 > 0)
         {
-            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
+            //audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
 
-            float[] test = new float[44100];
-            for (int i = 0; i < test.Length; i++)
+            float[] audioData = new float[bytesWritten2 / 2];
+            for (int i = 0; i < audioData.Length; i++)
             {
-                test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
+                audioData[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
+            }
+
+            lock(circularBuffer)
+            {
+                circularBuffer.Write(audioData);
             }
 
             if (!isOwned)
@@ -80,8 +97,20 @@ public class ProximityVoiceChat : NetworkBehaviour
                 audioSource.volume = volume;
             }
             
-            audioSource.clip.SetData(test, 0);
-            audioSource.Play();
+            //audioSource.clip.SetData(test, 0);
+            //audioSource.Play();
+        }
+    }
+
+    private void OnAudioRead(float[] data)
+    {
+        lock(circularBuffer)
+        {
+            int samplesRead = circularBuffer.Read(data, data.Length);
+            if(samplesRead < data.Length)
+            {
+                System.Array.Clear(data, samplesRead, data.Length - samplesRead);
+            }
         }
     }
 }
