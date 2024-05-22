@@ -62,6 +62,8 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Update()
     {
+
+        test.text = "ddaoubcozud";
         if (isOwned)
         {
             uint compressed;
@@ -88,7 +90,7 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             if(buttonPressed)
             {
-                test.text = "ddaoubcozud";
+                
                 if (players[i].ownTalkieWalkie)
                 {
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
