@@ -25,6 +25,8 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Start()
     {
+        ownTalkieWalkie = true;
+
         if (isOwned)
         {
             SteamUser.StartVoiceRecording();
@@ -49,7 +51,6 @@ public class ProximityVoiceChat : NetworkBehaviour
         if (context.started && isOwned)
         {
             buttonPressed = true;
-            test.text = "caca";
 
         }
 
@@ -87,14 +88,13 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             if(buttonPressed)
             {
+                test.text = "ddaoubcozud";
                 if (players[i].ownTalkieWalkie)
                 {
-                    audioSource.spatialBlend = 0f;
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                     continue;
                 }
             }
-            audioSource.spatialBlend = 1f;
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
