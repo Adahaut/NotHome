@@ -142,15 +142,15 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
 
 
-            if (Room._roomPlayers[i]._isLeader)
-            {
-                _leaveKickButtons[i].gameObject.SetActive(true);
-                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
-            }
-            if (Room._roomPlayers[i] == this)
+            if (Room._roomPlayers[i]._isLeader && _isLeader || Room._roomPlayers[i] == this)
             {
                 _leaveKickButtons[i].gameObject.SetActive(true);
                 _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
+            }
+            else if(_isLeader && Room._roomPlayers[i] != this)
+            {
+                _leaveKickButtons[i].gameObject.SetActive(true);
+                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
             }
 
         }
@@ -173,7 +173,17 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         Room.StopClient();
         
         if(_isLeader)
+        {
+            for (int i = 0; i < Room._roomPlayers.Count; i++)
+            {
+                if (Room._roomPlayers[i] != this)
+                {
+                    Room._roomPlayers[i].LeaveLobby();
+                }
+            }
             Room.StopHost();
+        }
+            
 
         GameObject.Find("UI_MainMenu").GetComponent<MainMenu>().landingPagePanel.SetActive(true);
     }
