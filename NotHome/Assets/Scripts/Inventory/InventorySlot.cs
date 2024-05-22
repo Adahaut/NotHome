@@ -38,11 +38,14 @@ public class InventorySlot : MonoBehaviour
 
     public ItemObject ItemContained() {  return _itemContained; }
 
-    public void ChangeItem(string _ItemName, Sprite _itemSprite)
+    public void ChangeItem(string _ItemName, Sprite _itemSprite, bool _isAnEquipement)
     {
-        _itemContained.SetItem(_ItemName, _itemSprite);
-        UpdateNumber();
-        UpdateItemVisuel();
+        if (!_isAnEquipement)
+        {
+            _itemContained.SetItem(_ItemName, _itemSprite);
+            UpdateNumber();
+            UpdateItemVisuel();
+        }
     }
 
     public void ResetItem()

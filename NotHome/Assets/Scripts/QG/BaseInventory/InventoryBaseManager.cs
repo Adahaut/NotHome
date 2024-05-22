@@ -1,7 +1,10 @@
+using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Mirror;
 
 public class InventoryBaseManager : InventoryManager
 {
@@ -94,19 +97,24 @@ public class InventoryBaseManager : InventoryManager
             _baseInventory[_name] += _number;
             _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
         }
+        else if (_slot.GetComponent<InventorySlot>().ItemContained() == null)
+        {
+            _baseInventory.Add(_name, _number);
+            _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false);
+            _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
+        }
         else
         {
             _baseInventory.Add(_name, _number);
-            _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite());
-            _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
+            AddItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false, _number);
         }
         _oldSlot.GetComponent<InventorySlot>().ResetItem();
     }
 
     private void RemoveItemFromBase(string _name, GameObject _slot, GameObject _oldSlot)
     {
-        _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite());
-        _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
+        _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false);
+        _slot.GetComponent<InventorySlot>().SetNumber(NumberOfMaterial(_name));
         _oldSlot.GetComponent<InventorySlot>().ResetItem();
         _baseInventory.Remove(_name);
     }
@@ -137,11 +145,12 @@ public class InventoryBaseManager : InventoryManager
                     }
                     else
                     {
+                        print(_baseInventory[_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName()]);
                         RemoveItemFromBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), results[0].gameObject, _itemImage);
                     }
                 }
             }
-            if (Input.GetMouseButtonDown(0) && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None" && !_draging)
+            if (!_draging && Input.GetMouseButtonDown(0) && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
             {
                 _itemImage = results[0].gameObject;
                 if (CheckIfHasGoodTag(_itemImage))

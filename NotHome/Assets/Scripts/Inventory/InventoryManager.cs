@@ -39,25 +39,25 @@ public class InventoryManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void AddItem(string _ItemName, Sprite _itemSprite)
+    public void AddItem(string _ItemName, Sprite _itemSprite, bool _isAnEquipement, int _number = 1)
     {
-        TryAddItem(_ItemName, _itemSprite);
+        TryAddItem(_ItemName, _itemSprite, _isAnEquipement, _number);
     }
 
-    private void TryAddItem(string _ItemName, Sprite _itemSprite)
+    private void TryAddItem(string _ItemName, Sprite _itemSprite, bool _isAnEquipement, int _number)
     {
         for (int i = 0; i < _slotList.Count; i++)
         {
             if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
             {
-                _slotList[i].GetComponent<InventorySlot>().SetNumber(1);
-                _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite);
-                break;
+                _slotList[i].GetComponent<InventorySlot>().SetNumber(_number);
+                _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite, _isAnEquipement);
+                return;
             }
             else if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
             {
-                _slotList[i].GetComponent<InventorySlot>().AddNumber();
-                break;
+                _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() + _number);
+                return;
             }
         }
     }
