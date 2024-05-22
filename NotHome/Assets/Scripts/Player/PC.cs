@@ -236,8 +236,8 @@ public class PC : MonoBehaviour
             {
                 if (_hits[i].collider.CompareTag(_itemTag))
                 {
-                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite());
-                    Destroy(_hits[i].collider);
+                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+                    Destroy(_hits[i].collider.gameObject);
                 }
             }
         }
