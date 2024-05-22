@@ -88,11 +88,14 @@ public class ProximityVoiceChat : NetworkBehaviour
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                 }
             }
-            
+            else
+            {
+                float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
+                float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
+                Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
+            }
 
-           float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
-           float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
-           Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
+           
         }
     }
 
