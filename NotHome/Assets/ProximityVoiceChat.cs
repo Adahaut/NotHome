@@ -74,30 +74,31 @@ public class ProximityVoiceChat : NetworkBehaviour
                 ret = SteamUser.GetVoice(true, destBuffer, 8192, out bytesWritten);
                 if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten > 0)
                 {
-                    Cmd_SendData(destBuffer, bytesWritten, this);
+                    Cmd_SendData(destBuffer, bytesWritten, buttonPressed);
                 }
             }
         }
     }
 
     [Command(channel = 2)]
-    void Cmd_SendData(byte[] data, uint size, ProximityVoiceChat soundOriginPlayer)
+    void Cmd_SendData(byte[] data, uint size, bool talkieUsed)
     {
         ProximityVoiceChat[] players = FindObjectsOfType<ProximityVoiceChat>();
 
         for (int i = 0; i < players.Length; i++)
         {
-            //if (buttonPressed)
-            //{
-            //    if (players[i].ownTalkieWalkie)
-            //    {
-            //        Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
-            //        continue;
-            //    }
-            //}
+            if (talkieUsed)
+            {
+                Debug.Log("test");
+                if (players[i].ownTalkieWalkie)
+                {
+                    Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
+                    continue;
+                }
+            }
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
-            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume, soundOriginPlayer);
+            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
             
         }
     }
@@ -105,7 +106,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
 
     [TargetRpc(channel = 2)]
-    void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume, ProximityVoiceChat soundOriginPlayer)
+    void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume)
     {
         byte[] destBuffer2 = new byte[sampleRate * 2];
         uint bytesWritten2;
@@ -125,10 +126,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
             if (!isOwned)
             {
-                if(soundOriginPlayer.buttonPressed && ownTalkieWalkie) audioSource.volume = 1f;
-                else audioSource.volume = volume;
-
-                Debug.Log("test");
+                audioSource.volume = volume;
             }
         }
     }
