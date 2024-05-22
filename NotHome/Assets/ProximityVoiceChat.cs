@@ -29,9 +29,8 @@ public class ProximityVoiceChat : NetworkBehaviour
         }
 
         circularBuffer = new CircularBuffer(bufferSize);
-        playbackBuffer = new float[sampleRate];
 
-        audioSource.clip = AudioClip.Create("VoiceChatBuffer", playbackBuffer.Length, 1, sampleRate, true, OnAudioRead);
+        audioSource.clip = AudioClip.Create("VoiceChatBuffer", bufferSize, 1, sampleRate, true, OnAudioRead);
         audioSource.loop = true;
         audioSource.Play();
     }

@@ -21,7 +21,7 @@ public class CircularBuffer
     {
         foreach(float sample in data)
         {
-            buffer[writeIndex++] = sample;
+            buffer[writeIndex] = sample;
             writeIndex = (writeIndex + 1) % bufferSize;
             if(count < bufferSize)
             {
