@@ -142,16 +142,17 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
 
 
-            if (Room._roomPlayers[i]._isLeader && _isLeader || Room._roomPlayers[i] == this)
-            {
-                _leaveKickButtons[i].gameObject.SetActive(true);
-                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
-            }
-            else if(_isLeader && Room._roomPlayers[i] != this)
-            {
-                _leaveKickButtons[i].gameObject.SetActive(true);
-                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
-            }
+            //Button Kick / Leave
+            //if (Room._roomPlayers[i]._isLeader && _isLeader || Room._roomPlayers[i] == this)
+            //{
+            //    _leaveKickButtons[i].gameObject.SetActive(true);
+            //    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
+            //}
+            //else if(_isLeader && Room._roomPlayers[i] != this)
+            //{
+            //    _leaveKickButtons[i].gameObject.SetActive(true);
+            //    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
+            //}
 
         }
 

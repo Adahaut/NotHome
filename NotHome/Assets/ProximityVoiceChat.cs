@@ -1,12 +1,17 @@
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using System.Collections.Generic;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
     public AudioSource audioSource;
 
     [SerializeField] private float maxDistance = 15f;
+    private Queue<float[]> _audioQueue = new Queue<float[]>();
+    private float[] _playbackBuffer;
+    private int _playbackOffset = 0;
+    private const int _sampleRate = 44100;
 
     private void Start()
     {
@@ -20,6 +25,11 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             audioSource.volume = 1f;
         }
+
+        _playbackBuffer = new float[_sampleRate];
+        audioSource.clip = AudioClip.Create("VoiceChatBuffer", _playbackBuffer.Length, 1, _sampleRate, true, OnAudioRead);
+        audioSource.loop = true;
+        audioSource.Play();
     }
     private void Update()
     {
@@ -29,7 +39,6 @@ public class ProximityVoiceChat : NetworkBehaviour
             EVoiceResult ret = SteamUser.GetAvailableVoice(out compressed);
             if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
             {
-                Debug.Log(compressed);
                 byte[] destBuffer = new byte[8192];
                 uint bytesWritten;
                 ret = SteamUser.GetVoice(true, destBuffer, 8192, out bytesWritten);
@@ -44,14 +53,12 @@ public class ProximityVoiceChat : NetworkBehaviour
     [Command(channel = 2)]
     void Cmd_SendData(byte[] data, uint size)
     {
-        Debug.Log("Command");
         ProximityVoiceChat[] players = FindObjectsOfType<ProximityVoiceChat>();
 
         for (int i = 0; i < players.Length; i++)
         {
            float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
            float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
-
 
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
         }
@@ -62,27 +69,48 @@ public class ProximityVoiceChat : NetworkBehaviour
     [TargetRpc(channel = 2)]
     void Target_PlaySound(NetworkConnection conn, byte[] destBuffer, uint bytesWritten, float volume)
     {
-        Debug.Log("Target");
-        byte[] destBuffer2 = new byte[44100 * 2];
+        byte[] destBuffer2 = new byte[_sampleRate * 2];
         uint bytesWritten2;
-        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, 44100);
+        EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, _sampleRate);
         if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten2 > 0)
         {
-            audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
+            //audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
 
-            float[] test = new float[44100];
-            for (int i = 0; i < test.Length; i++)
+            float[] audioData = new float[bytesWritten2 / 2];
+            for (int i = 0; i < audioData.Length; i++)
             {
-                test[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
+                audioData[i] = (short)(destBuffer2[i * 2] | destBuffer2[i * 2 + 1] << 8) / 32768.0f;
+            }
+
+            lock(_audioQueue)
+            {
+                _audioQueue.Enqueue(audioData);
             }
 
             if (!isOwned)
             {
                 audioSource.volume = volume;
             }
-            
-            audioSource.clip.SetData(test, 0);
-            audioSource.Play();
+        }
+    }
+
+    private void OnAudioRead(float[] data)
+    {
+        lock(_audioQueue)
+        {
+            while(_audioQueue.Count > 0 && _playbackOffset < data.Length)
+            {
+                float[] audioData = _audioQueue.Dequeue();
+                int copyLength = Mathf.Min(audioData.Length, data.Length - _playbackOffset);
+                System.Array.Copy(audioData, 0, data, _playbackOffset, copyLength);
+                _playbackOffset += copyLength;
+            }
+        }
+
+        if(_playbackOffset < data.Length)
+        {
+            System.Array.Clear(data, _playbackOffset, data.Length - _playbackOffset);
+            _playbackOffset = 0;
         }
     }
 }
