@@ -17,9 +17,15 @@ public class PlayerNetwork : NetworkBehaviour
         _displayName = name;
     }
 
-    private void Start()
+    public override void OnStartAuthority()
     {
-        if(!isOwned)
+        StartCoroutine(test());
+    }
+
+    IEnumerator test()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (!isOwned)
         {
             nameHoverHeadText.text = _displayName;
         }
