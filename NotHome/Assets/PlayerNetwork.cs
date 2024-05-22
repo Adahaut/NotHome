@@ -16,15 +16,12 @@ public class PlayerNetwork : NetworkBehaviour
     {
         _displayName = name;
     }
-    
 
-    public override void OnStartAuthority()
+    private void Start()
     {
-        nameHoverHeadText.text = _displayName;
-
-        foreach(var player in GameObject.FindGameObjectsWithTag("Player"))
+        if(!isOwned)
         {
-            player.GetComponent<PlayerNetwork>().nameHoverHeadText.text = player.GetComponent<PlayerNetwork>()._displayName;
+            nameHoverHeadText.text = _displayName;
         }
     }
 }
