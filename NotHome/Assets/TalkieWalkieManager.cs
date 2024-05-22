@@ -24,12 +24,16 @@ public class TalkieWalkieManager : NetworkBehaviour
         //Temp
         ownTalkieWalkie = true;
 
-        if (isOwned) audioSource.volume = 0f;
+        if (isOwned)
+        {
+            audioSource.volume = 0f;
+            SteamUser.StartVoiceRecording();
+        }
         else audioSource.volume = 1f;
 
         circularBuffer = new CircularBuffer(bufferSize);
 
-        //audioSource.clip = AudioClip.Create("VoiceChatBuffer", bufferSize, 1, sampleRate, true, OnAudioRead);
+        audioSource.clip = AudioClip.Create("VoiceChatBuffer", bufferSize, 1, sampleRate, true, OnAudioRead);
         audioSource.loop = true;
         audioSource.Play();
     }
@@ -38,14 +42,12 @@ public class TalkieWalkieManager : NetworkBehaviour
     {
         if (context.started)
         {
-            SteamUser.StartVoiceRecording();
             buttonPressed = true;
         }
 
-        if(context.performed)
+        if(context.canceled)
         {
-            SteamUser.StopVoiceRecording();
-            buttonPressed = false;  
+            buttonPressed = false;
         }
     }
 

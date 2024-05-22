@@ -78,8 +78,6 @@ public class ProximityVoiceChat : NetworkBehaviour
         EVoiceResult ret = SteamUser.DecompressVoice(destBuffer, bytesWritten, destBuffer2, (uint)destBuffer2.Length, out bytesWritten2, sampleRate);
         if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten2 > 0)
         {
-            //audioSource.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 44100, 1, 44100, false);
-
             float[] audioData = new float[bytesWritten2 / 2];
             for (int i = 0; i < audioData.Length; i++)
             {
@@ -95,9 +93,6 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 audioSource.volume = volume;
             }
-            
-            //audioSource.clip.SetData(test, 0);
-            //audioSource.Play();
         }
     }
 
