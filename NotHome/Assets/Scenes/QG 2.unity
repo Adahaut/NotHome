@@ -1808,9 +1808,10 @@ GameObject:
   - component: {fileID: 395104403}
   - component: {fileID: 395104405}
   - component: {fileID: 395104404}
+  - component: {fileID: 395104406}
   m_Layer: 5
   m_Name: RawPlayer2
-  m_TagString: Untagged
+  m_TagString: RawImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1869,6 +1870,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395104402}
   m_CullTransparentMesh: 1
+--- !u!65 &395104406
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395104402}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.004316, y: 1.9551766, z: 0.046163037}
+  m_Center: {x: -0.012209654, y: -0.024620771, z: 0.011253252}
 --- !u!1 &488962955
 GameObject:
   m_ObjectHideFlags: 0
@@ -2343,7 +2365,7 @@ GameObject:
   - component: {fileID: 725488744}
   m_Layer: 5
   m_Name: RawPlayer3
-  m_TagString: Untagged
+  m_TagString: RawImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3573,7 +3595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.37
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3581,11 +3603,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.5
+      value: -7.28
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3593,7 +3615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalRotation.z
@@ -3605,7 +3627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4138569482924135052, guid: 705763641ca2cc44389e7858092486ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -7432,9 +7454,10 @@ GameObject:
   - component: {fileID: 1988953968}
   - component: {fileID: 1988953970}
   - component: {fileID: 1988953969}
+  - component: {fileID: 1988953971}
   m_Layer: 5
   m_Name: RawPlayer1
-  m_TagString: Untagged
+  m_TagString: RawImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7493,6 +7516,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988953967}
   m_CullTransparentMesh: 1
+--- !u!65 &1988953971
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988953967}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.004316, y: 1.9551766, z: 0.046163037}
+  m_Center: {x: -0.012209654, y: -0.024620771, z: 0.011253252}
 --- !u!1 &2014518882
 GameObject:
   m_ObjectHideFlags: 0

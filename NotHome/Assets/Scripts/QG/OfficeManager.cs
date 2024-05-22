@@ -11,6 +11,7 @@ public class OfficeManager : MonoBehaviour
     [SerializeField] private float _speedCamera;
     private bool _isOnChair;
     private bool _isMouv;
+    private bool _isZoomed;
     [SerializeField] private float _distRayCast;
 
     public static OfficeManager Instance;
@@ -44,6 +45,10 @@ public class OfficeManager : MonoBehaviour
     {
         if (_isMouv)
         {
+            print(_camera.eulerAngles);
+            _player.transform.eulerAngles = Vector3.zero;
+            _camera.eulerAngles = Vector3.zero;
+            print(_camera.eulerAngles);
             float posY = _camera.position.y;
             while (_camera.position.y > posY / 1.5f)
             {
@@ -81,9 +86,46 @@ public class OfficeManager : MonoBehaviour
                 StartCoroutine(CharacterMove(1));
             }
         }
-        if (!_isMouv && _isOnChair)
+        if (!_isMouv && _isOnChair && _camera.GetComponent<Camera>().fieldOfView == 60 && !_isZoomed)
         {
             StartCoroutine(BackChair());
         }
+    }
+    private void Update()
+    {
+        if (_isOnChair && Input.GetMouseButtonDown(0) && !_isZoomed && !_isMouv)
+        {
+            ZoomScreen();
+        }
+    }
+    private void ZoomScreen()
+    {
+        if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, 10) && hit.collider.CompareTag("RawImage"))
+        {
+            StartCoroutine(AnimZoom(_camera.GetComponent<Camera>().fieldOfView));
+        }
+    }
+    private IEnumerator AnimZoom(float fov)
+    {
+        _isZoomed = true;
+        if (fov > 30)
+        {
+            _player.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].actions[6].Disable();
+            while (_camera.GetComponent<Camera>().fieldOfView > 30)
+            {
+                _camera.GetComponent<Camera>().fieldOfView -= 0.5f;
+                yield return null;
+            }
+        }
+        else
+        {
+            _player.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].actions[6].Enable();
+            while (_camera.GetComponent<Camera>().fieldOfView < 60)
+            {
+                _camera.GetComponent<Camera>().fieldOfView += 0.5f;
+                yield return null;
+            }
+        }
+        _isZoomed = false;
     }
 }
