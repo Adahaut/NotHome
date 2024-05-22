@@ -3,6 +3,7 @@ using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ public class TalkieWalkieManager : NetworkBehaviour
 {
     public AudioSource audioSource;
     public bool ownTalkieWalkie = false;
+    public TMP_Text test = null;
 
     private CircularBuffer circularBuffer;
     private float[] playbackBuffer;
@@ -28,6 +30,7 @@ public class TalkieWalkieManager : NetworkBehaviour
         {
             audioSource.volume = 0f;
             SteamUser.StartVoiceRecording();
+            test.gameObject.SetActive(true);
         }
         else audioSource.volume = 1f;
 
@@ -48,6 +51,11 @@ public class TalkieWalkieManager : NetworkBehaviour
         if(context.canceled)
         {
             buttonPressed = false;
+
+            if (!isOwned)
+            {
+                audioSource.volume = 0f;
+            }
         }
     }
 
@@ -57,6 +65,7 @@ public class TalkieWalkieManager : NetworkBehaviour
         {
             uint compressed;
             EVoiceResult ret = SteamUser.GetAvailableVoice(out compressed);
+            test.text = ret.ToString();
             if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
             {
                 byte[] destBuffer = new byte[8192];
@@ -100,6 +109,11 @@ public class TalkieWalkieManager : NetworkBehaviour
             lock (circularBuffer)
             {
                 circularBuffer.Write(audioData);
+            }
+
+            if(!isOwned)
+            {
+                audioSource.volume = 1f;
             }
         }
     }
