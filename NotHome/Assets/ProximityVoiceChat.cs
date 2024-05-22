@@ -49,6 +49,8 @@ public class ProximityVoiceChat : NetworkBehaviour
         if (context.started && isOwned)
         {
             buttonPressed = true;
+            test.text = "caca";
+
         }
 
         if (context.canceled && isOwned)
@@ -87,16 +89,14 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 if (players[i].ownTalkieWalkie)
                 {
-                    test.text = "caca";
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
+                    continue;
                 }
             }
-            else
-            {
-                float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
-                float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
-                Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
-            }
+            float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
+            float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
+            Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
+            
         }
     }
 
