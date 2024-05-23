@@ -42,8 +42,8 @@ public class PlayerNetwork : NetworkBehaviour
         if(isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
 
-        PlayerCameraManager playerCamManager = FindAnyObjectByType<PlayerCameraManager>();
-        playerCamManager.RpcUpdateCameraDisplays();
+        //PlayerCameraManager playerCamManager = FindAnyObjectByType<PlayerCameraManager>();
+        //playerCamManager.RpcUpdateCameraDisplays();
 
     }
 
