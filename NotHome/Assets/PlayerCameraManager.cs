@@ -1,40 +1,44 @@
 using Mirror;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerCameraManager : NetworkBehaviour
 {
-    //public RenderTexture[] renderTextures;
+    public RenderTexture[] renderTextures;
 
-    //[SerializeField] private Camera playerCamera;
+    [SerializeField] private Camera playerCamera;
 
-    //public override void OnStartClient()
-    //{
-    //    base.OnStartClient();
+    int index;
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
 
-    //    if (playerCamera != null)
-    //    {
-    //        playerCamera.targetTexture = renderTextures[netId % 4];
+        index = connectionToClient.connectionId;
 
-    //        CmdSetupCameraDisplay(netId, renderTextures[netId % 4].name);
-    //    }
-    //}
+        if (playerCamera != null)
+        {
+            playerCamera.targetTexture = renderTextures[index];
 
-    //[Command]
-    //private void CmdSetupCameraDisplay(uint playerId, string renderTextureName)
-    //{
-    //    RpcSetupCameraDisplay(playerId, renderTextureName);
-    //}
+            CmdSetupCameraDisplay(netId, renderTextures[index].name);
+        }
+    }
 
-    //[ClientRpc]
-    //private void RpcSetupCameraDisplay(uint playerId, string renderTextureName)
-    //{
-        
-    //    string planeName = "CameraPlane" + (playerId % 4 - 1);
-    //    GameObject cameraPlane = GameObject.Find(planeName);
-    //    if (cameraPlane != null)
-    //    {
-    //        cameraPlane.GetComponent<Renderer>().material.mainTexture = Resources.Load<RenderTexture>(renderTextureName);
-    //    }
-    //}
+    [Command]
+    private void CmdSetupCameraDisplay(uint playerId, string renderTextureName)
+    {
+        RpcSetupCameraDisplay(playerId, renderTextureName);
+    }
+
+    [ClientRpc]
+    private void RpcSetupCameraDisplay(uint playerId, string renderTextureName)
+    {
+
+        string planeName = "CameraPlane" + (playerId);
+        GameObject cameraPlane = GameObject.Find(planeName);
+        if (cameraPlane != null)
+        {
+            cameraPlane.GetComponent<Renderer>().material.mainTexture = Resources.Load<RenderTexture>(renderTextureName);
+        }
+    }
 
 }
