@@ -11,8 +11,6 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     private int _nextIndex = 0;
 
-    public List<RenderTexture> _textures = new List<RenderTexture>();
-
     public static void AddSpawnPoint(Transform transform)
     {
         _spawnPoints.Add(transform);
@@ -38,7 +36,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
         }
 
         GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
-        playerInstance.GetComponent<PlayerNetwork>().SetRenderTexture(_textures[_nextIndex]);
+        
 
         NetworkServer.Spawn(playerInstance, conn);
 

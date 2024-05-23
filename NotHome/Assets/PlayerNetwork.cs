@@ -18,8 +18,6 @@ public class PlayerNetwork : NetworkBehaviour
 
     private static List<Camera> _playerCameras = new List<Camera>();
 
-    RenderTexture _renderTexture;
-
     private void Start()
     {
         Camera playerCamera = GetComponentInChildren<Camera>();
@@ -27,30 +25,29 @@ public class PlayerNetwork : NetworkBehaviour
         if(isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
-            Camera displayCamera = this.AddComponent<Camera>();
-            displayCamera = playerCamera;
-            displayCamera.targetTexture = _renderTexture;
+            
         }
 
-        
-        if(playerCamera != null && !_playerCameras.Contains(playerCamera)) _playerCameras.Add(playerCamera);
+        //Camera displayCamera = this.AddComponent<Camera>();
+        //displayCamera = playerCamera;
+        //displayCamera.targetTexture = _renderTexture;
+
+
+        if (playerCamera != null && !_playerCameras.Contains(playerCamera)) _playerCameras.Add(playerCamera);
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
         if(isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
+
+        PlayerCameraManager.instance.UpdateCameras(this.gameObject);
     }
 
     private void OnDestroy()
     {
         Camera playerCamera = GetComponentInChildren<Camera>();
         if (playerCamera != null && _playerCameras.Contains(playerCamera)) _playerCameras.Remove(playerCamera);
-    }
-
-    public void SetRenderTexture(RenderTexture text)
-    {
-        _renderTexture = text;
     }
 
     [Command]
