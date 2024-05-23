@@ -50,6 +50,7 @@ public class RangeWeapon : MonoBehaviour
                 if (Physics.Raycast(_muzzle.position, transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
                     print("touche " + _hitInfo.collider.name);
+                    //damage enemies here
                 }
             }
             _weaponData._currentAmmo--;
