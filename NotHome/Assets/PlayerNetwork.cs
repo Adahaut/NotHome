@@ -4,6 +4,9 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
+using Unity.VisualScripting;
+using UnityEditor.DeviceSimulation;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -18,6 +21,8 @@ public class PlayerNetwork : NetworkBehaviour
 
     private static List<Camera> _playerCameras = new List<Camera>();
 
+    RenderTexture _renderTexture;
+
     private void Start()
     {
         if(isOwned)
@@ -26,6 +31,9 @@ public class PlayerNetwork : NetworkBehaviour
         }
 
         Camera playerCamera = GetComponentInChildren<Camera>();
+        Camera displayCamera = this.AddComponent<Camera>();
+        displayCamera = playerCamera;
+        displayCamera.targetTexture = _renderTexture;
         if(playerCamera != null && !_playerCameras.Contains(playerCamera)) _playerCameras.Add(playerCamera);
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
@@ -39,6 +47,11 @@ public class PlayerNetwork : NetworkBehaviour
     {
         Camera playerCamera = GetComponentInChildren<Camera>();
         if (playerCamera != null && _playerCameras.Contains(playerCamera)) _playerCameras.Remove(playerCamera);
+    }
+
+    public void SetRenderTexture(RenderTexture text)
+    {
+        _renderTexture = text;
     }
 
     [Command]
