@@ -9,7 +9,7 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private GameObject nameTagPrefab;
     [SerializeField] private Vector3 nameTagOffset = new Vector3(0, 1.5f, 0);
 
-    private GameObject nameTagInstance;
+    [HideInInspector] public GameObject nameTagInstance;
     private TMP_Text nameTagText;
 
     [SyncVar(hook = nameof(OnNameChanged))]
@@ -52,9 +52,11 @@ public class PlayerNetwork : NetworkBehaviour
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < players.Length; i++)
             {
-                nameTagInstance.transform.LookAt(players[i].transform);
+                players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.LookAt(this.transform);
+                players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.Rotate(0, 180, 0);
             }
-            nameTagInstance.transform.Rotate(0, 180, 0);
+            //nameTagInstance.transform.LookAt(players[i].transform);
+            //nameTagInstance.transform.Rotate(0, 180, 0);
         }
     }
 
