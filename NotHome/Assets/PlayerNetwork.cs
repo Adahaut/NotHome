@@ -1,8 +1,7 @@
 using Mirror;
 using Steamworks;
-using System.Globalization;
+using System.Linq;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -50,7 +49,11 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (nameTagInstance != null)
         {
-            nameTagInstance.transform.LookAt(Camera.main.transform);
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            for (int i = 0; i < players.Length; i++)
+            {
+                nameTagInstance.transform.LookAt(players[i].transform);
+            }
             nameTagInstance.transform.Rotate(0, 180, 0);
         }
     }
