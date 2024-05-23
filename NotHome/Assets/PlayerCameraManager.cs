@@ -30,13 +30,14 @@ public class PlayerCameraManager : NetworkBehaviour
         PlayerNetwork[] players = FindObjectsOfType<PlayerNetwork>();
         for (int i = 0; i < players.Length; i++)
         {
-            if (i < _cameraRenderTextures.Count && i < 4)
+            Camera playerCamera = players[i]._renderCamera;
+            if (playerCamera != null)
             {
-                Camera playerCamera = players[i]._renderCamera;
-                if (playerCamera != null)
-                {
-                    playerCamera.targetTexture = _cameraRenderTextures[i];
-                }
+                playerCamera.targetTexture = _cameraRenderTextures[i];
+            }
+            else
+            {
+                playerCamera.gameObject.GetComponent<ProximityVoiceChat>().test.text = "Player cam = null";
             }
         }
     }
