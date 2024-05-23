@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -10,12 +11,9 @@ public class PlayerCameraManager : MonoBehaviour
 
     public static PlayerCameraManager instance;
 
-    int i = 0;
-
     private void Awake()
     {
         instance = this;
-        i = 0;
     }
 
     public void UpdateCameras(GameObject player)
@@ -23,10 +21,9 @@ public class PlayerCameraManager : MonoBehaviour
         Camera mainCamera = player.GetComponentInChildren<Camera>();
 
         Camera renderCamera = Instantiate(_renderCameraPrefab, mainCamera.transform.position, mainCamera.transform.rotation, mainCamera.transform);
-        renderCamera.targetTexture = _cameraRenderTextures[i];
+        renderCamera.targetTexture = _cameraRenderTextures[LocalConnectionToClient.LocalConnectionId];
         renderCamera.enabled = true;
 
         renderCamera.transform.SetParent(mainCamera.transform);
-        i++;
     }
 }
