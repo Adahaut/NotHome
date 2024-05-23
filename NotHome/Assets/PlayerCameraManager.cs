@@ -1,60 +1,39 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerCameraManager : NetworkBehaviour
 {
-    [SerializeField] private RenderTexture[] _cameraRenderTextures;
-    public GameObject[] cameraPlanes; // Assign planes in the inspector
-    private Camera[] playerCameras;
+    public RenderTexture[] renderTextures;
 
-    void Start()
+    [SerializeField] private Camera playerCamera;
+
+    public override void OnStartClient()
     {
-        playerCameras = new Camera[4];
+        base.OnStartClient();
 
-        if (isServer)
+        if (playerCamera != null)
         {
-            StartCoroutine(FindPlayerCameras());
+            playerCamera.targetTexture = renderTextures[netId % 4];
+
+            CmdSetupCameraDisplay(netId, renderTextures[netId % 4].name);
         }
     }
 
-    IEnumerator FindPlayerCameras()
+    [Command]
+    private void CmdSetupCameraDisplay(uint playerId, string renderTextureName)
     {
-        while (true)
-        {
-            var players = FindObjectsOfType<NetworkIdentity>();
-            int cameraIndex = 0;
-
-            foreach (var player in players)
-            {
-                var camera = player.GetComponentInChildren<Camera>();
-                if (camera != null)
-                {
-                    playerCameras[cameraIndex] = camera;
-                    camera.targetTexture = _cameraRenderTextures[cameraIndex];
-                    cameraIndex++;
-                }
-
-                if (cameraIndex >= 4) break;
-            }
-
-            if (cameraIndex >= 4) yield break;
-            yield return new WaitForSeconds(1.0f);
-        }
+        RpcSetupCameraDisplay(playerId, renderTextureName);
     }
 
     [ClientRpc]
-    public void RpcUpdateCameraDisplays()
+    private void RpcSetupCameraDisplay(uint playerId, string renderTextureName)
     {
-        for (int i = 0; i < playerCameras.Length; i++)
+        
+        string planeName = "CameraPlane" + (playerId % 4 - 1);
+        GameObject cameraPlane = GameObject.Find(planeName);
+        if (cameraPlane != null)
         {
-            if (playerCameras[i] != null)
-            {
-                cameraPlanes[i].GetComponent<Renderer>().material.mainTexture = _cameraRenderTextures[i];
-            }
+            cameraPlane.GetComponent<Renderer>().material.mainTexture = Resources.Load<RenderTexture>(renderTextureName);
         }
     }
 

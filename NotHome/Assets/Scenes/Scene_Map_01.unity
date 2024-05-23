@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 29165561}
   - component: {fileID: 29165563}
-  - component: {fileID: 29165562}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -160,31 +159,6 @@ Transform:
   - {fileID: 290603064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &29165562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29165560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0aa140052ee1434bbaeb76c9cf9d498, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _cameraRenderTextures:
-  - {fileID: 8400000, guid: 31d33dd27e91d754da147c0b75417f5f, type: 2}
-  - {fileID: 8400000, guid: f90abce8131971f4181fe1dbc07d538b, type: 2}
-  - {fileID: 8400000, guid: 7e8f3607f30e11f4f8bc93422e166874, type: 2}
-  - {fileID: 8400000, guid: c89f22d8dff512548b25198c8e8334cc, type: 2}
-  _planes:
-  - {fileID: 2027897724}
-  - {fileID: 593941248}
-  - {fileID: 1534421031}
-  - {fileID: 290603063}
 --- !u!114 &29165563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +340,7 @@ GameObject:
   - component: {fileID: 290603066}
   - component: {fileID: 290603065}
   m_Layer: 0
-  m_Name: CameraPlayer4
+  m_Name: CameraPlane4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,7 +403,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9ff4673b2f797284eabd81711ad8ded8, type: 2}
+  - {fileID: 2100000, guid: 536fa555ae50f5d49b8e2f8304898c42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -534,7 +508,7 @@ GameObject:
   - component: {fileID: 593941251}
   - component: {fileID: 593941250}
   m_Layer: 0
-  m_Name: CameraPlayer2
+  m_Name: CameraPlane2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,7 +571,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3d7a2179b213bce43a14e9f9e84ee475, type: 2}
+  - {fileID: 2100000, guid: a7418283fa14db54fbbe9b7977a67294, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1052,7 +1026,7 @@ GameObject:
   - component: {fileID: 1534421034}
   - component: {fileID: 1534421033}
   m_Layer: 0
-  m_Name: CameraPlayer3
+  m_Name: CameraPlane3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1115,7 +1089,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d9fd6c61e0a041a4cb8335f5f40e0691, type: 2}
+  - {fileID: 2100000, guid: 8a8ce35c28006704bbf799ec863b1c96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1293,7 +1267,7 @@ GameObject:
   - component: {fileID: 2027897727}
   - component: {fileID: 2027897726}
   m_Layer: 0
-  m_Name: CameraPlayer1
+  m_Name: CameraPlane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1356,7 +1330,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7bc8a001a78186419619ba6b9018cf1, type: 2}
+  - {fileID: 2100000, guid: 2082c30a5a517da498c06b204f8ec21c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
