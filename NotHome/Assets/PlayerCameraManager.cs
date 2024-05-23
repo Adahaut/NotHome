@@ -11,6 +11,13 @@ public class PlayerCameraManager : NetworkBehaviour
     public GameObject[] cameraPlanes; // Assign planes in the inspector
     private Camera[] playerCameras;
 
+    public static PlayerCameraManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         playerCameras = new Camera[4];
@@ -49,6 +56,7 @@ public class PlayerCameraManager : NetworkBehaviour
     [ClientRpc]
     public void RpcUpdateCameraDisplays()
     {
+        Debug.Log("kvberqzjadn");
         for (int i = 0; i < playerCameras.Length; i++)
         {
             if (playerCameras[i] != null)
