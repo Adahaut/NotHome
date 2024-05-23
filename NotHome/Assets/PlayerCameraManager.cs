@@ -49,7 +49,6 @@ public class PlayerCameraManager : NetworkBehaviour
     [ClientRpc]
     public void RpcUpdateCameraDisplays()
     {
-        Debug.Log("kvberqzjadn");
         for (int i = 0; i < playerCameras.Length; i++)
         {
             if (playerCameras[i] != null)
