@@ -1,12 +1,9 @@
 using Mirror;
 using Steamworks;
-using System.Linq;
-using TMPro;
-using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.DeviceSimulation;
+using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
 {
