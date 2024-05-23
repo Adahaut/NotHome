@@ -7,8 +7,8 @@ using UnityEngine;
 public class PlayerCameraManager : NetworkBehaviour
 {
     [SerializeField] private List<RenderTexture> _cameraRenderTextures;
-
-
+    private List<GameObject> _players = new(4);
+    public static PlayerCameraManager instance { get; private set; }
 
     //[SerializeField] private Camera _renderCameraPrefab;
 
@@ -25,4 +25,27 @@ public class PlayerCameraManager : NetworkBehaviour
 
     //    renderCamera.transform.SetParent(mainCamera.transform);
     //}
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    private void Start()
+    {
+        StartCoroutine(begin());
+    }
+
+    public void AddPlayer(GameObject player)
+    {
+        _players.Add(player);
+    }
+
+    IEnumerator begin()
+    {
+        yield return new WaitForSeconds(2);
+        for (int i = 0; i < _players.Count; i++)
+        {
+            _players[i].GetComponent<PlayerNetwork>()._renderCamera.targetTexture = _cameraRenderTextures[i];
+        }
+    }
 }
