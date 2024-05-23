@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,43 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Collider _enemyDetectionCollider;
     [SerializeField] private int _damages;
+    public static Action _shootAction;
+    public static Action _reloading;
+    public static Action _aimAction;
+    public static Action _stopAimAction;
+    public bool _isRangeWeaponEqupiped;
+    
 
     public void Attack(InputAction.CallbackContext context)
     {
-        StartCoroutine(ActiveDesactiveCollider());
+        if(_isRangeWeaponEqupiped)
+        {
+            _shootAction?.Invoke();
+        }
+        else
+        {
+            StartCoroutine(ActiveDesactiveCollider());
+        }
+        
+    }
+
+    public void Aim(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            _aimAction?.Invoke();
+        }
+        else if (context.canceled)
+        {
+            _stopAimAction?.Invoke();
+        }
+        
+
+    }
+
+    public void Reload(InputAction.CallbackContext context)
+    {
+        _reloading?.Invoke();
     }
 
     public void OnTriggerEnter(Collider other)
