@@ -3,6 +3,7 @@ using Steamworks;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerNetwork : NetworkBehaviour
     [SyncVar(hook = nameof(OnNameChanged))]
     private string _displayName;
 
-    
+    private static List<Camera> _playerCameras = new List<Camera>();
 
     private void Start()
     {
@@ -24,11 +25,20 @@ public class PlayerNetwork : NetworkBehaviour
             CmdSetPlayerName(SteamFriends.GetPersonaName());
         }
 
+        Camera playerCamera = GetComponentInChildren<Camera>();
+        if(playerCamera != null && !_playerCameras.Contains(playerCamera)) _playerCameras.Add(playerCamera);
+
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
         if(isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        Camera playerCamera = GetComponentInChildren<Camera>();
+        if (playerCamera != null && _playerCameras.Contains(playerCamera)) _playerCameras.Remove(playerCamera);
     }
 
     [Command]
@@ -49,13 +59,14 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (nameTagInstance != null)
         {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            for (int i = 0; i < players.Length; i++)
+            
+            foreach (var playerCamera in _playerCameras)
             {
-                if (players[i] != this)
+                if (playerCamera != null && playerCamera.gameObject != this.gameObject)
                 {
-                    players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.LookAt(this.transform);
-                    players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.Rotate(0, 180, 0);
+                    nameTagInstance.transform.LookAt(playerCamera.transform);
+                    nameTagInstance.transform.Rotate(0, 180, 0);
+                    break;
                 }
             }
         }
