@@ -14,7 +14,10 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
     private void Start()
     {

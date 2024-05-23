@@ -13,7 +13,10 @@ public class FieldManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
     public IEnumerator StartTimer(int index, float seedTime, int seed)
     {

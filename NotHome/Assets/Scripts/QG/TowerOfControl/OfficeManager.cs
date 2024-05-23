@@ -18,7 +18,10 @@ public class OfficeManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     private IEnumerator CharacterMove(float total_time)

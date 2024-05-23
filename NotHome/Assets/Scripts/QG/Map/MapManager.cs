@@ -8,7 +8,10 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
     public void OpenMap()
     {
