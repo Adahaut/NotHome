@@ -26,7 +26,7 @@ public class PC : MonoBehaviour
 
     private bool _isRunning;
     private bool _isJump;
-    private CharacterController characterController;
+    private CharacterController _characterController;
     private float _timer;
     private bool _isInBaseInventory;
 
@@ -37,10 +37,12 @@ public class PC : MonoBehaviour
     private Vector2 _scrollDir;
     
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
+    private Transform _transform;
 
     public void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        _transform = transform;
+        _characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
     void Update()
@@ -91,7 +93,7 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Jump");
         print(!QG_Manager.Instance._isOpen);
-        if (context.performed && characterController.isGrounded && !QG_Manager.Instance._isOpen)
+        if (context.performed && _characterController.isGrounded && !QG_Manager.Instance._isOpen)
             _isJump = true;
     }
     public void SprintPlayer(InputAction.CallbackContext context)
@@ -122,7 +124,7 @@ public class PC : MonoBehaviour
         _rotation2.x += _rotation.x * Time.deltaTime;
         _rotation2.y -= _rotation.y * Time.deltaTime;
         _rotation2.y = Mathf.Clamp(_rotation2.y, -yRotationLimit, yRotationLimit);
-        transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
+        _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
@@ -131,15 +133,15 @@ public class PC : MonoBehaviour
     }
     private void MovePlayer()
     {
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
+        Vector3 forward = _transform.TransformDirection(Vector3.forward);
+        Vector3 right = _transform.TransformDirection(Vector3.right);
 
         float curSpeedX = _canMove ? (_isRunning ? _runSpeed : _walkSpeed) * _moveDir.y : 0;
         float curSpeedY = _canMove ? (_isRunning ? _runSpeed : _walkSpeed) * _moveDir.x : 0;
         float movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        if (_isJump && _canMove && characterController.isGrounded)
+        if (_isJump && _canMove && _characterController.isGrounded)
         {
             _moveDirection.y = _jumpPower;
             _isJump = false;
@@ -149,12 +151,12 @@ public class PC : MonoBehaviour
             _moveDirection.y = movementDirectionY;
         }
 
-        if (!characterController.isGrounded)
+        if (!_characterController.isGrounded)
         {
             _moveDirection.y -= _gravity * Time.deltaTime;
         }
 
-        characterController.Move(_moveDirection * Time.deltaTime);
+        _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     public void MouseScrollY(InputAction.CallbackContext ctx)
@@ -228,7 +230,7 @@ public class PC : MonoBehaviour
     // Methode to add an object to the inventory
     private void PickUpObject()
     {
-        RaycastHit[] _hits = Physics.SphereCastAll(transform.position, _itemPickRange, transform.up);
+        RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
 
         if (_hits.Length > 0)
         {

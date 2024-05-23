@@ -27,11 +27,12 @@ public class DroneManager : MonoBehaviour
     [SerializeField] private GameObject _uiDrone;
 
     [Range(0f, 90f)][SerializeField] float _yRotationLimit = 88f;
-    
+    private Transform _transform;
     
     public void Start()
     {
-        _initPos = transform.position;
+        _transform = transform;
+        _initPos = _transform.position;
         _characterController = GetComponent<CharacterController>();
         _playerInput.actions.actionMaps[1].Disable();
     }
@@ -67,8 +68,8 @@ public class DroneManager : MonoBehaviour
     }
     private void MoveDrone()
     {
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
+        Vector3 forward = _transform.TransformDirection(Vector3.forward);
+        Vector3 right = _transform.TransformDirection(Vector3.right);
 
         float curSpeedX = _canMove ? _walkSpeed * _moveDir.y : 0;
         float curSpeedY = _canMove ? _walkSpeed * _moveDir.x : 0;
@@ -95,7 +96,7 @@ public class DroneManager : MonoBehaviour
         _rotation2.x += _rotation.x * Time.deltaTime;
         _rotation2.y -= _rotation.y * Time.deltaTime;
         _rotation2.y = Mathf.Clamp(_rotation2.y, -_yRotationLimit, _yRotationLimit);
-        transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
+        _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
     public void StartDrone()
@@ -118,8 +119,8 @@ public class DroneManager : MonoBehaviour
         _uiDrone.SetActive(true);
         _player.GetComponentInChildren<Camera>().enabled = true;
         _playerInput.actions.actionMaps[1].Disable();
-        transform.position = _initPos;
-        transform.eulerAngles = Vector3.zero;
+        _transform.position = _initPos;
+        _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
     }
 }

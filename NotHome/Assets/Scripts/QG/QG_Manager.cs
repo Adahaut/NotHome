@@ -1,10 +1,9 @@
-using Mirror.Examples.Chat;
 using TMPro;
 using UnityEngine;
 
 public class QG_Manager : MonoBehaviour
 {
-    public GameObject _camera;
+    public Transform _camera;
     [SerializeField] private float _distRayCast;
     [SerializeField] private string _text;
     
@@ -24,7 +23,7 @@ public class QG_Manager : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hit, _distRayCast))
+        if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
         {
             if (hit.collider.gameObject.GetComponent<BuildInterractable>() != null)
             {
