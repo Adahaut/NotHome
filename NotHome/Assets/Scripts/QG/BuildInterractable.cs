@@ -1,4 +1,3 @@
-using Mirror.Examples.Chat;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

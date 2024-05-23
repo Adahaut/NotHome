@@ -36,6 +36,8 @@ public class UpgradeHomeManager : MonoBehaviour
     public void EffectTDC()
     {
         _getAlarm = true;
+        if (_levelBuilding >= 3)
+            DroneManager._canUseDrone = true;
     }
     private IEnumerator StopAlarm(float second)
     {

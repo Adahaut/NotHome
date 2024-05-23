@@ -35,7 +35,7 @@ public class PC : MonoBehaviour
     private Vector2 _rotation2 = Vector2.zero;
     private Vector2 _moveDir;
     private Vector2 _scrollDir;
-
+    
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
 
     public void Start()
