@@ -38,6 +38,8 @@ public class PC : MonoBehaviour
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
 
+    public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
+
     public void Start()
     {
         _rigidbodyPlayer = GetComponent<Rigidbody>();

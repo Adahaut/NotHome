@@ -9,32 +9,43 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField] private int _recoilStepsNumber;
     [SerializeField] private float _recoilForce;
     [SerializeField] private Camera _playerCamera;
+    [SerializeField] private Transform _cameraTransform;
     [SerializeField] private int _aimingZoomSteps;
     [SerializeField] private Transform _weaponHolder;
                      private Vector3 _startWeaponHolder;
     [SerializeField] private Transform _endWeaponHolder;
     public bool _isAiming;
+    [SerializeField] private PC _playerController;
+
+    private Transform _transform;
+
+    [SerializeField] private Vector3 _upRecoilValue;
+    private Vector3 _originalRotation;
+
+    private int _currentAmmo;
 
     private float _timeSinceLastShot;
 
+    private bool _isReloading;
+
     private void Start()
     {
+        _transform = transform;
+        _cameraTransform = _playerCamera.transform;
         PlayerAttack._shootAction += Shoot;
         PlayerAttack._reloading += StartReload;
         PlayerAttack._aimAction += StartAiming;
         PlayerAttack._stopAimAction += StopAiming;
+
+        _currentAmmo = _weaponData._magSize;
         _startWeaponHolder = _weaponHolder.localPosition;
+
+        _originalRotation = _transform.localEulerAngles;
     }
 
     private bool CanShoot()
     {
-        return !_weaponData._isReloading && _timeSinceLastShot > 1f / (_weaponData._fireRate / 60f);
-    }
-
-    private void StarRecoil()
-    {
-        _savedCameraTransform = _playerCamera.transform;
-        StartCoroutine(Recoil());
+        return !_isReloading && _timeSinceLastShot > 1f / (_weaponData._fireRate / 60f);
     }
 
     public void StartAiming()
@@ -53,7 +64,6 @@ public class RangeWeapon : MonoBehaviour
         _isAiming = !_isAiming;
         float _zoomForce = 30f / _aimingZoomSteps;
         Vector3 _weaponDestination = dir == 1 ? _endWeaponHolder.localPosition : _startWeaponHolder;
-        print(_weaponDestination);
         float _deltaT = 1f / _aimingZoomSteps;
         for (int i = 0; i < _aimingZoomSteps; i++)
         {
@@ -65,25 +75,9 @@ public class RangeWeapon : MonoBehaviour
     }
 
 
-
-    private IEnumerator Recoil()
-    {
-        for(int i = 0; i < _recoilStepsNumber; i++)
-        {
-            _playerCamera.transform.rotation = Quaternion.Euler(_playerCamera.transform.rotation.x - _recoilForce, _playerCamera.transform.rotation.y, _playerCamera.transform.rotation.z);
-            yield return new WaitForSeconds(1 / (_recoilStepsNumber / 2));
-        }
-        for (int i = 0; i < _recoilStepsNumber; i++)
-        {
-            _playerCamera.transform.rotation = Quaternion.Euler(_playerCamera.transform.rotation.x + _recoilForce, _playerCamera.transform.rotation.y, _playerCamera.transform.rotation.z);
-            yield return new WaitForSeconds(1 / (_recoilStepsNumber / 2));
-        }
-        _playerCamera.transform.rotation = Quaternion.Euler(_savedCameraTransform.rotation.x, _playerCamera.transform.rotation.y, _playerCamera.transform.rotation.z);
-    }
-
     public void StartReload()
     {
-        if(!_weaponData._isReloading ) 
+        if(!_isReloading ) 
         {
             StartCoroutine(Reloading());
         }
@@ -92,32 +86,32 @@ public class RangeWeapon : MonoBehaviour
     private IEnumerator Reloading()
     {
         print("reload");
-        _weaponData._isReloading = true;
+        _isReloading = true;
 
         yield return new WaitForSeconds(_weaponData._reloadSpeed);
 
-        _weaponData._isReloading = false;
-        _weaponData._currentAmmo = _weaponData._magSize;
+        _isReloading = false;
+        _currentAmmo = _weaponData._magSize;
         print("finish reload");
     }
 
     public void Shoot()
     {
-        if(_weaponData._currentAmmo > 0)
+        if(_currentAmmo > 0)
         {
+            print(_currentAmmo.ToString());
             if (CanShoot())
             {
                 print("tire");
-                StarRecoil();
-                if (Physics.Raycast(_muzzle.position, transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
+                StartRecoil();
+                if (Physics.Raycast(_muzzle.position, _transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
                     print("touche " + _hitInfo.collider.name);
                     //damage enemies here
                 }
+                _currentAmmo--;
+                _timeSinceLastShot = 0;
             }
-            _weaponData._currentAmmo--;
-            _timeSinceLastShot = 0;
-            OnGunShoot();
         }
         else
         {
@@ -125,13 +119,50 @@ public class RangeWeapon : MonoBehaviour
         }
     }
 
+    private void StartRecoil()
+    {
+        StartCoroutine(Recoil());
+        StartCoroutine(CameraShake(0.1f, 1));
+    }
+
+    private IEnumerator Recoil()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            _transform.localEulerAngles += _upRecoilValue / 3f;
+            yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
+        }
+        yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 6f);
+        for (int i = 0; i < 3; i++)
+        {
+            _transform.localEulerAngles -= _upRecoilValue / 3f;
+            yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
+        }
+        RecoverFromRecoil();
+    }
+
+    private IEnumerator CameraShake(float _duration, float _strengh)
+    {
+        float _elapsedTime = 0f;
+
+        while (_elapsedTime < _duration)
+        {
+            _playerController.Rotation = new Vector2(_playerController.Rotation.x, _playerController.Rotation.y - _strengh);
+
+            _elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    private void RecoverFromRecoil()
+    {
+        _transform.localEulerAngles = _originalRotation;
+    }
+
     private void Update()
     {
         _timeSinceLastShot += Time.deltaTime;
     }
 
-    private void OnGunShoot()
-    {
 
-    }
 }

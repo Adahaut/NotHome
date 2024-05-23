@@ -4722,14 +4722,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1647117217807798568, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1647117217807798568, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.395
-      objectReference: {fileID: 0}
     - target: {fileID: 3251227197460374685, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
       propertyPath: _hotBar
       value: 
@@ -4743,13 +4735,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1737696867}
     - target: {fileID: 3815876021508117314, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: _endWeaponHolder
+      propertyPath: _cameraTransform
       value: 
       objectReference: {fileID: 4451716699260450333}
-    - target: {fileID: 3815876021508117314, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: _startWeaponHolder
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6214766844328396960, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
       propertyPath: m_Name
       value: Player 3 (tests armes)
@@ -4761,7 +4749,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
 --- !u!4 &4451716699260450333 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1647117217807798568, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8972873487028390382, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
   m_PrefabInstance: {fileID: 4451716699260450332}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6521726842490704896 stripped

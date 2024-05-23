@@ -532,13 +532,16 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: 727a8aa6760cdaf41ba62ca731cf448c, type: 2}
   _muzzle: {fileID: 7161227206883072467}
   _savedCameraTransform: {fileID: 0}
-  _recoilStepsNumber: 10
+  _recoilStepsNumber: 52
   _recoilForce: 3
   _playerCamera: {fileID: 240723328274052597}
+  _cameraTransform: {fileID: 0}
   _aimingZoomSteps: 6
   _weaponHolder: {fileID: 4391233630866183929}
-  _endWeaponHolder: {fileID: 0}
+  _endWeaponHolder: {fileID: 1647117217807798568}
   _isAiming: 0
+  _playerController: {fileID: 3251227197460374685}
+  _upRecoilValue: {x: -25, y: 0, z: 0}
 --- !u!1 &6214766844328396960
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +834,7 @@ Transform:
   m_GameObject: {fileID: 7589397738853683568}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.27999878, y: -0.481, z: 1.014}
+  m_LocalPosition: {x: 0, y: -0.395, z: 1.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

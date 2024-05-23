@@ -32,12 +32,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (context.started)
         {
-            print("aim");
             _aimAction?.Invoke();
         }
         else if (context.canceled)
         {
-            print("stop aim");
             _stopAimAction?.Invoke();
         }
         
