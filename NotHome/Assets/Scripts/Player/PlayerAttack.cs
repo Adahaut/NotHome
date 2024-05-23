@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public static Action _shootAction;
     public static Action _reloading;
     public static Action _aimAction;
+    public static Action _stopAimAction;
     public bool _isRangeWeaponEqupiped;
     
 
@@ -29,8 +30,18 @@ public class PlayerAttack : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        print("aim");
-        _aimAction?.Invoke();
+        if (context.started)
+        {
+            print("aim");
+            _aimAction?.Invoke();
+        }
+        else if (context.canceled)
+        {
+            print("stop aim");
+            _stopAimAction?.Invoke();
+        }
+        
+
     }
 
     public void Reload(InputAction.CallbackContext context)
