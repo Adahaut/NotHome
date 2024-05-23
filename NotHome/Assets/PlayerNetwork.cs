@@ -22,15 +22,17 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Start()
     {
+        Camera playerCamera = GetComponentInChildren<Camera>();
+
         if(isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
+            Camera displayCamera = this.AddComponent<Camera>();
+            displayCamera = playerCamera;
+            displayCamera.targetTexture = _renderTexture;
         }
 
-        Camera playerCamera = GetComponentInChildren<Camera>();
-        Camera displayCamera = this.AddComponent<Camera>();
-        displayCamera = playerCamera;
-        displayCamera.targetTexture = _renderTexture;
+        
         if(playerCamera != null && !_playerCameras.Contains(playerCamera)) _playerCameras.Add(playerCamera);
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
