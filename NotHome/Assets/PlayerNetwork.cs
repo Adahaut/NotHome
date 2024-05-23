@@ -52,11 +52,12 @@ public class PlayerNetwork : NetworkBehaviour
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < players.Length; i++)
             {
-                players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.LookAt(this.transform);
-                players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.Rotate(0, 180, 0);
+                if (players[i] != this)
+                {
+                    players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.LookAt(this.transform);
+                    players[i].GetComponent<PlayerNetwork>().nameTagInstance.transform.Rotate(0, 180, 0);
+                }
             }
-            //nameTagInstance.transform.LookAt(players[i].transform);
-            //nameTagInstance.transform.Rotate(0, 180, 0);
         }
     }
 
