@@ -11,13 +11,6 @@ public class PlayerCameraManager : NetworkBehaviour
     public GameObject[] cameraPlanes; // Assign planes in the inspector
     private Camera[] playerCameras;
 
-    public static PlayerCameraManager instance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
     void Start()
     {
         playerCameras = new Camera[4];
