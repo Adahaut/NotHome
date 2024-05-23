@@ -7,33 +7,22 @@ using UnityEngine;
 public class PlayerCameraManager : NetworkBehaviour
 {
     [SerializeField] private List<RenderTexture> _cameraRenderTextures;
-    [SerializeField] private Camera _renderCameraPrefab;
 
-    private Camera mainCamera;
-    private Camera renderCamera;
 
-    public override void OnStartClient()
-    {
-        mainCamera = GetComponentInChildren<Camera>();
 
-        renderCamera = Instantiate(_renderCameraPrefab, mainCamera.transform.position, mainCamera.transform.rotation, mainCamera.transform);
-        renderCamera.targetTexture = _cameraRenderTextures[connectionToClient.connectionId];
-        renderCamera.enabled = true;
+    //[SerializeField] private Camera _renderCameraPrefab;
 
-        renderCamera.transform.SetParent(mainCamera.transform);
-    }
+    //private Camera mainCamera;
+    //private Camera renderCamera;
 
-    private void Update()
-    {
-        if (!isOwned)
-        {
-            return;
-        }
+    //public override void OnStartClient()
+    //{
+    //    mainCamera = GetComponentInChildren<Camera>();
 
-        if (renderCamera != null)
-        {
-            renderCamera.transform.position = mainCamera.transform.position;
-            renderCamera.transform.rotation = mainCamera.transform.rotation;
-        }
-    }
+    //    renderCamera = Instantiate(_renderCameraPrefab, mainCamera.transform.position, mainCamera.transform.rotation, mainCamera.transform);
+    //    renderCamera.targetTexture = _cameraRenderTextures[connectionToClient.connectionId];
+    //    renderCamera.enabled = true;
+
+    //    renderCamera.transform.SetParent(mainCamera.transform);
+    //}
 }
