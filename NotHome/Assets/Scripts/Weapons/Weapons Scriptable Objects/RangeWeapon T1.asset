@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21a618f9ecf93d47a3cdc1ecf2baaf4, type: 3}
   m_Name: RangeWeapon T1
   m_EditorClassIdentifier: 
-  _name: 
-  _damages: 0
-  _maxDistance: 0
-  _currentAmmo: 0
-  _magSize: 0
-  _fireRate: 0
-  _reloadSpeed: 0
+  _name: RangeWeapon T1
+  _damages: 10
+  _maxDistance: 200
+  _isAutomatic: 0
+  _currentAmmo: 10
+  _magSize: 10
+  _fireRate: 60
+  _reloadSpeed: 2
   _isReloading: 0

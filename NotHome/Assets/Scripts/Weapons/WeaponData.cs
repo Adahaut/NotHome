@@ -16,5 +16,6 @@ public class WeaponData : ScriptableObject
     public int _magSize;
     public float _fireRate;
     public float _reloadSpeed;
+    [HideInInspector]
     public bool _isReloading;
 }

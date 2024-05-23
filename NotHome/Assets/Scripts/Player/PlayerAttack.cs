@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,12 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Collider _enemyDetectionCollider;
     [SerializeField] private int _damages;
+    public static Action _shootAction;
 
     public void Attack(InputAction.CallbackContext context)
     {
-        StartCoroutine(ActiveDesactiveCollider());
+        //StartCoroutine(ActiveDesactiveCollider());
+        _shootAction?.Invoke();
     }
 
     public void OnTriggerEnter(Collider other)
