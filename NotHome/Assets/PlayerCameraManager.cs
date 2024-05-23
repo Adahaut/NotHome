@@ -45,6 +45,7 @@ public class PlayerCameraManager : NetworkBehaviour
         yield return new WaitForSeconds(2);
         for (int i = 0; i < _players.Count; i++)
         {
+            _players[i].GetComponent<ProximityVoiceChat>().test.text = "working";
             _players[i].GetComponent<PlayerNetwork>()._renderCamera.targetTexture = _cameraRenderTextures[i];
         }
     }
