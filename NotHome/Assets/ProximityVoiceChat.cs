@@ -62,7 +62,6 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Update()
     {
-        test.text = buttonPressed.ToString();
         if (isOwned)
         {
             uint compressed;
