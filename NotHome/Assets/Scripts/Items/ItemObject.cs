@@ -6,6 +6,8 @@ public class ItemObject : ScriptableObject
 
     [SerializeField] private Sprite _sprite;
 
+    [SerializeField] private bool _isAnEquipement;
+
     public string ItemName() { return _name; }
 
     public Sprite ItemSprite() { return _sprite; }
