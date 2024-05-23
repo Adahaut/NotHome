@@ -123,6 +123,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Aiming",
+                    "type": "Button",
+                    "id": "b31ed9be-c8ea-4560-83b1-08f4d60c6600",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "6984b805-83e4-46b1-bc27-5b99a339c362",
@@ -438,6 +447,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "08a0cc12-1356-43ff-bf2e-764430036399",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aiming",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

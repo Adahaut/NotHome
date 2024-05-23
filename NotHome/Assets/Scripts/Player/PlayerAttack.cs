@@ -10,7 +10,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private int _damages;
     public static Action _shootAction;
     public static Action _reloading;
+    public static Action _aimAction;
     public bool _isRangeWeaponEqupiped;
+    
 
     public void Attack(InputAction.CallbackContext context)
     {
@@ -23,6 +25,12 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(ActiveDesactiveCollider());
         }
         
+    }
+
+    public void Aim(InputAction.CallbackContext context)
+    {
+        print("aim");
+        _aimAction?.Invoke();
     }
 
     public void Reload(InputAction.CallbackContext context)
