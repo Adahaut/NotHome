@@ -14,13 +14,13 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        Debug.Log(connectionToClient.connectionId);
-        base.OnStartLocalPlayer();
+        base.OnStartClient();
 
         mainCamera = GetComponentInChildren<Camera>();
 
         renderCamera = Instantiate(_renderCameraPrefab, mainCamera.transform.position, mainCamera.transform.rotation, mainCamera.transform);
-        renderCamera.targetTexture = _cameraRenderTextures[connectionToClient.connectionId];
+        int index = connectionToClient.connectionId % _cameraRenderTextures.Count;
+        renderCamera.targetTexture = _cameraRenderTextures[index];
         renderCamera.enabled = true;
 
         renderCamera.transform.SetParent(mainCamera.transform);
