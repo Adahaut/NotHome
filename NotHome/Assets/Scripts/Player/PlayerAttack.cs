@@ -9,11 +9,25 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Collider _enemyDetectionCollider;
     [SerializeField] private int _damages;
     public static Action _shootAction;
+    public static Action _reloading;
+    public bool _isRangeWeaponEqupiped;
 
     public void Attack(InputAction.CallbackContext context)
     {
-        //StartCoroutine(ActiveDesactiveCollider());
-        _shootAction?.Invoke();
+        if(_isRangeWeaponEqupiped)
+        {
+            _shootAction?.Invoke();
+        }
+        else
+        {
+            StartCoroutine(ActiveDesactiveCollider());
+        }
+        
+    }
+
+    public void Reload(InputAction.CallbackContext context)
+    {
+        _reloading?.Invoke();
     }
 
     public void OnTriggerEnter(Collider other)

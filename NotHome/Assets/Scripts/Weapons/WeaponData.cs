@@ -14,7 +14,7 @@ public class WeaponData : ScriptableObject
     [Header("Reloading")]
     public int _currentAmmo;
     public int _magSize;
-    public float _fireRate;
+    public float _fireRate; // shoot cadance = (1 / (1 / (_fireRate * 60)))
     public float _reloadSpeed;
     [HideInInspector]
     public bool _isReloading;
