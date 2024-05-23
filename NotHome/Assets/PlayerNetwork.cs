@@ -41,7 +41,7 @@ public class PlayerNetwork : NetworkBehaviour
         if(isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
 
-        PlayerCameraManager.instance.UpdateCameras(this.gameObject);
+        GetComponent<PlayerCameraManager>().UpdateCameras(this.gameObject);
     }
 
     private void OnDestroy()
