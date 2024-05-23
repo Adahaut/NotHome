@@ -59,10 +59,13 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         _indexPlant = 0;
         for (int i = 0; i < slots.Count; i++)
         {
-            if (Vector3.Distance(transform.position, slots[i].position) < Vector3.Distance(transform.position, slotNearest) && !ListSlotField.Instance._listIsPlant[i])
+            if (slots[i].gameObject.activeSelf)
             {
-                slotNearest = slots[i].position;
-                _indexPlant = i;
+                if (Vector3.Distance(transform.position, slots[i].position) < Vector3.Distance(transform.position, slotNearest) && !ListSlotField.Instance._listIsPlant[i])
+                {
+                    slotNearest = slots[i].position;
+                    _indexPlant = i;
+                }
             }
         }
         return slotNearest;

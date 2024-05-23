@@ -574,16 +574,24 @@ MonoBehaviour:
   _upgarde:
   - Key: Level 2
     Value:
-    - Key: Metal
-      Value: 5
-    - Key: Leaf
-      Value: 4
+    - Key: Seed
+      Value: 1
   - Key: Level 3
     Value:
-    - Key: Metal
-      Value: 5
-    - Key: Leaf
-      Value: 4
+    - Key: Seed
+      Value: 1
+    - Key: Screws
+      Value: 1
+  - Key: Level 4
+    Value:
+    - Key: Seed
+      Value: 1
+    - Key: Screws
+      Value: 1
+  _inventoryManager: {fileID: 0}
+  _nameBuilding: Field
+  _fieldManager: {fileID: 0}
+  _alarm: {fileID: 0}
 --- !u!1 &4366966444026238705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1077,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &4875119622791864169
 MonoBehaviour:

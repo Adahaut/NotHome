@@ -7,7 +7,7 @@ public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private ItemObject _itemContained;
     private GameObject _itemImage;
-    private int _number;
+    [SerializeField] private int _number;
     [SerializeField] private TextMeshProUGUI _numberText;
 
     private void Awake()
@@ -28,7 +28,12 @@ public class InventorySlot : MonoBehaviour
     public void SetNumber(int _newNumber)
     {
         _number = _newNumber;
-        UpdateNumber();
+        if (_number == 0)
+        {
+            ResetItem();
+        }
+        else
+            UpdateNumber();
     }
 
     public void UpdateNumber()
@@ -52,7 +57,7 @@ public class InventorySlot : MonoBehaviour
     {
         _itemContained = new ItemObject();
         _itemContained.SetItem("None", null);
-        _number = 1;
+        _number = 0;
         _numberText.text = "";
         UpdateItemVisuel();
     }

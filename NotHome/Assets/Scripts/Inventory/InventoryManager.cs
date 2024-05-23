@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField] private int _inventorySlotStartNumber;
 
-    private List<GameObject> _slotList = new List<GameObject>();
+    public List<GameObject> _slotList = new List<GameObject>();
 
 
     private void CreateCase()
