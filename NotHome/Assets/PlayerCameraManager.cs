@@ -10,43 +10,16 @@ public class PlayerCameraManager : NetworkBehaviour
     private List<GameObject> _players = new(4);
     public static PlayerCameraManager instance { get; private set; }
 
-    //[SerializeField] private Camera _renderCameraPrefab;
-
-    //private Camera mainCamera;
-    //private Camera renderCamera;
-
-    //public override void OnStartClient()
-    //{
-    //    mainCamera = GetComponentInChildren<Camera>();
-
-    //    renderCamera = Instantiate(_renderCameraPrefab, mainCamera.transform.position, mainCamera.transform.rotation, mainCamera.transform);
-    //    renderCamera.targetTexture = _cameraRenderTextures[connectionToClient.connectionId];
-    //    renderCamera.enabled = true;
-
-    //    renderCamera.transform.SetParent(mainCamera.transform);
-    //}
-
     private void Awake()
     {
         instance = this;
     }
-    private void Start()
-    {
-        StartCoroutine(begin());
-    }
 
-    public void AddPlayer(GameObject player)
+
+    public void AddPlayer(GameObject player, int index)
     {
         _players.Add(player);
-    }
-
-    IEnumerator begin()
-    {
-        yield return new WaitForSeconds(2);
-        for (int i = 0; i < _players.Count; i++)
-        {
-            _players[i].GetComponent<ProximityVoiceChat>().test.text = "working";
-            _players[i].GetComponent<PlayerNetwork>()._renderCamera.targetTexture = _cameraRenderTextures[i];
-        }
+        player.GetComponent<ProximityVoiceChat>().test.text = index.ToString();
+        player.GetComponent<PlayerNetwork>()._renderCamera.targetTexture = _cameraRenderTextures[index];
     }
 }

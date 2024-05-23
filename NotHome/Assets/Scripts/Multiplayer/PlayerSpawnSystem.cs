@@ -38,7 +38,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
         GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
 
         NetworkServer.Spawn(playerInstance, conn);
-        PlayerCameraManager.instance.AddPlayer(playerInstance);
+        PlayerCameraManager.instance.AddPlayer(playerInstance, conn.connectionId);
 
         _nextIndex++;
 
