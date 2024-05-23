@@ -44,6 +44,7 @@ public class PlayerNetwork : NetworkBehaviour
 
         PlayerCameraManager playerCamManager = FindAnyObjectByType<PlayerCameraManager>();
         playerCamManager.RpcUpdateCameraDisplays();
+
     }
 
     private void OnDestroy()
