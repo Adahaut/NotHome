@@ -7,39 +7,55 @@ using UnityEngine;
 
 public class PlayerCameraManager : NetworkBehaviour
 {
-    [SerializeField] private List<RenderTexture> _cameraRenderTextures;
-    public static PlayerCameraManager instance { get; private set; }
+    [SerializeField] private RenderTexture[] _cameraRenderTextures;
+    public GameObject[] cameraPlanes; // Assign planes in the inspector
+    private Camera[] playerCameras;
 
-    private void Awake()
+    void Start()
     {
-        instance = this;
-    }
+        playerCameras = new Camera[4];
 
-    private void Start()
-    {
-        if(isServer)
+        if (isServer)
         {
-            StartCoroutine(InitializePlayers());
+            StartCoroutine(FindPlayerCameras());
         }
     }
 
-    private IEnumerator<WaitForSeconds> InitializePlayers()
+    IEnumerator FindPlayerCameras()
     {
-        yield return new WaitForSeconds(1f);
-
-        PlayerNetwork[] players = FindObjectsOfType<PlayerNetwork>();
-        for (int i = 0; i < players.Length; i++)
+        while (true)
         {
-            Camera playerCamera = players[i]._renderCamera;
-            if (playerCamera != null)
+            var players = FindObjectsOfType<NetworkIdentity>();
+            int cameraIndex = 0;
+
+            foreach (var player in players)
             {
-                playerCamera.targetTexture = _cameraRenderTextures[i];
+                var camera = player.GetComponentInChildren<Camera>();
+                if (camera != null)
+                {
+                    playerCameras[cameraIndex] = camera;
+                    camera.targetTexture = _cameraRenderTextures[cameraIndex];
+                    cameraIndex++;
+                }
+
+                if (cameraIndex >= 4) break;
             }
-            else
+
+            if (cameraIndex >= 4) yield break;
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcUpdateCameraDisplays()
+    {
+        for (int i = 0; i < playerCameras.Length; i++)
+        {
+            if (playerCameras[i] != null)
             {
-                playerCamera.gameObject.GetComponent<ProximityVoiceChat>().test.text = "Player cam = null";
+                cameraPlanes[i].GetComponent<Renderer>().material.mainTexture = _cameraRenderTextures[i];
             }
         }
     }
 
-    }
+}

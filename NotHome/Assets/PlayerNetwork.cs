@@ -78,13 +78,6 @@ public class PlayerNetwork : NetworkBehaviour
                 }
             }
         }
-
-
-        if(isOwned)
-        {
-            _renderCamera.transform.position = mainCamera.transform.position;
-            _renderCamera.transform.rotation = mainCamera.transform.rotation;
-        }
     }
 
 }
