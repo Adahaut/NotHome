@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,8 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 29165561}
-  - component: {fileID: 29165562}
   - component: {fileID: 29165563}
+  - component: {fileID: 29165562}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -180,6 +180,11 @@ MonoBehaviour:
   - {fileID: 8400000, guid: f90abce8131971f4181fe1dbc07d538b, type: 2}
   - {fileID: 8400000, guid: 7e8f3607f30e11f4f8bc93422e166874, type: 2}
   - {fileID: 8400000, guid: c89f22d8dff512548b25198c8e8334cc, type: 2}
+  _planes:
+  - {fileID: 2027897724}
+  - {fileID: 593941248}
+  - {fileID: 1534421031}
+  - {fileID: 290603063}
 --- !u!114 &29165563
 MonoBehaviour:
   m_ObjectHideFlags: 0

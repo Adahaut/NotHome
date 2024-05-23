@@ -20,10 +20,12 @@ public class PlayerNetwork : NetworkBehaviour
 
     [Header("Camera")]
     public Camera _renderCamera;
+    public Camera mainCamera;
 
     private void Start()
     {
         Camera playerCamera = GetComponentInChildren<Camera>();
+        
 
         if(isOwned)
         {
@@ -75,6 +77,13 @@ public class PlayerNetwork : NetworkBehaviour
                     break;
                 }
             }
+        }
+
+
+        if(isOwned)
+        {
+            _renderCamera.transform.position = mainCamera.transform.position;
+            _renderCamera.transform.rotation = mainCamera.transform.rotation;
         }
     }
 

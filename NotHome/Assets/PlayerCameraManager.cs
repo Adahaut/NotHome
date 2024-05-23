@@ -1,13 +1,13 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerCameraManager : NetworkBehaviour
 {
     [SerializeField] private List<RenderTexture> _cameraRenderTextures;
-    private List<GameObject> _players = new(4);
     public static PlayerCameraManager instance { get; private set; }
 
     private void Awake()
@@ -15,11 +15,30 @@ public class PlayerCameraManager : NetworkBehaviour
         instance = this;
     }
 
-
-    public void AddPlayer(GameObject player, int index)
+    private void Start()
     {
-        _players.Add(player);
-        player.GetComponent<ProximityVoiceChat>().test.text = index.ToString();
-        player.GetComponent<PlayerNetwork>()._renderCamera.targetTexture = _cameraRenderTextures[index];
+        if(isServer)
+        {
+            StartCoroutine(InitializePlayers());
+        }
     }
-}
+
+    private IEnumerator<WaitForSeconds> InitializePlayers()
+    {
+        yield return new WaitForSeconds(1f);
+
+        PlayerNetwork[] players = FindObjectsOfType<PlayerNetwork>();
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (i < _cameraRenderTextures.Count && i < 4)
+            {
+                Camera playerCamera = players[i]._renderCamera;
+                if (playerCamera != null)
+                {
+                    playerCamera.targetTexture = _cameraRenderTextures[i];
+                }
+            }
+        }
+    }
+
+    }
