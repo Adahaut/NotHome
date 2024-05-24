@@ -11,8 +11,6 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public Camera playerRenderCamera;
 
-    //private int index;
-
     public TMP_Text test;
 
     public override void OnStartClient()

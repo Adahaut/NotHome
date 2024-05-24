@@ -18,9 +18,6 @@ public class PlayerNetwork : NetworkBehaviour
 
     private static List<Camera> _playerCameras = new List<Camera>();
 
-    [Header("Camera")]
-    public Camera mainCamera;
-
     private void Start()
     {
         if(isOwned)
