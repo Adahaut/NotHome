@@ -60,12 +60,6 @@ public class PC : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
-    void Update()
-    {
-        RotateCamera();
-        MovePlayer();
-        Timer();
-    }
 
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
@@ -111,21 +105,12 @@ public class PC : MonoBehaviour
             ChangeStamina(-10);
             _currentStaminaTime = _staminaTimer;
             Physics.gravity *= 2;
-            StartCoroutine(ChangeGravity());
-            _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            if (context.performed && _characterController.isGrounded && !QG_Manager.Instance._isOpen)
+                _isJump = true;
         } 
-    }
-    public void SprintPlayer(InputAction.CallbackContext context)
-    {
-        _speed = _initSpeed * _sprintValue;
-        if (context.canceled)
-        {
-            _speed = _initSpeed;
-        }
     }
     void Update()
     {
-        _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
         RotateCamera();
         MovePlayer();
         Timer();
@@ -136,8 +121,7 @@ public class PC : MonoBehaviour
         }
         Debug.Log("Jump");
         print(!QG_Manager.Instance._isOpen);
-        if (context.performed && _characterController.isGrounded && !QG_Manager.Instance._isOpen)
-            _isJump = true;
+
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
@@ -195,20 +179,12 @@ public class PC : MonoBehaviour
         }
         else
         {
-            if (_speed == _initSpeed * _sprintValue)
+            if (_isRunning)
             {
                 if(!_runningStaminaLose)
                 {
                     StartCoroutine(RunningStamina());
                 }
-            }
-            _rigidbodyPlayer.AddForce(_moveDir.y * _speed * Time.deltaTime * transform.forward);
-            _rigidbodyPlayer.AddForce(_moveDir.x * _speed * Time.deltaTime * transform.right);
-            if (_rigidbodyPlayer.velocity.magnitude > _maxSpeed)
-            {
-                float velocityY = _rigidbodyPlayer.velocity.y;
-                _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
-                _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x, velocityY, _rigidbodyPlayer.velocity.z);
             }
             _moveDirection.y = movementDirectionY;
 
@@ -333,7 +309,7 @@ public class PC : MonoBehaviour
     private IEnumerator RunningStamina()
     {
         _runningStaminaLose = true;
-        while (IsPlayerRunning() && _playerManager.Stamina > 0)
+        while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
             ChangeStamina(-5);
@@ -342,7 +318,6 @@ public class PC : MonoBehaviour
         _runningStaminaLose = false;
     }
 
-    private bool IsPlayerRunning() { return _speed == _initSpeed * _sprintValue; }
 
     private bool CanRegenStamina()
     {
