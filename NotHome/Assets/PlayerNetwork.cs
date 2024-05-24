@@ -18,6 +18,8 @@ public class PlayerNetwork : NetworkBehaviour
 
     private static List<Camera> _playerCameras = new List<Camera>();
 
+    public Camera mainCamera;
+
     private void Start()
     {
         if(isOwned)
@@ -25,8 +27,7 @@ public class PlayerNetwork : NetworkBehaviour
             CmdSetPlayerName(SteamFriends.GetPersonaName());
         }
 
-        Camera playerCamera = GetComponentInChildren<Camera>();
-        if (playerCamera != null && !_playerCameras.Contains(playerCamera)) _playerCameras.Add(playerCamera);
+        if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
@@ -38,8 +39,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void OnDestroy()
     {
-        Camera playerCamera = GetComponentInChildren<Camera>();
-        if (playerCamera != null && _playerCameras.Contains(playerCamera)) _playerCameras.Remove(playerCamera);
+        if (mainCamera != null && _playerCameras.Contains(mainCamera)) _playerCameras.Remove(mainCamera);
     }
 
     [Command]
