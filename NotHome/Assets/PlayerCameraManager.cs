@@ -24,9 +24,10 @@ public class PlayerCameraManager : NetworkBehaviour
 
         if (isOwned)
         {
-            CmdRequestConnectionId();
+            index = GameObject.FindGameObjectsWithTag("Player").Length - 1;
             test.gameObject.SetActive(true);
             test.text = index.ToString();
+
             index = nextIndex++;
             if (playerRenderCamera != null)
             {
@@ -34,19 +35,6 @@ public class PlayerCameraManager : NetworkBehaviour
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
         }
-    }
-
-    [Command]
-    private void CmdRequestConnectionId(NetworkConnectionToClient sender = null)
-    {
-        connectionId = sender.connectionId;
-        RpcSetConnectionId(connectionId);
-    }
-
-    [ClientRpc]
-    private void RpcSetConnectionId(int id)
-    {
-        connectionId = id;
     }
 
     [Command]
