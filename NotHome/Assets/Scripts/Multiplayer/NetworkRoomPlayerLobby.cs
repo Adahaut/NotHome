@@ -141,23 +141,21 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
 
+
             if (Room._roomPlayers[i] == this && isOwned)
             {
                 _leaveKickButtons[i].gameObject.SetActive(true);
                 _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
             }
 
-            //Button Kick / Leave
-            //if (Room._roomPlayers[i]._isLeader && _isLeader || Room._roomPlayers[i] == this)
-            //{
-            //    _leaveKickButtons[i].gameObject.SetActive(true);
-            //    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
-            //}
-            //else if(_isLeader && Room._roomPlayers[i] != this)
-            //{
-            //    _leaveKickButtons[i].gameObject.SetActive(true);
-            //    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
-            //}
+            if(_isLeader)
+            {
+                if (Room._roomPlayers[i] != this && isOwned)
+                {
+                    _leaveKickButtons[i].gameObject.SetActive(true);
+                    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
+                }
+            }
 
         }
 
@@ -171,27 +169,27 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public void LeaveLobby()
     {
-        NetworkConnectionToClient conn = null;
+        //NetworkConnectionToClient conn = null;
 
-        foreach(var player in Room._roomPlayers) { if (player == this) { conn = player.connectionToClient; } }
+        //foreach(var player in Room._roomPlayers) { if (player == this) { conn = player.connectionToClient; } }
 
-        conn.Disconnect();
-        Room.StopClient();
+        //conn.Disconnect();
+        //Room.StopClient();
         
-        if(_isLeader)
-        {
-            for (int i = 0; i < Room._roomPlayers.Count; i++)
-            {
-                if (Room._roomPlayers[i] != this)
-                {
-                    Room._roomPlayers[i].LeaveLobby();
-                }
-            }
-            Room.StopHost();
-        }
+        //if(_isLeader)
+        //{
+        //    for (int i = 0; i < Room._roomPlayers.Count; i++)
+        //    {
+        //        if (Room._roomPlayers[i] != this)
+        //        {
+        //            Room._roomPlayers[i].LeaveLobby();
+        //        }
+        //    }
+        //    Room.StopHost();
+        //}
             
 
-        GameObject.Find("UI_MainMenu").GetComponent<MainMenu>().landingPagePanel.SetActive(true);
+        //GameObject.Find("UI_MainMenu").GetComponent<MainMenu>().landingPagePanel.SetActive(true);
     }
 
     public void HandleReadyToStart(bool readyToStart)
