@@ -16,20 +16,21 @@ public class PlayerCameraManager : NetworkBehaviour
     public TMP_Text test;
 
     private NetworkLobbyManager room;
-    private int connectionId;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
 
+        if(GameObject.FindGameObjectsWithTag("Player").Length == 1)
+            index = connectionToClient.connectionId;
+
         if (isOwned)
         {
-            index = GameObject.FindGameObjectsWithTag("Player").Length - 1;
+            index = nextIndex++;
 
             test.gameObject.SetActive(true);
             test.text = index.ToString();
 
-            //index = nextIndex++;
             if (playerRenderCamera != null)
             {
                 playerRenderCamera.targetTexture = renderTextures[index];
