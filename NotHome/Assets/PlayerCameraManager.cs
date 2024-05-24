@@ -22,7 +22,7 @@ public class PlayerCameraManager : NetworkBehaviour
         if (isOwned)
         {
             test.gameObject.SetActive(true);
-            test.text = "caca";
+            test.text = index.ToString();
 
             index = nextIndex++;
             if (playerRenderCamera != null)
