@@ -9,6 +9,7 @@ public class PlayerCameraManager : NetworkBehaviour
 {
     public RenderTexture[] renderTextures;
 
+    [SyncVar]
     public Camera playerRenderCamera;
 
 
