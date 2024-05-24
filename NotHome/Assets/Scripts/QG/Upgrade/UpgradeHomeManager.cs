@@ -28,8 +28,28 @@ public class UpgradeHomeManager : MonoBehaviour
             case "TDC":
                 EffectTDC();
                 break;
+            case "QG":
+                EffectQG();
+                break;
             default:
                 Debug.Log("No name building");
+                break;
+        }
+    }
+    public void EffectQG()
+    {
+        switch (_levelBuilding)
+        {
+            case 2:
+                Debug.Log("débloque les cartes des région + de la zone");
+                QG_Manager.Instance.SetMaxHealthBar(1.20f);
+                break;
+            case 3:
+                DoorExit.Instance.QGLevel3();
+                QG_Manager.Instance.SetMaxHealthBar(1.20f);
+                break;
+            case 4:
+                Debug.Log("Déblocage porte pont + schéma du pont");
                 break;
         }
     }

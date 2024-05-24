@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QG_Manager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class QG_Manager : MonoBehaviour
 
     public PC _playerController;
     public static QG_Manager Instance;
+    [Header("HealthBarQG")]
+    [SerializeField] private Slider _healthBarQG;
+    [SerializeField] private TextMeshProUGUI _textHp;
 
     private void Awake()
     {
@@ -22,6 +26,10 @@ public class QG_Manager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+    private void Start()
+    {
+        _textHp.text = _healthBarQG.value.ToString() + " / " + _healthBarQG.maxValue.ToString();
     }
 
     private void Update()
@@ -54,5 +62,20 @@ public class QG_Manager : MonoBehaviour
             _isOpen = true;
             _gameObjectUi.GetComponent<BuildInterractable>().OpenUiGameObject(_playerController);
         }
+    }
+    public void SetHealthBar(float number)
+    {
+        _healthBarQG.value += number;
+        _textHp.text = _healthBarQG.value.ToString() + " / " + _healthBarQG.maxValue.ToString();
+        if (_healthBarQG.value <= 0)
+        {
+            Debug.Log("QG is dead");
+        }
+    }
+    public void SetMaxHealthBar(float number)
+    {
+        float maxValue = _healthBarQG.maxValue;
+        _healthBarQG.maxValue *= number;
+        SetHealthBar(_healthBarQG.maxValue - maxValue);
     }
 }
