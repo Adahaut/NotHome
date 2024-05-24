@@ -17,7 +17,6 @@ public class PC : MonoBehaviour
     public bool _canMove = true;
 
     [Header("Player UI")]
-    [SerializeField] private RectTransform _playerUI;
 
     [Header("Inventory")]
     [SerializeField] private GameObject _inventory;
@@ -56,6 +55,7 @@ public class PC : MonoBehaviour
 
     public void Start()
     {
+        _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
         _characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -100,13 +100,11 @@ public class PC : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (_isGrounded && _playerManager.Stamina >= 10 && context.performed && !QG_Manager.Instance._isOpen && Physics.gravity.y > -10)
+        if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !QG_Manager.Instance._isOpen)
         {
             ChangeStamina(-10);
             _currentStaminaTime = _staminaTimer;
-            Physics.gravity *= 2;
-            if (context.performed && _characterController.isGrounded && !QG_Manager.Instance._isOpen)
-                _isJump = true;
+            _isJump = true;
         } 
     }
     void Update()
