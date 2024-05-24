@@ -1,6 +1,7 @@
 using Mirror;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCameraManager : NetworkBehaviour
@@ -14,15 +15,26 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public TMP_Text test;
 
+    private NetworkLobbyManager room;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
-        
+
+        //Set index depending of connection : host = 0, p2 = 1
+        if (room == null)
+        {
+            test.gameObject.SetActive(true);
+            test.text = "Room null";
+        }
+        else
+        {
+            index = room._gamePlayers.Count - 1;
+        }
 
         if (isOwned)
         {
-            test.gameObject.SetActive(true);
-            test.text = index.ToString();
+            
 
             index = nextIndex++;
             if (playerRenderCamera != null)
@@ -33,11 +45,8 @@ public class PlayerCameraManager : NetworkBehaviour
         }
     }
 
-    public void SetIndex(int i)
-    {
-        if(isOwned)
-            index = i;
-    }
+    public void SetRoom(NetworkLobbyManager room)
+    { this.room = room; }
 
     [Command]
     private void CmdSetupCameraDisplay(int playerIndex, string renderTextureName)
