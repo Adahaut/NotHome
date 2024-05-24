@@ -34,7 +34,6 @@ public class PC : MonoBehaviour
     [SerializeField] private float _currentStaminaTime;
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
-    private bool _isCameraShaking;
 
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
@@ -175,24 +174,16 @@ public class PC : MonoBehaviour
     {
         if (_moveDir == Vector2.zero)
         {
-            _isCameraShaking = false;
             _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x * _inertia, _rigidbodyPlayer.velocity.y, _rigidbodyPlayer.velocity.z * _inertia);
         }
         else
         {
-            print(_isCameraShaking);
             if (_speed == _initSpeed * _sprintValue)
             {
                 if(!_runningStaminaLose)
                 {
                     StartCoroutine(RunningStamina());
                 }
-            }
-            if (!_isCameraShaking)
-            {
-                _isCameraShaking = true;
-                float _delta = _speed == _initSpeed * _sprintValue ? 0.5f : 1f;
-                StartCoroutine(UIShacke(1f, _delta));
             }
             _rigidbodyPlayer.AddForce(_moveDir.y * _speed * Time.deltaTime * transform.forward);
             _rigidbodyPlayer.AddForce(_moveDir.x * _speed * Time.deltaTime * transform.right);
@@ -332,23 +323,4 @@ public class PC : MonoBehaviour
         return _currentStaminaTime <= 0 && _playerManager.Stamina <= _playerManager.MaxStamina;
     }
 
-    private IEnumerator UIShacke(float _force, float _deltaBetweenFrames)
-    {
-        print("start coroutine");
-        while (_isCameraShaking)
-        {
-            float x = Random.Range(940, 980) * _force;
-            float y = Random.Range(520, 540) * _force;
-
-            _playerUI.position = new Vector3(x, y, 0f);
-            print(_playerUI.position);
-
-            yield return new WaitForSeconds(_deltaBetweenFrames / 2f);
-            _playerUI.position = new Vector3(960, 540, 0);
-            print(_playerUI.position);
-            yield return new WaitForSeconds(_deltaBetweenFrames / 2f);
-        }
-        _playerUI.position = new Vector3(960, 540, 0);
-        print(_playerUI.position);
-    }
 }

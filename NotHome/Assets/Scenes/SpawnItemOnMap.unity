@@ -2485,8 +2485,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5674058299988091280, guid: 7d7bbb006f096a748a620e6f35cfd34e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1548418614}
   m_SourcePrefab: {fileID: 100100000, guid: 7d7bbb006f096a748a620e6f35cfd34e, type: 3}
+--- !u!1 &1548418613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5674058299988091280, guid: 7d7bbb006f096a748a620e6f35cfd34e, type: 3}
+  m_PrefabInstance: {fileID: 1548418612}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1548418614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548418613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aba764b49a7c73459f3c77415034bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerTransform: {fileID: 4451716699260450333}
+  _playerCamera: {fileID: 6521726842490704896}
+  _driftAmount: 5
+  _positionDriftAmount: 0.1
+  _smoothSpeed: 5
 --- !u!114 &1594349509 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9025816669669888451, guid: 7d7bbb006f096a748a620e6f35cfd34e, type: 3}
@@ -4358,6 +4383,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3384152752921712017}
   m_SourcePrefab: {fileID: 100100000, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
+--- !u!4 &4451716699260450333 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 482119417541194962, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
+  m_PrefabInstance: {fileID: 4451716699260450332}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6521726842490704896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1719341471645602271, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
