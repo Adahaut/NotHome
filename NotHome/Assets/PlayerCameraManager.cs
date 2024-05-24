@@ -24,10 +24,10 @@ public class PlayerCameraManager : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
-        }
+        //for (int i = 0; i < players.Length; i++)
+        //{
+        //    players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
+        //}
     }
 
 }
