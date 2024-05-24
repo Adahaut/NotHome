@@ -16,6 +16,9 @@ public class PC : MonoBehaviour
     [SerializeField] private float _gravity;
     public bool _canMove = true;
 
+    [Header("Player UI")]
+    [SerializeField] private RectTransform _playerUI;
+
     [Header("Inventory")]
     [SerializeField] private GameObject _inventory;
     [SerializeField] private string _itemTag;
@@ -24,6 +27,16 @@ public class PC : MonoBehaviour
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
 
+    [Header("PlayerManager")]
+    [SerializeField] private PlayerManager _playerManager;
+    [SerializeField] private float _staminaTimer;
+    [SerializeField] private float _currentStaminaTime;
+    [SerializeField] private bool _staminaRegenStarted;
+    [SerializeField] private bool _runningStaminaLose;
+
+    private Rigidbody _rigidbodyPlayer;
+    private bool _isGrounded;
+    private float _initSpeed;
     private bool _isRunning;
     private bool _isJump;
     private CharacterController _characterController;
@@ -93,6 +106,34 @@ public class PC : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (_isGrounded && _playerManager.Stamina >= 10 && context.performed && !QG_Manager.Instance._isOpen && Physics.gravity.y > -10)
+        {
+            ChangeStamina(-10);
+            _currentStaminaTime = _staminaTimer;
+            Physics.gravity *= 2;
+            StartCoroutine(ChangeGravity());
+            _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        } 
+    }
+    public void SprintPlayer(InputAction.CallbackContext context)
+    {
+        _speed = _initSpeed * _sprintValue;
+        if (context.canceled)
+        {
+            _speed = _initSpeed;
+        }
+    }
+    void Update()
+    {
+        _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
+        RotateCamera();
+        MovePlayer();
+        Timer();
+
+        if (!_staminaRegenStarted && CanRegenStamina())
+        {
+            StartCoroutine(RegenStamina());
+        }
         Debug.Log("Jump");
         print(!QG_Manager.Instance._isOpen);
         if (context.performed && _characterController.isGrounded && !QG_Manager.Instance._isOpen)
@@ -111,6 +152,10 @@ public class PC : MonoBehaviour
         if (_timer > 0)
         {
             _timer -= Time.deltaTime;
+        }
+        if(_currentStaminaTime > 0)
+        {
+            _currentStaminaTime -= Time.deltaTime;
         }
     }
 
@@ -150,7 +195,23 @@ public class PC : MonoBehaviour
         }
         else
         {
+            if (_speed == _initSpeed * _sprintValue)
+            {
+                if(!_runningStaminaLose)
+                {
+                    StartCoroutine(RunningStamina());
+                }
+            }
+            _rigidbodyPlayer.AddForce(_moveDir.y * _speed * Time.deltaTime * transform.forward);
+            _rigidbodyPlayer.AddForce(_moveDir.x * _speed * Time.deltaTime * transform.right);
+            if (_rigidbodyPlayer.velocity.magnitude > _maxSpeed)
+            {
+                float velocityY = _rigidbodyPlayer.velocity.y;
+                _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
+                _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x, velocityY, _rigidbodyPlayer.velocity.z);
+            }
             _moveDirection.y = movementDirectionY;
+
         }
 
         if (!_characterController.isGrounded)
@@ -246,4 +307,46 @@ public class PC : MonoBehaviour
             }
         }
     }
+
+    private void ChangeStamina(int _value)
+    {
+
+        _playerManager.Stamina += _value;
+        _playerManager.SetStaminaBar();
+    }
+
+    private IEnumerator RegenStamina()
+    {
+        _staminaRegenStarted = true;
+        while(CanRegenStamina())
+        {
+            ChangeStamina(_playerManager.MaxStamina / 10);
+            if(_playerManager.Stamina > _playerManager.MaxStamina)
+            {
+                _playerManager.SetMaxStamina();
+            }
+            yield return new WaitForSeconds(1f);
+        }
+        _staminaRegenStarted = false;
+    }
+
+    private IEnumerator RunningStamina()
+    {
+        _runningStaminaLose = true;
+        while (IsPlayerRunning() && _playerManager.Stamina > 0)
+        {
+            _currentStaminaTime = _staminaTimer;
+            ChangeStamina(-5);
+            yield return new WaitForSeconds(1f);
+        }
+        _runningStaminaLose = false;
+    }
+
+    private bool IsPlayerRunning() { return _speed == _initSpeed * _sprintValue; }
+
+    private bool CanRegenStamina()
+    {
+        return _currentStaminaTime <= 0 && _playerManager.Stamina <= _playerManager.MaxStamina;
+    }
+
 }
