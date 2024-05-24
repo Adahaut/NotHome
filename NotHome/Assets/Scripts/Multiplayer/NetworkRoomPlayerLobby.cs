@@ -169,13 +169,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public void LeaveLobby()
     {
-        //NetworkConnectionToClient conn = null;
+        NetworkConnectionToClient conn = null;
 
-        //foreach(var player in Room._roomPlayers) { if (player == this) { conn = player.connectionToClient; } }
+        foreach (var player in Room._roomPlayers) { if (player == this) { conn = player.connectionToClient; } }
 
-        //conn.Disconnect();
-        //Room.StopClient();
-        
+        conn.Disconnect();
+        Room.StopClient();
+
         //if(_isLeader)
         //{
         //    for (int i = 0; i < Room._roomPlayers.Count; i++)
@@ -187,9 +187,9 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         //    }
         //    Room.StopHost();
         //}
-            
 
-        //GameObject.Find("UI_MainMenu").GetComponent<MainMenu>().landingPagePanel.SetActive(true);
+
+        GameObject.Find("UI_MainMenu").GetComponent<MainMenu>().landingPagePanel.SetActive(true);
     }
 
     public void HandleReadyToStart(bool readyToStart)
