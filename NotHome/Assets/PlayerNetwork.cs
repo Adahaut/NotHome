@@ -2,7 +2,6 @@ using Mirror;
 using Steamworks;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -25,9 +24,9 @@ public class PlayerNetwork : NetworkBehaviour
         if(isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
-        }
 
-        if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
+            if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
+        }
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
@@ -58,9 +57,8 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if (nameTagInstance != null)
+        if (nameTagInstance != null && !isOwned)
         {
-            
             foreach (var playerCamera in _playerCameras)
             {
                 if (playerCamera != null && playerCamera.gameObject != this.gameObject)
