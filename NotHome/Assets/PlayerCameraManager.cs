@@ -24,7 +24,7 @@ public class PlayerCameraManager : NetworkBehaviour
         if (isOwned)
         {
             test.gameObject.SetActive(true);
-            test.text = NetworkClient.connection.connectionId.ToString();
+            test.text = netId.ToString();
 
             if (playerRenderCamera != null)
             {
