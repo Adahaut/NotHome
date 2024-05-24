@@ -171,20 +171,31 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [Command]
     public void LeaveLobby()
     {
-        if (isOwned)
+        if (_isLeader)
         {
-            if (_isLeader && Room._roomPlayers.Count > 1)
+            if (Room._roomPlayers.Count > 1)
             {
                 Room._roomPlayers[1].IsLeader = true;
             }
 
             Room._roomPlayers.Remove(this);
+            Room.NotifyPlayersOfReadyState();
+        }
+        else
+        {
+            Room._roomPlayers.Remove(this);
+        }
 
-            if (isOwned)
-            {
-                RpcReturnToMainMenu();
-            }
+        RpcReturnToMainMenu(connectionToClient);
+    }
 
+    [ClientRpc]
+    private void RpcReturnToMainMenu(NetworkConnectionToClient target)
+    {
+        if (target.identity.isOwned)
+        {
+            var mainMenu = GameObject.Find("UI_MainMenu").GetComponent<MainMenu>();
+            mainMenu.landingPagePanel.SetActive(true);
             if (_isLeader)
             {
                 Room.StopHost();
@@ -193,16 +204,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             {
                 Room.StopClient();
             }
-        }
-    }
-
-    [ClientRpc]
-    private void RpcReturnToMainMenu()
-    {
-        if (isOwned)
-        {
-            var mainMenu = GameObject.Find("UI_MainMenu").GetComponent<MainMenu>();
-            mainMenu.landingPagePanel.SetActive(true);
         }
     }
 
