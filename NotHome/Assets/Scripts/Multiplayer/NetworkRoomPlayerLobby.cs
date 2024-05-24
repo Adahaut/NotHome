@@ -176,7 +176,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         foreach (var player in Room._roomPlayers) { if (player == this) { conn = player.connectionToClient; } }
 
         conn.Disconnect();
-        Room.StopClient();
 
         //if(_isLeader)
         //{
