@@ -173,14 +173,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         if (Room._roomPlayers[0] == this && Room._roomPlayers.Count > 1)
         {
-            // Promote the next player to leader
             Room._roomPlayers[1].IsLeader = true;
         }
 
-        // Remove this player from the room
         Room._roomPlayers.Remove(this);
 
-        // If the player is the leader and there are no more players, just remove the player
         if (Room._roomPlayers.Count == 0)
         {
             Room.StopHost();
