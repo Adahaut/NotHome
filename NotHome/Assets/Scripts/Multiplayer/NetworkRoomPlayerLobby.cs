@@ -189,7 +189,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         RpcReturnToMainMenu(connectionToClient);
     }
 
-    [ClientRpc]
     private void RpcReturnToMainMenu(NetworkConnectionToClient target)
     {
         if (target.identity.isOwned)
