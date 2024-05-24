@@ -23,7 +23,7 @@ public class PlayerCameraManager : NetworkBehaviour
 
     IEnumerator LoadCameras()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < players.Length; i++)
@@ -31,44 +31,5 @@ public class PlayerCameraManager : NetworkBehaviour
             players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
         }
     }
-
-    //private NetworkLobbyManager room;
-
-    //public override void OnStartClient()
-    //{
-    //    base.OnStartClient();
-
-    //    if (isOwned)
-    //    {
-    //        index = GameObject.Find("SpawnSystem").GetComponent<PlayerSpawnSystem>().playerCount;
-    //        //index = GameObject.FindGameObjectsWithTag("Player").Length - 1;
-    //        test.gameObject.SetActive(true);
-    //        test.text = index.ToString();
-
-    //        if (playerRenderCamera != null)
-    //        {
-    //            playerRenderCamera.targetTexture = renderTextures[index];
-    //            CmdSetupCameraDisplay(index, renderTextures[index].name);
-    //        }
-    //    }
-    //}
-
-    //[Command]
-    //private void CmdSetupCameraDisplay(int playerIndex, string renderTextureName)
-    //{
-    //    RpcSetupCameraDisplay(playerIndex, renderTextureName);
-    //}
-
-    //[ClientRpc]
-    //private void RpcSetupCameraDisplay(int playerIndex, string renderTextureName)
-    //{
-
-    //    string planeName = "CameraPlane" + (playerIndex);
-    //    GameObject cameraPlane = GameObject.Find(planeName);
-    //    if (cameraPlane != null)
-    //    {
-    //        cameraPlane.GetComponent<Renderer>().material.mainTexture = renderTextures[playerIndex];
-    //    }
-    //}
 
 }
