@@ -9,10 +9,12 @@ public class OfficeManager : MonoBehaviour
     [SerializeField] private Transform _camera;
     [SerializeField] private float _speed;
     [SerializeField] private float _speedCamera;
+    [SerializeField] private float _speedZoom;
     private bool _isOnChair;
     private bool _isMouv;
     private bool _isZoomed;
     [SerializeField] private float _distRayCast;
+    [SerializeField] private float _mouvCam;
 
     public static OfficeManager Instance;
 
@@ -33,12 +35,22 @@ public class OfficeManager : MonoBehaviour
             _isMouv = true;
             float time = 0f;
             Vector3 end_pos = _chair.position;
+            end_pos.y = _player.transform.position.y;
             Vector3 start_pos = _player.transform.position;
             while (time / total_time < 1)
             {
-                time += Time.deltaTime * _speed;
-                _player.transform.position = Vector3.Lerp(start_pos, end_pos, time / total_time);
-                yield return null;
+                print(Vector3.Distance(_player.transform.position, _chair.position));
+                if (Vector3.Distance(_player.transform.position, _chair.position) < 0.3)
+                {
+                    time = total_time * 2;
+                    yield return null;
+                }
+                else
+                {
+                    time += Time.deltaTime * _speed;
+                    _player.transform.position = Vector3.Lerp(start_pos, end_pos, time / total_time);
+                    yield return null;
+                }
             }
             if (time / total_time >= 1)
                 StartCoroutine(MouvCam());
@@ -48,8 +60,7 @@ public class OfficeManager : MonoBehaviour
     {
         if (_isMouv)
         {
-            float posY = _camera.position.y;
-            while (_camera.position.y > posY / 1.5f)
+            while (_camera.position.y > _player.transform.position.y + 1 - _mouvCam)
             {
                 _camera.position -= new Vector3(0, _speedCamera * Time.deltaTime, 0);
                 yield return null;
@@ -63,15 +74,14 @@ public class OfficeManager : MonoBehaviour
         if (!_isMouv)
         {
             _isMouv = true;
-            float posY = _camera.position.y;
-            while (_camera.position.y < posY * 1.5f)
+            while (_camera.position.y < _player.transform.position.y + 0.5f + _mouvCam)
             {
                 _camera.position += new Vector3(0, _speedCamera * Time.deltaTime, 0);
                 yield return null;
             }
             _isOnChair = false;
             _isMouv = false;
-            _camera.position = new Vector3(_camera.position.x, 2.50f, _camera.position.z);
+            _camera.position = new Vector3(_camera.position.x, _player.transform.position.y + 1, _camera.position.z);
             _player.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].actions[0].Enable();
             _player.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].actions[1].Enable();
         }
@@ -112,18 +122,20 @@ public class OfficeManager : MonoBehaviour
             _player.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].actions[6].Disable();
             while (_camera.GetComponent<Camera>().fieldOfView > 30)
             {
-                _camera.GetComponent<Camera>().fieldOfView -= 0.5f;
+                _camera.GetComponent<Camera>().fieldOfView -= _speedZoom * Time.deltaTime;
                 yield return null;
             }
+            _camera.GetComponent<Camera>().fieldOfView = 30;
         }
         else
         {
             _player.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].actions[6].Enable();
             while (_camera.GetComponent<Camera>().fieldOfView < 60)
             {
-                _camera.GetComponent<Camera>().fieldOfView += 0.5f;
+                _camera.GetComponent<Camera>().fieldOfView += _speedZoom * Time.deltaTime;
                 yield return null;
             }
+            _camera.GetComponent<Camera>().fieldOfView = 60;
         }
         _isZoomed = false;
     }
