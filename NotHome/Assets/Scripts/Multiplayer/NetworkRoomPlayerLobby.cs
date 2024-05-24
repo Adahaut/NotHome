@@ -199,7 +199,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         //Room.NotifyPlayersOfReadyState();
     }
 
-    [Client]
     private void BackToMainMenu()
     {
         var mainMenu = GameObject.Find("UI_MainMenu").GetComponent<MainMenu>();
