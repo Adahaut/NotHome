@@ -16,12 +16,11 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        base.OnStartClient();
         index = connectionToClient.connectionId;
-        
+
         if (isOwned)
         {
-            test.gameObject.SetActive(true);
+            //test.gameObject.SetActive(true);
             //test.text = index.ToString();
 
             index = nextIndex++;
@@ -30,6 +29,17 @@ public class PlayerCameraManager : NetworkBehaviour
                 playerRenderCamera.targetTexture = renderTextures[index];
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
+        }
+
+        
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        if (isOwned)
+        {
+            test.gameObject.SetActive(true);
+            test.text = "test";
         }
     }
 
