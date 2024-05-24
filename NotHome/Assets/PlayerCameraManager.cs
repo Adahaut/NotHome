@@ -17,8 +17,13 @@ public class PlayerCameraManager : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        
+    }
+
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
         index = connectionToClient.connectionId;
-        GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
 
         if (isOwned)
         {
