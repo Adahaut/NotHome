@@ -42,6 +42,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6521726842588744728}
+  - {fileID: 6441610610303360976}
   - {fileID: 9141703135805941483}
   - {fileID: 6077873985827698862}
   - {fileID: 3344502482740692487}
@@ -274,7 +275,6 @@ MonoBehaviour:
   audioSource: {fileID: -2714863310831892970}
   ownTalkieWalkie: 1
   maxDistance: 20
-  test: {fileID: 3219614448037114125}
 --- !u!82 &-2714863310831892970
 AudioSource:
   m_ObjectHideFlags: 0
@@ -434,6 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6441610610303360976}
   - component: {fileID: 4419864146081006884}
+  - component: {fileID: 8366779276295499507}
   m_Layer: 0
   m_Name: RenderCamera
   m_TagString: MainCamera
@@ -450,11 +451,11 @@ Transform:
   m_GameObject: {fileID: 3022075829111138555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6521726842588744728}
+  m_Father: {fileID: 3667293984986487829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4419864146081006884
 Camera:
@@ -507,6 +508,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &8366779276295499507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022075829111138555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40e91907f74d364799544ecff4b246b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedCam: {fileID: 4419864146081006884}
+  cam: {fileID: 492221263109505223}
 --- !u!1 &3211384388207029018
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,8 +653,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6441610610303360976}
+  m_Children: []
   m_Father: {fileID: 3667293984986487829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &492221263109505223

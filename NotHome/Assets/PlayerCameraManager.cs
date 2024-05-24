@@ -28,7 +28,7 @@ public class PlayerCameraManager : NetworkBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.transform.parent.gameObject.SetActive(true);
+            //players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.transform.parent.gameObject.SetActive(true);
             players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
         }
     }
