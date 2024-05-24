@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerSpawnSystem : NetworkBehaviour
@@ -36,6 +37,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
         }
 
         GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
+        playerInstance.GetComponent<PlayerCameraManager>().SetIndex( _nextIndex );
         NetworkServer.Spawn(playerInstance, conn);
 
 

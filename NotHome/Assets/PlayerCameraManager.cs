@@ -17,7 +17,7 @@ public class PlayerCameraManager : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        //index = connectionToClient.connectionId;
+        
 
         if (isOwned)
         {
@@ -31,6 +31,11 @@ public class PlayerCameraManager : NetworkBehaviour
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
         }
+    }
+
+    public void SetIndex(int i)
+    {
+        index = i;
     }
 
     [Command]
