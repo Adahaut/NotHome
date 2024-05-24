@@ -25,7 +25,7 @@ public class PlayerCameraManager : NetworkBehaviour
         {
 
             test.gameObject.SetActive(true);
-            test.text = connectionToClient.connectionId.ToString();
+            test.text = connectionToClient.ToString();
 
             if (playerRenderCamera != null)
             {
