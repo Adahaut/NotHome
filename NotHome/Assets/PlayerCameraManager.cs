@@ -16,35 +16,17 @@ public class PlayerCameraManager : NetworkBehaviour
     public TMP_Text test;
 
     private NetworkLobbyManager room;
+    private int connectionId;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
 
-        //Set index depending of connection : host = 0, p2 = 1
-        if (room == null)
-        {
-            if(isOwned)
-            {
-                test.gameObject.SetActive(true);
-                test.text = "Room null";
-            }
-            
-        }
-        else
-        {
-            index = room._gamePlayers.Count - 1;
-            if(isOwned)
-            {
-                test.gameObject.SetActive(true);
-                test.text = index.ToString();
-            }
-        }
-
         if (isOwned)
         {
-            
-
+            CmdRequestConnectionId();
+            test.gameObject.SetActive(true);
+            test.text = index.ToString();
             index = nextIndex++;
             if (playerRenderCamera != null)
             {
@@ -54,8 +36,18 @@ public class PlayerCameraManager : NetworkBehaviour
         }
     }
 
-    public void SetRoom(NetworkLobbyManager room)
-    { this.room = room; }
+    [Command]
+    private void CmdRequestConnectionId(NetworkConnectionToClient sender = null)
+    {
+        connectionId = sender.connectionId;
+        RpcSetConnectionId(connectionId);
+    }
+
+    [ClientRpc]
+    private void RpcSetConnectionId(int id)
+    {
+        connectionId = id;
+    }
 
     [Command]
     private void CmdSetupCameraDisplay(int playerIndex, string renderTextureName)

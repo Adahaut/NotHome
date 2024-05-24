@@ -37,7 +37,6 @@ public class PlayerSpawnSystem : NetworkBehaviour
         }
 
         GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
-        playerInstance.GetComponent<PlayerCameraManager>().SetRoom(conn.identity.GetComponent<NetworkGamePlayerLobby>().Room);
         
         NetworkServer.Spawn(playerInstance, conn);
 
