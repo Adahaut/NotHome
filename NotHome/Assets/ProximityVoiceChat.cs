@@ -4,6 +4,7 @@ using Steamworks;
 using UnityEditor;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
@@ -21,6 +22,8 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private bool buttonPressed = false;
 
+    public TMP_Text test;
+
     private void Start()
     {
         ownTalkieWalkie = true;
@@ -29,6 +32,8 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             SteamUser.StartVoiceRecording();
             audioSource.volume = 0f;
+            test.gameObject.SetActive(true);
+            test.text = "Record Start";
             Debug.Log("Record Start");
             
         }
