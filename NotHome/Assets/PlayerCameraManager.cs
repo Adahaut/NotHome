@@ -1,7 +1,5 @@
 using Mirror;
-using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCameraManager : NetworkBehaviour
@@ -9,13 +7,10 @@ public class PlayerCameraManager : NetworkBehaviour
     public RenderTexture[] renderTextures;
 
     [SerializeField] private Camera playerRenderCamera;
-
-
-    private int index;
-
     public TMP_Text test;
 
-    private NetworkLobbyManager room;
+    private static int playerCount = 0; // Compte des joueurs
+    private int playerIndex;
 
     public override void OnStartClient()
     {
@@ -23,14 +18,14 @@ public class PlayerCameraManager : NetworkBehaviour
 
         if (isOwned)
         {
-        index = GameObject.FindGameObjectsWithTag("Player").Length - 1;
+            playerIndex = playerCount++;
             test.gameObject.SetActive(true);
-            test.text = index.ToString();
+            test.text = playerIndex.ToString();
 
             if (playerRenderCamera != null)
             {
-                playerRenderCamera.targetTexture = renderTextures[index];
-                CmdSetupCameraDisplay(index, renderTextures[index].name);
+                playerRenderCamera.targetTexture = renderTextures[playerIndex];
+                CmdSetupCameraDisplay(playerIndex, renderTextures[playerIndex].name);
             }
         }
     }
@@ -44,13 +39,11 @@ public class PlayerCameraManager : NetworkBehaviour
     [ClientRpc]
     private void RpcSetupCameraDisplay(int playerIndex, string renderTextureName)
     {
-
-        string planeName = "CameraPlane" + (playerIndex);
+        string planeName = "CameraPlane" + playerIndex;
         GameObject cameraPlane = GameObject.Find(planeName);
         if (cameraPlane != null)
         {
             cameraPlane.GetComponent<Renderer>().material.mainTexture = renderTextures[playerIndex];
         }
     }
-
 }
