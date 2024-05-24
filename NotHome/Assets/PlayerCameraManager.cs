@@ -10,7 +10,9 @@ public class PlayerCameraManager : NetworkBehaviour
 
     [SerializeField] private Camera playerRenderCamera;
 
+    [SyncVar]
     private static int nextIndex = 0;
+
     private int index;
 
     public TMP_Text test;
