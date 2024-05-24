@@ -149,7 +149,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
                 _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
             }
 
-            if(_isLeader)
+            if (_isLeader)
             {
                 if (Room._roomPlayers[i] != this && isOwned)
                 {
@@ -171,39 +171,41 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [Command]
     public void LeaveLobby()
     {
-        bool wasLeader = _isLeader;
-        if (wasLeader)
+        if(_isLeader && isOwned)
         {
-            if (Room._roomPlayers.Count > 1)
-            {
-                Room._roomPlayers[1].IsLeader = true;
-            }
+
+        }
+        else if(!_isLeader && isOwned)
+        {
+            BackToMainMenu();
         }
 
-        Room._roomPlayers.Remove(this);
+        //bool wasLeader = _isLeader;
+        //if (wasLeader)
+        //{
+        //    if (Room._roomPlayers.Count > 1)
+        //    {
+        //        Room._roomPlayers[1].IsLeader = true;
+        //    }
+        //}
 
-        if (isOwned)
-        {
-            TargetReturnToMainMenu(connectionToClient, wasLeader);
-        }
+        //Room._roomPlayers.Remove(this);
 
-        Room.NotifyPlayersOfReadyState();
+        //if (isOwned)
+        //{
+        //    TargetReturnToMainMenu(connectionToClient, wasLeader);
+        //}
+
+        //Room.NotifyPlayersOfReadyState();
     }
 
-    [TargetRpc]
-    private void TargetReturnToMainMenu(NetworkConnection target, bool wasLeader)
+    [Client]
+    private void BackToMainMenu()
     {
         var mainMenu = GameObject.Find("UI_MainMenu").GetComponent<MainMenu>();
         mainMenu.landingPagePanel.SetActive(true);
 
-        if (wasLeader)
-        {
-            Room.StopHost();
-        }
-        else
-        {
-            Room.StopClient();
-        }
+        Room.StopClient();
     }
 
     public void HandleReadyToStart(bool readyToStart)
