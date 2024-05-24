@@ -62,6 +62,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
 
         Room._roomPlayers.Add(this);
+        Room.NotifyPlayersOfReadyState();
 
     }
 
@@ -167,6 +168,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         }
     }
 
+    [Command]
     public void LeaveLobby()
     {
         NetworkConnectionToClient conn = null;
@@ -208,9 +210,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void CmdReadyUp()
     {
         _isReady = !_isReady;
-
         Room.NotifyPlayersOfReadyState();
-
     }
 
     [Command]
