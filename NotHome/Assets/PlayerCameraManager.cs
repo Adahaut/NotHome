@@ -18,9 +18,9 @@ public class PlayerCameraManager : NetworkBehaviour
     {
         if(isOwned)
         {
-            index = connectionToClient.connectionId;
             test.gameObject.SetActive(true);
             test.text = "Record Start";
+            index = connectionToClient.connectionId;
             index = nextIndex++;
             if (playerRenderCamera != null)
             {
