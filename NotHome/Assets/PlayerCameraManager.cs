@@ -18,26 +18,28 @@ public class PlayerCameraManager : NetworkBehaviour
     {
         if(isOwned)
         {
+            index = connectionToClient.connectionId;
             test.gameObject.SetActive(true);
             test.text = "Record Start";
-        }
-    }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        index = connectionToClient.connectionId;
-
-        if (isOwned)
-        {
-            
-
             index = nextIndex++;
             if (playerRenderCamera != null)
             {
                 playerRenderCamera.targetTexture = renderTextures[index];
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
+        }
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        
+
+        if (isOwned)
+        {
+            
+
+            
         }
     }
 

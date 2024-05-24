@@ -31,9 +31,6 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             SteamUser.StartVoiceRecording();
             audioSource.volume = 0f;
-            
-            
-            
         }
         else
         {
