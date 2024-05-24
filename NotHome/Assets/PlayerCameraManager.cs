@@ -8,36 +8,38 @@ public class PlayerCameraManager : NetworkBehaviour
 
     [SerializeField] private Camera playerCamera;
 
-    int index;
+    private static int nextIndex = 0;
+    private int index;
     public override void OnStartClient()
     {
         base.OnStartClient();
-
         index = connectionToClient.connectionId;
-
-        if (playerCamera != null)
+        if(isOwned)
         {
-            playerCamera.targetTexture = renderTextures[index];
-
-            CmdSetupCameraDisplay(netId, renderTextures[index].name);
+            index = nextIndex++;
+            if (playerCamera != null)
+            {
+                playerCamera.targetTexture = renderTextures[index];
+                CmdSetupCameraDisplay(index, renderTextures[index].name);
+            }
         }
     }
 
     [Command]
-    private void CmdSetupCameraDisplay(uint playerId, string renderTextureName)
+    private void CmdSetupCameraDisplay(int playerIndex, string renderTextureName)
     {
-        RpcSetupCameraDisplay(playerId, renderTextureName);
+        RpcSetupCameraDisplay(playerIndex, renderTextureName);
     }
 
     [ClientRpc]
-    private void RpcSetupCameraDisplay(uint playerId, string renderTextureName)
+    private void RpcSetupCameraDisplay(int playerIndex, string renderTextureName)
     {
 
-        string planeName = "CameraPlane" + (playerId);
+        string planeName = "CameraPlane" + (playerIndex);
         GameObject cameraPlane = GameObject.Find(planeName);
         if (cameraPlane != null)
         {
-            cameraPlane.GetComponent<Renderer>().material.mainTexture = Resources.Load<RenderTexture>(renderTextureName);
+            cameraPlane.GetComponent<Renderer>().material.mainTexture = renderTextures[playerIndex];
         }
     }
 
