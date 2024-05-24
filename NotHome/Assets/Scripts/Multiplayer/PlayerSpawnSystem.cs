@@ -10,6 +10,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     private static List<Transform> _spawnPoints = new List<Transform>();
 
+    public int playerCount;
     private int _nextIndex = 0;
 
     public static void AddSpawnPoint(Transform transform)
@@ -40,7 +41,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
         
         NetworkServer.Spawn(playerInstance, conn);
 
-
+        playerCount++;
         _nextIndex++;
 
     }
