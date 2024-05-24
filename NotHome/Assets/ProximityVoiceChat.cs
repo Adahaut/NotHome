@@ -21,8 +21,6 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private bool buttonPressed = false;
 
-    public TMP_Text test;
-
     private void Start()
     {
         ownTalkieWalkie = true;
@@ -32,7 +30,7 @@ public class ProximityVoiceChat : NetworkBehaviour
             SteamUser.StartVoiceRecording();
             audioSource.volume = 0f;
             Debug.Log("Record Start");
-            test.gameObject.SetActive(true);
+            
         }
         else
         {

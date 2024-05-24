@@ -1,5 +1,6 @@
 using Mirror;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 
 public class PlayerCameraManager : NetworkBehaviour
@@ -10,12 +11,18 @@ public class PlayerCameraManager : NetworkBehaviour
 
     private static int nextIndex = 0;
     private int index;
+
+    public TMP_Text test;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
         index = connectionToClient.connectionId;
+        
         if(isOwned)
         {
+            test.gameObject.SetActive(true);
+            test.text = index.ToString();
             index = nextIndex++;
             if (playerCamera != null)
             {
