@@ -23,9 +23,8 @@ public class PlayerCameraManager : NetworkBehaviour
 
         if (isOwned)
         {
-            CmdTest();
             test.gameObject.SetActive(true);
-            test.text = index.ToString();
+            test.text = NetworkClient.connection.connectionId.ToString();
 
             if (playerRenderCamera != null)
             {
@@ -33,13 +32,6 @@ public class PlayerCameraManager : NetworkBehaviour
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
         }
-    }
-
-    [Command]
-    public void CmdTest()
-    {
-        //Debug.Log("A Client called a command, client's id is: " + connectionToClient);
-        index = connectionToClient.connectionId;
     }
 
     [Command]
