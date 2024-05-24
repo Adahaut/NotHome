@@ -22,7 +22,6 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private bool buttonPressed = false;
 
-    public TMP_Text test;
 
     private void Start()
     {
@@ -32,9 +31,8 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             SteamUser.StartVoiceRecording();
             audioSource.volume = 0f;
-            test.gameObject.SetActive(true);
-            test.text = "Record Start";
-            Debug.Log("Record Start");
+            
+            
             
         }
         else

@@ -14,6 +14,15 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public TMP_Text test;
 
+    private void Start()
+    {
+        if(isOwned)
+        {
+            test.gameObject.SetActive(true);
+            test.text = "Record Start";
+        }
+    }
+
     public override void OnStartClient()
     {
         base.OnStartClient();
