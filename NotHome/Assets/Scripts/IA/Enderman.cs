@@ -1,78 +1,90 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enderman : MonoBehaviour
 {
-    [SerializeField] private float _checkRadius;
+    [SerializeField] private float _checkRadius = 10f;
     private NavMeshAgent _agent;
     private Transform _thisTransform;
     private GameObject[] _players;
+    private GameObject _closestPlayer;
+    private bool _isVisibleByAnyPlayer;
 
     private void Start()
     {
         _players = GameObject.FindGameObjectsWithTag("Player");
         _agent = GetComponent<NavMeshAgent>();
         _thisTransform = transform;
+
+        //check for the closest player and visibility
+        StartCoroutine(UpdateClosestPlayerAndVisibility());
     }
 
     private void Update()
     {
-        GameObject closestPlayer = GetClosestPlayer();
-        if (closestPlayer == null)
+        if (_closestPlayer == null)
         {
             _agent.enabled = false;
             return;
         }
 
-        bool _isVisibleByAnyPlayer = _players.Any(player => IsEnemyVisibleByPlayer(player));
-        float _distanceToPlayer = Vector3.Distance(_thisTransform.position, closestPlayer.transform.position);
-
-        if (_distanceToPlayer <= _checkRadius && _isVisibleByAnyPlayer)
+        if (_isVisibleByAnyPlayer)
         {
             _agent.enabled = false;
         }
         else
         {
             _agent.enabled = true;
-            _agent.SetDestination(closestPlayer.transform.position);
+            _agent.SetDestination(_closestPlayer.transform.position);
+        }
+    }
+
+    private IEnumerator UpdateClosestPlayerAndVisibility()
+    {
+        while (true)
+        {
+            _closestPlayer = GetClosestPlayer();
+            _isVisibleByAnyPlayer = _players.Any(player => IsEnemyVisibleByPlayer(player));
+
+            //Update the check every 0.5 seconds
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
     private GameObject GetClosestPlayer()
     {
-        GameObject _closestPlayer = null;
-        float _closestDistance = Mathf.Infinity;
+        GameObject closestPlayer = null;
+        float closestDistance = Mathf.Infinity;
 
-        foreach (var _player in _players)
+        foreach (var player in _players)
         {
-            float _distance = Vector3.Distance(_thisTransform.position, _player.transform.position);
-            if (_distance < _closestDistance)
+            float distance = Vector3.Distance(_thisTransform.position, player.transform.position);
+            if (distance < closestDistance)
             {
-                _closestPlayer = _player;
-                _closestDistance = _distance;
+                closestPlayer = player;
+                closestDistance = distance;
             }
         }
 
-        return _closestPlayer;
+        return closestPlayer;
     }
 
-    private bool IsEnemyVisibleByPlayer(GameObject _player)
+    private bool IsEnemyVisibleByPlayer(GameObject player)
     {
-        Camera _playerCam = _player.GetComponentInChildren<Camera>();
+        Camera playerCam = player.GetComponentInChildren<Camera>();
 
         // Check if the enemy is in the player's camera frustum
-        Plane[] _planes = GeometryUtility.CalculateFrustumPlanes(_playerCam);
-        bool _isInFrustum = _planes.All(plane => plane.GetDistanceToPoint(_thisTransform.position) >= 0);
-
-        if (!_isInFrustum)
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(playerCam);
+        if (!GeometryUtility.TestPlanesAABB(planes, GetComponent<Collider>().bounds))
         {
             return false;
         }
 
         // Check if there is a direct line of sight
-        Vector3 directionToEnemy = _thisTransform.position - _playerCam.transform.position;
-        if (Physics.Raycast(_playerCam.transform.position, directionToEnemy, out RaycastHit hit))
+        Vector3 directionToEnemy = _thisTransform.position - playerCam.transform.position;
+        if (Physics.Raycast(playerCam.transform.position, directionToEnemy, out RaycastHit hit))
         {
             if (hit.transform.gameObject == gameObject)
             {
