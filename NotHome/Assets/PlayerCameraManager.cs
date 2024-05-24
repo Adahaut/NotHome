@@ -25,10 +25,11 @@ public class PlayerCameraManager : NetworkBehaviour
         if (isOwned)
         {
             index = GameObject.FindGameObjectsWithTag("Player").Length - 1;
+
             test.gameObject.SetActive(true);
             test.text = index.ToString();
 
-            index = nextIndex++;
+            //index = nextIndex++;
             if (playerRenderCamera != null)
             {
                 playerRenderCamera.targetTexture = renderTextures[index];
