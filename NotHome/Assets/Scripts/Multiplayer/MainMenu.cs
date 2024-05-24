@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -18,5 +19,12 @@ public class MainMenu : MonoBehaviour
         landingPagePanel.SetActive(false);
     }
 
+    public void OpenSteamOverlay()
+    {
+        if (SteamManager.Initialized)
+        {
+            SteamFriends.ActivateGameOverlay("Friends");
+        }
+    }
 
 }
