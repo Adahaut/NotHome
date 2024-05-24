@@ -20,10 +20,10 @@ public class PlayerCameraManager : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        index = GameObject.FindGameObjectsWithTag("Player").Length - 1;
 
         if (isOwned)
         {
+        index = GameObject.FindGameObjectsWithTag("Player").Length - 1;
             test.gameObject.SetActive(true);
             test.text = index.ToString();
 
