@@ -7,7 +7,7 @@ public class PlayerCameraManager : NetworkBehaviour
 {
     public RenderTexture[] renderTextures;
 
-    [SerializeField] private Camera playerCamera;
+    [SerializeField] private Camera playerRenderCamera;
 
     private static int nextIndex = 0;
     private int index;
@@ -18,15 +18,16 @@ public class PlayerCameraManager : NetworkBehaviour
     {
         base.OnStartClient();
         index = connectionToClient.connectionId;
-        
-        if(isOwned)
+        test.gameObject.SetActive(true);
+        test.text = index.ToString();
+        if (isOwned)
         {
-            test.gameObject.SetActive(true);
-            test.text = index.ToString();
+            
+
             index = nextIndex++;
-            if (playerCamera != null)
+            if (playerRenderCamera != null)
             {
-                playerCamera.targetTexture = renderTextures[index];
+                playerRenderCamera.targetTexture = renderTextures[index];
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
         }
