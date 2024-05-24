@@ -18,11 +18,11 @@ public class PlayerCameraManager : NetworkBehaviour
     {
         base.OnStartClient();
         index = connectionToClient.connectionId;
-        test.gameObject.SetActive(true);
-        test.text = index.ToString();
+        
         if (isOwned)
         {
-            
+            test.gameObject.SetActive(true);
+            //test.text = index.ToString();
 
             index = nextIndex++;
             if (playerRenderCamera != null)
