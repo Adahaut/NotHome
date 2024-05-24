@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enderman : MonoBehaviour
+public class SlenderMan : MonoBehaviour
 {
     [SerializeField] private float _checkRadius = 10f;
     private NavMeshAgent _agent;
@@ -11,6 +11,7 @@ public class Enderman : MonoBehaviour
     private GameObject[] _players;
     private GameObject _closestPlayer;
     private bool _isVisibleByAnyPlayer;
+    [SerializeField] private float _killingDistance;
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class Enderman : MonoBehaviour
             _agent.enabled = true;
             _agent.SetDestination(_closestPlayer.transform.position);
         }
+
     }
 
     private IEnumerator UpdateClosestPlayerAndVisibility()
@@ -60,11 +62,16 @@ public class Enderman : MonoBehaviour
 
         foreach (var player in _players)
         {
-            float distance = Vector3.Distance(_thisTransform.position, player.transform.position);
-            if (distance < closestDistance)
+            float _distance = Vector3.Distance(_thisTransform.position, player.transform.position);
+            if (_distance < closestDistance)
             {
                 closestPlayer = player;
-                closestDistance = distance;
+                closestDistance = _distance;
+            }
+
+            if(_distance < _killingDistance)
+            {
+                closestPlayer.GetComponent<LifeManager>().TakeDamage(5000);
             }
         }
 
