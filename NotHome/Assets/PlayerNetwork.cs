@@ -29,7 +29,7 @@ public class PlayerNetwork : NetworkBehaviour
             CmdSetPlayerName(SteamFriends.GetPersonaName());
         }
 
-        Camera playerCamera = GetComponentInChildren<Camera>();
+        Camera playerCamera = mainCamera;
         if (playerCamera != null && !_playerCameras.Contains(playerCamera)) _playerCameras.Add(playerCamera);
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
@@ -42,7 +42,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void OnDestroy()
     {
-        Camera playerCamera = GetComponentInChildren<Camera>();
+        Camera playerCamera = mainCamera;
         if (playerCamera != null && _playerCameras.Contains(playerCamera)) _playerCameras.Remove(playerCamera);
     }
 
