@@ -14,9 +14,11 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public TMP_Text test;
 
-    private void Start()
+    public override void OnStartClient()
     {
+        base.OnStartClient();
         index = connectionToClient.connectionId;
+        GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
 
         if (isOwned)
         {
@@ -30,12 +32,6 @@ public class PlayerCameraManager : NetworkBehaviour
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
         }
-    }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        
     }
 
     [Command]
