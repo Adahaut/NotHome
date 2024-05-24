@@ -1,10 +1,10 @@
-using Mirror.Examples.Chat;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QG_Manager : MonoBehaviour
 {
-    [SerializeField] private GameObject _camera;
+    public Transform _camera;
     [SerializeField] private float _distRayCast;
     [SerializeField] private string _text;
     
@@ -16,15 +16,25 @@ public class QG_Manager : MonoBehaviour
 
     public PC _playerController;
     public static QG_Manager Instance;
+    [Header("HealthBarQG")]
+    [SerializeField] private Slider _healthBarQG;
+    [SerializeField] private TextMeshProUGUI _textHp;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+    private void Start()
+    {
+        _textHp.text = _healthBarQG.value.ToString() + " / " + _healthBarQG.maxValue.ToString();
     }
 
     private void Update()
     {
-        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hit, _distRayCast))
+        if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
         {
             if (hit.collider.gameObject.GetComponent<BuildInterractable>() != null)
             {
@@ -52,5 +62,20 @@ public class QG_Manager : MonoBehaviour
             _isOpen = true;
             _gameObjectUi.GetComponent<BuildInterractable>().OpenUiGameObject(_playerController);
         }
+    }
+    public void SetHealthBar(float number)
+    {
+        _healthBarQG.value += number;
+        _textHp.text = _healthBarQG.value.ToString() + " / " + _healthBarQG.maxValue.ToString();
+        if (_healthBarQG.value <= 0)
+        {
+            Debug.Log("QG is dead");
+        }
+    }
+    public void SetMaxHealthBar(float number)
+    {
+        float maxValue = _healthBarQG.maxValue;
+        _healthBarQG.maxValue *= number;
+        SetHealthBar(_healthBarQG.maxValue - maxValue);
     }
 }

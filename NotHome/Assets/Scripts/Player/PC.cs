@@ -5,17 +5,16 @@ using UnityEngine.InputSystem;
 public class PC : MonoBehaviour
 {
     [Header("Transform" + "\n")]
-    [SerializeField] private Transform _groundCheck;
     [SerializeField] private Transform _camera;
 
     [Header("Value" + "\n")]
-    [SerializeField] private float _speed;
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float _sprintValue;
     [SerializeField] private float _sensitivity;
     [SerializeField] private float _sensitivityController;
-    [SerializeField] private float _maxSpeed;
-    [SerializeField] private float _inertia = 0.97f;
+    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _runSpeed;
+    [SerializeField] private float _jumpPower;
+    [SerializeField] private float _gravity;
+    public bool _canMove = true;
 
     [Header("Inventory")]
     [SerializeField] private GameObject _inventory;
@@ -25,26 +24,34 @@ public class PC : MonoBehaviour
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
 
-    private Rigidbody _rigidbodyPlayer;
-    private bool _isGrounded;
-    private float _initSpeed;
+    private bool _isRunning;
+    private bool _isJump;
+    private CharacterController _characterController;
     private float _timer;
     private bool _isInBaseInventory;
 
+    private Vector3 _moveDirection = Vector3.zero;
     private Vector2 _rotation = Vector2.zero;
     private Vector2 _rotation2 = Vector2.zero;
     private Vector2 _moveDir;
     private Vector2 _scrollDir;
-
+    
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
+    private Transform _transform;
 
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
     public void Start()
     {
-        _rigidbodyPlayer = GetComponent<Rigidbody>();
-        _initSpeed = _speed;
+        _transform = transform;
+        _characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    void Update()
+    {
+        RotateCamera();
+        MovePlayer();
+        Timer();
     }
 
     public void OpenInventory(InputAction.CallbackContext ctx)
@@ -79,52 +86,26 @@ public class PC : MonoBehaviour
             PickUpObject();
             _timer = 0.05f;
         }
-        if (AnimationManager.Instance._doorIsOpen)
-            AnimationManager.Instance.CloseDoor();
-        else
-            AnimationManager.Instance.OpenDoor();
-    }
-    private IEnumerator ChangeGravity()
-    {
-        yield return new WaitForSeconds(0.1f);
-        if (_isGrounded)
-        {
-            Physics.gravity /= 2;
-            yield return null;
-        }
-        else
-        {
-            StartCoroutine(ChangeGravity());
-        }
+        //if (AnimationManager.Instance._doorIsOpen)
+        //    AnimationManager.Instance.CloseDoor();
+        //else
+        //    AnimationManager.Instance.OpenDoor();
     }
     public void OnJump(InputAction.CallbackContext context)
     {
         Debug.Log("Jump");
-        print(Physics.gravity.y);
-        if (_isGrounded && context.performed && !QG_Manager.Instance._isOpen && Physics.gravity.y > -10)
-        {
-            Physics.gravity *= 2;
-            StartCoroutine(ChangeGravity());
-            _rigidbodyPlayer.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-        } 
+        print(!QG_Manager.Instance._isOpen);
+        if (context.performed && _characterController.isGrounded && !QG_Manager.Instance._isOpen)
+            _isJump = true;
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
         Debug.Log("Sprint");
-        _speed = _initSpeed * _sprintValue;
+        _isRunning = true;
         if (context.canceled)
-        {
-            _speed = _initSpeed;
-        }
+            _isRunning = false;
     }
-    void Update()
-    {
-        _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, 0.05f);
-        RotateCamera();
-        MovePlayer();
-        Timer();
-    }
-
+    
     private void Timer()
     {
         if (_timer > 0)
@@ -145,7 +126,7 @@ public class PC : MonoBehaviour
         _rotation2.x += _rotation.x * Time.deltaTime;
         _rotation2.y -= _rotation.y * Time.deltaTime;
         _rotation2.y = Mathf.Clamp(_rotation2.y, -yRotationLimit, yRotationLimit);
-        transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
+        _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
@@ -154,21 +135,30 @@ public class PC : MonoBehaviour
     }
     private void MovePlayer()
     {
-        if (_moveDir == Vector2.zero)
+        Vector3 forward = _transform.TransformDirection(Vector3.forward);
+        Vector3 right = _transform.TransformDirection(Vector3.right);
+
+        float curSpeedX = _canMove ? (_isRunning ? _runSpeed : _walkSpeed) * _moveDir.y : 0;
+        float curSpeedY = _canMove ? (_isRunning ? _runSpeed : _walkSpeed) * _moveDir.x : 0;
+        float movementDirectionY = _moveDirection.y;
+        _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        if (_isJump && _canMove && _characterController.isGrounded)
         {
-            _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x * _inertia, _rigidbodyPlayer.velocity.y, _rigidbodyPlayer.velocity.z * _inertia);
+            _moveDirection.y = _jumpPower;
+            _isJump = false;
         }
         else
         {
-            _rigidbodyPlayer.AddForce(_moveDir.y * _speed * Time.deltaTime * transform.forward);
-            _rigidbodyPlayer.AddForce(_moveDir.x * _speed * Time.deltaTime * transform.right);
-            if (_rigidbodyPlayer.velocity.magnitude > _maxSpeed)
-            {
-                float velocityY = _rigidbodyPlayer.velocity.y;
-                _rigidbodyPlayer.velocity = Vector3.ClampMagnitude(_rigidbodyPlayer.velocity, _maxSpeed);
-                _rigidbodyPlayer.velocity = new Vector3(_rigidbodyPlayer.velocity.x, velocityY, _rigidbodyPlayer.velocity.z);
-            }
+            _moveDirection.y = movementDirectionY;
         }
+
+        if (!_characterController.isGrounded)
+        {
+            _moveDirection.y -= _gravity * Time.deltaTime;
+        }
+
+        _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     public void MouseScrollY(InputAction.CallbackContext ctx)
@@ -242,7 +232,7 @@ public class PC : MonoBehaviour
     // Methode to add an object to the inventory
     private void PickUpObject()
     {
-        RaycastHit[] _hits = Physics.SphereCastAll(transform.position, _itemPickRange, transform.up);
+        RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
 
         if (_hits.Length > 0)
         {

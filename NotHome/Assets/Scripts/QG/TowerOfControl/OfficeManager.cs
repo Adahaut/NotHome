@@ -18,7 +18,10 @@ public class OfficeManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     private IEnumerator CharacterMove(float total_time)
@@ -45,10 +48,6 @@ public class OfficeManager : MonoBehaviour
     {
         if (_isMouv)
         {
-            print(_camera.eulerAngles);
-            _player.transform.eulerAngles = Vector3.zero;
-            _camera.eulerAngles = Vector3.zero;
-            print(_camera.eulerAngles);
             float posY = _camera.position.y;
             while (_camera.position.y > posY / 1.5f)
             {

@@ -10,13 +10,18 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private bool _isPlant;
     public float _seedTime;
     public static UseField Instance;
+    private Transform _transform;
     
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
     private void Start()
     {
+        _transform = transform;
         _initPos = transform.position;
     }
     public void OnBeginDrag(PointerEventData eventData)
@@ -29,7 +34,7 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         Debug.Log("Dragging");
         if (!_isPlant)
         {
-            transform.position = Input.mousePosition;
+            _transform.position = Input.mousePosition;
         }
     }
 
@@ -38,17 +43,17 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         Debug.Log("EndDrag");
         if (!_isPlant)
         {
-            if (Vector3.Distance(transform.position, GetNearestSlot()) < 75)
+            if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
             {
                 _isPlant = true;
-                transform.position = GetNearestSlot();
+                _transform.position = GetNearestSlot();
                 ListSlotField.Instance._listIsPlant[_indexPlant] = true;
                 ListSlotField.Instance._listPlant[_indexPlant].SetActive(true);
                 FieldManager.Instance.StartCo(_indexPlant, _seedTime, int.Parse(gameObject.name[5].ToString()));
             }
             else
             {
-                transform.position = _initPos;
+                _transform.position = _initPos;
             }
         }
     }
@@ -59,10 +64,13 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         _indexPlant = 0;
         for (int i = 0; i < slots.Count; i++)
         {
-            if (Vector3.Distance(transform.position, slots[i].position) < Vector3.Distance(transform.position, slotNearest) && !ListSlotField.Instance._listIsPlant[i])
+            if (slots[i].gameObject.activeSelf)
             {
-                slotNearest = slots[i].position;
-                _indexPlant = i;
+                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest) && !ListSlotField.Instance._listIsPlant[i])
+                {
+                    slotNearest = slots[i].position;
+                    _indexPlant = i;
+                }
             }
         }
         return slotNearest;
@@ -71,7 +79,7 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void GetPlantFinish()
     {
         Debug.Log("GetPlant");
-        transform.position = _initPos;
+        _transform.position = _initPos;
         _isPlant = false;
         ListSlotField.Instance._listIsPlant[_indexPlant] = false;
         ListSlotField.Instance._listPlant[_indexPlant].SetActive(false);
