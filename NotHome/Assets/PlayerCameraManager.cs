@@ -14,14 +14,14 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public TMP_Text test;
 
-    public override void OnStartClient()
+    private void Start()
     {
         index = connectionToClient.connectionId;
 
         if (isOwned)
         {
-            //test.gameObject.SetActive(true);
-            //test.text = index.ToString();
+            test.gameObject.SetActive(true);
+            test.text = index.ToString();
 
             index = nextIndex++;
             if (playerRenderCamera != null)
@@ -30,17 +30,12 @@ public class PlayerCameraManager : NetworkBehaviour
                 CmdSetupCameraDisplay(index, renderTextures[index].name);
             }
         }
-
-        
     }
 
-    public override void OnStartLocalPlayer()
+    public override void OnStartClient()
     {
-        if (isOwned)
-        {
-            test.gameObject.SetActive(true);
-            test.text = "test";
-        }
+        base.OnStartClient();
+        
     }
 
     [Command]
