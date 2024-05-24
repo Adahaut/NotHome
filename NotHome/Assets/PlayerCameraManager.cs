@@ -9,9 +9,7 @@ public class PlayerCameraManager : NetworkBehaviour
 {
     public RenderTexture[] renderTextures;
 
-    [SyncVar]
     public Camera playerRenderCamera;
-
 
     //private int index;
 
@@ -19,7 +17,8 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        StartCoroutine(LoadCameras());
+        if(isOwned)
+            StartCoroutine(LoadCameras());
     }
 
     IEnumerator LoadCameras()
@@ -29,6 +28,7 @@ public class PlayerCameraManager : NetworkBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
+            players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.transform.parent.gameObject.SetActive(true);
             players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
         }
     }
