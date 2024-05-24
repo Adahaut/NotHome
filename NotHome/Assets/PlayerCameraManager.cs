@@ -24,12 +24,21 @@ public class PlayerCameraManager : NetworkBehaviour
         //Set index depending of connection : host = 0, p2 = 1
         if (room == null)
         {
-            test.gameObject.SetActive(true);
-            test.text = "Room null";
+            if(isOwned)
+            {
+                test.gameObject.SetActive(true);
+                test.text = "Room null";
+            }
+            
         }
         else
         {
             index = room._gamePlayers.Count - 1;
+            if(isOwned)
+            {
+                test.gameObject.SetActive(true);
+                test.text = index.ToString();
+            }
         }
 
         if (isOwned)
