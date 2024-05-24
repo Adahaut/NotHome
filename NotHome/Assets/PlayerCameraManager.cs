@@ -35,7 +35,8 @@ public class PlayerCameraManager : NetworkBehaviour
 
     public void SetIndex(int i)
     {
-        index = i;
+        if(isOwned)
+            index = i;
     }
 
     [Command]
