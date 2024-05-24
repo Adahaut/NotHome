@@ -99,10 +99,10 @@ public class PlayerController : NetworkBehaviour
             PickUpObject();
             _timer = 0.05f;
         }
-        if (AnimationManager.Instance._doorIsOpen)
-            AnimationManager.Instance.CloseDoor();
-        else
-            AnimationManager.Instance.OpenDoor();
+        //if (AnimationManager.Instance._doorIsOpen)
+        //    AnimationManager.Instance.CloseDoor();
+        //else
+        //    AnimationManager.Instance.OpenDoor();
     }
     public void OnJump(InputAction.CallbackContext context)
     {
