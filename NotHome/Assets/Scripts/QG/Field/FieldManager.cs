@@ -22,7 +22,6 @@ public class FieldManager : MonoBehaviour
     {
         if (seedTime > 0)
         {
-            print("oui");
             seedTime -= 1;
             _timerText[index].text = ((int)seedTime / 60).ToString("00") + ":" + ((int)seedTime % 60).ToString("00");
             yield return new WaitForSeconds(1);
