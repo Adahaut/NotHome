@@ -124,7 +124,7 @@ public class PC : MonoBehaviour
 
         if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.gameObject.layer == 8)
         {
-            _textPress.text = "Press E ffor interact";
+            _textPress.text = "Press E for interact";
             _canOpen = true;
         }
         else
@@ -351,26 +351,6 @@ public class PC : MonoBehaviour
         print(_uiPlayer[index].activeSelf);
         DisablePlayer(_uiPlayer[index].activeSelf);
     }
-    //public void UiField(bool active)
-    //{
-    //    _uiField.SetActive(active);
-    //    DisablePlayer(active);
-    //}
-    //public void UiOffice(bool active)
-    //{
-    //    _uiOffice.SetActive(active);
-    //    DisablePlayer(active);
-    //}
-    //public void UiStockage(bool active)
-    //{
-    //    _uiStockage.SetActive(active);
-    //    DisablePlayer(active);
-    //}
-    //public void UiCraft(bool active)
-    //{
-    //    _uiCraft.SetActive(active);
-    //    DisablePlayer(active);
-    //}
     private void DisablePlayer(bool active)
     {
         if (active)
