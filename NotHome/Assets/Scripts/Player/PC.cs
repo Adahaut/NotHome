@@ -60,6 +60,14 @@ public class PC : MonoBehaviour
 
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
+    public static PC Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
     public void Start()
     {
         _playerManager = GetComponent<PlayerManager>();

@@ -41,7 +41,7 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
-                Debug.Log("débloque les cartes des région + de la zone");
+                MapManager.Instance.GetItem();
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 3:
@@ -64,16 +64,6 @@ public class UpgradeHomeManager : MonoBehaviour
         _alarm.SetActive(true);
         yield return new WaitForSeconds(second);
         _alarm.SetActive(false);
-    }
-    private void Update()
-    {
-        if (_nameBuilding == "TDC")
-        {
-            if (Input.GetKeyUp(KeyCode.G) && !_alarm.activeSelf && _getAlarm)
-            {
-                StartCoroutine(StopAlarm(4.0f));
-            }
-        }
     }
     public void EffectField()
     {
