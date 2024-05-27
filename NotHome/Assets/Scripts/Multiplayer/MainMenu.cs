@@ -13,6 +13,11 @@ public class MainMenu : MonoBehaviour
     [Header("UI")]
     public GameObject landingPagePanel = null;
 
+    private void Start()
+    {
+        Screen.fullScreen = true;
+    }
+
     public void Hostlobby()
     {
         networkManager.StartHost();
