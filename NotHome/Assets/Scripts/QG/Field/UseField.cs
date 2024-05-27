@@ -58,9 +58,9 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-                foreach (GameObject player in players)
+                foreach (GameObject playere in players)
                 {
-                    player.GetComponentInChildren<PlayerFieldSlot>()._listSlots[_indexPlant].gameObject.GetComponent<Image>().sprite = s;
+                    playere.GetComponentInChildren<PlayerFieldSlot>()._listSlots[_indexPlant] = player.GetComponentInChildren<PlayerFieldSlot>()._listSlots[_indexPlant];
                 }
 
                 //ListSlotField.Instance._listPlant[_indexPlant].SetActive(true);
