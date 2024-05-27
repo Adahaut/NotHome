@@ -42,7 +42,7 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
-                MapManager.Instance.GetItem();
+                MapManager.Instance._canOpenUiMap = true;
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 3:

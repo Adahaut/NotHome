@@ -1448,6 +1448,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0638307862bfe848b782fe5cc5e797e, type: 3}
+--- !u!114 &792823600 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1661721310218772651, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+  m_PrefabInstance: {fileID: 5228122518330855879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &800926870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1580,30 +1591,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3251227197460374685, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: _torch
-      value: 
-      objectReference: {fileID: 1316845858}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
-      value: 3b83b5df-5ff9-4c46-b420-dd785d4e2435
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
-      value: Player/Torsh[/Keyboard/f]
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1624,26 +1611,6 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1251975312}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1520507284}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AlightTorch
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PC, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3699553571842673213, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 3720125223431424927, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1664,14 +1631,6 @@ PrefabInstance:
       propertyPath: _alarm
       value: 
       objectReference: {fileID: 5957186536382470260}
-    - target: {fileID: 5955450202181364676, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_Name
-      value: Torch
-      objectReference: {fileID: 0}
-    - target: {fileID: 5955450202181364676, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6214766844328396960, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
       propertyPath: m_Name
       value: P3
@@ -1692,13 +1651,14 @@ PrefabInstance:
       propertyPath: _itemMap
       value: 
       objectReference: {fileID: 1853818337}
+    - target: {fileID: 9155312650780568715, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
+      propertyPath: _worldMap
+      value: 
+      objectReference: {fileID: 792823600}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6214766844328396960, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1520507289}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
 --- !u!1001 &807650978
 PrefabInstance:
@@ -2673,11 +2633,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1316845858 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5955450202181364676, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-  m_PrefabInstance: {fileID: 800926870}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1342586817
 GameObject:
   m_ObjectHideFlags: 0
@@ -3311,30 +3266,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6214766844328396960, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
   m_PrefabInstance: {fileID: 800926870}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1520507284 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3251227197460374685, guid: 1773c208cbb11d1499adde93b13e8f24, type: 3}
-  m_PrefabInstance: {fileID: 800926870}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520507279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 201196b7b8e633e4ebd27c4baae21271, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1520507289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520507279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5828474bc1e123f4d9360274124b1a89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _upgarde: []
 --- !u!1001 &1520863956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5383,18 +5314,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 200324521482400696, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1245752320088903125, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
-      propertyPath: _index
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3774607925753194993, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 1520507279}
     - target: {fileID: 3774607925753194993, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: _uiDrone
       value: 
@@ -5407,17 +5326,9 @@ PrefabInstance:
       propertyPath: _cameraPlayer
       value: 
       objectReference: {fileID: 694278088}
-    - target: {fileID: 4271112134823421783, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 6036582677622157018, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: m_Name
       value: Control Tower
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462403879814755187, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8097586880190266288, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: _camera
@@ -5427,10 +5338,6 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1520507279}
-    - target: {fileID: 8137719635866056745, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 8424714425761379473, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: m_LocalPosition.x
       value: 603.42
@@ -5472,8 +5379,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 241182809682859822, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}

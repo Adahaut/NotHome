@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 6685583834582311465}
   - component: {fileID: 4325139319961065731}
   - component: {fileID: 7398245550279643115}
+  - component: {fileID: 2308565190593745114}
   m_Layer: 2
   m_Name: P3
   m_TagString: Untagged
@@ -935,6 +936,7 @@ MonoBehaviour:
   - {fileID: 5837169634722029860}
   - {fileID: 7636724713220425337}
   - {fileID: 1645959042927197811}
+  - {fileID: 2007209584499108504}
   _inventory: {fileID: 4662684437689299983}
   _itemTag: Item
   _itemPickRange: 2
@@ -1035,6 +1037,19 @@ MonoBehaviour:
   _BaseZone: {fileID: 0}
   _isInBase: 0
 --- !u!114 &7398245550279643115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214766844328396960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5828474bc1e123f4d9360274124b1a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgarde: []
+--- !u!114 &2308565190593745114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1391,6 +1406,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3251227197460374685}
+    - target: {fileID: 6358940980871967326, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 6656770207778603865, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1457,6 +1476,11 @@ MonoBehaviour:
 --- !u!1 &1645959042927197811 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8886186919247320744, guid: c65c6ee038096654983d801be093112f, type: 3}
+  m_PrefabInstance: {fileID: 7891868864826435803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2007209584499108504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8529402701281608259, guid: c65c6ee038096654983d801be093112f, type: 3}
   m_PrefabInstance: {fileID: 7891868864826435803}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2261295832833097122 stripped
