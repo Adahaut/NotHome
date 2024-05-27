@@ -47,10 +47,18 @@ public class FieldManager : MonoBehaviour
 
     private void Update()
     {
-        if (GetComponentInChildren<BuildInterractable>().usedPlayer != null)
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players)
         {
-            UpdatePlants(GetComponentInChildren<BuildInterractable>().usedPlayer.GetComponentInChildren<PlayerFieldSlot>()._listSlots);
+
         }
+
+
+        //if (GetComponentInChildren<BuildInterractable>().usedPlayer != null)
+        //{
+        //    UpdatePlants(GetComponentInChildren<BuildInterractable>().usedPlayer.GetComponentInChildren<PlayerFieldSlot>()._listSlots);
+        //}
     }
     public IEnumerator StartTimer(int index, float seedTime, int seed)
     {

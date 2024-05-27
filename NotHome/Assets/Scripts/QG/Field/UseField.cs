@@ -55,6 +55,14 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 FieldManager.Instance._plantList[_indexPlant] = p;
                 player.GetComponentInChildren<PlayerFieldSlot>()._listSlots[_indexPlant].gameObject.GetComponent<Image>().sprite
                     = FieldManager.Instance._plantList[_indexPlant]._img;
+
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+                foreach (GameObject player in players)
+                {
+                    player.GetComponentInChildren<PlayerFieldSlot>()._listSlots[_indexPlant].gameObject.GetComponent<Image>().sprite = s;
+                }
+
                 //ListSlotField.Instance._listPlant[_indexPlant].SetActive(true);
                 //FieldManager.Instance.StartCo(_indexPlant, _seedTime, int.Parse(gameObject.name[5].ToString()));
             }
