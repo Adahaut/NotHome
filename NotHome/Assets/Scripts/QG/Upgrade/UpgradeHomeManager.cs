@@ -81,7 +81,7 @@ public class UpgradeHomeManager : MonoBehaviour
         {
             _fieldManager._listSeed[i].GetComponent<UseField>()._seedTime *= 0.80f;
         }
-        ListSlotField.Instance._listPosSlot[ListSlotField.Instance._listPosSlot.Count - _upgarde.Count - 1 + _levelBuilding - 1].gameObject.SetActive(true);
+        //ListSlotField.Instance._listPosSlot[ListSlotField.Instance._listPosSlot.Count - _upgarde.Count - 1 + _levelBuilding - 1].gameObject.SetActive(true);
     }
     public void UpdateBuilding()
     {

@@ -1,4 +1,5 @@
 using Mirror;
+using Org.BouncyCastle.Tls.Crypto;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -122,10 +123,9 @@ public class PlayerController : NetworkBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Interaction");
         if (ctx.performed)
-            StartUi();
-        OfficeManager.Instance.MouvToChair();
+            StartUi(this.gameObject);
+        //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
             PickUpObject();
@@ -367,10 +367,11 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Ui Player
-    public void StartUi()
+    public void StartUi(GameObject player)
     {
         if (_canOpen && Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
         {
+            hit.collider.GetComponentInChildren<BuildInterractable>().SetUsedPlayer(player);
             OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
         }
     }
@@ -382,6 +383,7 @@ public class PlayerController : NetworkBehaviour
         print(_uiPlayer[index].activeSelf);
         DisablePlayer(_uiPlayer[index].activeSelf);
     }
+
     private void DisablePlayer(bool active)
     {
         if (active)

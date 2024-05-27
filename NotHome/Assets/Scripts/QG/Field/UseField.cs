@@ -11,7 +11,9 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public float _seedTime;
     public static UseField Instance;
     private Transform _transform;
-    
+
+    [SerializeField] private GameObject player;
+
     private void Awake()
     {
         if (Instance == null)
@@ -59,7 +61,9 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
     private Vector3 GetNearestSlot()
     {
-        List<Transform> slots = ListSlotField.Instance._listPosSlot;
+        //List<Transform> slots = ListSlotField.Instance._listPosSlot;
+        List<Transform> slots = new();
+        slots = player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
         Vector3 slotNearest = slots[0].position;
         _indexPlant = 0;
         for (int i = 0; i < slots.Count; i++)
@@ -83,7 +87,7 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         _isPlant = false;
         ListSlotField.Instance._listIsPlant[_indexPlant] = false;
         ListSlotField.Instance._listPlant[_indexPlant].SetActive(false);
-        FieldManager.Instance._timerText[_indexPlant].text = "";
+        //FieldManager.Instance._timerText[_indexPlant].text = "";
         ListSlotField.Instance._listPlant[_indexPlant].GetComponent<MeshRenderer>().material = FieldManager.Instance._materialBrown;
         gameObject.GetComponent<Button>().enabled = false;
     }
