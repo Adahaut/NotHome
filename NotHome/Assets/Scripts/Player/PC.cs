@@ -73,7 +73,6 @@ public class PC : MonoBehaviour
 
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
-        GetComponent<LifeManager>().TakeDamage(10);
         _inventory.SetActive(!_inventory.activeInHierarchy);
     }
     public void SetIsInBaseInventory(bool _isIn)

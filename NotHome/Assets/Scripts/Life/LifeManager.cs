@@ -27,7 +27,6 @@ public class LifeManager : MonoBehaviour
 
         if(gameObject.tag == "Player")
         {
-            print("player");
             _playerDeathAndRespawnManager = GetComponent<PlayerDeathAndRespawn>();
             SetMaxHealth();
         }
@@ -39,8 +38,8 @@ public class LifeManager : MonoBehaviour
             return;
 
 
-        print("take damage");
         _currentLife -= damage;
+        print(_currentLife);
         if (gameObject.tag == "Player")
             SetHealthBar();
 

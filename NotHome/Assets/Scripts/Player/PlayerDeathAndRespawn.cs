@@ -1,31 +1,106 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDeathAndRespawn : MonoBehaviour
 {
     private Transform _playerTransform;
     private PC _playerController;
+    [SerializeField] private GameObject _noSignal;
+    [SerializeField] private TextMeshProUGUI _timer;
+    [SerializeField] private GameObject _playerInputs;
+    [SerializeField] private Image _respawnScreen;
+    [SerializeField] private GameObject _playerUI;
+    private LifeManager _playerLifeManager;
+    private bool _hasStartedRespawn;
+
 
     private Transform _playerRespawnPoint;
+    private float _timeToRespawn;
+    private bool _canRespawn;
 
     private void Start()
     {
         _playerTransform = transform;
         _playerRespawnPoint = transform;
         _playerController = GetComponent<PC>();
+        _playerLifeManager = GetComponent<LifeManager>();
     }
 
     public void PlayerDeath()
     {
+        if (_playerController.IsDead) return;
+        _canRespawn = false;
         _playerTransform.rotation = Quaternion.Euler(0, 0, 90);
         _playerController.IsDead = true;
+        _playerInputs.SetActive(false);
+        StartCoroutine(DisableCamera());
     }
 
     public void Respawn()
     {
-        _playerTransform = _playerRespawnPoint;
+        _noSignal.SetActive(false);
+        _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
+        _playerTransform = _playerRespawnPoint;
+        StartCoroutine(RespawnAnimation());
+
     }
 
+    private IEnumerator DisableCamera()
+    {
+        if (_hasStartedRespawn) 
+            yield break;
+
+        _hasStartedRespawn = true;
+        yield return new WaitForSeconds(3f);
+        _noSignal.SetActive(true);
+        _timeToRespawn = 10;
+        _canRespawn = true;
+    }
+
+    private IEnumerator RespawnAnimation()
+    {
+        _respawnScreen.gameObject.SetActive(true);
+        float _factor = 1f / 10f;
+        for (float i = 1f; i < 10f; i++)
+        {
+            _respawnScreen.color = new Color(255, 255, 255, 1f - _factor * i);
+            yield return new WaitForSeconds(0.1f);
+        }
+        _respawnScreen.gameObject.SetActive(false);
+        int _numberOfBlink = Random.Range(2, 5);
+        for(int i = 0; i < _numberOfBlink; i++)
+        {
+            float _waitingTime = Random.Range(0.5f, 1.5f);
+            float _interval = _waitingTime + Random.Range(0.1f, 0.6f);
+            StartCoroutine(StartBlink(_waitingTime));
+            yield return new WaitForSeconds(_interval);
+        }
+        _playerInputs.SetActive(true);
+        _hasStartedRespawn = false;
+    }
+
+    private IEnumerator StartBlink(float _waitingTime)
+    {
+        _playerUI.SetActive(false);
+        yield return new WaitForSeconds(_waitingTime);
+        _playerUI.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (_timeToRespawn < 0 && _playerController.IsDead && _canRespawn)
+        {
+            Respawn();
+            _canRespawn = false;
+        }
+        else if (_playerController.IsDead)
+        {
+            _timeToRespawn -= Time.deltaTime;
+            _timer.text = "wait " + Mathf.RoundToInt(_timeToRespawn).ToString();
+        }
+    }
 
 }
