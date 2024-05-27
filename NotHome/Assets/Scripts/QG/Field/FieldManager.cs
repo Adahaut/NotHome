@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +13,7 @@ public class FieldManager : MonoBehaviour
     [SerializeField] private Material _materialGreen;
     public Material _materialBrown;
 
-    public List<Plant> _plantList = new();
+    [SyncVar] public List<Plant> _plantList = new();
     public int _plantNb = 0;
 
     private void Awake()
