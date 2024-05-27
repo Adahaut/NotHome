@@ -23,7 +23,7 @@ public class DroneManager : MonoBehaviour
 
     private CharacterController _characterController;
     [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private Camera _cameraPlayer;
     [SerializeField] private GameObject _uiDrone;
 
     [Range(0f, 90f)][SerializeField] float _yRotationLimit = 88f;
@@ -107,7 +107,7 @@ public class DroneManager : MonoBehaviour
             _characterController.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             _uiDrone.SetActive(false);
-            _player.GetComponentInChildren<Camera>().enabled = false;
+            _cameraPlayer.enabled = false;
             _playerInput.actions.actionMaps[1].Enable();
         }
     }
@@ -117,7 +117,7 @@ public class DroneManager : MonoBehaviour
         _characterController.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         _uiDrone.SetActive(true);
-        _player.GetComponentInChildren<Camera>().enabled = true;
+        _cameraPlayer.enabled = true;
         _playerInput.actions.actionMaps[1].Disable();
         _transform.position = _initPos;
         _transform.eulerAngles = Vector3.zero;

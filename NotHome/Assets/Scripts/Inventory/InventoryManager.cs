@@ -25,6 +25,8 @@ public class InventoryManager : MonoBehaviour
 
     public int InventorySlotNumber() { return _inventorySlotStartNumber; }
 
+    public void SetInventorySlotNumber(int number) { _inventorySlotStartNumber += number; }
+
     public void InventoryInitialisation()
     {
         for (int i = 0;  i < _inventorySlotStartNumber; i++)

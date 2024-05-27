@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private int _stamina;
+    [SerializeField] private float _stamina;
     [SerializeField] private int _hunger;
     [SerializeField] private int _thirst;
-    [SerializeField] private int _oxygene;
+    [SerializeField] private float _oxygene;
 
-    [SerializeField] private int _maxStamina;
+    [SerializeField] private float _maxStamina;
     [SerializeField] private int _maxHunger;
     [SerializeField] private int _maxThirst;
-    [SerializeField] private int _maxOxygene;
+    [SerializeField] private float _maxOxygene;
 
     [SerializeField] private Slider _staminaSlider;
     [SerializeField] private Slider _hungerSlider;
@@ -24,23 +24,23 @@ public class PlayerManager : MonoBehaviour
     private bool _oxygeneRegainBegin;
     private bool _oxygeneFallBegin;
 
-    public int Stamina { get { return _stamina; } set { _stamina = value; } }
+    public float Stamina { get { return _stamina; } set { _stamina = value; } }
     public int Hunger { get { return _hunger; } set { _hunger = value; } }
     public int Thirst { get { return _thirst; } set { _thirst = value; } }
-    public int Oxygene { get { return _oxygene; } set { _oxygene = value; } }
+    public float Oxygene { get { return _oxygene; } set { _oxygene = value; } }
 
-    public int MaxStamina { get { return _maxStamina; } set { _maxStamina = value; } }
+    public float MaxStamina { get { return _maxStamina; } set { _maxStamina = value; } }
     public int MaxHunger { get { return _maxHunger; } set { _maxHunger = value; } }
     public int MaxThirst { get { return _maxThirst; } set { _maxThirst = value; } }
-    public int MaxOxygene { get { return _maxOxygene; } set { _maxOxygene = value; } }
+    public float MaxOxygene { get { return _maxOxygene; } set { _maxOxygene = value; } }
 
 
     private void Start()
     {
-        SetMaxStamina();
+        SetMaxStamina(_maxStamina);
         SetHungerBar();
         SetMaxThirst();
-        SetMaxOxygene();
+        SetMaxOxygene(_maxOxygene);
 
         StartCoroutine(HungerBarFall());
         StartCoroutine(ThirstBarFall());
@@ -67,9 +67,9 @@ public class PlayerManager : MonoBehaviour
         _oxygeneSlider.value = _oxygene;
     }
 
-    public void SetMaxStamina()
+    public void SetMaxStamina(float maxStamina)
     {
-        _stamina = _maxStamina;
+        _stamina = maxStamina;
         _staminaSlider.maxValue = _stamina;
         _staminaSlider.value = _stamina;
     }
@@ -85,9 +85,9 @@ public class PlayerManager : MonoBehaviour
         _thirstSlider.maxValue = _thirst;
         _thirstSlider.value = _thirst;
     }
-    public void SetMaxOxygene()
+    public void SetMaxOxygene(float maxOxygene)
     {
-        _oxygene = _maxOxygene;
+        _oxygene = maxOxygene;
         _oxygeneSlider.maxValue = _oxygene;
         _oxygeneSlider.value = _oxygene;
     }
