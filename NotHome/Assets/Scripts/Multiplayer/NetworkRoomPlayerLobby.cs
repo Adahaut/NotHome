@@ -177,10 +177,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         }
 
         Room._roomPlayers.Remove(this);
-        for (int i = 0; i < Room._roomPlayers.Count; i++)
-        {
-            Room._roomPlayers[i].connectionToClient.Disconnect();
-        }
 
         if (Room._roomPlayers.Count == 0)
         {
