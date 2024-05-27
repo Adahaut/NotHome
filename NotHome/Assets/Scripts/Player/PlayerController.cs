@@ -21,6 +21,7 @@ public class PlayerController : NetworkBehaviour
     public bool _canMove = true;
 
     [Header("Player UI")]
+    [SerializeField] private GameObject playerUiCanvas;
     [SerializeField] private float _distRayCast;
     [SerializeField] private TextMeshProUGUI _textPress;
     [SerializeField] private List<GameObject> _uiPlayer;
@@ -71,6 +72,12 @@ public class PlayerController : NetworkBehaviour
 
         _camera.gameObject.SetActive(true);
         enabled = true;
+
+        playerUiCanvas.SetActive(false);
+        if(isOwned)
+        {
+            playerUiCanvas.SetActive(true);
+        }
     }
 
     void CmdSendPositionToServer(Vector3 position)
