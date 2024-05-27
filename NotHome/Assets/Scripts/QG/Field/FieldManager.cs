@@ -1,4 +1,3 @@
-using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,14 +5,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FieldManager : NetworkBehaviour
+public class FieldManager : MonoBehaviour
 {
     public List<Seed> _seedTimers = new();
     public static FieldManager Instance;
     [SerializeField] private Material _materialGreen;
     public Material _materialBrown;
 
-    [SyncVar] public List<Plant> _plantList = new();
+    public List<Plant> _plantList = new();
     public int _plantNb = 0;
 
     private void Awake()
