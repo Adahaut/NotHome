@@ -45,9 +45,11 @@ public class PC : MonoBehaviour
     private float _initSpeed;
     private bool _isRunning;
     private bool _isJump;
+    private bool _canUseTorch;
     private CharacterController _characterController;
     private float _timer;
     private bool _isInBaseInventory;
+    [SerializeField] private GameObject _torch;
 
     private Vector3 _moveDirection = Vector3.zero;
     private Vector2 _rotation = Vector2.zero;
@@ -118,6 +120,13 @@ public class PC : MonoBehaviour
             _currentStaminaTime = _staminaTimer;
             _isJump = true;
         } 
+    }
+    public void AlightTorch(InputAction.CallbackContext ctx)
+    {
+        if (_canUseTorch && ctx.performed)
+        {
+            _torch.SetActive(!_torch.activeSelf);
+        }
     }
     void Update()
     {
@@ -303,7 +312,7 @@ public class PC : MonoBehaviour
         }
     }
 
-    private void ChangeStamina(int _value)
+    private void ChangeStamina(float _value)
     {
 
         _playerManager.Stamina += _value;
@@ -318,7 +327,7 @@ public class PC : MonoBehaviour
             ChangeStamina(_playerManager.MaxStamina / 10);
             if(_playerManager.Stamina > _playerManager.MaxStamina)
             {
-                _playerManager.SetMaxStamina();
+                _playerManager.SetMaxStamina(_playerManager.MaxStamina);
             }
             yield return new WaitForSeconds(1f);
         }
@@ -341,6 +350,10 @@ public class PC : MonoBehaviour
     private bool CanRegenStamina()
     {
         return _currentStaminaTime <= 0 && _playerManager.Stamina <= _playerManager.MaxStamina;
+    }
+    public void SetUseTorch(bool useTorch)
+    {
+        _canUseTorch = useTorch;
     }
 
     // Ui Player
