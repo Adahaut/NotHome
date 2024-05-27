@@ -119,12 +119,11 @@ public class PlayerController : NetworkBehaviour
     }
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
-        Debug.Log("OpenMenuPause");
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            StartUi(this.gameObject);
+            StartUi();
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
@@ -367,20 +366,23 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Ui Player
-    public void StartUi(GameObject player)
+    public void StartUi()
     {
         if (_canOpen && Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
         {
-            hit.collider.GetComponentInChildren<BuildInterractable>().SetUsedPlayer(player);
+            hit.collider.GetComponent<BuildInterractable>().SetUsedPlayer(gameObject);
             OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
+            hit.collider.GetComponent<BuildInterractable>()._isOpen = true;
+            
+
         }
     }
 
     public void OpenUi(int index)
     {
-        print(_uiPlayer[index].activeSelf);
+        //print(_uiPlayer[index].activeSelf);
         _uiPlayer[index].SetActive(!_uiPlayer[index].activeSelf);
-        print(_uiPlayer[index].activeSelf);
+        //print(_uiPlayer[index].activeSelf);
         DisablePlayer(_uiPlayer[index].activeSelf);
     }
 

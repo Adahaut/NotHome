@@ -12,11 +12,44 @@ public class FieldManager : MonoBehaviour
     [SerializeField] private Material _materialGreen;
     public Material _materialBrown;
 
+    public List<Plant> _plantList = new();
+    public int _plantNb = 0;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+        }
+        CreatePlants();
+    }
+
+
+    void CreatePlants()
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            Plant plant = new Plant(i.ToString(), null);
+            _plantList.Add(plant);
+        }
+    }
+
+    public void UpdatePlants(List<Transform> imgs)
+    {
+        for (int i = 0; i < imgs.Count; i++)
+        {
+            if (_plantList[i]._img != null) 
+            {
+                imgs[i].GetComponent<Image>().sprite = _plantList[i]._img;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (GetComponentInChildren<BuildInterractable>().usedPlayer != null)
+        {
+            UpdatePlants(GetComponentInChildren<BuildInterractable>().usedPlayer.GetComponentInChildren<PlayerFieldSlot>()._listSlots);
         }
     }
     public IEnumerator StartTimer(int index, float seedTime, int seed)

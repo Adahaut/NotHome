@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Transform _transform;
 
     [SerializeField] private GameObject player;
+    public Sprite s;
 
     private void Awake()
     {
@@ -25,15 +27,15 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         _transform = transform;
         _initPos = transform.position;
+        GetComponent<Image>().sprite = s;
+
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("BeginDrag");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging");
         if (!_isPlant)
         {
             _transform.position = Input.mousePosition;
@@ -42,16 +44,19 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("EndDrag");
         if (!_isPlant)
         {
             if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
             {
                 _isPlant = true;
                 _transform.position = GetNearestSlot();
-                ListSlotField.Instance._listIsPlant[_indexPlant] = true;
-                ListSlotField.Instance._listPlant[_indexPlant].SetActive(true);
-                FieldManager.Instance.StartCo(_indexPlant, _seedTime, int.Parse(gameObject.name[5].ToString()));
+                Plant p = new Plant("lol", s);
+                FieldManager.Instance._plantList[_indexPlant]._isUsed = true;
+                FieldManager.Instance._plantList[_indexPlant] = p;
+                player.GetComponentInChildren<PlayerFieldSlot>()._listSlots[_indexPlant].gameObject.GetComponent<Image>().sprite
+                    = FieldManager.Instance._plantList[_indexPlant]._img;
+                //ListSlotField.Instance._listPlant[_indexPlant].SetActive(true);
+                //FieldManager.Instance.StartCo(_indexPlant, _seedTime, int.Parse(gameObject.name[5].ToString()));
             }
             else
             {
@@ -70,10 +75,11 @@ public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             if (slots[i].gameObject.activeSelf)
             {
-                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest) && !ListSlotField.Instance._listIsPlant[i])
+                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest) && !FieldManager.Instance._plantList[i]._isUsed)
                 {
                     slotNearest = slots[i].position;
                     _indexPlant = i;
+                    Debug.Log("entering IFFFFFFFFFF");
                 }
             }
         }
