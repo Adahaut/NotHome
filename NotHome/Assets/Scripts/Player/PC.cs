@@ -40,6 +40,7 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+    private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
@@ -62,6 +63,8 @@ public class PC : MonoBehaviour
 
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
+    public bool IsDead {  get { return _isDead; } set {  _isDead = value; } }
+
     public static PC Instance;
 
     private void Awake()
@@ -69,6 +72,7 @@ public class PC : MonoBehaviour
         if (Instance == null)
             Instance = this;
     }
+
 
     public void Start()
     {
@@ -130,8 +134,11 @@ public class PC : MonoBehaviour
     }
     void Update()
     {
-        RotateCamera();
-        MovePlayer();
+        if (!_isDead)
+        {
+            RotateCamera();
+            MovePlayer();
+        }
         Timer();
 
         if (!_staminaRegenStarted && CanRegenStamina())
