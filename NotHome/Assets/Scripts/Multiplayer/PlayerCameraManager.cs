@@ -10,9 +10,6 @@ public class PlayerCameraManager : NetworkBehaviour
     public RenderTexture[] renderTextures;
 
     public Camera playerRenderCamera;
-
-    public TMP_Text test;
-
     public override void OnStartClient()
     {
         if(isOwned)
