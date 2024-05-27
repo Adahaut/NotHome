@@ -408,6 +408,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 271dba43-f0cb-4d9c-b917-3053ffbebb97
     m_ActionName: Drone/Escape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3251227197460374685}
+        m_TargetAssemblyTypeName: PC, Assembly-CSharp
+        m_MethodName: AlightTorch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3b83b5df-5ff9-4c46-b420-dd785d4e2435
+    m_ActionName: Player/Torsh[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -682,12 +698,12 @@ GameObject:
   - component: {fileID: 5365591015468666703}
   - component: {fileID: 6187408172676650439}
   m_Layer: 0
-  m_Name: Torsh
+  m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5365591015468666703
 Transform:
   m_ObjectHideFlags: 0
@@ -782,6 +798,7 @@ GameObject:
   - component: {fileID: 3612637645273497082}
   - component: {fileID: 6685583834582311465}
   - component: {fileID: 4325139319961065731}
+  - component: {fileID: 7398245550279643115}
   m_Layer: 2
   m_Name: P3
   m_TagString: Untagged
@@ -927,6 +944,7 @@ MonoBehaviour:
   _currentStaminaTime: 0
   _staminaRegenStarted: 0
   _runningStaminaLose: 0
+  _torch: {fileID: 5955450202181364676}
   yRotationLimit: 88
 --- !u!114 &607238780382878291
 MonoBehaviour:
@@ -1016,6 +1034,19 @@ MonoBehaviour:
   _oxygeneSlider: {fileID: 2261295832833097122}
   _BaseZone: {fileID: 0}
   _isInBase: 0
+--- !u!114 &7398245550279643115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214766844328396960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5828474bc1e123f4d9360274124b1a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgarde: []
 --- !u!1 &6397663027056382906
 GameObject:
   m_ObjectHideFlags: 0
