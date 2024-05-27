@@ -73,7 +73,6 @@ public class PlayerController : NetworkBehaviour
         _camera.gameObject.SetActive(true);
         enabled = true;
 
-        playerUiCanvas.SetActive(false);
         if(isOwned)
         {
             playerUiCanvas.SetActive(true);
