@@ -630,7 +630,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3053602474675875329}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1336364790038889552}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: ShowMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &302932432735685819
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +920,6 @@ MonoBehaviour:
       Value: 1
     - Key: Screws
       Value: 1
-  _inventoryManager: {fileID: 1046624429527680871}
   _nameBuilding: TDC
   _fieldManager: {fileID: 7979134496034364083}
   _alarm: {fileID: 0}
@@ -8682,7 +8693,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6407036595651039904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8721,7 +8732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3599822958732477109
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10191,7 +10202,6 @@ MonoBehaviour:
       Value: 1
     - Key: Screws
       Value: 1
-  _inventoryManager: {fileID: 1046624429527680871}
   _nameBuilding: QG
   _fieldManager: {fileID: 7979134496034364083}
   _alarm: {fileID: 0}
@@ -14081,7 +14091,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2966764496117550160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18597,7 +18607,6 @@ MonoBehaviour:
       Value: 1
     - Key: Screws
       Value: 1
-  _inventoryManager: {fileID: 1046624429527680871}
   _nameBuilding: Field
   _fieldManager: {fileID: 7979134496034364083}
   _alarm: {fileID: 0}
@@ -18840,7 +18849,7 @@ MonoBehaviour:
   _uiMap: {fileID: 6746766935730487833}
   _mapButton: {fileID: 4431827359502134874}
   _itemMap: {fileID: 0}
-  _map: {fileID: 0}
+  _worldMap: {fileID: 5008036224735848380}
 --- !u!1 &9191257121386821365
 GameObject:
   m_ObjectHideFlags: 0
