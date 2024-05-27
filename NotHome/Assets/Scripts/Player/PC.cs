@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +19,11 @@ public class PC : MonoBehaviour
     public bool _canMove = true;
 
     [Header("Player UI")]
+    [SerializeField] private float _distRayCast;
+    [SerializeField] private TextMeshProUGUI _textPress;
+    [SerializeField] private List<GameObject> _uiPlayer;
+    private bool _canOpen;
+    private bool _isOpen;
 
     [Header("Inventory")]
     [SerializeField] private GameObject _inventory;
@@ -86,21 +93,18 @@ public class PC : MonoBehaviour
     public void Interaction(InputAction.CallbackContext ctx)
     {
         Debug.Log("Interaction");
-        QG_Manager.Instance.OpenUi(this);
+        if (ctx.performed)
+            StartUi();
         OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
         {
             PickUpObject();
             _timer = 0.05f;
         }
-        //if (AnimationManager.Instance._doorIsOpen)
-        //    AnimationManager.Instance.CloseDoor();
-        //else
-        //    AnimationManager.Instance.OpenDoor();
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !QG_Manager.Instance._isOpen)
+        if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
         {
             ChangeStamina(-10);
             _currentStaminaTime = _staminaTimer;
@@ -117,8 +121,17 @@ public class PC : MonoBehaviour
         {
             StartCoroutine(RegenStamina());
         }
-        Debug.Log("Jump");
-        print(!QG_Manager.Instance._isOpen);
+
+        if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.gameObject.layer == 8)
+        {
+            _textPress.text = "Press E for interact";
+            _canOpen = true;
+        }
+        else
+        {
+            _canOpen = false;
+            _textPress.text = "";
+        }
 
     }
     public void SprintPlayer(InputAction.CallbackContext context)
@@ -322,4 +335,35 @@ public class PC : MonoBehaviour
         return _currentStaminaTime <= 0 && _playerManager.Stamina <= _playerManager.MaxStamina;
     }
 
+    // Ui Player
+    public void StartUi()
+    {
+        if (_canOpen && Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
+        {
+            OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
+        } 
+    }
+    
+    public void OpenUi(int index)
+    {
+        print(_uiPlayer[index].activeSelf);
+        _uiPlayer[index].SetActive(!_uiPlayer[index].activeSelf);
+        print(_uiPlayer[index].activeSelf);
+        DisablePlayer(_uiPlayer[index].activeSelf);
+    }
+    private void DisablePlayer(bool active)
+    {
+        if (active)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Disable();
+            _isOpen = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
+            _isOpen = false;
+        }
+    }
 }
