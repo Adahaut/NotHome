@@ -40,6 +40,7 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+    private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
@@ -60,6 +61,8 @@ public class PC : MonoBehaviour
 
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
+    public bool IsDead {  get { return _isDead; } set {  _isDead = value; } }
+
     public void Start()
     {
         _playerManager = GetComponent<PlayerManager>();
@@ -70,6 +73,7 @@ public class PC : MonoBehaviour
 
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
+        GetComponent<LifeManager>().TakeDamage(10);
         _inventory.SetActive(!_inventory.activeInHierarchy);
     }
     public void SetIsInBaseInventory(bool _isIn)
@@ -113,8 +117,11 @@ public class PC : MonoBehaviour
     }
     void Update()
     {
-        RotateCamera();
-        MovePlayer();
+        if (!_isDead)
+        {
+            RotateCamera();
+            MovePlayer();
+        }
         Timer();
 
         if (!_staminaRegenStarted && CanRegenStamina())
