@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FieldManager : MonoBehaviour
+public class FieldManager : NetworkBehaviour
 {
     public List<Seed> _seedTimers = new();
     public static FieldManager Instance;
