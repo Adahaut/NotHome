@@ -253,7 +253,7 @@ public class PC : MonoBehaviour
         {
             if (_isRunning)
             {
-                if(!_runningStaminaLose)
+                if(!_runningStaminaLose && _moveDir != Vector2.zero)
                 {
                     StartCoroutine(RunningStamina());
                 }

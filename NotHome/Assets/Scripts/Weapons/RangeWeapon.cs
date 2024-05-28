@@ -9,7 +9,6 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField] private int _recoilStepsNumber;
     [SerializeField] private float _recoilForce;
     [SerializeField] private Camera _playerCamera;
-    [SerializeField] private Transform _cameraTransform;
     [SerializeField] private int _aimingZoomSteps;
     [SerializeField] private Transform _weaponHolder;
                      private Vector3 _startWeaponHolder;
@@ -17,7 +16,10 @@ public class RangeWeapon : MonoBehaviour
     public bool _isAiming;
     [SerializeField] private PC _playerController;
 
+    private AudioSource _riffleAudioSource;
+    [SerializeField] private AudioClip _riffleAudioClip;
     private Transform _transform;
+    private PlayerAttack _playerAttack;
 
     [SerializeField] private Vector3 _upRecoilValue;
     private Vector3 _originalRotation;
@@ -31,15 +33,14 @@ public class RangeWeapon : MonoBehaviour
     private void Start()
     {
         _transform = transform;
-        _cameraTransform = _playerCamera.transform;
         PlayerAttack._shootAction += Shoot;
         PlayerAttack._reloading += StartReload;
         PlayerAttack._aimAction += StartAiming;
         PlayerAttack._stopAimAction += StopAiming;
-
+        _riffleAudioSource = transform.parent.GetChild(0).GetComponent<AudioSource>();
         _currentAmmo = _weaponData._magSize;
         _startWeaponHolder = _weaponHolder.localPosition;
-
+        _playerAttack = GetComponentInParent<PlayerAttack>();
         _originalRotation = _transform.localEulerAngles;
     }
 
@@ -60,6 +61,7 @@ public class RangeWeapon : MonoBehaviour
 
     private IEnumerator Zooming(int dir = 1) // 1 = zoom, -1 = dezoom
     {
+        _playerAttack._isAimingFinished = false;
         _isAiming = !_isAiming;
         float _zoomForce = 30f / _aimingZoomSteps;
         Vector3 _weaponDestination = dir == 1 ? _endWeaponHolder.localPosition : _startWeaponHolder;
@@ -71,6 +73,7 @@ public class RangeWeapon : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
         _weaponHolder.localPosition = Vector3.Lerp(_weaponHolder.localPosition, _weaponDestination, 1f);
+        _playerAttack._isAimingFinished = true;
     }
 
 
@@ -101,8 +104,8 @@ public class RangeWeapon : MonoBehaviour
             print(_currentAmmo.ToString());
             if (CanShoot())
             {
-                print("tire");
                 StartRecoil();
+                _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
                 if (Physics.Raycast(_muzzle.position, _transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
                     print("touche " + _hitInfo.collider.name);
@@ -126,7 +129,8 @@ public class RangeWeapon : MonoBehaviour
 
     private IEnumerator Recoil()
     {
-        for(int i = 0; i < 3; i++)
+        _playerAttack._isRecoilFinished = false;
+        for (int i = 0; i < 3; i++)
         {
             _transform.localEulerAngles += _upRecoilValue / 3f;
             yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
@@ -138,6 +142,7 @@ public class RangeWeapon : MonoBehaviour
             yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
         }
         RecoverFromRecoil();
+        _playerAttack._isRecoilFinished = true;
     }
 
     private IEnumerator CameraShake(float _duration, float _strengh)

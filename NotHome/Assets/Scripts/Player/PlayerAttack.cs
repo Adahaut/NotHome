@@ -11,7 +11,11 @@ public class PlayerAttack : MonoBehaviour
     public static Action _reloading;
     public static Action _aimAction;
     public static Action _stopAimAction;
+    public bool _isAimingFinished;
+    public bool _isRecoilFinished;
+    public bool _isAiming;
     public bool _isRangeWeaponEqupiped;
+    public bool _isMeleeWeaponEqupiped;
     private PC _playerController;
 
     private void Awake()
@@ -27,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
         {
             _shootAction?.Invoke();
         }
-        else
+        else if (_isMeleeWeaponEqupiped)
         {
             StartCoroutine(ActiveDesactiveCollider());
         }
@@ -36,18 +40,28 @@ public class PlayerAttack : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        if (_playerController.IsInBook)
+        if (_playerController.IsInBook || !_isRangeWeaponEqupiped)
             return;
         if (context.started)
         {
-            _aimAction?.Invoke();
+            StartAiming();
         }
         else if (context.canceled)
         {
-            _stopAimAction?.Invoke();
+            StopAiming();
         }
-        
+    }
 
+    public void StartAiming()
+    {
+        _isAiming = true;
+        _aimAction?.Invoke();
+    }
+
+    public void StopAiming()
+    {
+        _isAiming = false;
+        _stopAimAction?.Invoke();
     }
 
     public void Reload(InputAction.CallbackContext context)

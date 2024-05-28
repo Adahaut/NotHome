@@ -10,10 +10,14 @@ public class HotBarManager : MonoBehaviour
 
     [SerializeField] private int _hotBarNumber;
 
+    [SerializeField] List<GameObject> _hotBarItems = new List<GameObject>();
+
     [SerializeField] private List<GameObject> _hotBarSlotList = new List<GameObject>();
 
     [SerializeField] private Color _hotBarSlotSelectedColor;
     [SerializeField] private Color _hotBarSlotUnselectedColor;
+
+    private PlayerAttack _playerAttack;
 
     public int _hotBarSlotIndex;
     private float _timeToHide;
@@ -23,6 +27,7 @@ public class HotBarManager : MonoBehaviour
     private void Start()
     {
         InitializeHotBar();
+        _playerAttack = GetComponentInParent<PlayerAttack>();
     }
 
     private void InitializeHotBar()
@@ -45,7 +50,46 @@ public class HotBarManager : MonoBehaviour
             _hotBarSlotList[i].GetComponent<Image>().color = _hotBarSlotUnselectedColor;
         }
         SetSelectedHotBarSlot();
-        //put the code to equipe item here
+        
+        StartCoroutine(WaitAndDesactivateOtherWeapon());
+    }
+
+    private IEnumerator WaitAndDesactivateOtherWeapon()
+    {
+        if (_playerAttack._isAiming)
+        {
+            _playerAttack.StopAiming();
+        }
+        while (!_playerAttack._isAimingFinished || !_playerAttack._isRecoilFinished)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        UnActiveAll();
+        _hotBarItems[_hotBarSlotIndex].SetActive(true);
+        SetWeaponActive();
+    }
+
+    private void SetWeaponActive()
+    {
+        _playerAttack._isRangeWeaponEqupiped = false;
+        _playerAttack._isMeleeWeaponEqupiped = false;
+        if (_hotBarSlotIndex == 0)
+        {
+            _playerAttack._isRangeWeaponEqupiped = true;
+        }
+        else if (_hotBarSlotIndex == 1)
+        {
+            _playerAttack._isMeleeWeaponEqupiped = true;
+        }
+    }
+
+    private void UnActiveAll()
+    {
+        for(int i = 0; i < _hotBarSlotList.Count; i++)
+        {
+            _hotBarItems[i].SetActive(false);
+        }
     }
 
     private void SetSelectedHotBarSlot()
