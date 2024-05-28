@@ -10,7 +10,7 @@ public class NewFieldManager : NetworkBehaviour
 
     [SerializeField] private List<Seed> _seedPrefabs;
 
-    public List<Seed> _allPlants;
+    [SyncVar] public List<Seed> _allPlants;
 
     [SerializeField] private List<Transform> _plantPositons;
 
