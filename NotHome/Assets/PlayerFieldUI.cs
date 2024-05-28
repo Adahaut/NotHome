@@ -5,30 +5,38 @@ using UnityEngine;
 
 public class PlayerFieldUI : NetworkBehaviour
 {
-    private GameObject canvas;
-    private GameObject newCanvas;
+    [SerializeField] private GameObject _player;
+
     private void OnEnable()
     {
-        if(isOwned && !NewFieldManager.instance._panelOpen)
+
+        foreach (var plant in NewFieldManager.instance._allPlants)
         {
-            canvas = NewFieldManager.instance.fieldPlayerCanvas;
-            newCanvas = Instantiate(canvas, this.transform);
-            newCanvas.SetActive(true);
-            //canvas.SetActive(true);
-            NewFieldManager.instance._panelOpen = true;
+            List<Transform> slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
+            plant.gameObject.transform.position = slots[plant._index].transform.position;
         }
     }
 
-    public void DisablePanel()
-    {
-        GameObject oldCanvas = Instantiate(newCanvas, canvas.transform.parent);
-        oldCanvas.SetActive(false);
-        Destroy(canvas);
-        NewFieldManager.instance.fieldPlayerCanvas = oldCanvas;
-        NewFieldManager.instance._panelOpen = false;
-        GetComponentInParent<PlayerController>().DisablePlayer(false);
-        newCanvas.SetActive(false);
-        Destroy(newCanvas);
+    //private void OnEnable()
+    //{
+    //    if(isOwned && !NewFieldManager.instance._panelOpen)
+    //    {
+    //        canvas = NewFieldManager.instance.fieldPlayerCanvas;
+    //        newCanvas = Instantiate(canvas, this.transform);
+    //        newCanvas.SetActive(true);
+    //        //canvas.SetActive(true);
+    //        NewFieldManager.instance._panelOpen = true;
+    //    }
+    //}
 
+    public void OnDisable()
+    {
+        GetComponentInParent<PlayerController>().DisablePlayer(false);
+
+    }
+
+    public void DisableFieldPanel()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Seed : MonoBehaviour
+public class Seed : NetworkBehaviour
 {
     public string _name;
     public float _growingTime;
