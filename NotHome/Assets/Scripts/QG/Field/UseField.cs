@@ -53,7 +53,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         {
             _seedPrefab._isPlanted = true;
             _transform.position = GetNearestSlot();
-
+            NewFieldManager.instance.RpcAddPlant(_seedPrefab._index, _seedPrefab);
         }
         else
         {

@@ -20,6 +20,6 @@ public class Seed : NetworkBehaviour
     public void StartGrow(Transform position, int index)
     {
         this._index = index;
-        StartCoroutine(GrowPlant());
+        //StartCoroutine(GrowPlant());
     }
 }

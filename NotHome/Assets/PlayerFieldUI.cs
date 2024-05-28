@@ -1,7 +1,9 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerFieldUI : NetworkBehaviour
 {
@@ -13,7 +15,13 @@ public class PlayerFieldUI : NetworkBehaviour
         foreach (var plant in NewFieldManager.instance._allPlants)
         {
             List<Transform> slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
-            plant.gameObject.transform.position = slots[plant._index].transform.position;
+            List<TMP_Text> textSlots = _player.GetComponentInChildren<PlayerFieldSlot>()._listTexts;
+            for (int i = 0; i < slots.Count; i++)
+            {
+                slots[i].GetComponent<Image>().sprite = plant._img;
+                textSlots[i].text = plant._name;
+            }
+            //plant.gameObject.transform.position = slots[plant._index].transform.position;
         }
     }
 

@@ -21,17 +21,20 @@ public class NewFieldManager : NetworkBehaviour
 
     private void Start()
     {
-        _allPlants = new List<Seed>(_plantPositons.Count);
+        for (int i = 0; i < _plantPositons.Count; i++)
+        {
+            _allPlants.Add(new Seed());
+        }
     }
 
     [Command]
-    public void CmdAddPlant(int index, Seed type)
+    public void CmdAddPlant()
     {
-        RpcAddPlant(index, type);
+        //RpcAddPlant();
+        
     }
 
-    [ClientRpc]
-    private void RpcAddPlant(int index, Seed type)
+    public void RpcAddPlant(int index, Seed type)
     {
         _allPlants[index] = type;
         _allPlants[index].StartGrow(_plantPositons[index], index);
