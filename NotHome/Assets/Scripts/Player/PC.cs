@@ -33,6 +33,9 @@ public class PC : MonoBehaviour
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
 
+    [Header("Book")]
+    [SerializeField] private GameObject _book;
+
     [Header("PlayerManager")]
     [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private float _staminaTimer;
@@ -40,6 +43,7 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+    private bool _isInBook;
     private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
@@ -64,6 +68,8 @@ public class PC : MonoBehaviour
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
     public bool IsDead {  get { return _isDead; } set {  _isDead = value; } }
+
+    public bool IsInBook { get { return  _isInBook; } }
 
     public static PC Instance;
 
@@ -94,6 +100,21 @@ public class PC : MonoBehaviour
     public InventoryManager GetInventory()
     {
         return _inventory.GetComponent<InventoryManager>();
+    }
+
+    public void OpenBook(InputAction.CallbackContext ctx)
+    {
+        _book.SetActive(!_book.activeInHierarchy);
+        if (_book.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            _isInBook = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            _isInBook = false;
+        }
     }
 
     public void SetInventoryActive(bool _active)
@@ -134,7 +155,7 @@ public class PC : MonoBehaviour
     }
     void Update()
     {
-        if (!_isDead)
+        if (!_isDead && !_isInBook)
         {
             RotateCamera();
             MovePlayer();
