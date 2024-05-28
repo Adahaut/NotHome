@@ -15,6 +15,8 @@ public class NewFieldManager : MonoBehaviour
     [Header("UI")]
     public GameObject fieldPlayerCanvas;
 
+    public bool _panelOpen;
+
     private void Awake()
     {
         instance = this;

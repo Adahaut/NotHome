@@ -9,20 +9,26 @@ public class PlayerFieldUI : NetworkBehaviour
 
     private void OnEnable()
     {
-        if(isOwned)
+        if(isOwned && !NewFieldManager.instance._panelOpen)
         {
-            canvas = Instantiate(NewFieldManager.instance.fieldPlayerCanvas, this.transform);
+            //if(canvas == null)
+            //{
+            //    canvas = new GameObject();
+            //    canvas.transform.parent = transform;
+            //}
+
+            //canvas = Instantiate(NewFieldManager.instance.fieldPlayerCanvas, this.transform);
+            canvas = NewFieldManager.instance.fieldPlayerCanvas;
             canvas.SetActive(true);
+            NewFieldManager.instance._panelOpen = true;
         }
     }
 
     public void DisablePanel()
     {
-        if(isOwned)
-        {
-            NewFieldManager.instance.fieldPlayerCanvas = canvas;
-            Destroy(canvas);
-            GetComponentInParent<PlayerController>().DisablePlayer(false);
-        }
+        NewFieldManager.instance.fieldPlayerCanvas = canvas;
+        NewFieldManager.instance._panelOpen = false;
+        GetComponentInParent<PlayerController>().DisablePlayer(false);
+        canvas.SetActive(false);    
     }
 }

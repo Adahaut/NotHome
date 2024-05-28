@@ -3,6 +3,7 @@ using Org.BouncyCastle.Tls.Crypto;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -166,7 +167,6 @@ public class PlayerController : NetworkBehaviour
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
-        Debug.Log("Sprint");
         _isRunning = true;
         if (context.canceled)
             _isRunning = false;
@@ -370,19 +370,16 @@ public class PlayerController : NetworkBehaviour
     {
         if (_canOpen && Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
         {
-            hit.collider.GetComponent<BuildInterractable>().SetUsedPlayer(gameObject);
+            //hit.collider.GetComponent<BuildInterractable>().SetUsedPlayer(gameObject);
+            Debug.Log(hit.collider.gameObject.GetComponent<BuildInterractable>() != null);
             OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
             hit.collider.GetComponent<BuildInterractable>()._isOpen = true;
-            
-
         }
     }
 
     public void OpenUi(int index)
     {
-        //print(_uiPlayer[index].activeSelf);
         _uiPlayer[index].SetActive(!_uiPlayer[index].activeSelf);
-        //print(_uiPlayer[index].activeSelf);
         DisablePlayer(_uiPlayer[index].activeSelf);
     }
 
