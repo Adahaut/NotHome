@@ -33,6 +33,9 @@ public class PC : MonoBehaviour
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
 
+    [Header("Book")]
+    [SerializeField] private GameObject _book;
+
     [Header("PlayerManager")]
     [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private float _staminaTimer;
@@ -40,6 +43,11 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+    private Farts _farts;
+
+    private float _fartCooldown;
+    private bool _isInBook;
+    private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
@@ -62,6 +70,10 @@ public class PC : MonoBehaviour
 
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
+    public bool IsDead {  get { return _isDead; } set {  _isDead = value; } }
+
+    public bool IsInBook { get { return  _isInBook; } }
+
     public static PC Instance;
 
     private void Awake()
@@ -70,11 +82,13 @@ public class PC : MonoBehaviour
             Instance = this;
     }
 
+
     public void Start()
     {
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
         _characterController = GetComponent<CharacterController>();
+        _farts = GetComponent<Farts>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -87,9 +101,32 @@ public class PC : MonoBehaviour
         _isInBaseInventory = _isIn;
     }
 
+    public void StartFart(InputAction.CallbackContext ctx)
+    {
+        if (_fartCooldown > 0)
+            return;
+        _fartCooldown = 20f;
+        _farts.PlayRandomFartSound();
+    }
+
     public InventoryManager GetInventory()
     {
         return _inventory.GetComponent<InventoryManager>();
+    }
+
+    public void OpenBook(InputAction.CallbackContext ctx)
+    {
+        _book.SetActive(!_book.activeInHierarchy);
+        if (_book.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            _isInBook = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            _isInBook = false;
+        }
     }
 
     public void SetInventoryActive(bool _active)
@@ -130,8 +167,11 @@ public class PC : MonoBehaviour
     }
     void Update()
     {
-        RotateCamera();
-        MovePlayer();
+        if (!_isDead && !_isInBook)
+        {
+            RotateCamera();
+            MovePlayer();
+        }
         Timer();
 
         if (!_staminaRegenStarted && CanRegenStamina())
@@ -155,7 +195,7 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Sprint");
         _isRunning = true;
-        if (context.canceled)
+        if (context.canceled || _playerManager.Stamina <= 0)
             _isRunning = false;
     }
     
@@ -168,6 +208,10 @@ public class PC : MonoBehaviour
         if(_currentStaminaTime > 0)
         {
             _currentStaminaTime -= Time.deltaTime;
+        }
+        if(_fartCooldown > 0)
+        {
+            _fartCooldown -= Time.deltaTime;
         }
     }
 
@@ -212,6 +256,10 @@ public class PC : MonoBehaviour
                 if(!_runningStaminaLose)
                 {
                     StartCoroutine(RunningStamina());
+                }
+                if (_playerManager.Stamina <= 0)
+                {
+                    _isRunning = false; 
                 }
             }
             _moveDirection.y = movementDirectionY;
@@ -340,8 +388,8 @@ public class PC : MonoBehaviour
         while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
-            ChangeStamina(-5);
-            yield return new WaitForSeconds(1f);
+            ChangeStamina(-0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
         _runningStaminaLose = false;
     }

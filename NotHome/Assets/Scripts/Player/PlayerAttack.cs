@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,17 +12,21 @@ public class PlayerAttack : MonoBehaviour
     public static Action _aimAction;
     public static Action _stopAimAction;
     public bool _isRangeWeaponEqupiped;
+
+
     [SerializeField] private float _cadence;
     private float _cadenceTimer;
 
     public static PlayerAttack Instance;
 
+    private PC _playerController;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        _playerController = GetComponent<PC>();
     }
     private void Update()
     {
@@ -32,6 +35,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
+        if (_playerController.IsInBook)
+            return;
         if(_isRangeWeaponEqupiped)
         {
             _shootAction?.Invoke();
@@ -53,6 +58,8 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Aim(InputAction.CallbackContext context)
     {
+        if (_playerController.IsInBook)
+            return;
         if (context.started)
         {
             _aimAction?.Invoke();
@@ -67,6 +74,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void Reload(InputAction.CallbackContext context)
     {
+        if (_playerController.IsInBook)
+            return;
         _reloading?.Invoke();
     }
 

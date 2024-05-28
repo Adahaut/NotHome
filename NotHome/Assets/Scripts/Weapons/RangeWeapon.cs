@@ -74,7 +74,6 @@ public class RangeWeapon : MonoBehaviour
     public void StartAiming()
     {
         StartCoroutine(Zooming());
-
     }
 
     public void StopAiming()
