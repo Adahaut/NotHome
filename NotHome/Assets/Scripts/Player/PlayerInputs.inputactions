@@ -157,6 +157,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Fart",
+                    "type": "Button",
+                    "id": "d4535aec-1405-400f-8b75-62d41ecf74a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -498,6 +507,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenBook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b295a8a-b41c-474a-9772-8ae3c1ee0958",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
