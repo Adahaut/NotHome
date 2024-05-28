@@ -15,4 +15,6 @@ public class WeaponData : ScriptableObject
     public int _magSize;
     public float _fireRate; // shoot cadance = (1 / (1 / (_fireRate * 60)))
     public float _reloadSpeed;
+
+    public WeaponData _nextWeapon;
 }

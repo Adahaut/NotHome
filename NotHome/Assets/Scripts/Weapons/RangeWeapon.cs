@@ -28,6 +28,17 @@ public class RangeWeapon : MonoBehaviour
 
     private bool _isReloading;
 
+    [SerializeField] private GameObject _redDot;
+    [SerializeField] private GameObject _laser;
+
+    public static RangeWeapon Instance;
+
+    private void Awake()
+    {
+        if (Instance == null) 
+            Instance = this;
+    }
+
     private void Start()
     {
         _transform = transform;
@@ -42,7 +53,19 @@ public class RangeWeapon : MonoBehaviour
 
         _originalRotation = _transform.localEulerAngles;
     }
-
+    public void NextWeapon()
+    {
+        if (_weaponData._nextWeapon != null)
+            _weaponData = _weaponData._nextWeapon;
+    }
+    public void AciveRedDot()
+    {
+        _redDot.SetActive(true);
+    }
+    public void ActiveLaser()
+    {
+        _laser.SetActive(true);
+    }
     private bool CanShoot()
     {
         return !_isReloading && _timeSinceLastShot > 1f / (_weaponData._fireRate / 60f);
