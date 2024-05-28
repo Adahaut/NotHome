@@ -183,7 +183,7 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Sprint");
         _isRunning = true;
-        if (context.canceled)
+        if (context.canceled || _playerManager.Stamina <= 0)
             _isRunning = false;
     }
     
@@ -240,6 +240,10 @@ public class PC : MonoBehaviour
                 if(!_runningStaminaLose)
                 {
                     StartCoroutine(RunningStamina());
+                }
+                if (_playerManager.Stamina <= 0)
+                {
+                    _isRunning = false; 
                 }
             }
             _moveDirection.y = movementDirectionY;
@@ -368,8 +372,8 @@ public class PC : MonoBehaviour
         while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
-            ChangeStamina(-5);
-            yield return new WaitForSeconds(1f);
+            ChangeStamina(-0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
         _runningStaminaLose = false;
     }
