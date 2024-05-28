@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Seed : NetworkBehaviour
 {
+    public int _id;
     public string _name;
     public float _growingTime;
     public Sprite _img;

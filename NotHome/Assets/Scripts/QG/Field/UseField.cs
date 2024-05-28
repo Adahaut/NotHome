@@ -51,9 +51,14 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     {
         if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
         {
-            _seedPrefab._isPlanted = true;
-            _transform.position = GetNearestSlot();
-            NewFieldManager.instance.RpcAddPlant(_seedPrefab._index, _seedPrefab);
+            if(isOwned)
+            {
+                _seedPrefab._isPlanted = true;
+                _transform.position = GetNearestSlot();
+                //GameObject.Find("Field_Manager").GetComponent<NewFieldManager>().CmdAddPlant(_seedPrefab._index, _seedPrefab);
+                NewFieldManager.instance.CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
+            }
+
         }
         else
         {
