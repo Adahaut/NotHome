@@ -8,9 +8,9 @@ public class NewFieldManager : NetworkBehaviour
 {
     public static NewFieldManager instance;
 
-    [SerializeField] private List<Seed> _seedPrefabs;
+    public List<Seed> _seedPrefabs;
 
-    [SyncVar] public List<Seed> _allPlants;
+    [SyncVar] public List<int> _allPlants;
 
     [SerializeField] private List<Transform> _plantPositons;
 
@@ -23,15 +23,13 @@ public class NewFieldManager : NetworkBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < _plantPositons.Count; i++)
-        {
-            _allPlants.Add(new Seed());
-        }
+        _allPlants = new List<int>(new int[_plantPositons.Count]);
     }
 
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
+        _allPlants[index] = seedId;
         RpcAddPlant(index, seedId);
     }
 
@@ -39,8 +37,8 @@ public class NewFieldManager : NetworkBehaviour
     public void RpcAddPlant(int index, int seedTypeId)
     {
         Seed newSeed = InstantiateSeedById(seedTypeId);
-        _allPlants[index] = newSeed;
-        _allPlants[index].StartGrow(_plantPositons[index], index);
+        newSeed._index = index;
+        newSeed.StartGrow(_plantPositons[index], index);
     }
 
     private Seed InstantiateSeedById(int seedTypeId)
