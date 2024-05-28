@@ -13,7 +13,22 @@ public class PlayerAttack : MonoBehaviour
     public static Action _aimAction;
     public static Action _stopAimAction;
     public bool _isRangeWeaponEqupiped;
-    
+    [SerializeField] private float _cadence;
+    private float _cadenceTimer;
+
+    public static PlayerAttack Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+    private void Update()
+    {
+        _cadenceTimer += Time.deltaTime;
+    }
 
     public void Attack(InputAction.CallbackContext context)
     {
@@ -21,13 +36,21 @@ public class PlayerAttack : MonoBehaviour
         {
             _shootAction?.Invoke();
         }
-        else
+        else if (_cadenceTimer >= _cadence)
         {
+            _cadenceTimer = 0;
             StartCoroutine(ActiveDesactiveCollider());
         }
         
     }
-
+    public void SetCadence(float number)
+    {
+        _cadence = number;
+    }
+    public void SetAttack(int number)
+    {
+        _damages = number;
+    }
     public void Aim(InputAction.CallbackContext context)
     {
         if (context.started)

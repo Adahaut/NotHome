@@ -22,15 +22,16 @@ public class UpgradeWeaponManager : MonoBehaviour
                 switch (_levelWeapon)
                 {
                     case 2:
-                        Debug.Log("Degat = 20");
-                        Debug.Log("Cadence = 1.5s");
+                        PlayerAttack.Instance.SetAttack(20);
+                        PlayerAttack.Instance.SetCadence(1.5f);
                         break;
                     case 3:
-                        Debug.Log("Degat = 25");
-                        Debug.Log("Cadence = 2s");
+                        PlayerAttack.Instance.SetAttack(25);
+                        PlayerAttack.Instance.SetCadence(1f);
                         break;
                     case 4:
-                        Debug.Log("Degat = 35");
+                        PlayerAttack.Instance.SetAttack(35);
+                        PlayerAttack.Instance.SetCadence(0.5f);
                         break;
                     default:
                         break;
