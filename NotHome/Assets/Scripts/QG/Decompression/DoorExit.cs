@@ -7,6 +7,8 @@ public class DoorExit : MonoBehaviour
     private int _nbPlayer;
     public static DoorExit Instance;
     private bool _qgIsLevel3;
+    [SerializeField] private ParticleSystem _smokeParticle;
+    [SerializeField] private AudioSource _soundDecompression;
     private void Awake()
     {
         if (Instance == null)
@@ -20,9 +22,12 @@ public class DoorExit : MonoBehaviour
     {
         if (other.CompareTag("Player") && !_qgIsLevel3)
         {
+            print("enter");
             _nbPlayer++;
-            if (_nbPlayer >= 2)
+            if (_nbPlayer >= 1)
             {
+                _soundDecompression.Play();
+                _smokeParticle.Play();
                 _doorEnter.SetActive(true);
                 _doorExit.SetActive(false);
             }
