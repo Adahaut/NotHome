@@ -5,5 +5,21 @@ using UnityEngine;
 
 public class Seed : MonoBehaviour
 {
-    public float currentTimer;
+    public string _name;
+    public float _growingTime;
+    public Sprite _img;
+    [HideInInspector] public int _index;
+
+    [HideInInspector] public bool _isPlanted;
+
+    public IEnumerator GrowPlant()
+    {
+        yield return new WaitForSeconds(_growingTime);
+    }
+
+    public void StartGrow(Transform position, int index)
+    {
+        this._index = index;
+        StartCoroutine(GrowPlant());
+    }
 }

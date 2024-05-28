@@ -18,8 +18,8 @@ public class PlayerFieldSlot : MonoBehaviour
     {
         for (int i = 0; i < FieldManager.Instance._seedTimers.Count; i++)
         {
-            int seedTime = (int)FieldManager.Instance._seedTimers[i].currentTimer;
-            _listTexts[i].text = (seedTime / 60).ToString("00") + ":" + (seedTime % 60).ToString("00");
+            //int seedTime = (int)FieldManager.Instance._seedTimers[i].currentTimer;
+            //_listTexts[i].text = (seedTime / 60).ToString("00") + ":" + (seedTime % 60).ToString("00");
         }
     }
 

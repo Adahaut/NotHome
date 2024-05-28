@@ -47,13 +47,6 @@ public class FieldManager : MonoBehaviour
 
     private void Update()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        foreach (GameObject player in players)
-        {
-
-        }
-
 
         //if (GetComponentInChildren<BuildInterractable>().usedPlayer != null)
         //{
@@ -65,7 +58,7 @@ public class FieldManager : MonoBehaviour
         if (seedTime > 0)
         {
             seedTime -= 1;
-            _seedTimers[index].currentTimer = seedTime;
+            //_seedTimers[index].currentTimer = seedTime;
             //GetComponent<BuildInterractable>().usedPlayer.GetComponentInChildren<PlayerFieldSlot>()._listTexts
             yield return new WaitForSeconds(1);
             StartCoroutine(StartTimer(index, seedTime, seed));

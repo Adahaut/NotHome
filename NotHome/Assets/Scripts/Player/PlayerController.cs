@@ -386,7 +386,7 @@ public class PlayerController : NetworkBehaviour
         DisablePlayer(_uiPlayer[index].activeSelf);
     }
 
-    private void DisablePlayer(bool active)
+    public void DisablePlayer(bool active)
     {
         if (active)
         {
