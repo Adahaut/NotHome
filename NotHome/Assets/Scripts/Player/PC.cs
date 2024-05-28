@@ -43,6 +43,9 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+    private Farts _farts;
+
+    private float _fartCooldown;
     private bool _isInBook;
     private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
@@ -85,6 +88,7 @@ public class PC : MonoBehaviour
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
         _characterController = GetComponent<CharacterController>();
+        _farts = GetComponent<Farts>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -95,6 +99,14 @@ public class PC : MonoBehaviour
     public void SetIsInBaseInventory(bool _isIn)
     {
         _isInBaseInventory = _isIn;
+    }
+
+    public void StartFart(InputAction.CallbackContext ctx)
+    {
+        if (_fartCooldown > 0)
+            return;
+        _fartCooldown = 20f;
+        _farts.PlayRandomFartSound();
     }
 
     public InventoryManager GetInventory()
@@ -196,6 +208,10 @@ public class PC : MonoBehaviour
         if(_currentStaminaTime > 0)
         {
             _currentStaminaTime -= Time.deltaTime;
+        }
+        if(_fartCooldown > 0)
+        {
+            _fartCooldown -= Time.deltaTime;
         }
     }
 
