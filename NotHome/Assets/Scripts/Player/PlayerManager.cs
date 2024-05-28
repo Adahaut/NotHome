@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         SetMaxStamina(_maxStamina);
-        SetHungerBar();
+        SetMaxHunger();
         SetMaxThirst();
         SetMaxOxygene(_maxOxygene);
 
