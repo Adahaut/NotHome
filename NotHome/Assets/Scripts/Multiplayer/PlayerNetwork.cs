@@ -19,12 +19,14 @@ public class PlayerNetwork : NetworkBehaviour
 
     public Camera mainCamera;
 
+    [SerializeField] private GameObject playerUI;
+
     private void Start()
     {
         if(isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
-
+            playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
 
