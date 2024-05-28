@@ -10,7 +10,8 @@ public class NewFieldManager : NetworkBehaviour
 
     [SerializeField] private List<Seed> _seedPrefabs;
 
-    [SyncVar] public List<Seed> _allPlants;
+    [SyncVar]
+    public SyncList<Seed> _allPlants = new SyncList<Seed>();
 
     [SerializeField] private List<Transform> _plantPositons;
 
@@ -27,6 +28,8 @@ public class NewFieldManager : NetworkBehaviour
         {
             _allPlants.Add(new Seed());
         }
+
+        _allPlants.Callback += OnAllPlantsChanged;
     }
 
     [Command]
@@ -47,5 +50,10 @@ public class NewFieldManager : NetworkBehaviour
     { 
         Seed newSeed = Instantiate(_seedPrefabs[seedTypeId]);
         return newSeed;
+    }
+
+    private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int itemIndex, Seed oldItem, Seed newItem)
+    {
+        PlayerFieldUI.UpdateAllUIs();
     }
 }
