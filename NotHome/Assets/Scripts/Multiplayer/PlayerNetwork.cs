@@ -86,12 +86,12 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if (isOwned && debugText != null)
+        if (debugText != null)
         {
-            debugText.text = NewFieldManager.instance.gameObject.GetComponent<NetworkIdentity>().isOwned.ToString();
-            debugText.text += "\n";
+            debugText.text = "";
             for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
             {
+                debugText.text = "caca";
                 debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
             }
         }

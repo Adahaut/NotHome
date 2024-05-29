@@ -34,9 +34,12 @@ public class NewFieldManager : NetworkBehaviour
     }
 
     [Command]
-    public void CmdAddPlant(uint seedNetId, int index)
+    public void CmdAddPlant(Seed seed, int index)
     {
-        RpcAddPlant(seedNetId, index);
+        NetworkServer.Spawn(seed.gameObject);
+        _allPlants[index] = seed;
+
+        RpcAddPlant(seed.gameObject.GetComponent<NetworkIdentity>().netId, index);
     }
 
     [ClientRpc]
