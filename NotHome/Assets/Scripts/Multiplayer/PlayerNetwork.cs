@@ -92,11 +92,15 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        debugText.text = "";
-        for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
+        if(debugText != null)
         {
-            debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
+            debugText.text = "";
+            for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
+            {
+                debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
+            }
         }
+        
 
 
 

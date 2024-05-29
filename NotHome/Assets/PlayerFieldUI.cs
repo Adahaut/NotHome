@@ -8,7 +8,7 @@ public class PlayerFieldUI : NetworkBehaviour
 {
     [SerializeField] private PlayerFieldSlot _playerSlots;
 
-    public TMP_Text debugText;
+    
 
     private void OnEnable()
     {
@@ -34,10 +34,7 @@ public class PlayerFieldUI : NetworkBehaviour
         }
     }
 
-    private void Update()
-    {
-        
-    }
+    
 
     public static void UpdateAllUIs()
     {
