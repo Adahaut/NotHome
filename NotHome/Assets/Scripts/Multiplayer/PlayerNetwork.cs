@@ -35,8 +35,6 @@ public class PlayerNetwork : NetworkBehaviour
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
-            //buildingManager = BuildingManager.instance;
-            //CmdRequestAuthority();
         }
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
@@ -57,6 +55,7 @@ public class PlayerNetwork : NetworkBehaviour
         buildingManager = BuildingManager.instance;
         if(isOwned)
         {
+            debugText.text = "caca";
             CmdRequestAuthority();
         }
     }
@@ -92,15 +91,15 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(isOwned && debugText != null)
-        {
-            debugText.text = NewFieldManager.instance.gameObject.GetComponent<NetworkIdentity>().isOwned.ToString();
+        //if(isOwned && debugText != null)
+        //{
+        //    debugText.text = NewFieldManager.instance.gameObject.GetComponent<NetworkIdentity>().isOwned.ToString();
 
-            for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
-            {
-                debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
-            }
-        }
+        //    for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
+        //    {
+        //        debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
+        //    }
+        //}
         
 
 
