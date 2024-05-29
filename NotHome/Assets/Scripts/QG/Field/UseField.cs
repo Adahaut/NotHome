@@ -68,13 +68,10 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
             {
                 _seedPrefab._isPlanted = true;
                 _transform.position = GetNearestSlot();
-               /* NewFieldManager.instance.*/CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
-                
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                foreach (var p in players)
-                {
-                    p.GetComponentInChildren<PlayerFieldUI>().UpdateUI();
-                }
+                /* NewFieldManager.instance.*/
+                CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
+
+                GetComponentInParent<PlayerFieldUI>().UpdateUI();
             }
             else
             {
@@ -94,20 +91,17 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         NetworkServer.Spawn(newSeed.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
 
-        RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
+        RpcAddPlant(index, newSeed.gameObject.GetComponent<NetworkIdentity>());
     }
 
     [ClientRpc]
-    void RpcAddPlant(uint seedNetId, int index)
+    void RpcAddPlant(int index, NetworkIdentity seedIdentity)
     {
-        if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
+        Seed seed = seedIdentity.GetComponent<Seed>();
+        seed.StartGrow(transform, index);
+        if (!NewFieldManager.instance._allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
         {
-            Seed seed = seedIdentity.GetComponent<Seed>();
-            seed.StartGrow(transform, index);
-            if (!NewFieldManager.instance._allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
-            {
-                NewFieldManager.instance._allPlants[index] = seedIdentity.gameObject.GetComponent<Seed>();
-            }
+            NewFieldManager.instance._allPlants[index] = seedIdentity.gameObject.GetComponent<Seed>();
         }
     }
 
