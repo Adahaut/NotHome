@@ -52,7 +52,6 @@ public class NewFieldManager : NetworkBehaviour
     {
         if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
         {
-            Debug.Log("SPAWNED");
             Seed seed = seedIdentity.GetComponent<Seed>();
             seed.StartGrow(_plantPositons[index], index);
             if (!_allPlants.Contains(seed))
