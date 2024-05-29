@@ -1,5 +1,6 @@
 using Mirror;
 using Mirror.Examples.BenchmarkIdle;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,19 +28,25 @@ public class NewFieldManager : NetworkBehaviour
     {
         for (int i = 0; i < _plantPositons.Count; i++)
         {
-            _allPlants.Add(new Seed());
+            _allPlants.Add(null);
         }
 
         _allPlants.Callback += OnAllPlantsChanged;
     }
 
-    [Command]
-    public void CmdAddPlant(Seed seed, int index)
+   
+    public void CmdAddPlant(int index, int seedId)
     {
-        NetworkServer.Spawn(seed.gameObject);
-        _allPlants[index] = seed;
+        Seed newSeed = Instantiate(_seedPrefabs[seedId]);
+        newSeed.seedId = seedId;
+        newSeed.transform.position = _plantPositons[index].position;
 
-        RpcAddPlant(seed.gameObject.GetComponent<NetworkIdentity>().netId, index);
+        
+
+        NetworkServer.Spawn(newSeed.gameObject);
+        _allPlants[index] = newSeed;
+
+        RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
     }
 
     [ClientRpc]
@@ -48,15 +55,23 @@ public class NewFieldManager : NetworkBehaviour
         if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
         {
             Seed seed = seedIdentity.GetComponent<Seed>();
-            seed.StartGrow(transform, index);
-            if (!_allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
+            seed.StartGrow(_plantPositons[index], index);
+            if (!_allPlants.Contains(seed))
             {
-                _allPlants[index] = seedIdentity.gameObject.GetComponent<Seed>();
+                _allPlants[index] = seed;
             }
         }
     }
-    private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int itemIndex, Seed oldItem, Seed newItem)
+
+    private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int index, Seed oldSeed, Seed newSeed)
     {
         PlayerFieldUI.UpdateAllUIs();
+        if (op == SyncList<Seed>.Operation.OP_ADD || op == SyncList<Seed>.Operation.OP_SET)
+        {
+            if (newSeed != null)
+            {
+                newSeed.StartGrow(_plantPositons[index], index);
+            }
+        }
     }
 }

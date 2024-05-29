@@ -25,9 +25,13 @@ public class PlayerFieldUI : NetworkBehaviour
 
         for (int i = 0; i < slots.Count; i++)
         {
-            Seed plant = NewFieldManager.instance._allPlants[i];
-            slots[i].GetComponent<Image>().sprite = plant._img;
-            textSlots[i].text = plant._name;
+            if(NewFieldManager.instance._allPlants[i] != null)
+            {
+                Seed plant = NewFieldManager.instance._allPlants[i];
+                slots[i].GetComponent<Image>().sprite = plant._img;
+                textSlots[i].text = plant._name;
+            }
+            
         }
     }
 
