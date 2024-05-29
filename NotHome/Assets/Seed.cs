@@ -21,10 +21,10 @@ public class Seed : NetworkBehaviour
         yield return new WaitForSeconds(_growingTime);
     }
 
-    public void StartGrow(Transform parent, int index)
+    public void StartGrow(Transform position, int index)
     {
         this._index = index;
-        transform.SetParent(parent);
+        transform.position = position.position;
         // Ajoutez ici votre logique de croissance
     }
 }
