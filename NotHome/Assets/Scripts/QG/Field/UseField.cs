@@ -48,7 +48,14 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
             {
                 _seedPrefab._isPlanted = true;
                 _transform.position = GetNearestSlot();
-                CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
+                if (isServer)
+                {
+                    NewFieldManager.instance._allPlants[_seedPrefab._index] = _seedPrefab;
+                }
+                else
+                {
+                    CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
+                }
                 GetComponentInParent<PlayerFieldUI>().UpdateUI();
             }
             else
