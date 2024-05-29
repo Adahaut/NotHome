@@ -42,7 +42,7 @@ public class NewFieldManager : NetworkBehaviour
     public void RpcAddPlant(int index, int seedTypeId)
     {
         Seed newSeed = InstantiateSeedById(seedTypeId);
-        //_allPlants[index] = newSeed;
+        _allPlants[index] = newSeed;
         //_allPlants[index].StartGrow(_plantPositons[index], index);
     }
 
