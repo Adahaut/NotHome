@@ -19,17 +19,19 @@ public class PlayerFieldUI : NetworkBehaviour
 
     public void UpdateUI()
     {
-        if (!isOwned) return;
-
-        List<Transform> slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
-        List<TMP_Text> textSlots = _player.GetComponentInChildren<PlayerFieldSlot>()._listTexts;
-
-        for (int i = 0; i < slots.Count; i++)
+        if(isOwned)
         {
-            var plant = NewFieldManager.instance._allPlants[i];
-            slots[i].GetComponent<Image>().sprite = plant._img;
-            textSlots[i].text = plant._name;
+            List<Transform> slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
+            List<TMP_Text> textSlots = _player.GetComponentInChildren<PlayerFieldSlot>()._listTexts;
+
+            for (int i = 0; i < slots.Count; i++)
+            {
+                var plant = NewFieldManager.instance._allPlants[i];
+                slots[i].GetComponent<Image>().sprite = plant._img;
+                textSlots[i].text = plant._name;
+            }
         }
+        
     }
 
     public static void UpdateAllUIs()

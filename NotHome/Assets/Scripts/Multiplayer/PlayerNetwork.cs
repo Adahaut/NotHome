@@ -21,6 +21,8 @@ public class PlayerNetwork : NetworkBehaviour
 
     [SerializeField] private GameObject playerUI;
 
+    private BuildingManager buildingManager;
+
     private void Start()
     {
         if(isOwned)
@@ -28,6 +30,8 @@ public class PlayerNetwork : NetworkBehaviour
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
+            buildingManager = FindObjectOfType<BuildingManager>();
+            CmdRequestAuthority();
         }
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
@@ -37,6 +41,16 @@ public class PlayerNetwork : NetworkBehaviour
         if(isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
     }
+
+    [Command]
+    public void CmdRequestAuthority()
+    {
+        buildingManager.AssignAuthority(connectionToClient);
+    }
+
+
+
+
 
     private void OnDestroy()
     {

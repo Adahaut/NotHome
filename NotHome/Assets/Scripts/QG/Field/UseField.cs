@@ -47,23 +47,25 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         _transform.position = Input.mousePosition;
     }
 
+    [Client]
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
+        if(isOwned)
         {
-            if(isOwned)
+            if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
             {
                 _seedPrefab._isPlanted = true;
                 _transform.position = GetNearestSlot();
                 //GameObject.Find("Field_Manager").GetComponent<NewFieldManager>().CmdAddPlant(_seedPrefab._index, _seedPrefab);
                 NewFieldManager.instance.CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
-            }
 
+            }
+            else
+            {
+                _transform.position = _startPosition;
+            }
         }
-        else
-        {
-            _transform.position = _startPosition;
-        }
+        
     }
     private Vector3 GetNearestSlot()
     {

@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class NewFieldManager : NetworkBehaviour
@@ -10,8 +11,7 @@ public class NewFieldManager : NetworkBehaviour
 
     [SerializeField] private List<Seed> _seedPrefabs;
 
-    [SyncVar]
-    public SyncList<Seed> _allPlants = new SyncList<Seed>();
+    [SyncVar] public SyncList<Seed> _allPlants = new SyncList<Seed>();
 
     [SerializeField] private List<Transform> _plantPositons;
 
@@ -47,7 +47,7 @@ public class NewFieldManager : NetworkBehaviour
     }
 
     private Seed InstantiateSeedById(int seedTypeId)
-    { 
+    {
         Seed newSeed = Instantiate(_seedPrefabs[seedTypeId]);
         return newSeed;
     }
