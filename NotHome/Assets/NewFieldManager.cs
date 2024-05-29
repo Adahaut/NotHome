@@ -37,7 +37,7 @@ public class NewFieldManager : NetworkBehaviour
     {
         Seed newSeed = Instantiate(_seedPrefabs[seedId]);
         newSeed.seedId = seedId;
-        //newSeed.transform.position = _plantPositions[index].position;
+        newSeed.transform.position = _plantPositons[index].position;
 
         NetworkServer.Spawn(newSeed.gameObject);
         _allPlants[index] = newSeed;

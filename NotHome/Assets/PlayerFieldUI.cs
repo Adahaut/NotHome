@@ -44,7 +44,6 @@ public class PlayerFieldUI : NetworkBehaviour
     public void OnDisable()
     {
         GetComponentInParent<PlayerController>().DisablePlayer(false);
-
     }
 
     public void DisableFieldPanel()
