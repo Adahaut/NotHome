@@ -37,12 +37,7 @@ public class BuildingManager : NetworkBehaviour
     {
         foreach (NetworkBuilding b in buildings)
         {
-            NetworkIdentity buildingIdentity = b.GetComponent<NetworkIdentity>();
-            if (buildingIdentity.connectionToClient != null)
-            {
-                buildingIdentity.RemoveClientAuthority();
-            }
-            buildingIdentity.AssignClientAuthority(conn);
+            b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
         }
     }
 

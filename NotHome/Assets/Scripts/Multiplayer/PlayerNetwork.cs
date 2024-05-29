@@ -55,7 +55,7 @@ public class PlayerNetwork : NetworkBehaviour
         buildingManager = BuildingManager.instance;
         if(isOwned)
         {
-            CmdRequestAuthority();
+            //CmdRequestAuthority();
         }
     }
 
