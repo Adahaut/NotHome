@@ -92,7 +92,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(debugText != null)
+        if(isOwned && debugText != null)
         {
             debugText.text = NewFieldManager.instance._allPlants.Count.ToString();
 
