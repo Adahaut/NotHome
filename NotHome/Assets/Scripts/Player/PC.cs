@@ -105,7 +105,7 @@ public class PC : MonoBehaviour
     {
         if (_fartCooldown > 0)
             return;
-        _fartCooldown = 20f;
+        _fartCooldown = 1f;
         _farts.PlayRandomFartSound();
     }
 
@@ -256,7 +256,7 @@ public class PC : MonoBehaviour
         {
             if (_isRunning)
             {
-                if(!_runningStaminaLose)
+                if(!_runningStaminaLose && _moveDir != Vector2.zero)
                 {
                     StartCoroutine(RunningStamina());
                 }
