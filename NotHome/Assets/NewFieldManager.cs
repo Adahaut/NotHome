@@ -41,9 +41,9 @@ public class NewFieldManager : NetworkBehaviour
     [ClientRpc]
     public void RpcAddPlant(int index, int seedTypeId)
     {
-        Seed newSeed = InstantiateSeedById(seedTypeId);
-        _allPlants[index] = newSeed;
-        _allPlants[index].StartGrow(_plantPositons[index], index);
+        //Seed newSeed = InstantiateSeedById(seedTypeId);
+        //_allPlants[index] = newSeed;
+        //_allPlants[index].StartGrow(_plantPositons[index], index);
     }
 
     private Seed InstantiateSeedById(int seedTypeId)
