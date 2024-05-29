@@ -11,7 +11,7 @@ public class NewFieldManager : NetworkBehaviour
 
     [SerializeField] private List<Seed> _seedPrefabs;
 
-    [SyncVar] public SyncList<Seed> _allPlants = new SyncList<Seed>();
+    public SyncList<Seed> _allPlants = new SyncList<Seed>();
 
     [SerializeField] private List<Transform> _plantPositons;
 
@@ -41,7 +41,7 @@ public class NewFieldManager : NetworkBehaviour
     [ClientRpc]
     public void RpcAddPlant(int index, int seedTypeId)
     {
-        //Seed newSeed = InstantiateSeedById(seedTypeId);
+        Seed newSeed = InstantiateSeedById(seedTypeId);
         //_allPlants[index] = newSeed;
         //_allPlants[index].StartGrow(_plantPositons[index], index);
     }
