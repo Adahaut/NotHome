@@ -12,7 +12,10 @@ public class PlayerFieldUI : NetworkBehaviour
 
     private void OnEnable()
     {
-        UpdateUI();
+        if(isOwned)
+        {
+            UpdateUI();
+        }
     }
 
     public void UpdateUI()

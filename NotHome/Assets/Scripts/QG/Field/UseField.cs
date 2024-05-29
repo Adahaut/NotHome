@@ -60,7 +60,6 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         _transform.position = Input.mousePosition;
     }
 
-    [Client]
     public void OnEndDrag(PointerEventData eventData)
     {
         if(isOwned)
