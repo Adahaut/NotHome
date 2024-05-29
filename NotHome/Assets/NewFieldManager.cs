@@ -36,33 +36,33 @@ public class NewFieldManager : NetworkBehaviour
         _allPlants.Callback += OnAllPlantsChanged;
     }
 
-    [Command]
-    public void CmdAddPlant(int index, int seedId)
-    {
-        Seed newSeed = Instantiate(_seedPrefabs[seedId]);
-        newSeed.seedId = seedId;
-        newSeed.transform.position = _plantPositons[index].position;
+    //[Command]
+    //public void CmdAddPlant(int index, int seedId)
+    //{
+    //    Seed newSeed = Instantiate(_seedPrefabs[seedId]);
+    //    newSeed.seedId = seedId;
+    //    newSeed.transform.position = _plantPositons[index].position;
 
-        NetworkServer.Spawn(newSeed.gameObject);
-        _allPlants[index] = newSeed;
+    //    NetworkServer.Spawn(newSeed.gameObject);
+    //    _allPlants[index] = newSeed;
 
-        RpcAddPlant(newSeed.netId, index);
-    }
+    //    RpcAddPlant(newSeed.netId, index);
+    //}
 
-    [ClientRpc]
-    public void RpcAddPlant(uint seedNetId, int index)
-    {
-        if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
-        {
-            Seed seed = seedIdentity.GetComponent<Seed>();
-            seed.StartGrow(_plantPositons[index], index);
-            if (!_allPlants.Contains(seed))
-            {
-                _allPlants[index] = seed;
-            }
-            t += 1;
-        }
-    }
+    //[ClientRpc]
+    //public void RpcAddPlant(uint seedNetId, int index)
+    //{
+    //    if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
+    //    {
+    //        Seed seed = seedIdentity.GetComponent<Seed>();
+    //        seed.StartGrow(_plantPositons[index], index);
+    //        if (!_allPlants.Contains(seed))
+    //        {
+    //            _allPlants[index] = seed;
+    //        }
+    //        t += 1;
+    //    }
+    //}
 
     private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int index, Seed oldItem, Seed newItem)
     {
