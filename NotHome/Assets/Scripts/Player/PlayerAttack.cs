@@ -18,12 +18,28 @@ public class PlayerAttack : MonoBehaviour
     public bool _isMeleeWeaponEqupiped;
     private PC _playerController;
 
+
+    [SerializeField] private float _cadence;
+    private float _cadenceTimer;
+
+    public static PlayerAttack Instance;
+
+    private PC _playerController;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         _playerController = GetComponent<PC>();
         _isAimingFinished = true;
         _isRecoilFinished = true;
 }
+    }
+    private void Update()
+    {
+        _cadenceTimer += Time.deltaTime;
+    }
 
     public void Attack(InputAction.CallbackContext context)
     {
@@ -33,13 +49,21 @@ public class PlayerAttack : MonoBehaviour
         {
             _shootAction?.Invoke();
         }
-        else if (_isMeleeWeaponEqupiped)
+        else if (_cadenceTimer >= _cadence && _isMeleeWeaponEqupiped)
         {
+            _cadenceTimer = 0;
             StartCoroutine(ActiveDesactiveCollider());
         }
         
     }
-
+    public void SetCadence(float number)
+    {
+        _cadence = number;
+    }
+    public void SetAttack(int number)
+    {
+        _damages = number;
+    }
     public void Aim(InputAction.CallbackContext context)
     {
         if (_playerController.IsInBook || !_isRangeWeaponEqupiped)
