@@ -48,7 +48,7 @@ public class NewFieldManager : NetworkBehaviour
         newSeed.seedId = seedId;
         //newSeed.transform.position = _plantPositions[index].position;
 
-        NetworkServer.Spawn(newSeed.gameObject);
+        NetworkServer.Spawn(newSeed.gameObject); 
         _allPlants.Add(newSeed);
 
         RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
