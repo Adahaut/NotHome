@@ -19,6 +19,8 @@ public class NewFieldManager : NetworkBehaviour
 
     public bool _panelOpen;
 
+    public int t = 0;
+
     private void Awake()
     {
         instance = this;
@@ -58,6 +60,7 @@ public class NewFieldManager : NetworkBehaviour
             {
                 _allPlants[index] = seed;
             }
+            t += 1;
         }
     }
 
