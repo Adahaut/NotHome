@@ -11,7 +11,14 @@ public class BuildingManager : NetworkBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override void OnStartServer()

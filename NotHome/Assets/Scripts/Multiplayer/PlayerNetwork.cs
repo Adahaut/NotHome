@@ -30,7 +30,7 @@ public class PlayerNetwork : NetworkBehaviour
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
-            buildingManager = FindObjectOfType<BuildingManager>();
+            buildingManager = BuildingManager.instance;
             CmdRequestAuthority();
         }
 
