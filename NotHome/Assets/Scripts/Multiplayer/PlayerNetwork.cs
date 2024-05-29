@@ -31,7 +31,7 @@ public class PlayerNetwork : NetworkBehaviour
             playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
             buildingManager = BuildingManager.instance;
-            CmdRequestAuthority();
+            //CmdRequestAuthority();
         }
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
