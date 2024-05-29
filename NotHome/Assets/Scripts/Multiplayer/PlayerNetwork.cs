@@ -55,7 +55,6 @@ public class PlayerNetwork : NetworkBehaviour
         buildingManager = BuildingManager.instance;
         if(isOwned)
         {
-            debugText.text = "caca";
             CmdRequestAuthority();
         }
     }
@@ -63,12 +62,8 @@ public class PlayerNetwork : NetworkBehaviour
     [Command]
     public void CmdRequestAuthority()
     {
-        buildingManager.AssignAuthority(connectionToClient);
+        buildingManager.AssignAuthority(GetComponent<NetworkIdentity>().connectionToClient);
     }
-
-
-
-
 
     private void OnDestroy()
     {
