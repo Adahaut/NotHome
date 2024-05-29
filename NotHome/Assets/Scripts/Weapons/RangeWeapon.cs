@@ -6,8 +6,6 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField] private WeaponData _weaponData;
     [SerializeField] private Transform _muzzle;
     [SerializeField] private Transform _savedCameraTransform;
-    [SerializeField] private int _recoilStepsNumber;
-    [SerializeField] private float _recoilForce;
     [SerializeField] private Camera _playerCamera;
     [SerializeField] private int _aimingZoomSteps;
     [SerializeField] private Transform _weaponHolder;
@@ -15,6 +13,8 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField] private Transform _endWeaponHolder;
     public bool _isAiming;
     [SerializeField] private PC _playerController;
+    [SerializeField] private float _speedFactor;
+    private ProceduralRecoil _recoil;
 
     private AudioSource _riffleAudioSource;
     [SerializeField] private AudioClip _riffleAudioClip;
@@ -22,7 +22,7 @@ public class RangeWeapon : MonoBehaviour
     private PlayerAttack _playerAttack;
 
     [SerializeField] private Vector3 _upRecoilValue;
-    private Vector3 _originalRotation;
+    private Vector3 _originalPosition;
 
     private int _currentAmmo;
 
@@ -41,7 +41,8 @@ public class RangeWeapon : MonoBehaviour
         _currentAmmo = _weaponData._magSize;
         _startWeaponHolder = _weaponHolder.localPosition;
         _playerAttack = GetComponentInParent<PlayerAttack>();
-        _originalRotation = _transform.localEulerAngles;
+        _originalPosition = _transform.localPosition;
+        _recoil = GetComponent<ProceduralRecoil>();
     }
 
     private bool CanShoot()
@@ -123,27 +124,11 @@ public class RangeWeapon : MonoBehaviour
 
     private void StartRecoil()
     {
-        StartCoroutine(Recoil());
+        _recoil.Recoil();
         StartCoroutine(CameraShake(0.1f, 1));
     }
 
-    private IEnumerator Recoil()
-    {
-        _playerAttack._isRecoilFinished = false;
-        for (int i = 0; i < 3; i++)
-        {
-            _transform.localEulerAngles += _upRecoilValue / 3f;
-            yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
-        }
-        yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 6f);
-        for (int i = 0; i < 3; i++)
-        {
-            _transform.localEulerAngles -= _upRecoilValue / 3f;
-            yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
-        }
-        RecoverFromRecoil();
-        _playerAttack._isRecoilFinished = true;
-    }
+
 
     private IEnumerator CameraShake(float _duration, float _strengh)
     {
@@ -160,7 +145,7 @@ public class RangeWeapon : MonoBehaviour
 
     private void RecoverFromRecoil()
     {
-        _transform.localEulerAngles = _originalRotation;
+        _transform.localPosition = _originalPosition;
     }
 
     private void Update()

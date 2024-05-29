@@ -5,39 +5,109 @@ using UnityEngine.UI;
 
 public class Book : MonoBehaviour
 {
-    [Header("mobs descriptions")]
-    [SerializeField] private List<BookDesciption> _mobsDescriptions = new List<BookDesciption>();
+    [Header("descriptions")]
+    private List<List<BookDesciption>> _bookDescriptions = new List<List<BookDesciption>>();
+    [SerializeField] private List<BookDesciption> _bookMobsDescriptions = new List<BookDesciption>();
+    [SerializeField] private List<BookDesciption> _bookMapsDescriptions = new List<BookDesciption>();
+    [SerializeField] private List<BookDesciption> _bookFoodsDescriptions = new List<BookDesciption>();
 
-    private Image _bookMobImage;
-    private TextMeshProUGUI _bookMobDescription;
-    private TextMeshProUGUI _bookMobDanger;
+    private List<Transform> _buttons = new List<Transform>();
+    private float _buttonOriginalPosY;
+
+    private BookSection Mobs;
+    private BookSection Foods;
+    private BookSection Maps;
+
+    List<BookSection> _sections = new List<BookSection>();
+
+    private List<GameObject> _sectionsGameObject = new List<GameObject>();
 
     private int _actualIndex;
     private int _maxIndex;
+    private int _actualBookSection;
+
+    struct BookSection
+    {
+        public Image _image;
+        public TextMeshProUGUI _description;
+        public TextMeshProUGUI _other;
+    }
+
+    private BookSection CreationSection(int _childIndex)
+    {
+        BookSection _newSection = new BookSection();
+        _newSection._image = transform.GetChild(_childIndex).GetChild(2).GetComponent<Image>();
+        _newSection._description = transform.GetChild(_childIndex).GetChild(3).GetComponent<TextMeshProUGUI>();
+        _newSection._other = transform.GetChild(_childIndex).GetChild(4).GetComponent<TextMeshProUGUI>();
+
+        return _newSection;
+    }
 
     private void Awake()
     {
-        _bookMobImage = transform.GetChild(2).GetComponent<Image>();
-        _bookMobDescription = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
-        _bookMobDanger = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
+        Mobs = CreationSection(4);
+        Maps = CreationSection(5);
+        Foods = CreationSection(6);
+
+        _sections.Add(Mobs);
+        _sections.Add(Maps);
+        _sections.Add(Foods);
+
         _actualIndex = 0;
-        _maxIndex = _mobsDescriptions.Count;
+        _maxIndex = _bookDescriptions.Count - 1;
+        _actualBookSection = 0;
+
+        _sectionsGameObject.Add(transform.GetChild(4).gameObject);
+        _sectionsGameObject.Add(transform.GetChild(5).gameObject);
+        _sectionsGameObject.Add(transform.GetChild(6).gameObject);
+
+        _bookDescriptions.Add(_bookMobsDescriptions);
+        _bookDescriptions.Add(_bookMapsDescriptions);
+        _bookDescriptions.Add(_bookFoodsDescriptions);
+
+        _buttons.Add(transform.GetChild(0));
+        _buttons.Add(transform.GetChild(1));
+        _buttons.Add(transform.GetChild(2));
+        _buttonOriginalPosY = _buttons[0].transform.position.y;
+        ChangeSection(0);
         SetTextsAndImage(0);
+    }
+
+    private void Start()
+    {
         gameObject.SetActive(false);
+    }
+
+    private void UndactiveAll()
+    {
+        for(int i = 0; i < _bookDescriptions.Count; i++)
+        {
+            _sectionsGameObject[i].SetActive(false);
+            _buttons[i].position = new Vector2(_buttons[i].position.x, _buttonOriginalPosY);
+        }
+    }
+
+    public void ChangeSection(int _index)
+    {
+        UndactiveAll();
+        _buttons[_index].position = new Vector2(_buttons[_index].position.x, _buttons[_index].position.y + 10);
+        _actualBookSection = _index;
+        _sectionsGameObject[_index].SetActive(true);
+        SetTextsAndImage(0);
     }
 
     private void SetTextsAndImage(int _index)
     {
-        _bookMobImage.sprite = _mobsDescriptions[_index]._sprite;
-        _bookMobDescription.text = _mobsDescriptions[_index]._description;
-        _bookMobDanger.text = "Danger : " + _mobsDescriptions[_index]._dangerLevel;
-        if (_mobsDescriptions[_index]._isDiscovered)
+        _sections[_actualBookSection]._image.sprite = _bookDescriptions[_actualBookSection][_index]._sprite;
+        _sections[_actualBookSection]._description.text = _bookDescriptions[_actualBookSection][_index]._description;
+        _sections[_actualBookSection]._other.text = _bookDescriptions[_actualBookSection][_index]._other;
+        if (_bookDescriptions[_actualBookSection][_index]._isDiscovered)
         {
-            _bookMobImage.color = Color.white;
+            _sections[_actualBookSection]._image.color = Color.white;
         }
         else
         {
-            _bookMobImage.color = Color.black;
+            _sections[_actualBookSection]._image.color = Color.black;
         }
     }
 
@@ -58,6 +128,4 @@ public class Book : MonoBehaviour
         _actualIndex--;
         SetTextsAndImage(_actualIndex);
     }
-
-
 }

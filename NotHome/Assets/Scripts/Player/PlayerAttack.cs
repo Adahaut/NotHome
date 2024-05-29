@@ -21,7 +21,9 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         _playerController = GetComponent<PC>();
-    }
+        _isAimingFinished = true;
+        _isRecoilFinished = true;
+}
 
     public void Attack(InputAction.CallbackContext context)
     {
@@ -46,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
         {
             StartAiming();
         }
-        else if (context.canceled)
+        else if (context.canceled && _isAiming)
         {
             StopAiming();
         }

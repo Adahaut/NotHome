@@ -105,7 +105,7 @@ public class PC : MonoBehaviour
     {
         if (_fartCooldown > 0)
             return;
-        _fartCooldown = 20f;
+        _fartCooldown = 1f;
         _farts.PlayRandomFartSound();
     }
 
