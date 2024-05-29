@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -33,13 +34,25 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [SerializeField] private Seed _seedPrefab;
     [SerializeField] private GameObject _player;
 
+    private NewFieldManager _fieldManager;
+
     private void Start()
     {
         GetComponent<Image>().sprite = _seedPrefab._img;
         GetComponentInChildren<TMP_Text>().text = _seedPrefab._name;
-
+        StartCoroutine(FindFieldManager());
         _startPosition = transform.position;
         _transform = transform;
+    }
+
+    private IEnumerator FindFieldManager()
+    {
+        while (NewFieldManager.instance == null)
+        {
+            yield return null;
+        }
+
+        _fieldManager = NewFieldManager.instance;
     }
 
     public void OnDrag(PointerEventData eventData)
