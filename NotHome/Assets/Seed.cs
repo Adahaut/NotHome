@@ -25,6 +25,6 @@ public class Seed : NetworkBehaviour
     {
         this._index = index;
         transform.SetParent(parent);
-        //StartCoroutine(GrowPlant());
+        // Ajoutez ici votre logique de croissance
     }
 }

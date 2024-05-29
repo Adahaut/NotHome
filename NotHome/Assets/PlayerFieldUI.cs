@@ -35,8 +35,6 @@ public class PlayerFieldUI : NetworkBehaviour
         }
     }
 
-    
-
     public static void UpdateAllUIs()
     {
         foreach (var playerFieldUI in FindObjectsOfType<PlayerFieldUI>())

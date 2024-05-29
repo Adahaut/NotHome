@@ -8,26 +8,6 @@ using UnityEngine.UI;
 
 public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
 {
-
-    /*
-    
-    
-
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (!_seedPrefab._isPlanted)
-        {
-            _transform.position = Input.mousePosition;
-        }
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        Debug.Log("caca");
-    }
-    */
-
     private Vector3 _startPosition;
     private Transform _transform;
 
@@ -68,8 +48,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
             {
                 _seedPrefab._isPlanted = true;
                 _transform.position = GetNearestSlot();
-                CmdAddPlant(_seedPrefab._index, _seedPrefab.seedId);
-
+                CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
                 GetComponentInParent<PlayerFieldUI>().UpdateUI();
             }
             else
@@ -86,10 +65,14 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         Seed newSeed = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
         newSeed.seedId = seedId;
         newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
-        Debug.Log("test");
-        NewFieldManager.instance.CmdAddPlant(index, seedId);
+
+        NetworkServer.Spawn(newSeed.gameObject);
+        NewFieldManager.instance._allPlants[index] = newSeed;
+
+        NewFieldManager.instance.RpcAddPlant(newSeed.netId, index);
     }
 
+   
 
     private Vector3 GetNearestSlot()
     {
