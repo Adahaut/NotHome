@@ -106,6 +106,7 @@ public class UpgradeHomeManager : MonoBehaviour
             }
             if (number == _upgarde[_levelBuilding - 1].Value.Count)
             {
+                AudioManager.Instance.PlaySong("Upgrade");
                 _levelBuilding++;
                 SetEffectBuilding();
                 _textLevel.text = "Level " + _levelBuilding.ToString();

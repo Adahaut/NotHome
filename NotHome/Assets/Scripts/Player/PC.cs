@@ -94,6 +94,7 @@ public class PC : MonoBehaviour
 
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
+        AudioManager.Instance.PlaySong("Bag");
         _inventory.SetActive(!_inventory.activeInHierarchy);
     }
     public void SetIsInBaseInventory(bool _isIn)
