@@ -62,7 +62,7 @@ public class PlayerNetwork : NetworkBehaviour
     [Command]
     public void CmdRequestAuthority()
     {
-        buildingManager.AssignAuthority(GetComponent<NetworkIdentity>().connectionToClient);
+        buildingManager.AssignAuthority(connectionToClient);
     }
 
     private void OnDestroy()
@@ -86,16 +86,16 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        //if(isOwned && debugText != null)
-        //{
-        //    debugText.text = NewFieldManager.instance.gameObject.GetComponent<NetworkIdentity>().isOwned.ToString();
+        if (isOwned && debugText != null)
+        {
+            debugText.text = NewFieldManager.instance.gameObject.GetComponent<NetworkIdentity>().isOwned.ToString();
 
-        //    for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
-        //    {
-        //        debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
-        //    }
-        //}
-        
+            for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
+            {
+                debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
+            }
+        }
+
 
 
 
