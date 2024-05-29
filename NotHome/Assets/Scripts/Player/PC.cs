@@ -423,9 +423,7 @@ public class PC : MonoBehaviour
     
     public void OpenUi(int index)
     {
-        print(_uiPlayer[index].activeSelf);
         _uiPlayer[index].SetActive(!_uiPlayer[index].activeSelf);
-        print(_uiPlayer[index].activeSelf);
         DisablePlayer(_uiPlayer[index].activeSelf);
     }
     private void DisablePlayer(bool active)
@@ -438,6 +436,7 @@ public class PC : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance.PlaySong("Button");
             Cursor.lockState = CursorLockMode.Locked;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
             _isOpen = false;

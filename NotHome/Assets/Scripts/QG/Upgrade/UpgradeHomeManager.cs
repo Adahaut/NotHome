@@ -63,6 +63,7 @@ public class UpgradeHomeManager : MonoBehaviour
     private IEnumerator StopAlarm(float second)
     {
         _alarm.SetActive(true);
+        AudioManager.Instance.PlaySong("Alarm");
         yield return new WaitForSeconds(second);
         _alarm.SetActive(false);
     }

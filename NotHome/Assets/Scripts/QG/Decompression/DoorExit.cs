@@ -50,6 +50,7 @@ public class DoorExit : MonoBehaviour
         {
             if (hit.collider.CompareTag("Decompression") && _nbPlayer >= 1 && !_isDecompression)
             {
+                AudioManager.Instance.PlaySong("Door");
                 _isDecompression = true;
                 _doorEnter.SetActive(true);
                 StartCoroutine(StartParticle(1));

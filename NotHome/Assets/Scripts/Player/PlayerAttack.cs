@@ -43,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
         }
         else if (_cadenceTimer >= _cadence)
         {
+            AudioManager.Instance.PlaySong("Mele");
             _cadenceTimer = 0;
             StartCoroutine(ActiveDesactiveCollider());
         }

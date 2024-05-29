@@ -1689,7 +1689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2961737c89aebb4986afffa30b95801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 765655871}
   sound:
   - Key: Upgrade
     Value:
@@ -1730,6 +1729,18 @@ MonoBehaviour:
   - Key: Step1
     Value:
       Clip: {fileID: 8300000, guid: 2ed9271a8349d5942b028bc4e75a16ef, type: 3}
+      Source: {fileID: 765655871}
+  - Key: Mele
+    Value:
+      Clip: {fileID: 8300000, guid: fc5bb058792011b418c8f82bbc5f3566, type: 3}
+      Source: {fileID: 765655871}
+  - Key: Step2
+    Value:
+      Clip: {fileID: 8300000, guid: 22a46dc9e8f8abf4a9ddf40f33f920d9, type: 3}
+      Source: {fileID: 765655871}
+  - Key: Button
+    Value:
+      Clip: {fileID: 8300000, guid: 0d718afe4c407174ba3fe1e41f277e31, type: 3}
       Source: {fileID: 765655871}
 --- !u!4 &765655873
 Transform:
@@ -15476,6 +15487,10 @@ PrefabInstance:
       propertyPath: _cameraPlayer
       value: 
       objectReference: {fileID: 694278088}
+    - target: {fileID: 4569270447456845638, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 54b8f40470d7da347907d2c2b5679bad, type: 3}
     - target: {fileID: 6036582677622157018, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: m_Name
       value: Control Tower
