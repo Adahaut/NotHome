@@ -38,14 +38,14 @@ public class NewFieldManager : NetworkBehaviour
         Seed newSeed = InstantiateSeedById(seedId);
         newSeed.transform.position = Vector3.zero;
         NetworkServer.Spawn(newSeed.gameObject);
-        //RpcAddPlant(newSeed.netId, index);
+        RpcAddPlant(newSeed.netId, index);
     }
 
     [ClientRpc]
     public void RpcAddPlant(uint seedNetId, int index)
     {
         Seed newSeed = NetworkServer.spawned[seedNetId].GetComponent<Seed>();
-        newSeed.StartGrow(this.transform, index);
+        //newSeed.StartGrow(this.transform, index);
     }
 
     private Seed InstantiateSeedById(int seedTypeId)
