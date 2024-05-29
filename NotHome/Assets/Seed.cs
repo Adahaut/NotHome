@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Seed : NetworkBehaviour
 {
+    [SyncVar]
+    public int seedId;
+
     public int _id;
     public string _name;
     public float _growingTime;

@@ -11,7 +11,7 @@ public class NewFieldManager : NetworkBehaviour
 
     [SerializeField] private List<Seed> _seedPrefabs;
 
-    public SyncList<Seed> _allPlants = new SyncList<Seed>();
+     public SyncList<Seed> _allPlants = new SyncList<Seed>();
 
     [SerializeField] private List<Transform> _plantPositons;
 
@@ -32,28 +32,41 @@ public class NewFieldManager : NetworkBehaviour
         _allPlants.Callback += OnAllPlantsChanged;
     }
 
+    //[Command]
+    //public void CmdAddPlant(int index, int seedId)
+    //{
+    //    Seed newSeed = InstantiateSeedById(seedId);
+    //    newSeed.transform.position = Vector3.zero;
+    //    NetworkServer.Spawn(newSeed.gameObject);
+    //    RpcAddPlant(newSeed.netId, index);
+    //}
+
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
-        Seed newSeed = InstantiateSeedById(seedId);
-        newSeed.transform.position = Vector3.zero;
+        Seed newSeed = Instantiate(_seedPrefabs[seedId]);
+        newSeed.seedId = seedId;
+        //newSeed.transform.position = _plantPositions[index].position;
+
         NetworkServer.Spawn(newSeed.gameObject);
-        RpcAddPlant(newSeed.netId, index);
+        _allPlants.Add(newSeed);
+
+        RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
     }
 
     [ClientRpc]
-    public void RpcAddPlant(uint seedNetId, int index)
+    void RpcAddPlant(uint seedNetId, int index)
     {
-        Seed newSeed = NetworkServer.spawned[seedNetId].GetComponent<Seed>();
-        //newSeed.StartGrow(this.transform, index);
+        if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
+        {
+            Seed seed = seedIdentity.GetComponent<Seed>();
+            seed.StartGrow(transform, index);
+            if (!_allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
+            {
+                _allPlants.Add(seedIdentity.gameObject.GetComponent<Seed>());
+            }
+        }
     }
-
-    private Seed InstantiateSeedById(int seedTypeId)
-    {
-        Seed newSeed = Instantiate(_seedPrefabs[seedTypeId]);
-        return newSeed;
-    }
-
     private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int itemIndex, Seed oldItem, Seed newItem)
     {
         PlayerFieldUI.UpdateAllUIs();
