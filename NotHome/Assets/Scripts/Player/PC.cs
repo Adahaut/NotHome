@@ -141,7 +141,10 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Interaction");
         if (ctx.performed)
+        {
             StartUi();
+            DoorExit.Instance.OpenDoor(_camera);
+        }
         OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
         {
@@ -402,6 +405,10 @@ public class PC : MonoBehaviour
     public void SetUseTorch(bool useTorch)
     {
         _canUseTorch = useTorch;
+    }
+    public float GetDistRayCast()
+    {
+        return _distRayCast;
     }
 
     // Ui Player
