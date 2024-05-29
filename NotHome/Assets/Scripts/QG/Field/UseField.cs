@@ -118,7 +118,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         {
             if (slots[i].gameObject.activeSelf)
             {
-                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest) && !FieldManager.Instance._plantList[i]._isUsed)
+                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest))
                 {
                     slotNearest = slots[i].position;
                     _seedPrefab._index = i;
