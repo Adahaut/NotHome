@@ -9,11 +9,11 @@ public class NewFieldManager : NetworkBehaviour
 {
     public static NewFieldManager instance;
 
-    [SerializeField] private List<Seed> _seedPrefabs;
+    public List<Seed> _seedPrefabs;
 
      public SyncList<Seed> _allPlants = new SyncList<Seed>();
 
-    [SerializeField] private List<Transform> _plantPositons;
+    public List<Transform> _plantPositons;
 
     public bool _panelOpen;
 
@@ -32,32 +32,32 @@ public class NewFieldManager : NetworkBehaviour
         _allPlants.Callback += OnAllPlantsChanged;
     }
 
-    [Command]
-    public void CmdAddPlant(int index, int seedId)
-    {
-        Seed newSeed = Instantiate(_seedPrefabs[seedId]);
-        newSeed.seedId = seedId;
-        newSeed.transform.position = _plantPositons[index].position;
+    //[Command]
+    //public void CmdAddPlant(int index, int seedId)
+    //{
+    //    Seed newSeed = Instantiate(_seedPrefabs[seedId]);
+    //    newSeed.seedId = seedId;
+    //    newSeed.transform.position = _plantPositons[index].position;
 
-        NetworkServer.Spawn(newSeed.gameObject);
-        _allPlants[index] = newSeed;
+    //    NetworkServer.Spawn(newSeed.gameObject);
+    //    _allPlants[index] = newSeed;
 
-        RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
-    }
+    //    RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
+    //}
 
-    [ClientRpc]
-    void RpcAddPlant(uint seedNetId, int index)
-    {
-        if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
-        {
-            Seed seed = seedIdentity.GetComponent<Seed>();
-            seed.StartGrow(transform, index);
-            if (!_allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
-            {
-                _allPlants[index] = seedIdentity.gameObject.GetComponent<Seed>();
-            }
-        }
-    }
+    //[ClientRpc]
+    //void RpcAddPlant(uint seedNetId, int index)
+    //{
+    //    if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
+    //    {
+    //        Seed seed = seedIdentity.GetComponent<Seed>();
+    //        seed.StartGrow(transform, index);
+    //        if (!_allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
+    //        {
+    //            _allPlants[index] = seedIdentity.gameObject.GetComponent<Seed>();
+    //        }
+    //    }
+    //}
     private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int itemIndex, Seed oldItem, Seed newItem)
     {
         PlayerFieldUI.UpdateAllUIs();

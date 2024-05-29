@@ -89,7 +89,7 @@ public class PlayerNetwork : NetworkBehaviour
         if (isOwned && debugText != null)
         {
             debugText.text = NewFieldManager.instance.gameObject.GetComponent<NetworkIdentity>().isOwned.ToString();
-
+            debugText.text += "\n";
             for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
             {
                 debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";

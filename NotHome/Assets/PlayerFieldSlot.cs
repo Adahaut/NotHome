@@ -11,17 +11,17 @@ public class PlayerFieldSlot : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateText();
+        //UpdateText();
     }
 
-    public void UpdateText()
-    {
-        for (int i = 0; i < FieldManager.Instance._seedTimers.Count; i++)
-        {
-            //int seedTime = (int)FieldManager.Instance._seedTimers[i].currentTimer;
-            //_listTexts[i].text = (seedTime / 60).ToString("00") + ":" + (seedTime % 60).ToString("00");
-        }
-    }
+    //public void UpdateText()
+    //{
+    //    for (int i = 0; i < FieldManager.Instance._seedTimers.Count; i++)
+    //    {
+    //        //int seedTime = (int)FieldManager.Instance._seedTimers[i].currentTimer;
+    //        //_listTexts[i].text = (seedTime / 60).ToString("00") + ":" + (seedTime % 60).ToString("00");
+    //    }
+    //}
 
     
 }

@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class BuildingManager : NetworkBehaviour
 {
-    public NetworkBuilding[] buildings;
-
     public static BuildingManager instance;
 
+    public NetworkBuilding[] buildings;
     
 
     private void Awake()
@@ -36,22 +35,15 @@ public class BuildingManager : NetworkBehaviour
 
     public void AssignAuthority(NetworkConnectionToClient conn)
     {
-        PlayerNetwork[] players = GameObject.FindObjectsOfType<PlayerNetwork>();
-
-        foreach (PlayerNetwork p in players)
-        {
-            foreach (NetworkBuilding b in buildings)
-            {
-                b.GetComponent<NetworkIdentity>().AssignClientAuthority(p.GetComponent<NetworkIdentity>().connectionToClient);
-            }
-        }
-
         foreach (NetworkBuilding b in buildings)
         {
-            b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+            NetworkIdentity buildingIdentity = b.GetComponent<NetworkIdentity>();
+            if (buildingIdentity.connectionToClient != null)
+            {
+                buildingIdentity.RemoveClientAuthority();
+            }
+            buildingIdentity.AssignClientAuthority(conn);
         }
-
-
     }
 
 }

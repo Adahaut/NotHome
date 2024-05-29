@@ -69,7 +69,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
             {
                 _seedPrefab._isPlanted = true;
                 _transform.position = GetNearestSlot();
-                NewFieldManager.instance.CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
+               /* NewFieldManager.instance.*/CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
                 GetComponentInParent<PlayerFieldUI>().UpdateUI();
             }
             else
@@ -79,6 +79,35 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         }
         
     }
+
+    [Command]
+    public void CmdAddPlant(int index, int seedId)
+    {
+        Seed newSeed = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
+        newSeed.seedId = seedId;
+        newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
+
+        NetworkServer.Spawn(newSeed.gameObject);
+        NewFieldManager.instance._allPlants[index] = newSeed;
+
+        RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
+    }
+
+    [ClientRpc]
+    void RpcAddPlant(uint seedNetId, int index)
+    {
+        if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
+        {
+            Seed seed = seedIdentity.GetComponent<Seed>();
+            seed.StartGrow(transform, index);
+            if (!NewFieldManager.instance._allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
+            {
+                NewFieldManager.instance._allPlants[index] = seedIdentity.gameObject.GetComponent<Seed>();
+            }
+        }
+    }
+
+
     private Vector3 GetNearestSlot()
     {
         List<Transform> slots = new();
