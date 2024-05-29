@@ -14,6 +14,7 @@ public class BuildingManager : NetworkBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

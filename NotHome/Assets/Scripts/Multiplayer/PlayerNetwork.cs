@@ -1,5 +1,6 @@
 using Mirror;
 using Steamworks;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,12 +26,13 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Start()
     {
+        StartCoroutine(FindBuildingManager());
         if(isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
-            buildingManager = BuildingManager.instance;
+            //buildingManager = BuildingManager.instance;
             //CmdRequestAuthority();
         }
 
@@ -40,6 +42,20 @@ public class PlayerNetwork : NetworkBehaviour
 
         if(isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
+    }
+
+    private IEnumerator FindBuildingManager()
+    {
+        while (BuildingManager.instance == null)
+        {
+            yield return null;
+        }
+
+        buildingManager = BuildingManager.instance;
+        if(isOwned)
+        {
+            CmdRequestAuthority();
+        }
     }
 
     [Command]
