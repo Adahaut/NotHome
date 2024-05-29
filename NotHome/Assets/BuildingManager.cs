@@ -46,7 +46,12 @@ public class BuildingManager : NetworkBehaviour
             }
         }
 
-        
+        foreach (NetworkBuilding b in buildings)
+        {
+            b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+        }
+
+
     }
 
 }
