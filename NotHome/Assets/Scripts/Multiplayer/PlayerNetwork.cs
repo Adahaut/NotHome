@@ -91,7 +91,7 @@ public class PlayerNetwork : NetworkBehaviour
             debugText.text = "";
             for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
             {
-                debugText.text += i + " " +/* NewFieldManager.instance._allPlants[i]._name*/ NewFieldManager.instance == null + "\n";
+                debugText.text += i + " " + NewFieldManager.instance._allPlants[i].name + "\n";
             }
         }
 
