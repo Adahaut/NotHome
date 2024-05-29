@@ -15,17 +15,17 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_FogColor: {r: 0.9165967, g: 0.9130022, b: 0, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_LinearFogStart: 20
+  m_LinearFogEnd: 40
+  m_AmbientSkyColor: {r: 0.7083524, g: 0.7083524, b: 0.7083524, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_AmbientIntensity: 0
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.6, g: 0.8, b: 1, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -36,9 +36,9 @@ RenderSettings:
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
-  m_CustomReflection: {fileID: 0}
+  m_CustomReflection: {fileID: 2800000, guid: 1566af6e663684dbd85aa5fb32fd9148, type: 3}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.17905301, g: 0.21854463, b: 0.27339312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: babbe6a52a1daa245b2f45432ef8b953, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2491,7 +2491,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.48235297, g: 0.48235297, b: 0.48235297, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -2550,8 +2550,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.011376112, y: -0.98767215, z: 0.13002947, w: 0.08641018}
+  m_LocalPosition: {x: -22.3, y: 77.7, z: 38.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8500,11 +8500,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1333808249572808745, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1333808249572808745, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1333808249572808745, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_SizeDelta.x
@@ -8526,13 +8526,17 @@ PrefabInstance:
       propertyPath: m_Value
       value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 2430186127560590227, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 2422735770320029868, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2430186127560590227, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2430186127560590227, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3034100832574243672, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_Sprite
@@ -8552,11 +8556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140252259283817625, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3140252259283817625, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3251227197460374685, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: _book
@@ -8680,11 +8684,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4856053912539846141, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4856053912539846141, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5086952668954263737, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_Sprite
@@ -8744,11 +8748,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994643469848685988, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7994643469848685988, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9200538764812180085, guid: 414bdd3e0f97d4b44a95e51e193300e6, type: 3}
       propertyPath: m_Sprite
@@ -9103,6 +9107,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4956880015746768991, guid: ba840833289213b4ba104f0ffb09d234, type: 3}
+      propertyPath: _daySkyBox
+      value: 
+      objectReference: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 4956880015746768991, guid: ba840833289213b4ba104f0ffb09d234, type: 3}
+      propertyPath: _timeOfDay
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956880015746768991, guid: ba840833289213b4ba104f0ffb09d234, type: 3}
+      propertyPath: _nightSkyBox
+      value: 
+      objectReference: {fileID: 2100000, guid: 99e05b34ab705f545b449ac67828271c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
