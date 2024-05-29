@@ -94,7 +94,7 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if(isOwned && debugText != null)
         {
-            debugText.text = NewFieldManager.instance._allPlants.Count.ToString();
+            debugText.text = NewFieldManager.instance.gameObject.GetComponent<NetworkIdentity>().isOwned.ToString();
 
             for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
             {
