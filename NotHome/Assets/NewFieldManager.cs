@@ -19,7 +19,7 @@ public class NewFieldManager : NetworkBehaviour
 
     public bool _panelOpen;
 
-    public int t = 0;
+    [SyncVar]public int t = 0;
 
     private void Awake()
     {
