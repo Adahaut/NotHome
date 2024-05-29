@@ -8,6 +8,8 @@ public class PlayerFieldUI : NetworkBehaviour
 {
     [SerializeField] private PlayerFieldSlot _playerSlots;
 
+    public TMP_Text debugText;
+
     private void OnEnable()
     {
         if(isOwned)
@@ -30,6 +32,10 @@ public class PlayerFieldUI : NetworkBehaviour
                 textSlots[i].text = plant._name;
             }
         }
+    }
+
+    private void Update()
+    {
         
     }
 

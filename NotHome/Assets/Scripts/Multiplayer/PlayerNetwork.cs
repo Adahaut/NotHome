@@ -3,6 +3,7 @@ using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -23,6 +24,8 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private GameObject playerUI;
 
     private BuildingManager buildingManager;
+
+    public TMP_Text debugText;
 
     private void Start()
     {
@@ -89,6 +92,15 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
+        debugText.text = "";
+        for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
+        {
+            debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
+        }
+
+
+
+
         if (nameTagInstance != null && !isOwned)
         {
             foreach (var playerCamera in _playerCameras)
