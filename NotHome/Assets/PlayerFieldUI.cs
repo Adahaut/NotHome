@@ -1,5 +1,4 @@
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerFieldUI : NetworkBehaviour
 {
-    [SerializeField] private GameObject _player;
+    [SerializeField] private PlayerFieldSlot _playerSlots;
 
     private void OnEnable()
     {
@@ -21,12 +20,12 @@ public class PlayerFieldUI : NetworkBehaviour
     {
         if(isOwned)
         {
-            List<Transform> slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
-            List<TMP_Text> textSlots = _player.GetComponentInChildren<PlayerFieldSlot>()._listTexts;
+            List<Transform> slots = _playerSlots._listSlots;
+            List<TMP_Text> textSlots = _playerSlots._listTexts;
 
             for (int i = 0; i < slots.Count; i++)
             {
-                var plant = NewFieldManager.instance._allPlants[i];
+                Seed plant = NewFieldManager.instance._allPlants[i];
                 slots[i].GetComponent<Image>().sprite = plant._img;
                 textSlots[i].text = plant._name;
             }

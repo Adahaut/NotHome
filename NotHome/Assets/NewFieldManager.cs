@@ -32,15 +32,6 @@ public class NewFieldManager : NetworkBehaviour
         _allPlants.Callback += OnAllPlantsChanged;
     }
 
-    //[Command]
-    //public void CmdAddPlant(int index, int seedId)
-    //{
-    //    Seed newSeed = InstantiateSeedById(seedId);
-    //    newSeed.transform.position = Vector3.zero;
-    //    NetworkServer.Spawn(newSeed.gameObject);
-    //    RpcAddPlant(newSeed.netId, index);
-    //}
-
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
@@ -48,8 +39,8 @@ public class NewFieldManager : NetworkBehaviour
         newSeed.seedId = seedId;
         //newSeed.transform.position = _plantPositions[index].position;
 
-        NetworkServer.Spawn(newSeed.gameObject); 
-        _allPlants.Add(newSeed);
+        NetworkServer.Spawn(newSeed.gameObject);
+        _allPlants[index] = newSeed;
 
         RpcAddPlant(newSeed.gameObject.GetComponent<NetworkIdentity>().netId, index);
     }
@@ -63,7 +54,7 @@ public class NewFieldManager : NetworkBehaviour
             seed.StartGrow(transform, index);
             if (!_allPlants.Contains(seedIdentity.gameObject.GetComponent<Seed>()))
             {
-                _allPlants.Add(seedIdentity.gameObject.GetComponent<Seed>());
+                _allPlants[index] = seedIdentity.gameObject.GetComponent<Seed>();
             }
         }
     }
