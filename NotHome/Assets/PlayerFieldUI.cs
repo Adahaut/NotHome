@@ -8,8 +8,6 @@ public class PlayerFieldUI : NetworkBehaviour
 {
     [SerializeField] private PlayerFieldSlot _playerSlots;
 
-    
-
     private void OnEnable()
     {
         if(isOwned)

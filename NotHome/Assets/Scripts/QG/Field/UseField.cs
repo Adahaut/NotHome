@@ -62,8 +62,8 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
-        SeedObject newSeedObject = NewFieldManager.instance._seedPrefabs[seedId];
-        Seed newSeed = newSeedObject.seedStruct;
+        GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
+        Seed newSeed = newSeedObject.GetComponent<SeedObject>().seedStruct;
         newSeed.seedId = seedId;
 
         newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
