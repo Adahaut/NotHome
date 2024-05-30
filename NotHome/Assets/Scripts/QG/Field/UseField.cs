@@ -69,27 +69,11 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
 
         NetworkServer.Spawn(newSeedObject.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
-        CmdSendPositionToServer(newSeedObject.transform.position, newSeedObject);
 
 
         //RpcAddPlant(newSeed.netId, index);
     }
 
-    void CmdSendPositionToServer(Vector3 position, GameObject seed)
-    {
-        seed.transform.position = position;
-
-        RpcUpdatePositionOnClients(position, seed);
-    }
-
-    [ClientRpc]
-    void RpcUpdatePositionOnClients(Vector3 position, GameObject seed)
-    {
-        if (!isOwned)
-        {
-            seed.transform.position = position;
-        }
-    }
     //[ClientRpc]
     //public void RpcAddPlant(uint seedNetId, int index)
     //{
