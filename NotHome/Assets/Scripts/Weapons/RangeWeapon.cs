@@ -121,14 +121,14 @@ public class RangeWeapon : MonoBehaviour
     {
         if(_currentAmmo > 0)
         {
-            print(_currentAmmo.ToString());
+            //print(_currentAmmo.ToString());
             if (CanShoot())
             {
-                print("tire");
+               // print("tire");
                 StartRecoil();
                 if (Physics.Raycast(_muzzle.position, _transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
-                    print("touche " + _hitInfo.collider.name);
+               //     print("touche " + _hitInfo.collider.name);
                     //damage enemies here
                 }
                 _currentAmmo--;

@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class DoorExit : MonoBehaviour
+public class DoorExitMountain : MonoBehaviour
 {
     [SerializeField] private GameObject _doorEnter;
     [SerializeField] private GameObject _doorExit;
     private int _nbPlayer;
-    public static DoorExit Instance;
+    public static DoorExitMountain Instance;
     private bool _qgIsLevel3;
     private bool _isDecompression;
     [SerializeField] private GameObject _smokeParticle;
@@ -44,12 +44,14 @@ public class DoorExit : MonoBehaviour
     public void QGLevel3()
     {
         _qgIsLevel3 = true;
+        _doorEnter.SetActive(false);
+        _doorExit.SetActive(false);
     }
     public void OpenDoor(Transform camera)
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, PC.Instance.GetDistRayCast()))
         {
-            if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
+            if (hit.collider.CompareTag("DecompressionMountain") && !_isDecompression)
             {
                 if (_doorEnter.activeSelf && _doorExit.activeSelf)
                 {
@@ -58,8 +60,8 @@ public class DoorExit : MonoBehaviour
                 else if (_nbPlayer >= 1)
                 {
                     bool door = false;
-                    _light.SetActive(true);
                     _alarmSAS.SetActive(true);
+                    _light.SetActive(true);
                     _isDecompression = true;
                     if (_doorExit.activeSelf)
                         door = true;
@@ -68,13 +70,13 @@ public class DoorExit : MonoBehaviour
                     StartCoroutine(StartParticle(1, door));
                 }
             }
-            else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
+            else if (hit.collider.CompareTag("DecompressionExitMountain") && !_isDecompression)
             {
                 _doorExit.SetActive(false);
             }
         }
     }
-    private IEnumerator StartParticle(float second, bool door)
+    private IEnumerator StartParticle(float second,bool door)
     {
         yield return new WaitForSeconds(second);
         _soundDecompression.Play();

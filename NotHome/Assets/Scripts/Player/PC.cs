@@ -144,6 +144,7 @@ public class PC : MonoBehaviour
         {
             StartUi();
             DoorExit.Instance.OpenDoor(_camera);
+            DoorExitMountain.Instance.OpenDoor(_camera);
         }
         OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
