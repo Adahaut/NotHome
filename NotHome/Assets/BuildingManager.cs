@@ -1,14 +1,11 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class BuildingManager : NetworkBehaviour
 {
     public static BuildingManager instance;
 
-    public NetworkBuilding[] buildings;
+    public GameObject[] buildings;
     
 
     private void Awake()
@@ -27,15 +24,15 @@ public class BuildingManager : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        foreach (NetworkBuilding b in buildings)
+        foreach (GameObject b in buildings)
         {
-            NetworkServer.Spawn(b.gameObject);
+            NetworkServer.Spawn(b);
         }
     }
 
     public void AssignAuthority(NetworkConnectionToClient conn)
     {
-        foreach (NetworkBuilding b in buildings)
+        foreach (GameObject b in buildings)
         {
             b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
         }

@@ -1,27 +1,33 @@
-using System.Collections;
-using System;
+using Org.BouncyCastle.Asn1.Mozilla;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Mirror;
 
 public class InventoryBaseManager : InventoryManager
 {
-    [SerializeField] private Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
-    [SerializeField] private List<InventorySlot> _inventorySlots = new List<InventorySlot>();
+    public static InventoryBaseManager instance;
 
-    [SerializeField] private PC _playerController;
+    public Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
+    public List<InventorySlot> _inventorySlots = new List<InventorySlot>();
 
-    [SerializeField] private EventSystem _eventSystem;
-    [SerializeField] GraphicRaycaster _raycaster;
-    [SerializeField] private GameObject _dragNDrop;
+    
 
-    [SerializeField] private string _itemContainerTag;
-    [SerializeField] private string _itemBaseContainerTag;
+    //[SerializeField] private PC _playerController;
 
-    private bool _draging = false;
-    private GameObject _itemImage;
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        //InventoryInitialisation();
+        //for (int i = 0; i < InventorySlotNumber(); i++)
+        //{
+        //    _inventorySlots.Add(GetInventorySlot(i));
+        //}
+    }
 
     public bool CheckForMaterial(string _itemName)
     {
@@ -64,31 +70,21 @@ public class InventoryBaseManager : InventoryManager
         }
     }
 
-    private void OnEnable()
-    {
-        OpenCloseInventory(true);
-    }
+    //private void OnEnable()
+    //{
+    //    OpenCloseInventory(true);
+    //}
 
-    private void OnDisable()
-    {
-        OpenCloseInventory(false);
-    }
+    //private void OnDisable()
+    //{
+    //    OpenCloseInventory(false);
+    //}
 
-    private void OpenCloseInventory(bool _open)
-    {
-        _playerController.SetInventoryActive(_open);
-        _playerController.SetIsInBaseInventory(_open);
-    }
-
-    private void Start()
-    {
-        InventoryInitialisation();
-        for (int i = 0; i < InventorySlotNumber(); i++)
-        {
-            _inventorySlots.Add(GetInventorySlot(i));
-        }
-        
-    }
+    //private void OpenCloseInventory(bool _open)
+    //{
+    //    _playerController.SetInventoryActive(_open);
+    //    _playerController.SetIsInBaseInventory(_open);
+    //}
 
     private void AddItemInBase(string _name, int _number, GameObject _slot, GameObject _oldSlot)
     {
@@ -119,64 +115,50 @@ public class InventoryBaseManager : InventoryManager
         _baseInventory.Remove(_name);
     }
 
-    private void Update()
-    {
-        Vector3 MousePos = Input.mousePosition;
+    //private void Update()
+    //{
+    //    Vector3 MousePos = Input.mousePosition;
         
-        PointerEventData pointerEventData = new PointerEventData(_eventSystem);
-        pointerEventData.position = MousePos;
-        _dragNDrop.transform.position = MousePos;
+    //    PointerEventData pointerEventData = new PointerEventData(_eventSystem);
+    //    pointerEventData.position = MousePos;
+    //    _dragNDrop.transform.position = MousePos;
 
-        List<RaycastResult> results = new List<RaycastResult>();
+    //    List<RaycastResult> results = new List<RaycastResult>();
 
-        _raycaster.Raycast(pointerEventData, results);
+    //    _raycaster.Raycast(pointerEventData, results);
         
-        if (results.Count > 0)
-        {
-            if (_draging && Input.GetMouseButtonUp(0))
-            {
-                ChangeChildParent(_dragNDrop.transform, _itemImage.transform);
-                _draging = false;
-                if (CheckIfHasGoodTag(results[0].gameObject) && CheckIfParentsNotAreSame(_itemImage, results[0].gameObject))
-                {
-                    if(results[0].gameObject.CompareTag(_itemBaseContainerTag))
-                    {
-                        AddItemInBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), _itemImage.GetComponent<InventorySlot>().Number(), results[0].gameObject, _itemImage);
-                    }
-                    else
-                    {
-                        print(_baseInventory[_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName()]);
-                        RemoveItemFromBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), results[0].gameObject, _itemImage);
-                    }
-                }
-            }
-            if (!_draging && Input.GetMouseButtonDown(0) && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
-            {
-                _itemImage = results[0].gameObject;
-                if (CheckIfHasGoodTag(_itemImage))
-                {
-                    _draging = true;
-                    ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
-                }
-            }
-        }
+    //    if (results.Count > 0)
+    //    {
+    //        if (_draging && Input.GetMouseButtonUp(0))
+    //        {
+    //            ChangeChildParent(_dragNDrop.transform, _itemImage.transform);
+    //            _draging = false;
+    //            if (CheckIfHasGoodTag(results[0].gameObject) && CheckIfParentsNotAreSame(_itemImage, results[0].gameObject))
+    //            {
+    //                if(results[0].gameObject.CompareTag(_itemBaseContainerTag))
+    //                {
+    //                    AddItemInBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), _itemImage.GetComponent<InventorySlot>().Number(), results[0].gameObject, _itemImage);
+    //                }
+    //                else
+    //                {
+    //                    print(_baseInventory[_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName()]);
+    //                    RemoveItemFromBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), results[0].gameObject, _itemImage);
+    //                }
+    //            }
+    //        }
+    //        if (!_draging && Input.GetMouseButtonDown(0) && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
+    //        {
+    //            _itemImage = results[0].gameObject;
+    //            if (CheckIfHasGoodTag(_itemImage))
+    //            {
+    //                _draging = true;
+    //                ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
+    //            }
+    //        }
+    //    }
 
-    }
+    //}
 
-    private bool CheckIfParentsNotAreSame(GameObject _gameobject1, GameObject _gameobject2)
-    {
-        return _gameobject1.transform.parent.gameObject != _gameobject2.transform.parent.gameObject;
-    }
-
-    private bool CheckIfHasGoodTag(GameObject _check)
-    {
-        return _check.CompareTag(_itemBaseContainerTag) || _check.CompareTag(_itemContainerTag);
-    }
-
-    private void ChangeChildParent(Transform _gameObject, Transform _newParent)
-    {
-        _gameObject.GetChild(0).SetParent(_newParent);
-        _newParent.GetChild(0).transform.localPosition = Vector3.zero;
-    }
+    
 
 }
