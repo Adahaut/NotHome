@@ -11,15 +11,15 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     private Vector3 _startPosition;
     private Transform _transform;
 
-    [SerializeField] private Seed _seedPrefab;
+    [SerializeField] private SeedObject _seedPrefab;
     [SerializeField] private GameObject _player;
 
     private NewFieldManager _fieldManager;
 
     private void Start()
     {
-        GetComponent<Image>().sprite = _seedPrefab._img;
-        GetComponentInChildren<TMP_Text>().text = _seedPrefab._name;
+        GetComponent<Image>().sprite = _seedPrefab.seedStruct._img;
+        GetComponentInChildren<TMP_Text>().text = _seedPrefab.seedStruct._name;
         StartCoroutine(FindFieldManager());
         _startPosition = transform.position;
         _transform = transform;
@@ -46,9 +46,9 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         {
             if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
             {
-                _seedPrefab._isPlanted = true;
+                _seedPrefab.seedStruct._isPlanted = true;
                 _transform.position = GetNearestSlot();
-                CmdAddPlant(_seedPrefab._index, _seedPrefab._id);
+                CmdAddPlant(_seedPrefab.seedStruct._index, _seedPrefab.seedStruct._id);
                 GetComponentInParent<PlayerFieldUI>().UpdateUI();
             }
             else
@@ -62,13 +62,13 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
-        Seed newSeed = NewFieldManager.instance._seedPrefabs[seedId];
+        SeedObject newSeedObject = NewFieldManager.instance._seedPrefabs[seedId];
+        Seed newSeed = newSeedObject.seedStruct;
         newSeed.seedId = seedId;
-        //newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
-        //Instancier objet 3 à la position
 
+        newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
 
-        //NetworkServer.Spawn(newSeed.gameObject);
+        NetworkServer.Spawn(newSeedObject.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
 
         //RpcAddPlant(newSeed.netId, index);
@@ -95,7 +95,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         List<Transform> slots = new();
         slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
         Vector3 slotNearest = slots[0].position;
-        _seedPrefab._index = 0;
+        _seedPrefab.seedStruct._index = 0;
         for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].gameObject.activeSelf)
@@ -103,7 +103,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
                 if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest))
                 {
                     slotNearest = slots[i].position;
-                    _seedPrefab._index = i;
+                    _seedPrefab.seedStruct._index = i;
                 }
             }
         }

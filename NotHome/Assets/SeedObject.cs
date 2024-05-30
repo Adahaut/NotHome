@@ -5,21 +5,16 @@ using UnityEngine;
 
 public class SeedObject : NetworkBehaviour
 {
-    public int GT;
+    public Seed seedStruct = new Seed();
 
-    SeedObject(int gT)
-    {
-        GT = gT;
-    }
-
-    public IEnumerator GrowPlant()
-    {
-        yield return new WaitForSeconds(GT);
-    }
+    //public IEnumerator GrowPlant()
+    //{
+    //    yield return new WaitForSeconds(GT);
+    //}
 
     public void StartGrow(Transform position, int index)
     {
-        this._index = index;
+        //this._index = index;
         //transform.position = position.position;
         // Ajoutez ici votre logique de croissance
     }

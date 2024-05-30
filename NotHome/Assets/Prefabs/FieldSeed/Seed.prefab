@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9061741370677270550}
   - component: {fileID: 737235606574300405}
   - component: {fileID: 4484836870468306470}
+  - component: {fileID: 2326353923285724975}
+  - component: {fileID: 953276755425810725}
   - component: {fileID: 7512543571296216506}
   m_Layer: 0
   m_Name: Seed
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7886439568925779805}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 577.405, y: 62.88727, z: 105.726425}
+  m_LocalPosition: {x: 589.18835, y: 60.97, z: 166.2755}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84,6 +86,58 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2326353923285724975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886439568925779805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2683724802
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &953276755425810725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886439568925779805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 9061741370677270550}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 1
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  bufferResetMultiplier: 3
+  changedDetection: 1
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
 --- !u!114 &7512543571296216506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,3 +153,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  seedStruct:
+    seedId: 0
+    _id: 0
+    _name: Plant
+    _growingTime: 100
+    _img: {fileID: 21300000, guid: 69c30291565a1407abc7ca25da395ea9, type: 3}
+    _index: 8
+    _isPlanted: 1

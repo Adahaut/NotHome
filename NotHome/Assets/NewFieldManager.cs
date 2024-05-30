@@ -6,7 +6,7 @@ public class NewFieldManager : NetworkBehaviour
 {
     public static NewFieldManager instance;
 
-    public List<Seed> _seedPrefabs;
+    public List<SeedObject> _seedPrefabs;
 
     public SyncList<Seed> _allPlants = new SyncList<Seed>();
 
