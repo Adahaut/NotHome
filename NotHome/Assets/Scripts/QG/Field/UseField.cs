@@ -62,6 +62,11 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
+        StartCoroutine(SpawnAndNotifyClients(index, seedId));
+    }
+
+    private IEnumerator SpawnAndNotifyClients(int index, int seedId)
+    {
         Seed newSeed = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
         newSeed.seedId = seedId;
         newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
@@ -69,12 +74,15 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         NetworkServer.Spawn(newSeed.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
 
+        yield return new WaitForSeconds(0.1f);
+
         RpcAddPlant(newSeed.netId, index);
     }
 
     [ClientRpc]
     public void RpcAddPlant(uint seedNetId, int index)
     {
+        Debug.Log("RpcAddPlant called with seedNetId: " + seedNetId + " on client: " + NetworkClient.connection.connectionId);
         if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
         {
             Seed seed = seedIdentity.GetComponent<Seed>();
