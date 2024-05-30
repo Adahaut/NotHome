@@ -62,37 +62,32 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
-        Seed newSeed = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
+        Seed newSeed = NewFieldManager.instance._seedPrefabs[seedId];
         newSeed.seedId = seedId;
-        newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
-
-        Test a = new Test
-        {
-            testname = "caca"
-        };
-        NewFieldManager.instance.aboubou[index] = a ;
+        //newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
+        //Instancier objet 3 à la position
 
 
-        NetworkServer.Spawn(newSeed.gameObject);
+        //NetworkServer.Spawn(newSeed.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
 
-        RpcAddPlant(newSeed.netId, index);
+        //RpcAddPlant(newSeed.netId, index);
     }
 
-    [ClientRpc]
-    public void RpcAddPlant(uint seedNetId, int index)
-    {
-        if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
-        {
-            Seed seed = seedIdentity.GetComponent<Seed>();
-            seed.StartGrow(NewFieldManager.instance._plantPositons[index], index);
-            if (!NewFieldManager.instance._allPlants.Contains(seed))
-            {
-                NewFieldManager.instance._allPlants[index] = seed;
-            }
-            NewFieldManager.instance.t += 1;
-        }
-    }
+    //[ClientRpc]
+    //public void RpcAddPlant(uint seedNetId, int index)
+    //{
+    //    if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
+    //    {
+    //        Seed seed = seedIdentity.GetComponent<Seed>();
+    //        seed.StartGrow(NewFieldManager.instance._plantPositons[index], index);
+    //        if (!NewFieldManager.instance._allPlants.Contains(seed))
+    //        {
+    //            NewFieldManager.instance._allPlants[index] = seed;
+    //        }
+    //        NewFieldManager.instance.t += 1;
+    //    }
+    //}
 
 
     private Vector3 GetNearestSlot()

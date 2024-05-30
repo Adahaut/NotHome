@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Seed : NetworkBehaviour
+public struct Seed
 {
     [SyncVar]
     public int seedId;
@@ -24,7 +24,7 @@ public class Seed : NetworkBehaviour
     public void StartGrow(Transform position, int index)
     {
         this._index = index;
-        transform.position = position.position;
+        //transform.position = position.position;
         // Ajoutez ici votre logique de croissance
     }
 }
