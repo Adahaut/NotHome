@@ -35,6 +35,11 @@ public class PlayerFieldUI : NetworkBehaviour
         }
     }
 
+    public void DisableFieldUI()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     public static void UpdateAllUIs()
     {
         foreach (var playerFieldUI in FindObjectsOfType<PlayerFieldUI>())

@@ -1,11 +1,11 @@
 using Mirror;
-using Mirror.Examples.BenchmarkIdle;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+
+public struct Test
+{
+    public string testname;
+}
 
 public class NewFieldManager : NetworkBehaviour
 {
@@ -14,6 +14,8 @@ public class NewFieldManager : NetworkBehaviour
     public List<Seed> _seedPrefabs;
 
     public SyncList<Seed> _allPlants = new SyncList<Seed>();
+    public readonly SyncList<Test> aboubou = new SyncList<Test>();
+
 
     public List<Transform> _plantPositons;
 
