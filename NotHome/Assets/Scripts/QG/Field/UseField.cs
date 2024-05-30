@@ -76,7 +76,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [ClientRpc]
     public void RpcAddPlant(uint seedNetId, int index)
     {
-        GetComponentInParent<PlayerNetwork>().debugText.text = connectionToClient.ToString();
+        GetComponentInParent<PlayerNetwork>().debugText.text = GetComponentInParent<NetworkIdentity>().connectionToClient.ToString();
         if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
         {
             Seed seed = seedIdentity.GetComponent<Seed>();
