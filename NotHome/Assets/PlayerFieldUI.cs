@@ -37,7 +37,6 @@ public class PlayerFieldUI : NetworkBehaviour
 
     public static void UpdateAllUIs()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var playerFieldUI in FindObjectsOfType<PlayerFieldUI>())
         {
             playerFieldUI.UpdateUI();
@@ -47,10 +46,5 @@ public class PlayerFieldUI : NetworkBehaviour
     public void OnDisable()
     {
         GetComponentInParent<PlayerController>().DisablePlayer(false);
-    }
-
-    public void DisableFieldPanel()
-    {
-        gameObject.SetActive(false);
     }
 }
