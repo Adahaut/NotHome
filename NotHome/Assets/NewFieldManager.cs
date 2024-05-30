@@ -13,12 +13,13 @@ public class NewFieldManager : NetworkBehaviour
 
     public List<Seed> _seedPrefabs;
 
-    public SyncList<Seed> _allPlants = new SyncList<Seed>();
+    public List<Seed> _allPlants = new List<Seed>();
 
     public List<Transform> _plantPositons;
 
     public bool _panelOpen;
 
+    
     [SyncVar]public int t = 0;
 
     private void Awake()
@@ -33,19 +34,19 @@ public class NewFieldManager : NetworkBehaviour
             _allPlants.Add(null);
         }
 
-        _allPlants.Callback += OnAllPlantsChanged;
+        //_allPlants.Callback += OnAllPlantsChanged;
     }
 
-    private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int index, Seed oldItem, Seed newItem)
-    {
-        if (op == SyncList<Seed>.Operation.OP_ADD || op == SyncList<Seed>.Operation.OP_SET)
-        {
-            if (newItem != null)
-            {
-                newItem.StartGrow(_plantPositons[index], index);
-            }
-        }
-        PlayerFieldUI.UpdateAllUIs();
-    }
+    //private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int index, Seed oldItem, Seed newItem)
+    //{
+    //    if (op == SyncList<Seed>.Operation.OP_ADD || op == SyncList<Seed>.Operation.OP_SET)
+    //    {
+    //        if (newItem != null)
+    //        {
+    //            newItem.StartGrow(_plantPositons[index], index);
+    //        }
+    //    }
+    //    PlayerFieldUI.UpdateAllUIs();
+    //}
 
 }
