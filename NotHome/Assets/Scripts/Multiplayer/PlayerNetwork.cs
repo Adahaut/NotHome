@@ -98,7 +98,7 @@ public class PlayerNetwork : NetworkBehaviour
         //    }
         //}
 
-        debugText.text = NewFieldManager.instance.t.ToString();
+        //debugText.text = NewFieldManager.instance.t.ToString();
 
 
 
