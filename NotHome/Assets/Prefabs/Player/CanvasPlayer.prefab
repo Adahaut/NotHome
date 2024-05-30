@@ -922,7 +922,7 @@ MonoBehaviour:
     - Key: Screws
       Value: 1
   _nameBuilding: TDC
-  _fieldManager: {fileID: 7979134496034364083}
+  _fieldManager: {fileID: 0}
   _alarm: {fileID: 0}
 --- !u!1 &328866966229007380
 GameObject:
@@ -7038,7 +7038,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9059169864230980289}
-  - component: {fileID: 7979134496034364083}
   - component: {fileID: 4262225458997104030}
   m_Layer: 8
   m_Name: FieldManager
@@ -7062,52 +7061,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 362101922496769447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7979134496034364083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3262525851568374924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d6081ebd46e7f498a96c6775b11fa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _listPosSlot:
-  - {fileID: 4299705200707737243}
-  - {fileID: 6700065104461729938}
-  - {fileID: 3870147436835137453}
-  - {fileID: 6871108866130040276}
-  - {fileID: 198252407268447929}
-  - {fileID: 973045359133552114}
-  - {fileID: 3472620210631227639}
-  - {fileID: 6124556238553152104}
-  - {fileID: 8401516530998172473}
-  - {fileID: 671933689927336477}
-  - {fileID: 8842648551557938573}
-  - {fileID: 3066335881916788137}
-  - {fileID: 1014317802054581584}
-  _listIsPlant: 
-  _listPlant:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _listSeed:
-  - {fileID: 6848284357894232883}
-  - {fileID: 5509876992485829609}
-  - {fileID: 3720073173256792298}
-  - {fileID: 4360494110364751743}
 --- !u!114 &4262225458997104030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8228,7 +8181,6 @@ GameObject:
   - component: {fileID: 8434993710198222856}
   - component: {fileID: 8233561286383203271}
   - component: {fileID: 5923704208637626217}
-  - component: {fileID: 6853674248752381189}
   - component: {fileID: 4621487577760987989}
   m_Layer: 8
   m_Name: Seed 3
@@ -8295,19 +8247,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6853674248752381189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3720073173256792298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1323e43fa77888848b4a383cdd776e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _seedTime: 15
 --- !u!114 &4621487577760987989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8352,7 +8291,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6853674248752381189}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UseField, Assembly-CSharp
         m_MethodName: GetPlantFinish
         m_Mode: 1
@@ -8485,7 +8424,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 343248384841078794}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
         m_MethodName: NextQuest
         m_Mode: 1
@@ -9997,7 +9936,6 @@ GameObject:
   - component: {fileID: 307910175398553373}
   - component: {fileID: 8307482127509715267}
   - component: {fileID: 5702964392602864144}
-  - component: {fileID: 6950696180288286069}
   - component: {fileID: 1696861638705608000}
   m_Layer: 8
   m_Name: Seed 4
@@ -10064,19 +10002,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6950696180288286069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4360494110364751743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1323e43fa77888848b4a383cdd776e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _seedTime: 5
 --- !u!114 &1696861638705608000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10121,7 +10046,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6950696180288286069}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UseField, Assembly-CSharp
         m_MethodName: GetPlantFinish
         m_Mode: 1
@@ -10202,7 +10127,7 @@ MonoBehaviour:
     - Key: Screws
       Value: 1
   _nameBuilding: QG
-  _fieldManager: {fileID: 7979134496034364083}
+  _fieldManager: {fileID: 0}
   _alarm: {fileID: 0}
 --- !u!1 &4431827359502134874
 GameObject:
@@ -13091,7 +13016,6 @@ GameObject:
   - component: {fileID: 2117230769160883360}
   - component: {fileID: 5422475611976012340}
   - component: {fileID: 9056181695250481116}
-  - component: {fileID: 7585695523866378189}
   - component: {fileID: 8059995203914414743}
   m_Layer: 8
   m_Name: Seed 2
@@ -13158,19 +13082,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7585695523866378189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5509876992485829609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1323e43fa77888848b4a383cdd776e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _seedTime: 30
 --- !u!114 &8059995203914414743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13215,7 +13126,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7585695523866378189}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UseField, Assembly-CSharp
         m_MethodName: GetPlantFinish
         m_Mode: 1
@@ -14604,7 +14515,6 @@ GameObject:
   - component: {fileID: 2216228528850546083}
   - component: {fileID: 5427545484005127750}
   - component: {fileID: 1383756411740255440}
-  - component: {fileID: 6836846045859680861}
   - component: {fileID: 6394694868886142505}
   m_Layer: 8
   m_Name: Seed 1
@@ -14671,19 +14581,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6836846045859680861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6848284357894232883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1323e43fa77888848b4a383cdd776e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _seedTime: 60
 --- !u!114 &6394694868886142505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14728,7 +14625,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6836846045859680861}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UseField, Assembly-CSharp
         m_MethodName: GetPlantFinish
         m_Mode: 1
@@ -15706,8 +15603,8 @@ RectTransform:
   - {fileID: 5774216461681937722}
   - {fileID: 1683118430723787127}
   - {fileID: 3053294465420608533}
-  - {fileID: 1948252267851096491}
   - {fileID: 675515553256698855}
+  - {fileID: 1948252267851096491}
   m_Father: {fileID: 302266541803566371}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -17403,6 +17300,7 @@ MonoBehaviour:
   _hotBarSlot: {fileID: 6668370665759850294, guid: 8bfa7fb45055d03488157fd5e84d1ad4, type: 3}
   _hotBar: {fileID: 3031887149130178345}
   _hotBarNumber: 4
+  _hotBarItems: []
   _hotBarSlotList: []
   _hotBarSlotSelectedColor: {r: 1, g: 0.8890055, b: 0, a: 1}
   _hotBarSlotUnselectedColor: {r: 0, g: 0, b: 0, a: 1}
@@ -18113,7 +18011,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 343248384841078794}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
         m_MethodName: OpenQuest
         m_Mode: 1
@@ -19199,7 +19097,7 @@ MonoBehaviour:
     - Key: Screws
       Value: 1
   _nameBuilding: Field
-  _fieldManager: {fileID: 7979134496034364083}
+  _fieldManager: {fileID: 0}
   _alarm: {fileID: 0}
 --- !u!1 &9106415352467327495
 GameObject:
@@ -19379,7 +19277,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6220755340076498103}
-  - component: {fileID: 343248384841078794}
   - component: {fileID: 1336364790038889552}
   m_Layer: 2
   m_Name: OfficeManager
@@ -19407,24 +19304,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &343248384841078794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9148419727699162288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01762af45f7b2e141b39aa69db91499c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiQuest: {fileID: 3888635289929089267}
-  _questButton: {fileID: 8576472870950168890}
-  _title: {fileID: 642159558540421008}
-  _lore: {fileID: 624334455507945403}
-  _objectif: {fileID: 7170201383644844986}
-  _actualQuest: {fileID: 11400000, guid: 4f518e641e458044c85eedba5272321c, type: 2}
 --- !u!114 &1336364790038889552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19634,5 +19513,6 @@ MonoBehaviour:
   _eventSystem: {fileID: 0}
   _raycaster: {fileID: 4648217506345809542}
   _dragNDrop: {fileID: 4087198637060373613}
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
   _itemContainerTag: ItemContainer
   _itemBaseContainerTag: BaseItemContainer

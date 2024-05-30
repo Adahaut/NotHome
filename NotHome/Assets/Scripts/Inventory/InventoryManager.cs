@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -16,6 +17,14 @@ public class InventoryManager : MonoBehaviour
         GameObject _newInventorySlot = Instantiate(_inventorySlotPrefab);
         _newInventorySlot.transform.SetParent(_inventoryPanel.transform);
         _slotList.Add(_newInventorySlot);
+    }
+
+    public void UnSelectionAll()
+    {
+        for(int i = 0; i < _slotList.Count; i++)
+        {
+            _slotList[i].GetComponent<Image>().color = Color.black;
+        }
     }
 
     public InventorySlot GetInventorySlot(int _index)

@@ -39,6 +39,7 @@ public class RangeWeapon : MonoBehaviour
     {
         if (Instance == null) 
             Instance = this;
+        _playerCamera = GetComponentInParent<Camera>();
     }
 
     private void Start()
