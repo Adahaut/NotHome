@@ -50,6 +50,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
                 _transform.position = GetNearestSlot();
                 CmdAddPlant(_seedPrefab.seedStruct._index, _seedPrefab.seedStruct._id);
                 GetComponentInParent<PlayerFieldUI>().UpdateUI();
+                PlayerFieldUI.UpdateAllUIs();
             }
             else
             {
