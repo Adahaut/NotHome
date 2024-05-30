@@ -33,6 +33,10 @@ public class NewFieldManager : NetworkBehaviour
     {
         for (int i = 0; i < _plantPositons.Count; i++)
         {
+            aboubou.Add(new Test
+            {
+                testname = ""
+            });
             _allPlants.Add(null);
         }
 

@@ -70,7 +70,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         {
             testname = "caca"
         };
-        NewFieldManager.instance.aboubou.Add(a);
+        NewFieldManager.instance.aboubou[index] = a ;
 
 
         NetworkServer.Spawn(newSeed.gameObject);
