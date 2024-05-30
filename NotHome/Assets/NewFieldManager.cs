@@ -30,7 +30,7 @@ public class NewFieldManager : NetworkBehaviour
             seedId = 0,
             _id = 0,
             _name = "",
-            _img = null,
+            //_img = null,
             _index = 0,
             _isPlanted = false,
         };

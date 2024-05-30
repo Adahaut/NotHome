@@ -8,7 +8,7 @@ public struct Seed
     public int _id;
     public string _name;
     public float _growingTime;
-    public Sprite _img;
+    //public Sprite _img;
 
     public int _index; 
     public bool _isPlanted;
