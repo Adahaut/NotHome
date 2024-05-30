@@ -62,7 +62,6 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
-        Debug.Log("CmdAddPlant called by: " + netIdentity.netId);
         Seed newSeed = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
         newSeed.seedId = seedId;
         newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
@@ -76,7 +75,6 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [ClientRpc]
     public void RpcAddPlant(uint seedNetId, int index)
     {
-        GetComponentInParent<PlayerNetwork>().debugText.text = GetComponentInParent<NetworkIdentity>().connectionToClient.ToString();
         if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
         {
             Seed seed = seedIdentity.GetComponent<Seed>();

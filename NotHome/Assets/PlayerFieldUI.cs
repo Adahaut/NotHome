@@ -40,6 +40,7 @@ public class PlayerFieldUI : NetworkBehaviour
         foreach (var playerFieldUI in FindObjectsOfType<PlayerFieldUI>())
         {
             playerFieldUI.UpdateUI();
+            playerFieldUI.transform.GetComponentInParent<PlayerNetwork>().debugText.text = "Updated";
         }
     }
 

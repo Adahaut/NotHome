@@ -13,7 +13,7 @@ public class NewFieldManager : NetworkBehaviour
 
     public List<Seed> _seedPrefabs;
 
-     public SyncList<Seed> _allPlants = new SyncList<Seed>();
+    public SyncList<Seed> _allPlants = new SyncList<Seed>();
 
     public List<Transform> _plantPositons;
 
