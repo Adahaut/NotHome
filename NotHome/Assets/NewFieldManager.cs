@@ -82,7 +82,6 @@ public class NewFieldManager : NetworkBehaviour
         foreach (var p in players)
         {
             p.GetComponentInChildren<PlayerFieldUI>().UpdateUI();
-            p.GetComponent<PlayerNetwork>().debugText.text = "Updated";
         }
     }
 
