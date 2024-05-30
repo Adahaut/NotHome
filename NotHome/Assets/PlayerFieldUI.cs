@@ -1,7 +1,6 @@
 using Mirror;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +32,15 @@ public class PlayerFieldUI : NetworkBehaviour
                 textSlots[i].text = plant._name;
             }
             
+        }
+    }
+
+    public static void UpdateAllUIs()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var playerFieldUI in FindObjectsOfType<PlayerFieldUI>())
+        {
+            playerFieldUI.UpdateUI();
         }
     }
 

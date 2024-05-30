@@ -73,16 +73,7 @@ public class NewFieldManager : NetworkBehaviour
                 newItem.StartGrow(_plantPositons[index], index);
             }
         }
-        UpdateAllUI();
-    }
-
-    private void UpdateAllUI()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var p in players)
-        {
-            p.GetComponentInChildren<PlayerFieldUI>().UpdateUI();
-        }
+        PlayerFieldUI.UpdateAllUIs();
     }
 
 }
