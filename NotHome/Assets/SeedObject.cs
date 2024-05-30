@@ -17,4 +17,6 @@ public class SeedObject : NetworkBehaviour
         //transform.position = position.position;
         // Ajoutez ici votre logique de croissance
     }
+
+    
 }
