@@ -89,7 +89,7 @@ public class PlayerNetwork : NetworkBehaviour
         if (debugText != null)
         {
             debugText.text = "";
-            for (int i = 0; i < NewFieldManager.instance.strings.Count; i++)
+            for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
             {
                 if (NewFieldManager.instance._allPlants[i] != null)
                     debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n"; 

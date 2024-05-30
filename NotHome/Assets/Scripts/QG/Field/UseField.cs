@@ -67,8 +67,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         newSeed.transform.position = NewFieldManager.instance._plantPositons[index].position;
 
         NetworkServer.Spawn(newSeed.gameObject);
-        //NewFieldManager.instance._allPlants[index] = newSeed;
-        NewFieldManager.instance.strings[0] = UnityEngine.Random.Range(0, 100000).ToString();
+        NewFieldManager.instance._allPlants[index] = newSeed;
 
         RpcAddPlant(newSeed.netId, index);
     }
@@ -82,8 +81,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
             seed.StartGrow(NewFieldManager.instance._plantPositons[index], index);
             if (!NewFieldManager.instance._allPlants.Contains(seed))
             {
-                //NewFieldManager.instance._allPlants[index] = seed;
-                NewFieldManager.instance.strings[0] = UnityEngine.Random.Range(0, 100000).ToString();
+                NewFieldManager.instance._allPlants[index] = seed;
             }
             NewFieldManager.instance.t += 1;
         }
