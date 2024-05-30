@@ -23,8 +23,6 @@ public class PlayerAttack : MonoBehaviour
     private float _cadenceTimer;
 
     public static PlayerAttack Instance;
-
-    private PC _playerController;
     private void Awake()
     {
         if (Instance == null)
@@ -34,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
         _playerController = GetComponent<PC>();
         _isAimingFinished = true;
         _isRecoilFinished = true;
-}
+
     }
     private void Update()
     {
