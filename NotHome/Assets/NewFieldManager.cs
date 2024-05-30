@@ -21,9 +21,12 @@ public class NewFieldManager : NetworkBehaviour
 
     [SyncVar]public int t = 0;
 
+    public SyncList<string> strings = new SyncList<string>();
+
     private void Awake()
     {
         instance = this;
+        strings.Add("mama");
     }
 
     private void Start()
@@ -38,13 +41,14 @@ public class NewFieldManager : NetworkBehaviour
 
     private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int index, Seed oldItem, Seed newItem)
     {
-        if (op == SyncList<Seed>.Operation.OP_ADD || op == SyncList<Seed>.Operation.OP_SET)
-        {
-            if (newItem != null)
-            {
-                newItem.StartGrow(_plantPositons[index], index);
-            }
-        }
+        //if (op == SyncList<Seed>.Operation.OP_ADD || op == SyncList<Seed>.Operation.OP_SET)
+        //{
+        //    if (newItem != null)
+        //    {
+        //        newItem.StartGrow(_plantPositons[index], index);
+        //    }
+        //}
+
         PlayerFieldUI.UpdateAllUIs();
     }
 
