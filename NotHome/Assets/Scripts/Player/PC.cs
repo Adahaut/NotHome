@@ -26,7 +26,7 @@ public class PC : MonoBehaviour
     private bool _isOpen;
 
     [Header("Inventory")]
-    [SerializeField] private GameObject _inventory;
+    [SerializeField] public GameObject _inventory;
     [SerializeField] private string _itemTag;
     [SerializeField] private int _itemPickRange;
 
@@ -145,7 +145,7 @@ public class PC : MonoBehaviour
             StartUi();
             DoorExit.Instance.OpenDoor(_camera);
         }
-        OfficeManager.Instance.MouvToChair();
+        //OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
         {
             PickUpObject();

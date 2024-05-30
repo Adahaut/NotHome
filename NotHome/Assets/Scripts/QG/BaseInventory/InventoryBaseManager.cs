@@ -5,23 +5,35 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.InputSystem;
 
 public class InventoryBaseManager : InventoryManager
 {
     [SerializeField] private Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
     [SerializeField] private List<InventorySlot> _inventorySlots = new List<InventorySlot>();
-
+    InventorySlot _selectedSlot;
+    private bool _hasOneSlotSelected;
+    private bool _inventoryBaseSelected;
     [SerializeField] private PC _playerController;
 
     [SerializeField] private EventSystem _eventSystem;
     [SerializeField] GraphicRaycaster _raycaster;
     [SerializeField] private GameObject _dragNDrop;
+    [SerializeField] private Color selectedColor;
 
     [SerializeField] private string _itemContainerTag;
     [SerializeField] private string _itemBaseContainerTag;
 
     private bool _draging = false;
     private GameObject _itemImage;
+
+
+    private void Awake()
+    {
+        _playerController = GetComponentInParent<PC>();
+        _eventSystem = FindObjectsOfType<EventSystem>()[0];
+        _raycaster = GetComponentInParent<GraphicRaycaster>();
+    }
 
     public bool CheckForMaterial(string _itemName)
     {
@@ -117,6 +129,77 @@ public class InventoryBaseManager : InventoryManager
         _slot.GetComponent<InventorySlot>().SetNumber(NumberOfMaterial(_name));
         _oldSlot.GetComponent<InventorySlot>().ResetItem();
         _baseInventory.Remove(_name);
+    }
+
+    private void CheckIfASlotIsSelected()
+    {
+        for (int i = 0; i < _inventorySlots.Count; i++)
+        {
+            if (_inventorySlots[i]._isSeleceted)
+            {
+                SetSelectedSlot(_inventorySlots[i], true);
+                return;
+            }
+        }
+        SetSelectedSlot(_inventorySlots[0], true);
+        _inventorySlots[0]._isSeleceted = true;
+    }
+
+    private void SetSelectedSlot(InventorySlot _slot, bool _isInBaseInventory)
+    {
+        _hasOneSlotSelected = true;
+        _selectedSlot = _slot;
+        SetUnselectedColorForAll();
+        _selectedSlot.GetComponent<Image>().color = selectedColor;
+        _inventoryBaseSelected = _isInBaseInventory;
+    }
+
+    private void SetUnselectedColorForAll()
+    {
+        for(int i = 0; i < _inventorySlots.Count; i++)
+        {
+            _inventorySlots[i].GetComponent<Image>().color = Color.black;
+        }
+    }
+
+    public void InventoryBaseManagerManette(InputAction.CallbackContext ctx)
+    {
+        if(!_hasOneSlotSelected)
+            CheckIfASlotIsSelected();
+
+
+        Vector2 _direction = ctx.ReadValue<Vector2>();
+        RaycastHit[] _hits = Physics.RaycastAll(_selectedSlot.transform.position, _direction);
+        if (_hits.Length > 0)
+        {
+            if (_inventoryBaseSelected)
+            {
+                ChangeInventorySlotSeleceted(_hits, _direction, _itemBaseContainerTag, true);
+            }
+            else
+            {
+                ChangeInventorySlotSeleceted(_hits, _direction, _itemContainerTag, false);
+            }
+        }
+
+
+    }
+
+    private void ChangeInventorySlotSeleceted(RaycastHit[] _hits, Vector2 _direction, string _tag, bool _isInBaseInventory)
+    {
+        for (int i = 0; i < _hits.Length; i++)
+        {
+            if (_hits[i].collider.CompareTag(_tag))
+            {
+                SetSelectedSlot(_hits[i].collider.GetComponent<InventorySlot>(), true);
+            }
+        }
+        Vector2 _changeInventoryDirection = _isInBaseInventory == true ? Vector2.left : Vector2.right;
+
+        if (_direction == _changeInventoryDirection)
+        {
+            SetSelectedSlot(_playerController._inventory.GetComponent<InventoryManager>()._slotList[0].GetComponent<InventorySlot>(), false);
+        }
     }
 
     private void Update()
