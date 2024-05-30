@@ -65,9 +65,9 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
         Seed newSeed = newSeedObject.GetComponent<SeedObject>().seedStruct;
         newSeed.seedId = seedId;
+        newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
 
         NetworkServer.Spawn(newSeedObject.gameObject);
-        newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
         NewFieldManager.instance._allPlants[index] = newSeed;
 
         //RpcAddPlant(newSeed.netId, index);
