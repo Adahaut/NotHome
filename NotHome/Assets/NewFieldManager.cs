@@ -8,7 +8,7 @@ public class NewFieldManager : NetworkBehaviour
 
     public List<GameObject> _seedPrefabs;
 
-    public SyncList<Seed> _allPlants = new SyncList<Seed>();
+    public readonly SyncList<Seed> _allPlants = new SyncList<Seed>();
 
 
     public List<Transform> _plantPositons;
