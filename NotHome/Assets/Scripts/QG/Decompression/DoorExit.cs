@@ -54,6 +54,12 @@ public class DoorExit : MonoBehaviour
                 _doorEnter.SetActive(true);
                 StartCoroutine(StartParticle(1));
             }
+            else if (hit.collider.CompareTag("DecompressionMountain") && _nbPlayer >=1 && !_isDecompression)// && Heure <= 20h)
+            {
+                _isDecompression = true;
+                _doorEnter.SetActive(true);
+                StartCoroutine(StartParticle(1));
+            } 
         }
     }
     private IEnumerator StartParticle(float second)
