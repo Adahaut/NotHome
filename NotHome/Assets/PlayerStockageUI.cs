@@ -1,22 +1,26 @@
 using Org.BouncyCastle.Crypto.Macs;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static InventoryBaseManager;
 
 public class PlayerStockageUI : MonoBehaviour
 {
     private EventSystem _eventSystem;
     [SerializeField] GraphicRaycaster _raycaster;
     [SerializeField] private GameObject _dragNDrop;
+    [SerializeField] private Sprite _defaultSprite;
 
     [SerializeField] private string _itemContainerTag;
     [SerializeField] private string _itemBaseContainerTag;
 
     private bool _draging = false;
-    private GameObject _itemImage;
+    private InventorySlot _itemImage;
 
     [SerializeField] private GameObject _inventorySlotPrefab;
     [SerializeField] private GameObject _inventoryBasePanel;
@@ -27,7 +31,11 @@ public class PlayerStockageUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _eventSystem = GameObject.FindObjectOfType<EventSystem>();
+        UpdateItemList();
+        if (_eventSystem == null )
+            _eventSystem = FindObjectOfType<EventSystem>();
+        if (InventoryBaseManager.instance._inventoryItems.Count == 0)
+            Init();
         _inventoryPanel.gameObject.SetActive(true);
     }
 
@@ -49,48 +57,51 @@ public class PlayerStockageUI : MonoBehaviour
             {
                 ChangeChildParent(_dragNDrop.transform, _itemImage.transform);
                 _draging = false;
-                if (CheckIfHasGoodTag(results[0].gameObject) && CheckIfParentsNotAreSame(_itemImage, results[0].gameObject))
+                if (CheckIfHasGoodTag(results[0].gameObject) && CheckIfParentsNotAreSame(_itemImage.gameObject, results[0].gameObject))
                 {
+                    print("lache");
                     if (results[0].gameObject.CompareTag(_itemBaseContainerTag))
                     {
-                        InventoryBaseManager.instance.AddItemInBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), _itemImage.GetComponent<InventorySlot>().Number(), results[0].gameObject, _itemImage);
+                        print("a");
+                        AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), _itemImage.ItemContained().ItemSprite(), 
+                            GetIndexOf(results[0].gameObject.GetComponent<InventorySlot>().ItemContained().ItemName()), _itemImage);
                     }
                     else
                     {
-                        InventoryBaseManager.instance.RemoveItemFromBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), results[0].gameObject, _itemImage);
+                        print("b");
+                        print("item name : " + _itemImage.ItemContained().ItemName() + " index : " + GetIndexOf(_itemImage.ItemContained().ItemName()));
+                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), _itemImage.ItemContained().ItemSprite(),
+                            GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
                     UpdateStockageUI();
                 }
             }
-            if (!_draging && Input.GetMouseButtonDown(0) && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
+            if (!_draging && Input.GetMouseButtonDown(0)
+                && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
             {
-                _itemImage = results[0].gameObject;
-                if (CheckIfHasGoodTag(_itemImage))
+                _itemImage = results[0].gameObject.GetComponent<InventorySlot>();
+                if (CheckIfHasGoodTag(_itemImage.gameObject))
                 {
                     _draging = true;
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
                 }
                 UpdateStockageUI();
-
             }
         }
     }
 
     private void UpdateStockageUI()
     {
-        for (int i = 0; i < InventoryBaseManager.instance._inventorySlots.Count; ++i)
+        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; ++i)
         {
-            if (InventoryBaseManager.instance._inventorySlots[i].name != "None")
+            if (_slotList[i].name != "None")
             {
-                print("enter");
-                _slotList[i].GetComponent<Image>().sprite =
-                    InventoryBaseManager.instance._inventorySlots[i].ItemContained().ItemSprite();
+                _slotList[i].GetComponent<InventorySlot>().UpdateItemVisuel();
             }
             else
             {
 
             }
-            Debug.Log(InventoryBaseManager.instance._inventorySlots[i].name);
         }
     }
 
@@ -116,6 +127,179 @@ public class PlayerStockageUI : MonoBehaviour
         this.gameObject.SetActive(false);
         _inventoryPanel.gameObject.SetActive(false);
 
+    }
+
+
+
+    //------------------------------------------------------------------------------------------------------------------------------------
+
+    ///////////////////////////////////////
+    ///                                 ///
+    ///      Base inventory Manager     /// 
+    ///                                 ///
+    ///////////////////////////////////////
+
+    //add item in base
+    public void AddItemInBase(string _name, int _number, Sprite _sprite, int _slotIndex, InventorySlot _playerInventorySlot)
+    {
+        if (ListContain(_name))
+        {
+            AddNumberItem(_name, _number);
+            UpdateOneItem(_slotIndex, _number, _sprite);
+        }
+        else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
+        {
+            AddNewItem(_name, _number, _sprite, _slotIndex);
+            UpdateOneItem(_slotIndex, _number, _sprite);
+        }
+        else
+        {
+            AddNewItem(_name, _number, _sprite, GetIndexOf("None"));
+            UpdateOneItem(_slotIndex, _number, _sprite);
+        }
+        _playerInventorySlot.ResetItem();
+    }
+
+    public void RemoveItemFromBase(string _name, int _number, Sprite _sprite, int _index, InventorySlot _inventorySlot)
+    {
+        print(GetIndexOf(_name));
+        _inventorySlot.ChangeItem(_name, _sprite, false);
+        _inventorySlot.SetNumber(_number);
+        UpdateOneItem(GetIndexOf(_name), _number, _sprite);
+        RemoveItem(_index);
+    }
+
+    //----------------------------//
+    //     Update Struct list     //
+    //----------------------------//
+
+    // init
+    private _itemSlot initItemSlot()
+    {
+        _itemSlot slot = new _itemSlot();
+        slot._name = "None";
+        slot._number = 0;
+        slot._sprite = null;
+        return slot;
+    }
+
+    private void UpdateOneItemStruct(int _index, string _name, int _number, Sprite _sprite)
+    {
+        _itemSlot slot = new _itemSlot();
+        slot._name = _name;
+        slot._number = _number;
+        slot._sprite = _sprite;
+        InventoryBaseManager.instance._inventoryItems[_index] = slot;
+    }
+
+    private void Init()
+    {
+        InventoryBaseManager.instance._inventorySize = _slotList.Count;
+        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
+        {
+            InventoryBaseManager.instance._inventoryItems.Add(initItemSlot());
+        }
+    }
+
+
+
+    //------------------------------------//
+    //     Update InventorySlots list     //
+    //------------------------------------//
+
+    // Update All Item in list
+    public void UpdateItemList()
+    {
+        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
+        {
+            UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, InventoryBaseManager.instance._inventoryItems[i]._sprite);
+        }
+    }
+
+    // Update one Item from list at specific index
+    public void UpdateOneItem(int _index, int _number, Sprite _sprite)
+    {
+        _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, _sprite, InventoryBaseManager.instance._inventoryItems[_index]._name);
+    }
+
+    private void UpdateItemInList(string _name, int _number, Sprite _sprite, int _index)
+    {
+        _itemSlot tempSlot = new _itemSlot();
+        tempSlot._name = _name;
+        tempSlot._number = _number;
+        tempSlot._sprite = _sprite;
+
+        InventoryBaseManager.instance._inventoryItems[_index] = tempSlot;
+    }
+
+    // add an item that is not already in inventory
+    private void AddNewItem(string _name, int _number, Sprite _sprite, int _index)
+    {
+        if (!HasPlaceRemaining())
+            throw new Exception("no remaining place");
+
+        UpdateItemInList(_name, _number, _sprite, _index);
+    }
+
+    // a a unmber of item that is in inventory
+    private void AddNumberItem(string _name, int _number)
+    {
+        int _index = GetIndexOf(_name);
+        _itemSlot itemSlot = InventoryBaseManager.instance._inventoryItems[_index];
+        itemSlot._number += _number;
+    }
+
+    private void RemoveItem(int _index)
+    {
+        InventoryBaseManager.instance._inventoryItems[_index] = initItemSlot();
+        _slotList[_index].GetComponent<InventorySlot>().ResetItem();
+    }
+
+    // check if inventory has one or more place remaining
+    private bool HasPlaceRemaining()
+    {
+        return ListContain("None");
+    }
+
+    ///////////////////////////////////////
+    ///     _inventoryItems Manager     ///
+    ///////////////////////////////////////
+    /// -->
+
+    //check if item List contain _name
+    private bool ListContain(string _name)
+    {
+        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
+        {
+            if (InventoryBaseManager.instance._inventoryItems[i]._name == _name)
+                return true;
+        }
+        return false;
+    }
+
+    private int GetIndexOf(string _name)
+    {
+        if (!ListContain(_name))
+            throw new Exception("item is not is the List");
+
+        for(int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
+        {
+            if (InventoryBaseManager.instance._inventoryItems[i]._name == _name)
+                return i;
+        }
+
+        throw new Exception("item not found");
+    }
+
+    private _itemSlot GetFirstItemOfName(string _name)
+    {
+        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
+        {
+            if (InventoryBaseManager.instance._inventoryItems[i]._name == _name)
+                return InventoryBaseManager.instance._inventoryItems[i];
+        }
+
+        throw new Exception("item not found");
     }
 
 }

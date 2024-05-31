@@ -2994,17 +2994,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryPanel: {fileID: 0}
   _inventorySlotPrefab: {fileID: 1832631408618658791, guid: 135d2e15a79a10941a6a9a600f762bb1, type: 3}
-  _inventorySlotStartNumber: 0
+  _inventorySlotStartNumber: 15
   _slotList: []
-  _inventorySlots: []
-  _highlightSlot: {fileID: 0}
-  _SelectedSlot: {fileID: 0}
-  _inventoryBaseSelected: 0
-  _playerController: {fileID: 0}
-  _eventSystem: {fileID: 0}
-  _raycaster: {fileID: 0}
-  _dragNDrop: {fileID: 0}
-  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  _inventoryItems: []
+  _inventorySize: 0
 --- !u!1 &1330802278
 GameObject:
   m_ObjectHideFlags: 0

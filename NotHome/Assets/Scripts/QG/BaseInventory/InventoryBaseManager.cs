@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using System.Reflection;
 
 public class InventoryBaseManager : InventoryManager
 {
@@ -26,19 +27,33 @@ public class InventoryBaseManager : InventoryManager
     // public class InventoryBaseManager : InventoryManager
     // {
     //[SerializeField] private Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
-    [SerializeField] public List<InventorySlot> _inventorySlots = new List<InventorySlot>();
-    public InventorySlot _highlightSlot;
-    public InventorySlot _SelectedSlot;
-    private bool _hasOneSlotSelected;
-    public bool _inventoryBaseSelected;
-    [SerializeField] private PC _playerController;
 
-    [SerializeField] private EventSystem _eventSystem;
-    [SerializeField] GraphicRaycaster _raycaster;
-    [SerializeField] private GameObject _dragNDrop;
-    [SerializeField] private Color selectedColor;
+    //public InventorySlot _highlightSlot;
+    //public InventorySlot _SelectedSlot;
+    //private bool _hasOneSlotSelected;
+    //public bool _inventoryBaseSelected;
+    //[SerializeField] private PC _playerController;
 
-    private float _cooldown;
+    //[SerializeField] private EventSystem _eventSystem;
+    //[SerializeField] GraphicRaycaster _raycaster;
+    //[SerializeField] private GameObject _dragNDrop;
+    //[SerializeField] private Color selectedColor;
+
+    //private float _cooldown;
+
+    [SerializeField] public List<_itemSlot> _inventoryItems = new List<_itemSlot>();
+    public int _inventorySize;
+    [System.Serializable]
+    public struct _itemSlot
+    {
+        public string _name;
+        public int _number;
+        public Sprite _sprite;
+        public string Name { set { _name = value; } }
+        public int Number { set { _number = value; } }
+        public Sprite Sprite { set { _sprite = value; } }
+    }
+
     private void Awake()
     {
         instance = this;
@@ -49,7 +64,11 @@ public class InventoryBaseManager : InventoryManager
 
     private void Start()
     {
+
     }
+
+
+
 
 
     public bool CheckForMaterial(string _itemName)
@@ -117,34 +136,34 @@ public class InventoryBaseManager : InventoryManager
     //     }
     // }
 
-    public void AddItemInBase(string _name, int _number, GameObject _slot, GameObject _oldSlot)
-    {
-        if (_baseInventory.ContainsKey(_name))
-        {
-            _baseInventory[_name] += _number;
-            _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
-        }
-        else if (_slot.GetComponent<InventorySlot>().ItemContained() == null)
-        {
-            _baseInventory.Add(_name, _number);
-            _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false);
-            _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
-        }
-        else
-        {
-            _baseInventory.Add(_name, _number);
-            AddItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false, _number);
-        }
-        _oldSlot.GetComponent<InventorySlot>().ResetItem();
-    }
+    //public void AddItemInBase(string _name, int _number, GameObject _slot, GameObject _oldSlot)
+    //{
+    //    if (ListContain(_name))
+    //    {
+    //        _baseInventory[_name] += _number;
+    //        _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
+    //    }
+    //    else if (_slot.GetComponent<InventorySlot>().ItemContained() == null)
+    //    {
+    //        _baseInventory.Add(_name, _number);
+    //        _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false);
+    //        _slot.GetComponent<InventorySlot>().SetNumber(_baseInventory[_name]);
+    //    }
+    //    else
+    //    {
+    //        _baseInventory.Add(_name, _number);
+    //        AddItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false, _number);
+    //    }
+    //    _oldSlot.GetComponent<InventorySlot>().ResetItem();
+    //}
 
-    public void RemoveItemFromBase(string _name, GameObject _slot, GameObject _oldSlot)
-    {
-        _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false);
-        _slot.GetComponent<InventorySlot>().SetNumber(NumberOfMaterial(_name));
-        _oldSlot.GetComponent<InventorySlot>().ResetItem();
-        _baseInventory.Remove(_name);
-    }
+    //public void RemoveItemFromBase(string _name, GameObject _slot, GameObject _oldSlot)
+    //{
+    //    _slot.GetComponent<InventorySlot>().ChangeItem(_name, _oldSlot.GetComponent<InventorySlot>().ItemContained().ItemSprite(), false);
+    //    _slot.GetComponent<InventorySlot>().SetNumber(NumberOfMaterial(_name));
+    //    _oldSlot.GetComponent<InventorySlot>().ResetItem();
+    //    _baseInventory.Remove(_name);
+    //}
 
 
     //private void CheckIfASlotIsSelected()
@@ -181,45 +200,45 @@ public class InventoryBaseManager : InventoryManager
     //    }
     //}
 
-    private Vector2 NormalizeDirectionalVector(Vector2 _direction)
-    {
-        if(_direction.y > 0)
-        {
-            if(Math.Abs(_direction.y) > Math.Abs(_direction.x))
-            {
-                return Vector2.up;
-            }
-            else
-            {
-                if(_direction.x < 0)
-                {
-                    return Vector2.left;
-                }
-                else
-                {
-                    return Vector2.right;
-                }
-            }
-        }
-        else
-        {
-            if (Math.Abs(_direction.y) > Math.Abs(_direction.x))
-            {
-                return Vector2.down;
-            }
-            else
-            {
-                if (_direction.x < 0)
-                {
-                    return Vector2.left;
-                }
-                else
-                {
-                    return Vector2.right;
-                }
-            }
-        }
-    }
+    //private Vector2 NormalizeDirectionalVector(Vector2 _direction)
+    //{
+    //    if(_direction.y > 0)
+    //    {
+    //        if(Math.Abs(_direction.y) > Math.Abs(_direction.x))
+    //        {
+    //            return Vector2.up;
+    //        }
+    //        else
+    //        {
+    //            if(_direction.x < 0)
+    //            {
+    //                return Vector2.left;
+    //            }
+    //            else
+    //            {
+    //                return Vector2.right;
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (Math.Abs(_direction.y) > Math.Abs(_direction.x))
+    //        {
+    //            return Vector2.down;
+    //        }
+    //        else
+    //        {
+    //            if (_direction.x < 0)
+    //            {
+    //                return Vector2.left;
+    //            }
+    //            else
+    //            {
+    //                return Vector2.right;
+    //            }
+    //        }
+    //    }
+    //}
 
     //private void TestDebug(Vector2 _dir)
     //{
@@ -346,7 +365,7 @@ public class InventoryBaseManager : InventoryManager
     //        _cooldown -= Time.deltaTime;
 
     //    Vector3 MousePos = Input.mousePosition;
-        
+
     //    PointerEventData pointerEventData = new PointerEventData(_eventSystem);
     //    pointerEventData.position = MousePos;
     //    _dragNDrop.transform.position = MousePos;
@@ -354,7 +373,7 @@ public class InventoryBaseManager : InventoryManager
     //    List<RaycastResult> results = new List<RaycastResult>();
 
     //    _raycaster.Raycast(pointerEventData, results);
-        
+
     //    if (results.Count > 0)
     //    {
     //        if (_draging && Input.GetMouseButtonUp(0))
