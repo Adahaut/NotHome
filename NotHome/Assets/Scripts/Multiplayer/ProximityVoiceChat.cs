@@ -10,6 +10,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 {
     public AudioSource audioSource;
     public bool ownTalkieWalkie = true;
+    public AudioSource _talkieStart;
 
 
     [SerializeField] private float maxDistance = 15f;
@@ -49,10 +50,11 @@ public class ProximityVoiceChat : NetworkBehaviour
         if (context.started && isOwned && ownTalkieWalkie)
         {
             buttonPressed = true;
+            //_talkieStart.Play(44100);
+            _talkieStart.Play();
             GetComponent<AudioHighPassFilter>().enabled = true;
             GetComponent<AudioLowPassFilter>().enabled = true;
         }
-
         if (context.canceled && isOwned && ownTalkieWalkie)
         {
             buttonPressed = false;
