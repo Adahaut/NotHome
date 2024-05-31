@@ -14,6 +14,8 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _lore;
     [SerializeField] private TextMeshProUGUI _objectif;
     [SerializeField] private QuestScriptableObject _actualQuest;
+    private int _questUpLevel2;
+    private int _questUpLevel3;
 
     private void Awake()
     {
@@ -25,6 +27,18 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         SetTextQuest();
+    }
+    public void SetQuestUpLevel2()
+    {
+        _questUpLevel2 += 1;
+        if (_questUpLevel2 >= 4)
+            _listQuest[7]._isComplet = true;
+    }
+    public void SetQuestUpLevel3()
+    {
+        _questUpLevel2 += 1;
+        if (_questUpLevel2 >= 4)
+            _listQuest[11]._isComplet = true;
     }
     public void OpenQuest()
     {
