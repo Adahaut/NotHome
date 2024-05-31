@@ -644,6 +644,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3b83b5df-5ff9-4c46-b420-dd785d4e2435
     m_ActionName: Player/Torsh[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 700f7530-f6a3-4e16-a1e6-5be6f74f4fc7
+    m_ActionName: Player/OpenBook[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d4535aec-1405-400f-8b75-62d41ecf74a7
+    m_ActionName: Player/Fart[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1179,7 +1187,7 @@ GameObject:
   - component: {fileID: 7398245550279643115}
   m_Layer: 2
   m_Name: P3
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1318,6 +1326,7 @@ MonoBehaviour:
   _itemTag: Item
   _itemPickRange: 2
   _hotBar: {fileID: 146612745552724292}
+  _book: {fileID: 0}
   _playerManager: {fileID: 4325139319961065731}
   _staminaTimer: 3
   _currentStaminaTime: 0
@@ -1828,6 +1837,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 624334455507945403, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_fontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 624334455507945403, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 624334455507945403, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 642159558540421008, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_fontSize
+      value: 99.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 642159558540421008, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2266722331387570479, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1850,6 +1879,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3378165524744944934, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930488411502155266, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5049069689591512130, guid: c65c6ee038096654983d801be093112f, type: 3}
@@ -1892,6 +1925,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3251227197460374685}
+    - target: {fileID: 7170201383644844986, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_fontSize
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170201383644844986, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170201383644844986, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7610856659803724825, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: _playerController
       value: 
