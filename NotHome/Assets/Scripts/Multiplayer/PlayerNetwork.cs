@@ -86,19 +86,6 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if (debugText != null)
-        {
-            debugText.text = "";
-            for (int i = 0; i < NewFieldManager.instance._allPlants.Count; i++)
-            {
-                debugText.text += i + " " + NewFieldManager.instance._allPlants[i]._name + "\n";
-            }
-        }
-
-        //debugText.text = NewFieldManager.instance.t.ToString();
-
-
-
         if (nameTagInstance != null && !isOwned)
         {
             foreach (var playerCamera in _playerCameras)

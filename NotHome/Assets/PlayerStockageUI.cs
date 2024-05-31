@@ -27,11 +27,11 @@ public class PlayerStockageUI : MonoBehaviour
     {
         _eventSystem = GameObject.FindObjectOfType<EventSystem>();
 
-        for (int i = 0; i < _baseInventorySlotCount; i++)
-        {
-            GameObject _newInventorySlot = Instantiate(_inventorySlotPrefab, _inventoryPanel.transform);
-            _slotList.Add(_newInventorySlot);
-        }
+        //for (int i = 0; i < _baseInventorySlotCount; i++)
+        //{
+        //    GameObject _newInventorySlot = Instantiate(_inventorySlotPrefab, _inventoryPanel.transform);
+        //    _slotList.Add(_newInventorySlot);
+        //}
     }
 
     private void Update()
