@@ -51,27 +51,36 @@ public class DoorExit : MonoBehaviour
         {
             if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
             {
-                if (_doorEnter.activeSelf && _doorExit.activeSelf)
-                {
-                    _doorEnter.SetActive(false);
-                }
-                else if (_nbPlayer >= 1)
-                {
-                    bool door = false;
-                    _light.SetActive(true);
-                    _alarmSAS.SetActive(true);
-                    _isDecompression = true;
-                    if (_doorExit.activeSelf)
-                        door = true;
-                    _doorEnter.SetActive(true);
-                    _doorExit.SetActive(true);
-                    StartCoroutine(StartParticle(1, door));
-                }
+                SetActiveObject();
+            }
+            else if (hit.collider.CompareTag("DecompressionMountain") && !_isDecompression) // && heure <= 20h
+            {
+                SetActiveObject();
             }
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
                 _doorExit.SetActive(false);
+                _doorEnter.SetActive(true);
             }
+        }
+    }
+    private void SetActiveObject()
+    {
+        if (_doorEnter.activeSelf && _doorExit.activeSelf)
+        {
+            _doorEnter.SetActive(false);
+        }
+        else if (_nbPlayer >= 1)
+        {
+            bool door = false;
+            _light.SetActive(true);
+            _alarmSAS.SetActive(true);
+            _isDecompression = true;
+            if (_doorExit.activeSelf)
+                door = true;
+            _doorEnter.SetActive(true);
+            _doorExit.SetActive(true);
+            StartCoroutine(StartParticle(1, door));
         }
     }
     private IEnumerator StartParticle(float second, bool door)

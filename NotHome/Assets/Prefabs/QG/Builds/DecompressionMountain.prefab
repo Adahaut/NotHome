@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5658613853661324020}
   - component: {fileID: 4394798438941995015}
-  - component: {fileID: 3574769741133412134}
+  - component: {fileID: 3391101257893562047}
   m_Layer: 2
   m_Name: ColliderSASMountain
   m_TagString: DecompressionMountain
@@ -159,7 +159,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.722534, y: 2.5, z: 2.605296}
   m_Center: {x: 0.020609539, y: 0, z: -0.04955546}
---- !u!114 &3574769741133412134
+--- !u!114 &3391101257893562047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,14 +168,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 410016030212498222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f363f85ed105b41a263ff37f92c843, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3671396e71f1d4293cd6ca32efb1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _doorEnter: {fileID: 8707671332591906061}
   _doorExit: {fileID: 4320992249292009766}
   _smokeParticle: {fileID: 6227731149740545291}
   _alarmSAS: {fileID: 2382312172506988460}
-  _light: {fileID: 2532377368771926934}
+  _light: {fileID: 1827314874916696288}
   _soundDecompression: {fileID: 3565019286920252964}
 --- !u!1 &1019479640262910052
 GameObject:
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 3700430510221463475}
   m_Layer: 0
   m_Name: ButtonOpenExit
-  m_TagString: DecompressionExitMountain
+  m_TagString: DecompressionExit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
