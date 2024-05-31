@@ -87,16 +87,16 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             if (talkieUsed)
             {
-                GetComponent<AudioHighPassFilter>().enabled = true;
-                GetComponent<AudioLowPassFilter>().enabled = true;
+                //GetComponent<AudioHighPassFilter>().enabled = true;
+                //GetComponent<AudioLowPassFilter>().enabled = true;
                 if (players[i].ownTalkieWalkie)
                 {
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                     continue;
                 }
             }
-            GetComponent<AudioHighPassFilter>().enabled = false;
-            GetComponent<AudioLowPassFilter>().enabled = false;
+            //GetComponent<AudioHighPassFilter>().enabled = false;
+            //GetComponent<AudioLowPassFilter>().enabled = false;
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
