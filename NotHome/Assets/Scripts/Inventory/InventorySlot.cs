@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] private ItemObject _itemContained;
+    [SerializeField] public ItemObject _itemContained;
     private GameObject _itemImage;
     [SerializeField] private int _number;
     [SerializeField] private TextMeshProUGUI _numberText;
+    public bool _isSeleceted;
 
     private void Awake()
     {

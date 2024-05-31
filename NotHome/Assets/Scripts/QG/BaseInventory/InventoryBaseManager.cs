@@ -1,27 +1,39 @@
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Mirror;
 
 public class InventoryBaseManager : InventoryManager
 {
     [SerializeField] private Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
     [SerializeField] private List<InventorySlot> _inventorySlots = new List<InventorySlot>();
-
+    public InventorySlot _highlightSlot;
+    public InventorySlot _SelectedSlot;
+    private bool _hasOneSlotSelected;
+    public bool _inventoryBaseSelected;
     [SerializeField] private PC _playerController;
 
     [SerializeField] private EventSystem _eventSystem;
     [SerializeField] GraphicRaycaster _raycaster;
     [SerializeField] private GameObject _dragNDrop;
+    [SerializeField] private Color selectedColor;
 
     [SerializeField] private string _itemContainerTag;
     [SerializeField] private string _itemBaseContainerTag;
 
     private bool _draging = false;
     private GameObject _itemImage;
+
+    private float _cooldown;
+
+    private void Awake()
+    {
+        _playerController = GetComponentInParent<PC>();
+        _eventSystem = FindObjectsOfType<EventSystem>()[0];
+        _raycaster = GetComponentInParent<GraphicRaycaster>();
+    }
 
     public bool CheckForMaterial(string _itemName)
     {
@@ -87,7 +99,6 @@ public class InventoryBaseManager : InventoryManager
         {
             _inventorySlots.Add(GetInventorySlot(i));
         }
-        
     }
 
     private void AddItemInBase(string _name, int _number, GameObject _slot, GameObject _oldSlot)
@@ -119,8 +130,204 @@ public class InventoryBaseManager : InventoryManager
         _baseInventory.Remove(_name);
     }
 
+    private void CheckIfASlotIsSelected()
+    {
+        for (int i = 0; i < _inventorySlots.Count; i++)
+        {
+            if (_inventorySlots[i]._isSeleceted)
+            {
+                SetSelectedSlot(_inventorySlots[i], true);
+                return;
+            }
+        }
+        SetSelectedSlot(_inventorySlots[0], true);
+        _inventorySlots[0]._isSeleceted = true;
+    }
+
+    private void SetSelectedSlot(InventorySlot _slot, bool _isInBaseInventory)
+    {
+        _hasOneSlotSelected = true;
+        _highlightSlot = _slot;
+        SetUnselectedColorForAll();
+        _playerController._inventory.GetComponent<InventoryManager>().UnSelectionAll();
+        _highlightSlot.GetComponent<Image>().color = selectedColor;
+        if(_SelectedSlot != null)
+            _SelectedSlot.GetComponent<Image>().color = Color.red;
+        _inventoryBaseSelected = _isInBaseInventory;
+    }
+
+    private void SetUnselectedColorForAll()
+    {
+        for(int i = 0; i < _inventorySlots.Count; i++)
+        {
+            _inventorySlots[i].GetComponent<Image>().color = Color.black;
+        }
+    }
+
+    private Vector2 NormalizeDirectionalVector(Vector2 _direction)
+    {
+        if(_direction.y > 0)
+        {
+            if(Math.Abs(_direction.y) > Math.Abs(_direction.x))
+            {
+                return Vector2.up;
+            }
+            else
+            {
+                if(_direction.x < 0)
+                {
+                    return Vector2.left;
+                }
+                else
+                {
+                    return Vector2.right;
+                }
+            }
+        }
+        else
+        {
+            if (Math.Abs(_direction.y) > Math.Abs(_direction.x))
+            {
+                return Vector2.down;
+            }
+            else
+            {
+                if (_direction.x < 0)
+                {
+                    return Vector2.left;
+                }
+                else
+                {
+                    return Vector2.right;
+                }
+            }
+        }
+    }
+
+    private void TestDebug(Vector2 _dir)
+    {
+        if(_dir == Vector2.left)
+        {
+            print("left");
+        }
+        else if (_dir == Vector2.right)
+        {
+            print("right");
+        }
+        else if (_dir == Vector2.up)
+        {
+            print("up");
+        }
+        else if (_dir == Vector2.down)
+        {
+            print("down");
+        }
+    }
+
+    public void Selection(InputAction.CallbackContext ctx)
+    {
+        print("a");
+        SwitchWithManette();
+    }
+
+    private void SwitchWithManette()
+    {
+        if (_cooldown > 0)
+            return;
+        _cooldown = .2f;
+        if (_inventoryBaseSelected && _SelectedSlot && _SelectedSlot.tag != _highlightSlot.tag)
+        {
+            print("b");
+            AddItemInBase(_SelectedSlot._itemContained.ItemName(), _SelectedSlot.Number(), _highlightSlot.gameObject, _SelectedSlot.gameObject);
+            _SelectedSlot = null;
+            SetSelectedSlot(_highlightSlot, _inventoryBaseSelected);
+        }
+        else if (!_inventoryBaseSelected && _SelectedSlot && _SelectedSlot.tag != _highlightSlot.tag)
+        {
+            print("c");
+            RemoveItemFromBase(_SelectedSlot._itemContained.ItemName(), _highlightSlot.gameObject, _SelectedSlot.gameObject);
+            _SelectedSlot = null;
+            SetSelectedSlot(_highlightSlot, _inventoryBaseSelected);
+        }
+        else if (_highlightSlot && _highlightSlot.ItemContained().ItemName() != "None")
+        {
+            print("d");
+            _SelectedSlot = _highlightSlot;
+        }
+    }
+
+    public void InventoryBaseManagerManette(InputAction.CallbackContext ctx)
+    {
+        if (!_playerController._isInBaseInventory || _cooldown > 0)
+            return;
+
+        if (!_hasOneSlotSelected)
+            CheckIfASlotIsSelected();
+
+        _cooldown = .1f;
+        print(ctx.ReadValue<Vector2>());
+
+
+        Vector2 _direction = NormalizeDirectionalVector(ctx.ReadValue<Vector2>());
+        print(_direction);
+        TestDebug(_direction);
+        PointerEventData pointerEventData = new PointerEventData(_eventSystem);
+
+        pointerEventData.position = (Vector2)_highlightSlot.transform.position + (_direction * 150);
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        _raycaster.Raycast(pointerEventData, results);
+
+        if (results.Count > 0)
+        {
+            if (_inventoryBaseSelected)
+            {
+                ChangeInventorySlotSeleceted(results, _direction, _itemBaseContainerTag, true);
+            }
+            else
+            {
+                ChangeInventorySlotSeleceted(results, _direction, _itemContainerTag, false);
+            }
+        }
+        else
+        {
+            ChangeInventory(_direction, _inventoryBaseSelected);
+        }
+    }
+
+    private void ChangeInventorySlotSeleceted(List<RaycastResult> _hits, Vector2 _direction, string _tag, bool _isInBaseInventory)
+    {
+        print(_inventoryBaseSelected);
+        for (int i = 0; i < _hits.Count; i++)
+        {
+            print(_hits[i].gameObject.tag + " == " + _tag + " ? " + _hits[i].gameObject.CompareTag(_tag));
+            if (_hits[i].gameObject.CompareTag(_tag))
+            {
+                SetSelectedSlot(_hits[i].gameObject.GetComponent<InventorySlot>(), _isInBaseInventory);
+                return;
+            }
+        }
+        ChangeInventory(_direction, _isInBaseInventory);
+    }
+
+    private void ChangeInventory(Vector2 _direction, bool _isInBaseInventory)
+    {
+        print("pas trouver");
+        Vector2 _changeInventoryDirection = _isInBaseInventory == true ? Vector2.left : Vector2.right;
+        InventorySlot _nextSlot = _isInBaseInventory == true ? _playerController._inventory.GetComponent<InventoryManager>()._slotList[0].GetComponent<InventorySlot>() : _inventorySlots[0];
+
+        if (_direction == _changeInventoryDirection)
+        {
+            print("change");
+            SetSelectedSlot(_nextSlot, !_isInBaseInventory);
+        }
+    }
+
     private void Update()
     {
+        if(_cooldown > 0)
+            _cooldown -= Time.deltaTime;
+
         Vector3 MousePos = Input.mousePosition;
         
         PointerEventData pointerEventData = new PointerEventData(_eventSystem);
