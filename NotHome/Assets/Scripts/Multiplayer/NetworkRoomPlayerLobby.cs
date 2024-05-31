@@ -29,6 +29,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     protected Callback<AvatarImageLoaded_t> _avatarImageLoaded;
 
+    public GameObject loadingPanel;
 
     private bool _isLeader;
     public bool IsLeader
@@ -212,6 +213,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         if (Room._roomPlayers[0].connectionToClient != connectionToClient) { return; }
 
+        loadingPanel.SetActive(true);
         Room.StartGame();
+        
     }
 }

@@ -7,6 +7,11 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//public struct LoadSceneMessage : NetworkMessage
+//{
+//    public string sceneName;
+//}
+
 public class NetworkLobbyManager : NetworkManager
 {
     [SerializeField] private int _minPlayer = 2;
@@ -44,6 +49,7 @@ public class NetworkLobbyManager : NetworkManager
     public override void OnStartServer()
     {
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+        //NetworkServer.RegisterHandler<LoadSceneMessage>(OnServerReceiveLoadSceneMessage);
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
@@ -103,7 +109,6 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void ServerChangeScene(string newSceneName)
     {
-
         if (SceneManager.GetActiveScene().path == menuScene && newSceneName.StartsWith("Scene_Map"))
         {
             for (int i = _roomPlayers.Count - 1; i >= 0; i--)
@@ -142,6 +147,7 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void OnStartClient()
     {
+        //NetworkClient.RegisterHandler<LoadSceneMessage>(OnClientReceiveLoadSceneMessage);
         var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
 
         foreach (var prefab in spawnablePrefabs)

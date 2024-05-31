@@ -1,7 +1,7 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerSpawnSystem : NetworkBehaviour
@@ -21,10 +21,32 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     public static void RemoveSpawnPoint(Transform transform) => _spawnPoints.Remove(transform);
 
-    public override void OnStartServer() => NetworkLobbyManager.OnServerReadied += SpawnPlayer;
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        NetworkLobbyManager.OnServerReadied += StartSpawningPlayers;
+    }
 
     [ServerCallback]
-    private void OnDestroy() => NetworkLobbyManager.OnServerReadied -= SpawnPlayer;
+    private void OnDestroy() => NetworkLobbyManager.OnServerReadied -= StartSpawningPlayers;
+
+    [Server]
+    private void StartSpawningPlayers(NetworkConnection conn)
+    {
+        StartCoroutine(WaitForSpawnPointsAndSpawn(conn));
+    }
+
+    [Server]
+    private IEnumerator WaitForSpawnPointsAndSpawn(NetworkConnection conn)
+    {
+        // Attendre que les points de spawn soient enregistrés
+        while (_spawnPoints.Count == 0)
+        {
+            yield return null;
+        }
+
+        SpawnPlayer(conn);
+    }
 
     [Server]
     public void SpawnPlayer(NetworkConnection conn)
@@ -37,13 +59,10 @@ public class PlayerSpawnSystem : NetworkBehaviour
             return;
         }
 
-        GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
-        
+        GameObject playerInstance = Instantiate(_playerPrefab, spawnPoint.position, spawnPoint.rotation);
         NetworkServer.Spawn(playerInstance, conn);
 
         playerCount++;
         _nextIndex++;
-
     }
-
 }
