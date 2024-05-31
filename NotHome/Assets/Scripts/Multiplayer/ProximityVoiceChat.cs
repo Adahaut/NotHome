@@ -95,8 +95,8 @@ public class ProximityVoiceChat : NetworkBehaviour
                     continue;
                 }
             }
-            players[i].GetComponent<AudioHighPassFilter>().enabled = false;
-            players[i].GetComponent<AudioLowPassFilter>().enabled = false;
+            GetComponent<AudioHighPassFilter>().enabled = false;
+            GetComponent<AudioLowPassFilter>().enabled = false;
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
