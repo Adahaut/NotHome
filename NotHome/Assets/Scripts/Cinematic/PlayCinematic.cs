@@ -7,12 +7,8 @@ public class PlayCinematic : MonoBehaviour
     private GameObject[] _playersRef;
     [SerializeField] private Animator _animator;
     [SerializeField] private Animator _shieldAnim;
-    [SerializeField] private ParticleSystem _explosion;
-    [SerializeField] private ParticleSystem _smoke;
-    [SerializeField] private ParticleSystem _fire;
-    [SerializeField] private Transform _explosionTransform;
-    [SerializeField] private Transform _smokeTransform;
-    [SerializeField] private Transform _fireTransform;
+    [SerializeField] private ParticleSystem[] _smoke;
+    [SerializeField] private GameObject[] _explosion;
 
 
     private void Start()
@@ -33,18 +29,25 @@ public class PlayCinematic : MonoBehaviour
         _shieldAnim.enabled = true;        
     }
 
-    public void PlayExplosion()
+    public void PlaySmoke(int _index)
     {
-        _explosion.Play();
-    }
+        if (_smoke[_index].isPlaying)
+        {
+            _smoke[_index].Pause();
+        }
+        else
+        {
+            _smoke[_index].Play();
+        }        
+    }    
 
-    public void PlaySmoke()
+    public void PlayExplosion(int _index)
     {
-        _smoke.Play();
-    }
-
-    public void PlayFire() 
-    {
-        _fire.Play();
+        ParticleSystem[] particleSystems = _explosion[_index].GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem ps in particleSystems)
+        {
+            ps.Play();
+        }
     }
 }
+
