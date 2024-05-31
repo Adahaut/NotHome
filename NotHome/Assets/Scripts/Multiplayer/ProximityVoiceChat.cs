@@ -52,14 +52,12 @@ public class ProximityVoiceChat : NetworkBehaviour
             buttonPressed = true;
             //_talkieStart.Play(44100);
             _talkieStart.Play();
-            GetComponent<AudioHighPassFilter>().enabled = true;
-            GetComponent<AudioLowPassFilter>().enabled = true;
+
         }
         if (context.canceled && isOwned && ownTalkieWalkie)
         {
             buttonPressed = false;
-            GetComponent<AudioHighPassFilter>().enabled = false;
-            GetComponent<AudioLowPassFilter>().enabled = false;
+
         }
     }
 
@@ -94,10 +92,14 @@ public class ProximityVoiceChat : NetworkBehaviour
                 Debug.Log("test");
                 if (players[i].ownTalkieWalkie)
                 {
+                    players[i].GetComponent<AudioHighPassFilter>().enabled = true;
+                    players[i].GetComponent<AudioLowPassFilter>().enabled = true;
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                     continue;
                 }
             }
+            players[i].GetComponent<AudioHighPassFilter>().enabled = false;
+            players[i].GetComponent<AudioLowPassFilter>().enabled = false;
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
