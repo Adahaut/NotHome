@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class QuestManager : MonoBehaviour
     public GameObject _uiQuest;
     public GameObject _questButton;
     public static QuestManager Instance;
+    public List<QuestScriptableObject> _listQuest = new();
 
     [SerializeField] private TextMeshProUGUI _title;
     [SerializeField] private TextMeshProUGUI _lore;
@@ -40,7 +42,7 @@ public class QuestManager : MonoBehaviour
     }
     public void NextQuest()
     {
-        if (_actualQuest._nextQuest != null)
+        if (_actualQuest._nextQuest != null && _actualQuest._isComplet)
         {
             _actualQuest = _actualQuest._nextQuest;
             SetTextQuest();

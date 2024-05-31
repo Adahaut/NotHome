@@ -33,9 +33,13 @@ public class DoorExit : MonoBehaviour
     {
         if (other.CompareTag("Player") && !_qgIsLevel3)
         {
+            _nbPlayer -= 1;
+            if (!_doorExit.activeSelf)
+            {
+                QuestManager.Instance._listQuest[0]._isComplet = true;
+            }
             _smokeParticle.SetActive(false);
             _doorExit.SetActive(true);
-            _nbPlayer -= 1;
             _isDecompression = false;
             if (_nbPlayer <= 0)
                 _doorEnter.SetActive(true);
