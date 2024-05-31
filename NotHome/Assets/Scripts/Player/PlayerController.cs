@@ -337,11 +337,11 @@ public class PlayerController : NetworkBehaviour
         _staminaRegenStarted = true;
         while (CanRegenStamina())
         {
-            ChangeStamina(_playerManager.MaxStamina / 10);
-            if (_playerManager.Stamina > _playerManager.MaxStamina)
-            {
-                _playerManager.SetMaxStamina();
-            }
+            //ChangeStamina(_playerManager.MaxStamina / 10);
+            //if (_playerManager.Stamina > _playerManager.MaxStamina)
+            //{
+            //    _playerManager.SetMaxStamina();
+            //}
             yield return new WaitForSeconds(1f);
         }
         _staminaRegenStarted = false;

@@ -1,6 +1,7 @@
 using Org.BouncyCastle.Crypto.Macs;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ public class PlayerStockageUI : MonoBehaviour
     private GameObject _itemImage;
 
     [SerializeField] private GameObject _inventorySlotPrefab;
+    [SerializeField] private GameObject _inventoryBasePanel;
     [SerializeField] private GameObject _inventoryPanel;
     public List<GameObject> _slotList = new List<GameObject>();
 
@@ -26,12 +28,7 @@ public class PlayerStockageUI : MonoBehaviour
     private void OnEnable()
     {
         _eventSystem = GameObject.FindObjectOfType<EventSystem>();
-
-        //for (int i = 0; i < _baseInventorySlotCount; i++)
-        //{
-        //    GameObject _newInventorySlot = Instantiate(_inventorySlotPrefab, _inventoryPanel.transform);
-        //    _slotList.Add(_newInventorySlot);
-        //}
+        _inventoryPanel.gameObject.SetActive(true);
     }
 
     private void Update()
@@ -56,13 +53,13 @@ public class PlayerStockageUI : MonoBehaviour
                 {
                     if (results[0].gameObject.CompareTag(_itemBaseContainerTag))
                     {
-                        //AddItemInBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), _itemImage.GetComponent<InventorySlot>().Number(), results[0].gameObject, _itemImage);
+                        InventoryBaseManager.instance.AddItemInBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), _itemImage.GetComponent<InventorySlot>().Number(), results[0].gameObject, _itemImage);
                     }
                     else
                     {
-                        //print(_baseInventory[_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName()]);
-                        //RemoveItemFromBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), results[0].gameObject, _itemImage);
+                        InventoryBaseManager.instance.RemoveItemFromBase(_itemImage.GetComponent<InventorySlot>().ItemContained().ItemName(), results[0].gameObject, _itemImage);
                     }
+                    UpdateStockageUI();
                 }
             }
             if (!_draging && Input.GetMouseButtonDown(0) && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
@@ -73,9 +70,28 @@ public class PlayerStockageUI : MonoBehaviour
                     _draging = true;
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
                 }
+                UpdateStockageUI();
+
             }
         }
+    }
 
+    private void UpdateStockageUI()
+    {
+        for (int i = 0; i < InventoryBaseManager.instance._inventorySlots.Count; ++i)
+        {
+            if (InventoryBaseManager.instance._inventorySlots[i].name != "None")
+            {
+                print("enter");
+                _slotList[i].GetComponent<Image>().sprite =
+                    InventoryBaseManager.instance._inventorySlots[i].ItemContained().ItemSprite();
+            }
+            else
+            {
+
+            }
+            Debug.Log(InventoryBaseManager.instance._inventorySlots[i].name);
+        }
     }
 
     private bool CheckIfParentsNotAreSame(GameObject _gameobject1, GameObject _gameobject2)
@@ -98,6 +114,8 @@ public class PlayerStockageUI : MonoBehaviour
     {
         GetComponentInParent<PlayerController>().DisablePlayer(false);
         this.gameObject.SetActive(false);
+        _inventoryPanel.gameObject.SetActive(false);
+
     }
 
 }

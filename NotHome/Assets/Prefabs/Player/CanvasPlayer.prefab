@@ -786,7 +786,6 @@ MonoBehaviour:
       Value: 1
     - Key: Screws
       Value: 1
-  _inventoryManager: {fileID: 1046624429527680871}
   _nameBuilding: TDC
   _fieldManager: {fileID: 7979134496034364083}
   _alarm: {fileID: 0}
@@ -8096,6 +8095,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiMap: {fileID: 6746766935730487833}
   _mapButton: {fileID: 4431827359502134874}
+  _itemMap: {fileID: 0}
+  _worldMap: {fileID: 0}
+  _canOpenUiMap: 0
 --- !u!1 &3939925027314464986
 GameObject:
   m_ObjectHideFlags: 0
@@ -9545,7 +9547,6 @@ MonoBehaviour:
       Value: 1
     - Key: Screws
       Value: 1
-  _inventoryManager: {fileID: 1046624429527680871}
   _nameBuilding: QG
   _fieldManager: {fileID: 7979134496034364083}
   _alarm: {fileID: 0}
@@ -14502,8 +14503,8 @@ RectTransform:
   - {fileID: 5774216461681937722}
   - {fileID: 1683118430723787127}
   - {fileID: 3053294465420608533}
-  - {fileID: 1948252267851096491}
   - {fileID: 675515553256698855}
+  - {fileID: 1948252267851096491}
   m_Father: {fileID: 302266541803566371}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -16066,6 +16067,7 @@ MonoBehaviour:
   _hotBarSlot: {fileID: 6668370665759850294, guid: 8bfa7fb45055d03488157fd5e84d1ad4, type: 3}
   _hotBar: {fileID: 3031887149130178345}
   _hotBarNumber: 4
+  _hotBarItems: []
   _hotBarSlotList: []
   _hotBarSlotSelectedColor: {r: 1, g: 0.8890055, b: 0, a: 1}
   _hotBarSlotUnselectedColor: {r: 0, g: 0, b: 0, a: 1}
@@ -17712,7 +17714,6 @@ MonoBehaviour:
       Value: 1
     - Key: Screws
       Value: 1
-  _inventoryManager: {fileID: 1046624429527680871}
   _nameBuilding: Field
   _fieldManager: {fileID: 7979134496034364083}
   _alarm: {fileID: 0}
@@ -17940,9 +17941,11 @@ MonoBehaviour:
   _inventorySlotStartNumber: 15
   _slotList: []
   _inventorySlots: []
+  _highlightSlot: {fileID: 0}
+  _SelectedSlot: {fileID: 0}
+  _inventoryBaseSelected: 0
   _playerController: {fileID: 0}
   _eventSystem: {fileID: 0}
   _raycaster: {fileID: 4648217506345809542}
   _dragNDrop: {fileID: 4087198637060373613}
-  _itemContainerTag: ItemContainer
-  _itemBaseContainerTag: BaseItemContainer
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}

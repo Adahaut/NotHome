@@ -15,7 +15,7 @@ public class InventoryManager : MonoBehaviour
     private void CreateCase()
     {
         GameObject _newInventorySlot = Instantiate(_inventorySlotPrefab);
-        //_newInventorySlot.transform.SetParent(_inventoryPanel.transform);
+        _newInventorySlot.transform.SetParent(_inventoryPanel.transform);
         _slotList.Add(_newInventorySlot);
     }
 

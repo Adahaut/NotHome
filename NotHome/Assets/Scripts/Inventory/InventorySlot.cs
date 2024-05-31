@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
     [SerializeField] public ItemObject _itemContained;
-    private GameObject _itemImage;
+    public GameObject _itemImage;
     [SerializeField] private int _number;
-    [SerializeField] private TextMeshProUGUI _numberText;
+    //[SerializeField] private TextMeshProUGUI _numberText;
     public bool _isSeleceted;
 
     private void Awake()
     {
         _itemImage = transform.GetChild(0).gameObject;
         ResetItem();
-        _numberText.text = "";
+        //_numberText.text = "";
     }
 
     public int Number() { return _number; }
@@ -39,7 +39,7 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateNumber()
     {
-        _numberText.text = _number.ToString();
+        //_numberText.text = _number.ToString();
     }
 
     public ItemObject ItemContained() {  return _itemContained; }
@@ -59,7 +59,7 @@ public class InventorySlot : MonoBehaviour
         _itemContained = new ItemObject();
         _itemContained.SetItem("None", null);
         _number = 0;
-        _numberText.text = "";
+        //_numberText.text = "";
         UpdateItemVisuel();
     }
 

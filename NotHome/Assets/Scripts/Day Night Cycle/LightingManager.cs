@@ -31,7 +31,6 @@ public class LightingManager : MonoBehaviour
         {
             _directionalLight.color = _preset._directionalColor.Evaluate(_timePercent);
             _directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((_timePercent * 360f) - 90f, -170f, 0));
-            print(_timePercent);
             if (RenderSettings.skybox != _nightSkyBox && _timePercent > 0.8f)
                 RenderSettings.skybox = _nightSkyBox;
             else if (RenderSettings.skybox != _daySkyBox && _timePercent > 0.2f && _timePercent < 0.8f)
