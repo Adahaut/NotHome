@@ -6,7 +6,7 @@ public class InventoryBaseManager : InventoryManager
 {
     public static InventoryBaseManager instance;
 
-    public SyncDictionary<string, int> _baseInventory = new SyncDictionary<string, int>();
+    public Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
     //public List<InventorySlot> _inventorySlots = new List<InventorySlot>();
 
     //[SerializeField] private PC _playerController;
