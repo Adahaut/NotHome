@@ -8,7 +8,7 @@ public class UpgradeHomeManager : MonoBehaviour
     private int _levelBuilding = 1;
     [SerializeField] private TextMeshProUGUI _textLevel;
     public List<DictionnaryElement<string, List<DictionnaryElement<string, int>>>> _upgarde;
-    [SerializeField] private InventoryManager _inventoryManager;
+    private InventoryManager _inventoryManager;
     [SerializeField] private string _nameBuilding;
     [SerializeField] private ListSlotField _fieldManager;
     [SerializeField] private GameObject _alarm;
@@ -17,6 +17,7 @@ public class UpgradeHomeManager : MonoBehaviour
     private void Start()
     {
         _textLevel.text = "Level " + _levelBuilding.ToString();
+        _inventoryManager = PC.Instance.GetInventory();
     }
     public void SetEffectBuilding()
     {
@@ -41,7 +42,7 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
-                Debug.Log("débloque les cartes des région + de la zone");
+                MapManager.Instance._canOpenUiMap = true;
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 3:
@@ -64,16 +65,6 @@ public class UpgradeHomeManager : MonoBehaviour
         _alarm.SetActive(true);
         yield return new WaitForSeconds(second);
         _alarm.SetActive(false);
-    }
-    private void Update()
-    {
-        if (_nameBuilding == "TDC")
-        {
-            if (Input.GetKeyUp(KeyCode.G) && !_alarm.activeSelf && _getAlarm)
-            {
-                StartCoroutine(StopAlarm(4.0f));
-            }
-        }
     }
     public void EffectField()
     {

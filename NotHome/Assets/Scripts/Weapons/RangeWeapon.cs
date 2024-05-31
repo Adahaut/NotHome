@@ -6,21 +6,23 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField] private WeaponData _weaponData;
     [SerializeField] private Transform _muzzle;
     [SerializeField] private Transform _savedCameraTransform;
-    [SerializeField] private int _recoilStepsNumber;
-    [SerializeField] private float _recoilForce;
     [SerializeField] private Camera _playerCamera;
-    [SerializeField] private Transform _cameraTransform;
     [SerializeField] private int _aimingZoomSteps;
     [SerializeField] private Transform _weaponHolder;
                      private Vector3 _startWeaponHolder;
     [SerializeField] private Transform _endWeaponHolder;
     public bool _isAiming;
     [SerializeField] private PC _playerController;
+    [SerializeField] private float _speedFactor;
+    private ProceduralRecoil _recoil;
 
+    private AudioSource _riffleAudioSource;
+    [SerializeField] private AudioClip _riffleAudioClip;
     private Transform _transform;
+    private PlayerAttack _playerAttack;
 
     [SerializeField] private Vector3 _upRecoilValue;
-    private Vector3 _originalRotation;
+    private Vector3 _originalPosition;
 
     private int _currentAmmo;
 
@@ -28,21 +30,45 @@ public class RangeWeapon : MonoBehaviour
 
     private bool _isReloading;
 
+    [SerializeField] private GameObject _redDot;
+    [SerializeField] private GameObject _laser;
+
+    public static RangeWeapon Instance;
+
+    private void Awake()
+    {
+        if (Instance == null) 
+            Instance = this;
+        _playerCamera = GetComponentInParent<Camera>();
+    }
+
     private void Start()
     {
         _transform = transform;
-        _cameraTransform = _playerCamera.transform;
         PlayerAttack._shootAction += Shoot;
         PlayerAttack._reloading += StartReload;
         PlayerAttack._aimAction += StartAiming;
         PlayerAttack._stopAimAction += StopAiming;
-
+        _riffleAudioSource = transform.parent.GetChild(0).GetComponent<AudioSource>();
         _currentAmmo = _weaponData._magSize;
         _startWeaponHolder = _weaponHolder.localPosition;
-
-        _originalRotation = _transform.localEulerAngles;
+        _playerAttack = GetComponentInParent<PlayerAttack>();
+        _originalPosition = _transform.localPosition;
+        _recoil = GetComponent<ProceduralRecoil>();
     }
-
+    public void NextWeapon()
+    {
+        if (_weaponData._nextWeapon != null)
+            _weaponData = _weaponData._nextWeapon;
+    }
+    public void AciveRedDot()
+    {
+        _redDot.SetActive(true);
+    }
+    public void ActiveLaser()
+    {
+        _laser.SetActive(true);
+    }
     private bool CanShoot()
     {
         return !_isReloading && _timeSinceLastShot > 1f / (_weaponData._fireRate / 60f);
@@ -51,7 +77,6 @@ public class RangeWeapon : MonoBehaviour
     public void StartAiming()
     {
         StartCoroutine(Zooming());
-
     }
 
     public void StopAiming()
@@ -61,6 +86,7 @@ public class RangeWeapon : MonoBehaviour
 
     private IEnumerator Zooming(int dir = 1) // 1 = zoom, -1 = dezoom
     {
+        _playerAttack._isAimingFinished = false;
         _isAiming = !_isAiming;
         float _zoomForce = 30f / _aimingZoomSteps;
         Vector3 _weaponDestination = dir == 1 ? _endWeaponHolder.localPosition : _startWeaponHolder;
@@ -72,6 +98,7 @@ public class RangeWeapon : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
         _weaponHolder.localPosition = Vector3.Lerp(_weaponHolder.localPosition, _weaponDestination, 1f);
+        _playerAttack._isAimingFinished = true;
     }
 
 
@@ -102,8 +129,8 @@ public class RangeWeapon : MonoBehaviour
             print(_currentAmmo.ToString());
             if (CanShoot())
             {
-                print("tire");
                 StartRecoil();
+                _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
                 if (Physics.Raycast(_muzzle.position, _transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
                     print("touche " + _hitInfo.collider.name);
@@ -121,25 +148,11 @@ public class RangeWeapon : MonoBehaviour
 
     private void StartRecoil()
     {
-        StartCoroutine(Recoil());
+        _recoil.Recoil();
         StartCoroutine(CameraShake(0.1f, 1));
     }
 
-    private IEnumerator Recoil()
-    {
-        for(int i = 0; i < 3; i++)
-        {
-            _transform.localEulerAngles += _upRecoilValue / 3f;
-            yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
-        }
-        yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 6f);
-        for (int i = 0; i < 3; i++)
-        {
-            _transform.localEulerAngles -= _upRecoilValue / 3f;
-            yield return new WaitForSeconds((1f / (_weaponData._fireRate / 60f)) / 21f);
-        }
-        RecoverFromRecoil();
-    }
+
 
     private IEnumerator CameraShake(float _duration, float _strengh)
     {
@@ -156,7 +169,7 @@ public class RangeWeapon : MonoBehaviour
 
     private void RecoverFromRecoil()
     {
-        _transform.localEulerAngles = _originalRotation;
+        _transform.localPosition = _originalPosition;
     }
 
     private void Update()

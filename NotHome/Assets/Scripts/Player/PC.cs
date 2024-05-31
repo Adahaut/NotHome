@@ -26,12 +26,16 @@ public class PC : MonoBehaviour
     private bool _isOpen;
 
     [Header("Inventory")]
-    [SerializeField] private GameObject _inventory;
+    [SerializeField] public GameObject _inventory;
     [SerializeField] private string _itemTag;
     [SerializeField] private int _itemPickRange;
+    private InventoryBaseManager _baseInventory;
 
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
+
+    [Header("Book")]
+    [SerializeField] private GameObject _book;
 
     [Header("PlayerManager")]
     [SerializeField] private PlayerManager _playerManager;
@@ -40,14 +44,21 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+    private Farts _farts;
+
+    private float _fartCooldown;
+    private bool _isInBook;
+    private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
     private bool _isRunning;
     private bool _isJump;
+    private bool _canUseTorch;
     private CharacterController _characterController;
     private float _timer;
-    private bool _isInBaseInventory;
+    public bool _isInBaseInventory;
+    [SerializeField] private GameObject _torch;
 
     private Vector3 _moveDirection = Vector3.zero;
     private Vector2 _rotation = Vector2.zero;
@@ -60,11 +71,27 @@ public class PC : MonoBehaviour
 
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
+    public bool IsDead {  get { return _isDead; } set {  _isDead = value; } }
+
+    public bool IsInBook { get { return  _isInBook; } }
+
+    public static PC Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        
+    }
+
+
     public void Start()
     {
+        _baseInventory = GetComponentInChildren<InventoryBaseManager>();
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
         _characterController = GetComponent<CharacterController>();
+        _farts = GetComponent<Farts>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -77,9 +104,32 @@ public class PC : MonoBehaviour
         _isInBaseInventory = _isIn;
     }
 
+    public void StartFart(InputAction.CallbackContext ctx)
+    {
+        if (_fartCooldown > 0)
+            return;
+        _fartCooldown = 1f;
+        _farts.PlayRandomFartSound();
+    }
+
     public InventoryManager GetInventory()
     {
         return _inventory.GetComponent<InventoryManager>();
+    }
+
+    public void OpenBook(InputAction.CallbackContext ctx)
+    {
+        _book.SetActive(!_book.activeInHierarchy);
+        if (_book.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            _isInBook = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            _isInBook = false;
+        }
     }
 
     public void SetInventoryActive(bool _active)
@@ -94,8 +144,11 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Interaction");
         if (ctx.performed)
+        {
             StartUi();
-        OfficeManager.Instance.MouvToChair();
+            DoorExit.Instance.OpenDoor(_camera);
+        }
+        //OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
         {
             PickUpObject();
@@ -111,10 +164,20 @@ public class PC : MonoBehaviour
             _isJump = true;
         } 
     }
+    public void AlightTorch(InputAction.CallbackContext ctx)
+    {
+        if (_canUseTorch && ctx.performed)
+        {
+            _torch.SetActive(!_torch.activeSelf);
+        }
+    }
     void Update()
     {
-        RotateCamera();
-        MovePlayer();
+        if (!_isDead && !_isInBook)
+        {
+            RotateCamera();
+            MovePlayer();
+        }
         Timer();
 
         if (!_staminaRegenStarted && CanRegenStamina())
@@ -138,7 +201,7 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Sprint");
         _isRunning = true;
-        if (context.canceled)
+        if (context.canceled || _playerManager.Stamina <= 0)
             _isRunning = false;
     }
     
@@ -152,14 +215,24 @@ public class PC : MonoBehaviour
         {
             _currentStaminaTime -= Time.deltaTime;
         }
+        if(_fartCooldown > 0)
+        {
+            _fartCooldown -= Time.deltaTime;
+        }
     }
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
     {
         if (ctx.control.name == "rightStick")
+        {
             _rotation = ctx.ReadValue<Vector2>() * _sensitivityController;
+        }
+
         else
+        {
             _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
+        }
+            
     }
     private void RotateCamera()
     {
@@ -192,9 +265,13 @@ public class PC : MonoBehaviour
         {
             if (_isRunning)
             {
-                if(!_runningStaminaLose)
+                if(!_runningStaminaLose && _moveDir != Vector2.zero)
                 {
                     StartCoroutine(RunningStamina());
+                }
+                if (_playerManager.Stamina <= 0)
+                {
+                    _isRunning = false; 
                 }
             }
             _moveDirection.y = movementDirectionY;
@@ -295,7 +372,7 @@ public class PC : MonoBehaviour
         }
     }
 
-    private void ChangeStamina(int _value)
+    private void ChangeStamina(float _value)
     {
 
         _playerManager.Stamina += _value;
@@ -310,7 +387,7 @@ public class PC : MonoBehaviour
             ChangeStamina(_playerManager.MaxStamina / 10);
             if(_playerManager.Stamina > _playerManager.MaxStamina)
             {
-                _playerManager.SetMaxStamina();
+                _playerManager.SetMaxStamina(_playerManager.MaxStamina);
             }
             yield return new WaitForSeconds(1f);
         }
@@ -323,8 +400,8 @@ public class PC : MonoBehaviour
         while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
-            ChangeStamina(-5);
-            yield return new WaitForSeconds(1f);
+            ChangeStamina(-0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
         _runningStaminaLose = false;
     }
@@ -333,6 +410,14 @@ public class PC : MonoBehaviour
     private bool CanRegenStamina()
     {
         return _currentStaminaTime <= 0 && _playerManager.Stamina <= _playerManager.MaxStamina;
+    }
+    public void SetUseTorch(bool useTorch)
+    {
+        _canUseTorch = useTorch;
+    }
+    public float GetDistRayCast()
+    {
+        return _distRayCast;
     }
 
     // Ui Player
@@ -357,12 +442,14 @@ public class PC : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Disable();
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Enable();
             _isOpen = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Disable();
             _isOpen = false;
         }
     }
