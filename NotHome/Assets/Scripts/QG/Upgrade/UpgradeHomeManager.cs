@@ -1,3 +1,4 @@
+using Org.BouncyCastle.Pqc.Crypto.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -42,10 +43,13 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
+                QuestManager.Instance.SetQuestUpLevel2();
+                QuestManager.Instance.ColorText(3);
                 MapManager.Instance._canOpenUiMap = true;
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 3:
+                QuestManager.Instance.SetQuestUpLevel3();
                 DoorExit.Instance.QGLevel3();
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
@@ -56,9 +60,16 @@ public class UpgradeHomeManager : MonoBehaviour
     }
     public void EffectTDC()
     {
-        _getAlarm = true;
-        if (_levelBuilding >= 3)
+        if (_levelBuilding == 2)
+        {
+            QuestManager.Instance.SetQuestUpLevel2();
+            _getAlarm = true;
+        }
+        else if (_levelBuilding >= 3)
+        {
             DroneManager._canUseDrone = true;
+            QuestManager.Instance.SetQuestUpLevel3();
+        }  
     }
     private IEnumerator StopAlarm(float second)
     {
@@ -68,6 +79,17 @@ public class UpgradeHomeManager : MonoBehaviour
     }
     public void EffectField()
     {
+        switch (_levelBuilding)
+        {
+            case 2:
+                QuestManager.Instance.SetQuestUpLevel2();
+                break;
+            case 3:
+                QuestManager.Instance.SetQuestUpLevel3();
+                break;
+            default:
+                break;
+        }
         for (int i = 0; i < _fieldManager._listSeed.Count; i++)
         {
             _fieldManager._listSeed[i].GetComponent<UseField>()._seedTime *= 0.80f;
