@@ -265,6 +265,8 @@ public class InventoryBaseManager : InventoryManager
             CheckIfASlotIsSelected();
 
         _cooldown = .1f;
+        print(ctx.ReadValue<Vector2>());
+
 
         Vector2 _direction = NormalizeDirectionalVector(ctx.ReadValue<Vector2>());
         print(_direction);
