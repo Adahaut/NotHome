@@ -49,12 +49,15 @@ public class ProximityVoiceChat : NetworkBehaviour
         if (context.started && isOwned && ownTalkieWalkie)
         {
             buttonPressed = true;
-
+            GetComponent<AudioHighPassFilter>().enabled = true;
+            GetComponent<AudioLowPassFilter>().enabled = true;
         }
 
         if (context.canceled && isOwned && ownTalkieWalkie)
         {
             buttonPressed = false;
+            GetComponent<AudioHighPassFilter>().enabled = false;
+            GetComponent<AudioLowPassFilter>().enabled = false;
         }
     }
 
