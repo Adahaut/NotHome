@@ -45,7 +45,7 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
     [SerializeField] private GameObject _weapon;
-    private Vector3 _initPosWeapon;
+    [SerializeField] private float _speedWeapon;
 
     private Farts _farts;
 
@@ -90,7 +90,6 @@ public class PC : MonoBehaviour
 
     public void Start()
     {
-        _initPosWeapon = _weapon.transform.position;
         _baseInventory = GetComponentInChildren<InventoryBaseManager>();
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
@@ -210,6 +209,14 @@ public class PC : MonoBehaviour
         _isRunning = true;
         if (context.canceled || _playerManager.Stamina <= 0)
             _isRunning = false;
+        if (context.canceled)
+        {
+            _weapon.GetComponent<Animator>().speed /= _speedWeapon;
+        }
+        if (context.performed)
+        {
+            _weapon.GetComponent<Animator>().speed *= _speedWeapon;
+        }
     }
     
     private void Timer()
