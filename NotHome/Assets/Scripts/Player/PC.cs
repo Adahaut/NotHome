@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,6 +44,8 @@ public class PC : MonoBehaviour
     [SerializeField] private float _currentStaminaTime;
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
+    [SerializeField] private GameObject _weapon;
+    private Vector3 _initPosWeapon;
 
     private Farts _farts;
 
@@ -87,6 +90,7 @@ public class PC : MonoBehaviour
 
     public void Start()
     {
+        _initPosWeapon = _weapon.transform.position;
         _baseInventory = GetComponentInChildren<InventoryBaseManager>();
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
@@ -248,6 +252,14 @@ public class PC : MonoBehaviour
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
+        if (ctx.canceled)
+        {
+            _weapon.GetComponent<Animator>().enabled = false;
+        }
+        else
+        {
+            _weapon.GetComponent<Animator>().enabled = true;
+        } 
     }
     private void MovePlayer()
     {
