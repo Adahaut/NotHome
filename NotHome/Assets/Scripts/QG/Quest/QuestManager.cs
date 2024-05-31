@@ -32,13 +32,13 @@ public class QuestManager : MonoBehaviour
     {
         _questUpLevel2 += 1;
         if (_questUpLevel2 >= 4)
-            _listQuest[7]._isComplet = true;
+            ColorText(7);
     }
     public void SetQuestUpLevel3()
     {
         _questUpLevel2 += 1;
         if (_questUpLevel2 >= 4)
-            _listQuest[11]._isComplet = true;
+            ColorText(11);
     }
     public void OpenQuest()
     {
@@ -54,11 +54,20 @@ public class QuestManager : MonoBehaviour
         _objectif.text = _actualQuest._objectif;
         _lore.text = _actualQuest._lore;
     }
+    public void ColorText(int index)
+    {
+        _listQuest[index]._isComplet = true;
+        _objectif.color = Color.green;
+    }
     public void NextQuest()
     {
         if (_actualQuest._nextQuest != null && _actualQuest._isComplet)
         {
             _actualQuest = _actualQuest._nextQuest;
+            if (_actualQuest._isComplet )
+                ColorText(0);
+            else
+                _objectif.color= Color.white;
             SetTextQuest();
         }
     }

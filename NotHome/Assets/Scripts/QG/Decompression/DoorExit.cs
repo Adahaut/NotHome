@@ -36,7 +36,7 @@ public class DoorExit : MonoBehaviour
             _nbPlayer -= 1;
             if (!_doorExit.activeSelf)
             {
-                QuestManager.Instance._listQuest[0]._isComplet = true;
+                QuestManager.Instance.ColorText(0);
             }
             _smokeParticle.SetActive(false);
             _doorExit.SetActive(true);

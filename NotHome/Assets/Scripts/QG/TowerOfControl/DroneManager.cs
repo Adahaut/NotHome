@@ -103,7 +103,7 @@ public class DroneManager : MonoBehaviour
     {
         if (_canUseDrone)
         {
-            QuestManager.Instance._listQuest[10]._isComplet = true;
+            QuestManager.Instance.ColorText(10);
             _canMove = true;
             _characterController.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
