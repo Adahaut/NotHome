@@ -38,6 +38,12 @@ public class TalkieWalkieManager : NetworkBehaviour
 
         audioSource.clip = AudioClip.Create("VoiceChatBuffer", bufferSize, 1, sampleRate, true, OnAudioRead);
         audioSource.loop = true;
+        audioSource.gameObject.AddComponent<AudioHighPassFilter>();
+        audioSource.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = 1000;
+        audioSource.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = 10;
+        audioSource.gameObject.AddComponent<AudioLowPassFilter>();
+        audioSource.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 2000;
+        audioSource.gameObject.GetComponent<AudioLowPassFilter>().lowpassResonanceQ = 3;
         audioSource.Play();
     }
 
