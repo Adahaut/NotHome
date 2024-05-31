@@ -49,10 +49,8 @@ public class ProximityVoiceChat : NetworkBehaviour
     {
         if (context.started && isOwned && ownTalkieWalkie)
         {
-            buttonPressed = true;
-            //_talkieStart.Play(44100);
             _talkieStart.Play();
-
+            buttonPressed = true;
         }
         if (context.canceled && isOwned && ownTalkieWalkie)
         {
@@ -89,11 +87,10 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             if (talkieUsed)
             {
-                Debug.Log("test");
+                GetComponent<AudioHighPassFilter>().enabled = true;
+                GetComponent<AudioLowPassFilter>().enabled = true;
                 if (players[i].ownTalkieWalkie)
                 {
-                    players[i].GetComponent<AudioHighPassFilter>().enabled = true;
-                    players[i].GetComponent<AudioLowPassFilter>().enabled = true;
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                     continue;
                 }
