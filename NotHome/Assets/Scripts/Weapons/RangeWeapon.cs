@@ -148,7 +148,7 @@ public class RangeWeapon : MonoBehaviour
 
     private void StartRecoil()
     {
-        _recoil.Recoil();
+        //_recoil.Recoil();
         StartCoroutine(CameraShake(0.1f, 1));
     }
 

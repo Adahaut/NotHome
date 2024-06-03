@@ -1,8 +1,8 @@
-using Org.BouncyCastle.Pqc.Crypto.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UpgradeHomeManager : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class UpgradeHomeManager : MonoBehaviour
     [SerializeField] private string _nameBuilding;
     [SerializeField] private ListSlotField _fieldManager;
     [SerializeField] private GameObject _alarm;
+    [SerializeField] private ParticleSystem _particleLevelUp;
     private bool _getAlarm;
 
     private void Start()
@@ -96,7 +97,7 @@ public class UpgradeHomeManager : MonoBehaviour
         }
         ListSlotField.Instance._listPosSlot[ListSlotField.Instance._listPosSlot.Count - _upgarde.Count - 1 + _levelBuilding - 1].gameObject.SetActive(true);
     }
-    public void UpdateBuilding()
+    public void UpdateBuilding(GameObject button)
     {
         if (_upgarde.Count >= _levelBuilding)
         {
@@ -136,6 +137,11 @@ public class UpgradeHomeManager : MonoBehaviour
                     _inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().
                         SetNumber(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i]);
                 }
+                _particleLevelUp.Play();
+                Cursor.lockState = CursorLockMode.Locked;
+                PC.Instance.gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
+                PC.Instance.gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Disable();
+                button.SetActive(false);
             }
             else
             {
