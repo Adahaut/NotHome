@@ -969,15 +969,14 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: 727a8aa6760cdaf41ba62ca731cf448c, type: 2}
   _muzzle: {fileID: 7161227206883072467}
   _savedCameraTransform: {fileID: 0}
-  _recoilStepsNumber: 52
-  _recoilForce: 3
   _playerCamera: {fileID: 240723328274052597}
-  _cameraTransform: {fileID: 0}
   _aimingZoomSteps: 6
   _weaponHolder: {fileID: 4391233630866183929}
   _endWeaponHolder: {fileID: 1647117217807798568}
   _isAiming: 0
   _playerController: {fileID: 3251227197460374685}
+  _speedFactor: 0
+  _riffleAudioClip: {fileID: 0}
   _upRecoilValue: {x: -25, y: 0, z: 0}
   _redDot: {fileID: 6198800143975479083}
   _laser: {fileID: 1374503347663095306}
@@ -1288,6 +1287,7 @@ MonoBehaviour:
   _currentStaminaTime: 0
   _staminaRegenStarted: 0
   _runningStaminaLose: 0
+  _isInBaseInventory: 0
   _torch: {fileID: 5955450202181364676}
   yRotationLimit: 88
 --- !u!114 &607238780382878291
@@ -1304,7 +1304,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDetectionCollider: {fileID: 6266804629289602407}
   _damages: 10
+  _isAimingFinished: 0
+  _isRecoilFinished: 0
+  _isAiming: 0
   _isRangeWeaponEqupiped: 1
+  _isMeleeWeaponEqupiped: 0
   _cadence: 2
 --- !u!143 &3612637645273497082
 CharacterController:
