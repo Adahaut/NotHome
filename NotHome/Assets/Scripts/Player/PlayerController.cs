@@ -319,6 +319,7 @@ public class PlayerController : NetworkBehaviour
                 if (_hits[i].collider.CompareTag(_itemTag))
                 {
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+                    NetworkServer.Destroy(_hits[i].collider.gameObject);
                     Destroy(_hits[i].collider.gameObject);
                 }
             }

@@ -41,17 +41,21 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (_playerController.IsInBook)
-            return;
-        if(_isRangeWeaponEqupiped)
+        if(_playerController != null )
         {
-            _shootAction?.Invoke();
+            if (_playerController.IsInBook)
+                return;
+            if (_isRangeWeaponEqupiped)
+            {
+                _shootAction?.Invoke();
+            }
+            else if (_cadenceTimer >= _cadence && _isMeleeWeaponEqupiped)
+            {
+                _cadenceTimer = 0;
+                StartCoroutine(ActiveDesactiveCollider());
+            }
         }
-        else if (_cadenceTimer >= _cadence && _isMeleeWeaponEqupiped)
-        {
-            _cadenceTimer = 0;
-            StartCoroutine(ActiveDesactiveCollider());
-        }
+        
         
     }
     public void SetCadence(float number)
