@@ -28,11 +28,4 @@ public class Item : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
-    public void DestroyItem()
-    {
-        NetworkServer.Destroy(this.gameObject);
-        Destroy(this.gameObject);
-    }
-
 }

@@ -128,7 +128,7 @@ public class PlayerController : NetworkBehaviour
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
-            PickUpObject();
+            CmdPickUpObject();
             _timer = 0.05f;
         }
     }
@@ -308,24 +308,51 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Methode to add an object to the inventory
-    [Command]
-    private void PickUpObject()
-    {
-        if(isOwned)
-        {
-            RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
+    //[Server]
+    //private void PickUpObject()
+    //{
+    //    RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
 
-            if (_hits.Length > 0)
+    //    if (_hits.Length > 0)
+    //    {
+    //        for (int i = 0; i < _hits.Length; i++)
+    //        {
+    //            if (_hits[i].collider.CompareTag(_itemTag))
+    //            {
+    //                _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+    //                NetworkServer.Destroy(_hits[i].collider.gameObject);
+    //                Destroy(_hits[i].collider.gameObject);
+    //            }
+    //        }
+    //    }
+    //}
+
+    [Command]
+    private void CmdPickUpObject()
+    {
+        RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
+
+        if (_hits.Length > 0)
+        {
+            for (int i = 0; i < _hits.Length; i++)
             {
-                for (int i = 0; i < _hits.Length; i++)
+                if (_hits[i].collider.CompareTag(_itemTag))
                 {
-                    if (_hits[i].collider.CompareTag(_itemTag))
-                    {
-                        _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
-                        _hits[i].collider.gameObject.GetComponent<Item>().DestroyItem();
-                    }
+                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+
+                    RpcDestroyObject(_hits[i].collider.gameObject);
+                    NetworkServer.Destroy(_hits[i].collider.gameObject);
                 }
             }
+        }
+    }
+
+    [ClientRpc]
+    private void RpcDestroyObject(GameObject item)
+    {
+        if (item != null)
+        {
+            Destroy(item);
         }
     }
 
