@@ -335,6 +335,7 @@ public class PlayerController : NetworkBehaviour
         if(Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider != null && hit.collider.CompareTag(_itemTag))
         {
             Debug.Log(hit.collider.gameObject);
+            CmdDestroyItem(hit.collider.gameObject);
         }
 
         //if (_hits.Length > 0)
@@ -356,6 +357,12 @@ public class PlayerController : NetworkBehaviour
         //        }
         //    }
         //}
+    }
+
+    [Command]
+    private void CmdDestroyItem(GameObject item)
+    {
+        NetworkServer.Destroy(item);
     }
 
 
