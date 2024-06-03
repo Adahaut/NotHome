@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FieldManager : MonoBehaviour
 {
-    public List<TextMeshProUGUI> _timerText = new();
+    public List<Seed> _seedTimers = new();
     public static FieldManager Instance;
     [SerializeField] private Material _materialGreen;
     public Material _materialBrown;
+
+    public List<Plant> _plantList = new();
+    public int _plantNb = 0;
 
     private void Awake()
     {
@@ -17,13 +21,45 @@ public class FieldManager : MonoBehaviour
         {
             Instance = this;
         }
+        CreatePlants();
+    }
+
+
+    void CreatePlants()
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            Plant plant = new Plant(i.ToString(), null);
+            _plantList.Add(plant);
+        }
+    }
+
+    public void UpdatePlants(List<Transform> imgs)
+    {
+        for (int i = 0; i < imgs.Count; i++)
+        {
+            if (_plantList[i]._img != null) 
+            {
+                imgs[i].GetComponent<Image>().sprite = _plantList[i]._img;
+            }
+        }
+    }
+
+    private void Update()
+    {
+
+        //if (GetComponentInChildren<BuildInterractable>().usedPlayer != null)
+        //{
+        //    UpdatePlants(GetComponentInChildren<BuildInterractable>().usedPlayer.GetComponentInChildren<PlayerFieldSlot>()._listSlots);
+        //}
     }
     public IEnumerator StartTimer(int index, float seedTime, int seed)
     {
         if (seedTime > 0)
         {
             seedTime -= 1;
-            _timerText[index].text = ((int)seedTime / 60).ToString("00") + ":" + ((int)seedTime % 60).ToString("00");
+            //_seedTimers[index].currentTimer = seedTime;
+            //GetComponent<BuildInterractable>().usedPlayer.GetComponentInChildren<PlayerFieldSlot>()._listTexts
             yield return new WaitForSeconds(1);
             StartCoroutine(StartTimer(index, seedTime, seed));
         }

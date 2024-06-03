@@ -1,90 +1,130 @@
+using Mirror;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UseField : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
 {
-    private Vector3 _initPos;
-    private int _indexPlant;
-    private bool _isPlant;
-    public float _seedTime;
-    public static UseField Instance;
+    private Vector3 _startPosition;
     private Transform _transform;
-    
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
+
+    [SerializeField] private SeedObject _seedPrefab;
+    [SerializeField] private GameObject _player;
+
+    private NewFieldManager _fieldManager;
+
     private void Start()
     {
+        //GetComponent<Image>().sprite = _seedPrefab.seedStruct._img;
+        GetComponentInChildren<TMP_Text>().text = _seedPrefab.seedStruct._name;
+        StartCoroutine(FindFieldManager());
+        _startPosition = transform.position;
         _transform = transform;
-        _initPos = transform.position;
     }
-    public void OnBeginDrag(PointerEventData eventData)
+
+    private IEnumerator FindFieldManager()
     {
-        Debug.Log("BeginDrag");
+        while (NewFieldManager.instance == null)
+        {
+            yield return null;
+        }
+
+        _fieldManager = NewFieldManager.instance;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging");
-        if (!_isPlant)
-        {
-            _transform.position = Input.mousePosition;
-        }
+        _transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("EndDrag");
-        if (!_isPlant)
+        if(isOwned)
         {
             if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
             {
-                _isPlant = true;
+                _seedPrefab.seedStruct._isPlanted = true;
                 _transform.position = GetNearestSlot();
-                ListSlotField.Instance._listIsPlant[_indexPlant] = true;
-                ListSlotField.Instance._listPlant[_indexPlant].SetActive(true);
-                FieldManager.Instance.StartCo(_indexPlant, _seedTime, int.Parse(gameObject.name[5].ToString()));
+                CmdAddPlant(_seedPrefab.seedStruct._index, _seedPrefab.seedStruct._id);
+                GetComponentInParent<PlayerFieldUI>().UpdateUI();
+                PlayerFieldUI.UpdateAllUIs();
             }
             else
             {
-                _transform.position = _initPos;
+                _transform.position = _startPosition;
             }
         }
+        
     }
+
+    [Command]
+    public void CmdAddPlant(int index, int seedId)
+    {
+        GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
+        Seed newSeed = newSeedObject.GetComponent<SeedObject>().seedStruct;
+        newSeed.seedId = seedId;
+        newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
+
+        NetworkServer.Spawn(newSeedObject.gameObject);
+        NewFieldManager.instance._allPlants[index] = newSeed;
+
+
+        //RpcAddPlant(newSeed.netId, index);
+    }
+
+    //[ClientRpc]
+    //public void RpcAddPlant(uint seedNetId, int index)
+    //{
+    //    if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
+    //    {
+    //        Seed seed = seedIdentity.GetComponent<Seed>();
+    //        seed.StartGrow(NewFieldManager.instance._plantPositons[index], index);
+    //        if (!NewFieldManager.instance._allPlants.Contains(seed))
+    //        {
+    //            NewFieldManager.instance._allPlants[index] = seed;
+    //        }
+    //        NewFieldManager.instance.t += 1;
+    //    }
+    //}
+
+
     private Vector3 GetNearestSlot()
     {
-        List<Transform> slots = ListSlotField.Instance._listPosSlot;
+        List<Transform> slots = new();
+        slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
         Vector3 slotNearest = slots[0].position;
-        _indexPlant = 0;
+        _seedPrefab.seedStruct._index = 0;
         for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].gameObject.activeSelf)
             {
-                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest) && !ListSlotField.Instance._listIsPlant[i])
+                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest))
                 {
                     slotNearest = slots[i].position;
-                    _indexPlant = i;
+                    _seedPrefab.seedStruct._index = i;
                 }
             }
         }
         return slotNearest;
     }
 
-    public void GetPlantFinish()
-    {
-        Debug.Log("GetPlant");
-        _transform.position = _initPos;
-        _isPlant = false;
-        ListSlotField.Instance._listIsPlant[_indexPlant] = false;
-        ListSlotField.Instance._listPlant[_indexPlant].SetActive(false);
-        FieldManager.Instance._timerText[_indexPlant].text = "";
-        ListSlotField.Instance._listPlant[_indexPlant].GetComponent<MeshRenderer>().material = FieldManager.Instance._materialBrown;
-        gameObject.GetComponent<Button>().enabled = false;
-    }
+
+
+    //public void GetPlantFinish()
+    //{
+    //    Debug.Log("GetPlant");
+    //    _transform.position = _initPos;
+    //    _isPlant = false;
+    //    ListSlotField.Instance._listIsPlant[_indexPlant] = false;
+    //    ListSlotField.Instance._listPlant[_indexPlant].SetActive(false);
+    //    //FieldManager.Instance._timerText[_indexPlant].text = "";
+    //    ListSlotField.Instance._listPlant[_indexPlant].GetComponent<MeshRenderer>().material = FieldManager.Instance._materialBrown;
+    //    gameObject.GetComponent<Button>().enabled = false;
+    //}
+
+
+
 }

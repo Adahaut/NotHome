@@ -1,4 +1,5 @@
 using Mirror;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class NetworkGamePlayerLobby : NetworkBehaviour
 {
@@ -16,6 +17,7 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
         }
     }
 
+    public string GetDisplayName() { return _displayName; }
 
     public override void OnStartClient()
     {

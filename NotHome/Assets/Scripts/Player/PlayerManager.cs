@@ -116,7 +116,6 @@ public class PlayerManager : MonoBehaviour
     {
         while (!_isInBase)
         {
-            print("perd oxygene");
             _oxygene--;
             SetOxygeneBar();
             yield return new WaitForSeconds(10f);
@@ -127,7 +126,6 @@ public class PlayerManager : MonoBehaviour
     {
         while (_oxygene < _maxOxygene && _isInBase)
         {
-            print("gagne oxygene");
             _oxygene++;
             SetOxygeneBar();
             yield return new WaitForSeconds(1f);
@@ -140,7 +138,6 @@ public class PlayerManager : MonoBehaviour
         {
             _oxygeneFallBegin = false;
             _oxygeneRegainBegin = true;
-            print("entre dans la base");
             _isInBase = true;
             StartCoroutine(OxygeneBarRegain());
         }
@@ -152,7 +149,6 @@ public class PlayerManager : MonoBehaviour
         {
             _oxygeneFallBegin = true;
             _oxygeneRegainBegin = false;
-            print("sort de la base");
             _isInBase = false;
             StartCoroutine(OxygeneBarFall());
         }
