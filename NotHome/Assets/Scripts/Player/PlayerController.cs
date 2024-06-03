@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using TMPro;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -331,6 +332,11 @@ public class PlayerController : NetworkBehaviour
     private void CmdPickUpObject()
     {
         //RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
+        Debug.Log("tset");
+        if(Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider != null && hit.collider.CompareTag(_itemTag))
+        {
+            Debug.Log(hit.collider.gameObject);
+        }
 
         //if (_hits.Length > 0)
         //{
