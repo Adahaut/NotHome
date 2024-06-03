@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -10,6 +11,10 @@ public class Item : MonoBehaviour
 
     public bool _isOnAnotherGameObject;
 
+    private void Start()
+    {
+        NetworkServer.Spawn(this.gameObject);
+    }
     public string ItemName() { return _name; }
 
     public Sprite ItemSprite() { return _sprite; }
