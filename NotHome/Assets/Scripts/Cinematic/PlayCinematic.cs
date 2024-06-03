@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayCinematic : MonoBehaviour
@@ -9,6 +7,7 @@ public class PlayCinematic : MonoBehaviour
     [SerializeField] private Animator _shieldAnim;
     [SerializeField] private ParticleSystem[] _smoke;
     [SerializeField] private GameObject[] _explosion;
+    private AudioSource[] _audioSources;
 
 
     private void Start()
@@ -22,6 +21,10 @@ public class PlayCinematic : MonoBehaviour
 
         _animator.speed = 3.0f;
         
+        _audioSources = GetComponents<AudioSource>();
+        _audioSources[0].Play();
+        _audioSources[1].Play();
+        _audioSources[2].Play();
     }
 
     public void DeployShieldAnim()
@@ -49,5 +52,32 @@ public class PlayCinematic : MonoBehaviour
             ps.Play();
         }
     }
-}
 
+    public void PlayExplosionSound()
+    {
+        _audioSources[2].Play();
+    }
+
+    public void PlayBigExplosion()
+    {
+        _audioSources[3].Play();
+    }
+
+    public void StopAlarm()
+    {
+        _audioSources[1].Stop();
+    }
+
+    public void PlayCrashSound()
+    {
+        _audioSources[4].Play();
+    }
+
+    public void stopSounds()
+    {
+        for(int i = 0;  i < 3; i++)
+        {
+            _audioSources[i].Stop();
+        }
+    }
+}
