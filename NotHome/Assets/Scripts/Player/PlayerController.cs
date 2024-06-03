@@ -340,21 +340,12 @@ public class PlayerController : NetworkBehaviour
                 {
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
 
-                    RpcDestroyObject(_hits[i].collider.gameObject);
                     NetworkServer.Destroy(_hits[i].collider.gameObject);
                 }
             }
         }
     }
 
-    [ClientRpc]
-    private void RpcDestroyObject(GameObject item)
-    {
-        if (item != null)
-        {
-            Destroy(item);
-        }
-    }
 
     private void ChangeStamina(int _value)
     {
