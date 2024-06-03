@@ -4,7 +4,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -29,6 +31,8 @@ public class PlayerStockageUI : NetworkBehaviour
     public List<GameObject> _slotList = new List<GameObject>();
 
     public int _baseInventorySlotCount = 10;
+
+    public TMP_Text debug;
 
     private void OnEnable()
     {
@@ -64,14 +68,14 @@ public class PlayerStockageUI : NetworkBehaviour
                     if (results[0].gameObject.CompareTag(_itemBaseContainerTag))
                     {
                         print("a");
-                        AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), _itemImage.ItemContained().ItemSprite(), 
+                        AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/, 
                             GetIndexOf(results[0].gameObject.GetComponent<InventorySlot>().ItemContained().ItemName()), _itemImage);
                     }
                     else
                     {
                         print("b");
                         print("item name : " + _itemImage.ItemContained().ItemName() + " index : " + GetIndexOf(_itemImage.ItemContained().ItemName()));
-                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), _itemImage.ItemContained().ItemSprite(),
+                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/,
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
                     UpdateStockageUI();
@@ -88,6 +92,12 @@ public class PlayerStockageUI : NetworkBehaviour
                 }
                 UpdateStockageUI();
             }
+        }
+
+        debug.text = "";
+        for (int i = 0; i < InventoryBaseManager.instance._inventoryItems.Count; i++)
+        {
+            debug.text += i + " " + InventoryBaseManager.instance._inventoryItems[i]._name + "\n";
         }
     }
 
@@ -211,6 +221,7 @@ public class PlayerStockageUI : NetworkBehaviour
     //------------------------------------//
 
     // Update All Item in list
+    [Command]
     public void UpdateItemList()
     {
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
@@ -220,11 +231,13 @@ public class PlayerStockageUI : NetworkBehaviour
     }
 
     // Update one Item from list at specific index
+    [Command]
     public void UpdateOneItem(int _index, int _number, Sprite _sprite)
     {
         _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, _sprite, InventoryBaseManager.instance._inventoryItems[_index]._name);
     }
 
+    [Command]
     private void UpdateItemInList(string _name, int _number, Sprite _sprite, int _index)
     {
         _itemSlot tempSlot = new _itemSlot();
@@ -245,6 +258,7 @@ public class PlayerStockageUI : NetworkBehaviour
     }
 
     // a a unmber of item that is in inventory
+    [Command]
     private void AddNumberItem(string _name, int _number)
     {
         int _index = GetIndexOf(_name);
@@ -252,6 +266,7 @@ public class PlayerStockageUI : NetworkBehaviour
         itemSlot._number += _number;
     }
 
+    [Command]
     private void RemoveItem(int _index)
     {
         InventoryBaseManager.instance._inventoryItems[_index] = initItemSlot();

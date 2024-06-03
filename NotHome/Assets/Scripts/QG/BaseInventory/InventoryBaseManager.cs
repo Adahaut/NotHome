@@ -49,9 +49,6 @@ public class InventoryBaseManager : InventoryManager
         public string _name;
         public int _number;
         //public Sprite _sprite;
-        public string Name { set { _name = value; } }
-        public int Number { set { _number = value; } }
-        //public Sprite Sprite { set { _sprite = value; } }
     }
 
     private void Awake()
