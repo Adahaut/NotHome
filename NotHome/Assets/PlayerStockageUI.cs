@@ -1,3 +1,4 @@
+using Mirror;
 using Org.BouncyCastle.Crypto.Macs;
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static InventoryBaseManager;
 
-public class PlayerStockageUI : MonoBehaviour
+public class PlayerStockageUI : NetworkBehaviour
 {
     private EventSystem _eventSystem;
     [SerializeField] GraphicRaycaster _raycaster;
@@ -179,19 +180,21 @@ public class PlayerStockageUI : MonoBehaviour
         _itemSlot slot = new _itemSlot();
         slot._name = "None";
         slot._number = 0;
-        slot._sprite = null;
+        //slot._sprite = null;
         return slot;
     }
 
+    [Command]
     private void UpdateOneItemStruct(int _index, string _name, int _number, Sprite _sprite)
     {
         _itemSlot slot = new _itemSlot();
         slot._name = _name;
         slot._number = _number;
-        slot._sprite = _sprite;
+        //slot._sprite = _sprite;
         InventoryBaseManager.instance._inventoryItems[_index] = slot;
     }
 
+    [Command]
     private void Init()
     {
         InventoryBaseManager.instance._inventorySize = _slotList.Count;
@@ -212,7 +215,7 @@ public class PlayerStockageUI : MonoBehaviour
     {
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
-            UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, InventoryBaseManager.instance._inventoryItems[i]._sprite);
+            UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, null/*InventoryBaseManager.instance._inventoryItems[i]._sprite*/);
         }
     }
 
@@ -227,7 +230,7 @@ public class PlayerStockageUI : MonoBehaviour
         _itemSlot tempSlot = new _itemSlot();
         tempSlot._name = _name;
         tempSlot._number = _number;
-        tempSlot._sprite = _sprite;
+        //tempSlot._sprite = _sprite;
 
         InventoryBaseManager.instance._inventoryItems[_index] = tempSlot;
     }

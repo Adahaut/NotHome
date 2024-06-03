@@ -41,17 +41,17 @@ public class InventoryBaseManager : InventoryManager
 
     //private float _cooldown;
 
-    [SerializeField] public List<_itemSlot> _inventoryItems = new List<_itemSlot>();
+    [SerializeField] public SyncList<_itemSlot> _inventoryItems = new SyncList<_itemSlot>();
     public int _inventorySize;
     [System.Serializable]
     public struct _itemSlot
     {
         public string _name;
         public int _number;
-        public Sprite _sprite;
+        //public Sprite _sprite;
         public string Name { set { _name = value; } }
         public int Number { set { _number = value; } }
-        public Sprite Sprite { set { _sprite = value; } }
+        //public Sprite Sprite { set { _sprite = value; } }
     }
 
     private void Awake()

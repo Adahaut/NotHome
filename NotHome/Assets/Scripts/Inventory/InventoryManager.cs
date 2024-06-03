@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : NetworkBehaviour
 {
     [SerializeField] private GameObject _inventoryPanel;
     [SerializeField] private GameObject _inventorySlotPrefab;
