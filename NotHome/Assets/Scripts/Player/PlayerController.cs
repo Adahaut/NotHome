@@ -331,22 +331,26 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdPickUpObject()
     {
-        RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
-
-        if (_hits.Length > 0)
+        if(isOwned)
         {
-            for (int i = 0; i < _hits.Length; i++)
-            {
-                if (_hits[i].collider.CompareTag(_itemTag))
-                {
-                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+            RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
 
-                    // Détruire l'objet côté serveur et notifier tous les clients
-                    RpcDestroyObject(_hits[i].collider.gameObject);
-                    NetworkServer.Destroy(_hits[i].collider.gameObject);
+            if (_hits.Length > 0)
+            {
+                for (int i = 0; i < _hits.Length; i++)
+                {
+                    if (_hits[i].collider.CompareTag(_itemTag))
+                    {
+                        _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+
+                        // Détruire l'objet côté serveur et notifier tous les clients
+                        RpcDestroyObject(_hits[i].collider.gameObject);
+                        NetworkServer.Destroy(_hits[i].collider.gameObject);
+                    }
                 }
             }
         }
+        
     }
 
     [ClientRpc]
