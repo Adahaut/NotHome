@@ -311,16 +311,19 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void PickUpObject()
     {
-        RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
-
-        if (_hits.Length > 0)
+        if(isOwned)
         {
-            for (int i = 0; i < _hits.Length; i++)
+            RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
+
+            if (_hits.Length > 0)
             {
-                if (_hits[i].collider.CompareTag(_itemTag))
+                for (int i = 0; i < _hits.Length; i++)
                 {
-                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
-                    _hits[i].collider.gameObject.GetComponent<Item>().DestroyItem();
+                    if (_hits[i].collider.CompareTag(_itemTag))
+                    {
+                        _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+                        _hits[i].collider.gameObject.GetComponent<Item>().DestroyItem();
+                    }
                 }
             }
         }
