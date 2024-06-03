@@ -342,7 +342,8 @@ public class PlayerController : NetworkBehaviour
 
                     if(NetworkServer.spawned.ContainsKey(_hits[i].collider.gameObject.GetComponent<NetworkIdentity>().netId))
                     {
-                        NetworkServer.Destroy(_hits[i].collider.gameObject);
+                        Debug.Log(_hits[i].collider.gameObject);
+                        //NetworkServer.Destroy(_hits[i].collider.gameObject);
                         Destroy(_hits[i].collider.gameObject);
                     }
                 }
