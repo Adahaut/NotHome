@@ -1058,16 +1058,17 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: 727a8aa6760cdaf41ba62ca731cf448c, type: 2}
   _muzzle: {fileID: 7161227206883072467}
   _savedCameraTransform: {fileID: 0}
-  _recoilStepsNumber: 52
-  _recoilForce: 3
   _playerCamera: {fileID: 240723328274052597}
-  _cameraTransform: {fileID: 0}
   _aimingZoomSteps: 6
   _weaponHolder: {fileID: 4391233630866183929}
   _endWeaponHolder: {fileID: 1647117217807798568}
   _isAiming: 0
   _playerController: {fileID: 3251227197460374685}
+  _speedFactor: 0
+  _riffleAudioClip: {fileID: 0}
   _upRecoilValue: {x: -25, y: 0, z: 0}
+  _redDot: {fileID: 0}
+  _laser: {fileID: 0}
 --- !u!1 &6214766844328396960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,11 +1227,14 @@ MonoBehaviour:
   _itemTag: Item
   _itemPickRange: 2
   _hotBar: {fileID: 146612745552724292}
+  _book: {fileID: 0}
   _playerManager: {fileID: 4325139319961065731}
   _staminaTimer: 3
   _currentStaminaTime: 0
   _staminaRegenStarted: 0
   _runningStaminaLose: 0
+  _isInBaseInventory: 0
+  _torch: {fileID: 0}
   yRotationLimit: 88
 --- !u!114 &607238780382878291
 MonoBehaviour:
@@ -1246,7 +1250,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDetectionCollider: {fileID: 6266804629289602407}
   _damages: 0
+  _isAimingFinished: 0
+  _isRecoilFinished: 0
+  _isAiming: 0
   _isRangeWeaponEqupiped: 1
+  _isMeleeWeaponEqupiped: 0
+  _cadence: 0
 --- !u!143 &3612637645273497082
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1771,6 +1780,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3251227197460374685}
+    - target: {fileID: 7018795895481022992, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _assetId
+      value: 1830450426
+      objectReference: {fileID: 0}
     - target: {fileID: 7044184185154296097, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

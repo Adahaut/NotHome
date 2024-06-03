@@ -166,6 +166,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Talkie",
+                    "type": "Button",
+                    "id": "52b91d47-707b-4d8b-8f6d-c89cb74e7cc0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -518,6 +527,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8312186-5ac5-41d2-9238-44eb0c878d4b",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Talkie",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
