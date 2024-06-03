@@ -308,7 +308,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Methode to add an object to the inventory
-    [Server]
+    [Command]
     private void PickUpObject()
     {
         RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
@@ -320,8 +320,7 @@ public class PlayerController : NetworkBehaviour
                 if (_hits[i].collider.CompareTag(_itemTag))
                 {
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
-                    NetworkServer.Destroy(_hits[i].collider.gameObject);
-                    Destroy(_hits[i].collider.gameObject);
+                    _hits[i].collider.gameObject.GetComponent<Item>().DestroyItem();
                 }
             }
         }
