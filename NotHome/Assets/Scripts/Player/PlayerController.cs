@@ -128,7 +128,7 @@ public class PlayerController : NetworkBehaviour
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
-            PickUpObject();
+            CmdPickUpObject();
             _timer = 0.05f;
         }
     }
@@ -308,8 +308,28 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Methode to add an object to the inventory
-    [Server]
-    private void PickUpObject()
+    //[Server]
+    //private void PickUpObject()
+    //{
+    //    RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
+
+    //    if (_hits.Length > 0)
+    //    {
+    //        for (int i = 0; i < _hits.Length; i++)
+    //        {
+    //            if (_hits[i].collider.CompareTag(_itemTag))
+    //            {
+    //                _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+    //                NetworkServer.Destroy(_hits[i].collider.gameObject);
+    //                Destroy(_hits[i].collider.gameObject);
+    //            }
+    //        }
+    //    }
+    //}
+
+    // Methode to add an object to the inventory
+    [Command]
+    private void CmdPickUpObject()
     {
         RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
 
@@ -320,11 +340,20 @@ public class PlayerController : NetworkBehaviour
                 if (_hits[i].collider.CompareTag(_itemTag))
                 {
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+
+                    // Détruire l'objet côté serveur et notifier tous les clients
+                    RpcDestroyObject(_hits[i].collider.gameObject);
                     NetworkServer.Destroy(_hits[i].collider.gameObject);
-                    Destroy(_hits[i].collider.gameObject);
                 }
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcDestroyObject(GameObject item)
+    {
+        // Détruire l'objet côté client
+        Destroy(item);
     }
 
     private void ChangeStamina(int _value)
