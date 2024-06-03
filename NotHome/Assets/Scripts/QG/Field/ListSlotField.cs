@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ListSlotField : MonoBehaviour
 {
-    public List<Transform> _listPosSlot = new();
+    //public List<Transform> _listPosSlot = new();
     [HideInInspector] public List<bool> _listIsPlant = new();
     public List<GameObject> _listPlant = new();
     public List<GameObject> _listSeed = new();
@@ -18,7 +18,7 @@ public class ListSlotField : MonoBehaviour
     }
     private void Start()
     {
-        for (int i = 0; i < _listPosSlot.Count; i++)
+        for (int i = 0; i < _listPlant.Count; i++)
         {
             _listIsPlant.Add(false);
         }

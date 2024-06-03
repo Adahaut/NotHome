@@ -2,6 +2,7 @@ using Mirror;
 using Steamworks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -14,7 +15,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
     [SerializeField] private Button readyButton = null;
-
+    [SerializeField] private Button[] _leaveKickButtons = new Button[4];
    
     [SyncVar(hook = nameof(HandleSteamIdUpdated))]
     private ulong steamId;
@@ -61,6 +62,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         _avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
 
         Room._roomPlayers.Add(this);
+        Room.NotifyPlayersOfReadyState();
 
     }
 
@@ -138,9 +140,24 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
                 "<color=green>Ready</color>" :
                 "<color=red>Not Ready</color>";
 
-            
-
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
+
+
+            if (Room._roomPlayers[i] == this && isOwned)
+            {
+                _leaveKickButtons[i].gameObject.SetActive(true);
+                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
+            }
+
+            if (_isLeader)
+            {
+                if (Room._roomPlayers[i] != this && isOwned)
+                {
+                    _leaveKickButtons[i].gameObject.SetActive(true);
+                    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
+                }
+            }
+
         }
 
         for (int j = Room._roomPlayers.Count; j < playerNameTexts.Length; j++)
@@ -149,6 +166,26 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             playerReadyTexts[j].text = string.Empty;
             _playerImages[j].texture = null;
         }
+    }
+
+    [Command]
+    public void LeaveLobby()
+    {
+        if (Room._roomPlayers[0] == this && Room._roomPlayers.Count > 1)
+        {
+            Room._roomPlayers[1].IsLeader = true;
+        }
+
+        Room._roomPlayers.Remove(this);
+
+        if (Room._roomPlayers.Count == 0)
+        {
+            Room.StopHost();
+        }
+
+        NetworkServer.Destroy(gameObject);
+
+        Room.NotifyPlayersOfReadyState();
     }
 
     public void HandleReadyToStart(bool readyToStart)
@@ -167,9 +204,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void CmdReadyUp()
     {
         _isReady = !_isReady;
-
         Room.NotifyPlayersOfReadyState();
-
     }
 
     [Command]

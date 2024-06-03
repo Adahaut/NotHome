@@ -26,9 +26,10 @@ public class PC : MonoBehaviour
     private bool _isOpen;
 
     [Header("Inventory")]
-    [SerializeField] private GameObject _inventory;
+    [SerializeField] public GameObject _inventory;
     [SerializeField] private string _itemTag;
     [SerializeField] private int _itemPickRange;
+    private InventoryBaseManager _baseInventory;
 
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
@@ -56,7 +57,7 @@ public class PC : MonoBehaviour
     private bool _canUseTorch;
     private CharacterController _characterController;
     private float _timer;
-    private bool _isInBaseInventory;
+    public bool _isInBaseInventory;
     [SerializeField] private GameObject _torch;
 
     private Vector3 _moveDirection = Vector3.zero;
@@ -80,11 +81,13 @@ public class PC : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        
     }
 
 
     public void Start()
     {
+        _baseInventory = GetComponentInChildren<InventoryBaseManager>();
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
         _characterController = GetComponent<CharacterController>();
@@ -143,9 +146,12 @@ public class PC : MonoBehaviour
         if (ctx.performed)
         {
             StartUi();
-            DoorExit.Instance.OpenDoor(_camera);
+            if (Physics.Raycast(_camera.position,_camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("DecompressionExit") || hit.collider.CompareTag("DecompressionMountain")))
+            {
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().OpenDoor(_camera);
+            }
         }
-        OfficeManager.Instance.MouvToChair();
+        //OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
         {
             PickUpObject();
@@ -192,7 +198,6 @@ public class PC : MonoBehaviour
             _canOpen = false;
             _textPress.text = "";
         }
-
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
@@ -221,9 +226,15 @@ public class PC : MonoBehaviour
     public void GetMouseDelta(InputAction.CallbackContext ctx)
     {
         if (ctx.control.name == "rightStick")
+        {
             _rotation = ctx.ReadValue<Vector2>() * _sensitivityController;
+        }
+
         else
+        {
             _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
+        }
+            
     }
     private void RotateCamera()
     {
@@ -433,12 +444,14 @@ public class PC : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Disable();
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Enable();
             _isOpen = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Disable();
             _isOpen = false;
         }
     }

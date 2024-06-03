@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UpgradeHomeManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class UpgradeHomeManager : MonoBehaviour
     [SerializeField] private string _nameBuilding;
     [SerializeField] private ListSlotField _fieldManager;
     [SerializeField] private GameObject _alarm;
+    [SerializeField] private ParticleSystem _particleLevelUp;
     private bool _getAlarm;
 
     private void Start()
@@ -42,10 +44,13 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
+                QuestManager.Instance.SetQuestUpLevel2();
+                QuestManager.Instance.ColorText(3);
                 MapManager.Instance._canOpenUiMap = true;
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 3:
+                QuestManager.Instance.SetQuestUpLevel3();
                 DoorExit.Instance.QGLevel3();
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
@@ -56,9 +61,16 @@ public class UpgradeHomeManager : MonoBehaviour
     }
     public void EffectTDC()
     {
-        _getAlarm = true;
-        if (_levelBuilding >= 3)
+        if (_levelBuilding == 2)
+        {
+            QuestManager.Instance.SetQuestUpLevel2();
+            _getAlarm = true;
+        }
+        else if (_levelBuilding >= 3)
+        {
             DroneManager._canUseDrone = true;
+            QuestManager.Instance.SetQuestUpLevel3();
+        }  
     }
     private IEnumerator StopAlarm(float second)
     {
@@ -68,13 +80,24 @@ public class UpgradeHomeManager : MonoBehaviour
     }
     public void EffectField()
     {
+        switch (_levelBuilding)
+        {
+            case 2:
+                QuestManager.Instance.SetQuestUpLevel2();
+                break;
+            case 3:
+                QuestManager.Instance.SetQuestUpLevel3();
+                break;
+            default:
+                break;
+        }
         for (int i = 0; i < _fieldManager._listSeed.Count; i++)
         {
-            _fieldManager._listSeed[i].GetComponent<UseField>()._seedTime *= 0.80f;
+            //_fieldManager._listSeed[i].GetComponent<UseField>()._seedTime *= 0.80f;
         }
-        ListSlotField.Instance._listPosSlot[ListSlotField.Instance._listPosSlot.Count - _upgarde.Count - 1 + _levelBuilding - 1].gameObject.SetActive(true);
+        //ListSlotField.Instance._listPosSlot[ListSlotField.Instance._listPosSlot.Count - _upgarde.Count - 1 + _levelBuilding - 1].gameObject.SetActive(true);
     }
-    public void UpdateBuilding()
+    public void UpdateBuilding(GameObject button)
     {
         if (_upgarde.Count >= _levelBuilding)
         {
@@ -114,6 +137,11 @@ public class UpgradeHomeManager : MonoBehaviour
                     _inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().
                         SetNumber(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i]);
                 }
+                _particleLevelUp.Play();
+                Cursor.lockState = CursorLockMode.Locked;
+                PC.Instance.gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
+                PC.Instance.gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Disable();
+                button.SetActive(false);
             }
             else
             {
