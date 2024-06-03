@@ -10,11 +10,9 @@ public class Item : MonoBehaviour
     [SerializeField] private int _radius;
 
     public bool _isOnAnotherGameObject;
+    
 
-    private void Start()
-    {
-        NetworkServer.Spawn(this.gameObject);
-    }
+
     public string ItemName() { return _name; }
 
     public Sprite ItemSprite() { return _sprite; }

@@ -308,6 +308,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Methode to add an object to the inventory
+    [Server]
     private void PickUpObject()
     {
         RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
