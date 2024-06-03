@@ -340,7 +340,11 @@ public class PlayerController : NetworkBehaviour
                 {
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
 
-                    NetworkServer.Destroy(_hits[i].collider.gameObject);
+                    if(NetworkServer.spawned.ContainsKey(_hits[i].collider.gameObject.GetComponent<NetworkIdentity>().netId))
+                    {
+                        NetworkServer.Destroy(_hits[i].collider.gameObject);
+                        Destroy(_hits[i].collider.gameObject);
+                    }
                 }
             }
         }
