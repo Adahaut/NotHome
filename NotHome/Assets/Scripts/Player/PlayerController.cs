@@ -330,33 +330,11 @@ public class PlayerController : NetworkBehaviour
 
     private void CmdPickUpObject()
     {
-        //RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
-        Debug.Log("tset");
         if(Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider != null && hit.collider.CompareTag(_itemTag))
         {
-            Debug.Log(hit.collider.gameObject);
+            _inventory.GetComponent<InventoryManager>().AddItem(hit.collider.GetComponent<Item>().ItemName(), hit.collider.GetComponent<Item>().ItemSprite(), false);
             CmdDestroyItem(hit.collider.gameObject);
         }
-
-        //if (_hits.Length > 0)
-        //{
-        //    for (int i = 0; i < _hits.Length; i++)
-        //    {
-        //        if (_hits[i].collider.CompareTag(_itemTag))
-        //        {
-        //            _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
-
-        //            //if(NetworkServer.spawned.ContainsKey(_hits[i].collider.gameObject.GetComponent<NetworkIdentity>().netId))
-        //            //{
-                        
-        //            //    //NetworkServer.Destroy(_hits[i].collider.gameObject);
-        //            //    Destroy(_hits[i].collider.gameObject);
-        //            //}
-
-        //            Debug.Log(_hits[i].collider.gameObject);
-        //        }
-        //    }
-        //}
     }
 
     [Command]
