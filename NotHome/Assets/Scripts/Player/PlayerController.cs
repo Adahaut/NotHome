@@ -330,27 +330,27 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdPickUpObject()
     {
-        RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
+        //RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
 
-        if (_hits.Length > 0)
-        {
-            for (int i = 0; i < _hits.Length; i++)
-            {
-                if (_hits[i].collider.CompareTag(_itemTag))
-                {
-                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
+        //if (_hits.Length > 0)
+        //{
+        //    for (int i = 0; i < _hits.Length; i++)
+        //    {
+        //        if (_hits[i].collider.CompareTag(_itemTag))
+        //        {
+        //            _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
 
-                    //if(NetworkServer.spawned.ContainsKey(_hits[i].collider.gameObject.GetComponent<NetworkIdentity>().netId))
-                    //{
+        //            //if(NetworkServer.spawned.ContainsKey(_hits[i].collider.gameObject.GetComponent<NetworkIdentity>().netId))
+        //            //{
                         
-                    //    //NetworkServer.Destroy(_hits[i].collider.gameObject);
-                    //    Destroy(_hits[i].collider.gameObject);
-                    //}
+        //            //    //NetworkServer.Destroy(_hits[i].collider.gameObject);
+        //            //    Destroy(_hits[i].collider.gameObject);
+        //            //}
 
-                    Debug.Log(_hits[i].collider.gameObject);
-                }
-            }
-        }
+        //            Debug.Log(_hits[i].collider.gameObject);
+        //        }
+        //    }
+        //}
     }
 
 
