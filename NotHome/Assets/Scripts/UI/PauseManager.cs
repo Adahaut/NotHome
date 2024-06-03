@@ -7,11 +7,16 @@ using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private GameObject _uiPause;
+    [SerializeField] private GameObject _uiButton;
     [SerializeField] private GameObject _uiOption;
+
+    [Header("Option")]
     [SerializeField] private Toggle _toggleFullScreen;
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private TMP_Dropdown _dropdownResolution;
+
     private Resolution[] _resolutions;
     public static bool _gameIsPaused;
 
@@ -33,12 +38,15 @@ public class PauseManager : MonoBehaviour
         else
         {
             _uiPause.SetActive(false);
+            _uiButton.SetActive(true);
+            _uiOption.SetActive(false);
             _gameIsPaused = false;
         }
     }
     public void Option()
     {
         _uiOption.SetActive(!_uiOption.activeSelf);
+        _uiButton.SetActive(!_uiOption.activeSelf);
     }
     public void Exit()
     {
@@ -79,5 +87,12 @@ public class PauseManager : MonoBehaviour
     {
         Resolution resolution = _resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape)) 
+        { 
+            Resume();                           // A enlever
+        }
     }
 }
