@@ -198,7 +198,6 @@ public class PC : MonoBehaviour
             _canOpen = false;
             _textPress.text = "";
         }
-
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {

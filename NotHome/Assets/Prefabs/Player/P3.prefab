@@ -969,15 +969,14 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: 727a8aa6760cdaf41ba62ca731cf448c, type: 2}
   _muzzle: {fileID: 7161227206883072467}
   _savedCameraTransform: {fileID: 0}
-  _recoilStepsNumber: 52
-  _recoilForce: 3
   _playerCamera: {fileID: 240723328274052597}
-  _cameraTransform: {fileID: 0}
   _aimingZoomSteps: 6
   _weaponHolder: {fileID: 4391233630866183929}
   _endWeaponHolder: {fileID: 1647117217807798568}
   _isAiming: 0
   _playerController: {fileID: 3251227197460374685}
+  _speedFactor: 0
+  _riffleAudioClip: {fileID: 0}
   _upRecoilValue: {x: -25, y: 0, z: 0}
   _redDot: {fileID: 6198800143975479083}
   _laser: {fileID: 1374503347663095306}
@@ -1276,8 +1275,8 @@ MonoBehaviour:
   - {fileID: 1222415935894057027}
   - {fileID: 5837169634722029860}
   - {fileID: 7636724713220425337}
-  - {fileID: 1645959042927197811}
-  - {fileID: 2007209584499108504}
+  - {fileID: 0}
+  - {fileID: 0}
   _inventory: {fileID: 4662684437689299983}
   _itemTag: Item
   _itemPickRange: 2
@@ -1288,6 +1287,7 @@ MonoBehaviour:
   _currentStaminaTime: 0
   _staminaRegenStarted: 0
   _runningStaminaLose: 0
+  _isInBaseInventory: 0
   _torch: {fileID: 5955450202181364676}
   yRotationLimit: 88
 --- !u!114 &607238780382878291
@@ -1304,7 +1304,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDetectionCollider: {fileID: 6266804629289602407}
   _damages: 10
+  _isAimingFinished: 0
+  _isRecoilFinished: 0
+  _isAiming: 0
   _isRangeWeaponEqupiped: 1
+  _isMeleeWeaponEqupiped: 0
   _cadence: 2
 --- !u!143 &3612637645273497082
 CharacterController:
@@ -1783,10 +1787,6 @@ PrefabInstance:
       propertyPath: _playerTransform
       value: 
       objectReference: {fileID: 482119417541194962}
-    - target: {fileID: 3001922499995054765, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 3378165524744944934, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1819,10 +1819,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3251227197460374685}
-    - target: {fileID: 6358940980871967326, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 6656770207778603865, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1837,10 +1833,6 @@ PrefabInstance:
       objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 7118287699749949063, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3251227197460374685}
-    - target: {fileID: 7610856659803724825, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: _playerController
       value: 
       objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 7805499000887353074, guid: c65c6ee038096654983d801be093112f, type: 3}
@@ -1890,16 +1882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1645959042927197811 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8886186919247320744, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 7891868864826435803}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2007209584499108504 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8529402701281608259, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 7891868864826435803}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2261295832833097122 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8278795337802945913, guid: c65c6ee038096654983d801be093112f, type: 3}

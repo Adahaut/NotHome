@@ -6618,6 +6618,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc23020dcab3eb49a861e27fe3c092d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _inventoryPanel: {fileID: 5109809591414090596}
   _inventorySlotPrefab: {fileID: 1832631408618658791, guid: 5145fc88567098544bf8a44a7be6c8c1, type: 3}
   _inventorySlotStartNumber: 4
@@ -8077,6 +8080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiQuest: {fileID: 3888635289929089267}
   _questButton: {fileID: 8576472870950168890}
+  _listQuest: []
   _title: {fileID: 642159558540421008}
   _lore: {fileID: 624334455507945403}
   _objectif: {fileID: 7170201383644844986}
@@ -12232,7 +12236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 2493118609
+  _assetId: 3174472337
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -17936,16 +17940,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e66c8fe8cfdd0469fa1db421249546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _inventoryPanel: {fileID: 1434870165063615416}
   _inventorySlotPrefab: {fileID: 1832631408618658791, guid: 135d2e15a79a10941a6a9a600f762bb1, type: 3}
   _inventorySlotStartNumber: 15
   _slotList: []
-  _inventorySlots: []
-  _highlightSlot: {fileID: 0}
-  _SelectedSlot: {fileID: 0}
-  _inventoryBaseSelected: 0
-  _playerController: {fileID: 0}
-  _eventSystem: {fileID: 0}
-  _raycaster: {fileID: 4648217506345809542}
-  _dragNDrop: {fileID: 4087198637060373613}
-  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  _inventorySize: 0

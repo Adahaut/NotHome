@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -60,6 +61,15 @@ public class PlayerController : NetworkBehaviour
     private Vector2 _moveDir;
     private Vector2 _scrollDir;
 
+    private Farts _farts;
+
+    private float _fartCooldown;
+    private bool _canUseTorch;
+
+    [SerializeField] private GameObject _torch;
+
+
+
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Transform _transform;
 
@@ -109,6 +119,18 @@ public class PlayerController : NetworkBehaviour
         _isInBaseInventory = _isIn;
     }
 
+    public void SetUseTorch(bool useTorch)
+    {
+        _canUseTorch = useTorch;
+    }
+
+    public void StartFart(InputAction.CallbackContext ctx)
+    {
+        if (_fartCooldown > 0)
+            return;
+        _fartCooldown = 1f;
+        _farts.PlayRandomFartSound();
+    }
     public InventoryManager GetInventory()
     {
         return _inventory.GetComponent<InventoryManager>();
@@ -202,6 +224,14 @@ public class PlayerController : NetworkBehaviour
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
+    }
+
+    public void AlightTorch(InputAction.CallbackContext ctx)
+    {
+        if (_canUseTorch && ctx.performed)
+        {
+            _torch.SetActive(!_torch.activeSelf);
+        }
     }
     private void MovePlayer()
     {
@@ -325,7 +355,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    private void ChangeStamina(int _value)
+    private void ChangeStamina(float _value)
     {
 
         _playerManager.Stamina += _value;
@@ -337,11 +367,11 @@ public class PlayerController : NetworkBehaviour
         _staminaRegenStarted = true;
         while (CanRegenStamina())
         {
-            //ChangeStamina(_playerManager.MaxStamina / 10);
-            //if (_playerManager.Stamina > _playerManager.MaxStamina)
-            //{
-            //    _playerManager.SetMaxStamina();
-            //}
+            ChangeStamina(_playerManager.MaxStamina / 10);
+            if (_playerManager.Stamina > _playerManager.MaxStamina)
+            {
+                _playerManager.SetMaxStamina(_playerManager.MaxStamina);
+            }
             yield return new WaitForSeconds(1f);
         }
         _staminaRegenStarted = false;
@@ -353,8 +383,8 @@ public class PlayerController : NetworkBehaviour
         while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
-            ChangeStamina(-5);
-            yield return new WaitForSeconds(1f);
+            ChangeStamina(-0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
         _runningStaminaLose = false;
     }
