@@ -22,7 +22,7 @@ public class ProceduralRecoil : MonoBehaviour
 
     private void Update()
     {
-        _targetRotation = Vector3.Lerp(_targetRotation, Vector3.zero, Time.deltaTime * _returnAmout);
+        _targetRotation = Vector3.Lerp(_targetRotation, new Vector3(0, 90, 0), Time.deltaTime * _returnAmout);
         _currentRotation = Vector3.Slerp(_currentRotation, _targetRotation, Time.fixedDeltaTime * _snappiness);
         transform.localRotation = Quaternion.Euler(_currentRotation);
         Back();

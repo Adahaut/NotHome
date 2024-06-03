@@ -15,6 +15,7 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField] private PC _playerController;
     [SerializeField] private float _speedFactor;
     private ProceduralRecoil _recoil;
+    [SerializeField] private GameObject _muzzuleFlashEffect;
 
     private AudioSource _riffleAudioSource;
     [SerializeField] private AudioClip _riffleAudioClip;
@@ -55,6 +56,7 @@ public class RangeWeapon : MonoBehaviour
         _playerAttack = GetComponentInParent<PlayerAttack>();
         _originalPosition = _transform.localPosition;
         _recoil = GetComponent<ProceduralRecoil>();
+        _playerController = GetComponentInParent<PC>();
     }
     public void NextWeapon()
     {
@@ -131,6 +133,8 @@ public class RangeWeapon : MonoBehaviour
             {
                 StartRecoil();
                 _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
+                PlayMuzzuleFlash();
+                
                 if (Physics.Raycast(_muzzle.position, _transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
                //     print("touche " + _hitInfo.collider.name);
@@ -144,6 +148,14 @@ public class RangeWeapon : MonoBehaviour
         {
             StartReload();
         }
+    }
+
+    private void PlayMuzzuleFlash()
+    {
+        GameObject _muzzuleFlash = Instantiate(_muzzuleFlashEffect, _muzzle);
+        _muzzuleFlash.transform.position = _muzzle.position + (_muzzuleFlash.transform.right * 0.1f);
+        _muzzuleFlash.GetComponent<ParticleSystem>().Play();
+        Destroy(_muzzuleFlash, 0.2f);
     }
 
     private void StartRecoil()

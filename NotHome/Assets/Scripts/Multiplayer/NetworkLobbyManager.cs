@@ -193,7 +193,7 @@ public class NetworkLobbyManager : NetworkManager
         {
             if(!IsReadyToStart()) { return; }
 
-            ServerChangeScene("Scene_Map_01");
+            ServerChangeScene("Scene_Map_02");
         }
     }
 
