@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerSpawnSystem : NetworkBehaviour
@@ -9,6 +10,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     private static List<Transform> _spawnPoints = new List<Transform>();
 
+    public int playerCount;
     private int _nextIndex = 0;
 
     public static void AddSpawnPoint(Transform transform)
@@ -36,8 +38,10 @@ public class PlayerSpawnSystem : NetworkBehaviour
         }
 
         GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
+        
         NetworkServer.Spawn(playerInstance, conn);
 
+        playerCount++;
         _nextIndex++;
 
     }

@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 4889614420658630624}
   - component: {fileID: 7256760164720285112}
   - component: {fileID: 7398081844892070951}
-  - component: {fileID: 1004785012457149686}
   m_Layer: 2
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -199,27 +198,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1004785012457149686
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3657526638739725592}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3957952223163650595
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +622,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3b83b5df-5ff9-4c46-b420-dd785d4e2435
     m_ActionName: Player/Torsh[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 700f7530-f6a3-4e16-a1e6-5be6f74f4fc7
+    m_ActionName: Player/OpenBook[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d4535aec-1405-400f-8b75-62d41ecf74a7
+    m_ActionName: Player/Fart[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -660,7 +646,6 @@ GameObject:
   - component: {fileID: 2695529147901202917}
   - component: {fileID: 1758352343701573774}
   - component: {fileID: 1354330989651866777}
-  - component: {fileID: 2677467073795340437}
   m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
@@ -733,27 +718,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2677467073795340437
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4137672140668943306}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4294072686172116781
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,7 +950,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1005,15 +969,14 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: 727a8aa6760cdaf41ba62ca731cf448c, type: 2}
   _muzzle: {fileID: 7161227206883072467}
   _savedCameraTransform: {fileID: 0}
-  _recoilStepsNumber: 52
-  _recoilForce: 3
   _playerCamera: {fileID: 240723328274052597}
-  _cameraTransform: {fileID: 0}
   _aimingZoomSteps: 6
   _weaponHolder: {fileID: 4391233630866183929}
   _endWeaponHolder: {fileID: 1647117217807798568}
   _isAiming: 0
   _playerController: {fileID: 3251227197460374685}
+  _speedFactor: 0
+  _riffleAudioClip: {fileID: 0}
   _upRecoilValue: {x: -25, y: 0, z: 0}
   _redDot: {fileID: 6198800143975479083}
   _laser: {fileID: 1374503347663095306}
@@ -1179,7 +1142,7 @@ GameObject:
   - component: {fileID: 7398245550279643115}
   m_Layer: 2
   m_Name: P3
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1312,17 +1275,19 @@ MonoBehaviour:
   - {fileID: 1222415935894057027}
   - {fileID: 5837169634722029860}
   - {fileID: 7636724713220425337}
-  - {fileID: 1645959042927197811}
-  - {fileID: 2007209584499108504}
+  - {fileID: 0}
+  - {fileID: 0}
   _inventory: {fileID: 4662684437689299983}
   _itemTag: Item
   _itemPickRange: 2
   _hotBar: {fileID: 146612745552724292}
+  _book: {fileID: 0}
   _playerManager: {fileID: 4325139319961065731}
   _staminaTimer: 3
   _currentStaminaTime: 0
   _staminaRegenStarted: 0
   _runningStaminaLose: 0
+  _isInBaseInventory: 0
   _torch: {fileID: 5955450202181364676}
   yRotationLimit: 88
 --- !u!114 &607238780382878291
@@ -1339,7 +1304,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDetectionCollider: {fileID: 6266804629289602407}
   _damages: 10
+  _isAimingFinished: 0
+  _isRecoilFinished: 0
+  _isAiming: 0
   _isRangeWeaponEqupiped: 1
+  _isMeleeWeaponEqupiped: 0
   _cadence: 2
 --- !u!143 &3612637645273497082
 CharacterController:
@@ -1522,7 +1491,6 @@ GameObject:
   - component: {fileID: 132586126418722398}
   - component: {fileID: 5858728778301524021}
   - component: {fileID: 5420293353420992737}
-  - component: {fileID: 7488292839759510145}
   m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -1595,27 +1563,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7488292839759510145
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7567170842504247308}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7589397738853683568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1840,10 +1787,6 @@ PrefabInstance:
       propertyPath: _playerTransform
       value: 
       objectReference: {fileID: 482119417541194962}
-    - target: {fileID: 3001922499995054765, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 3378165524744944934, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1876,24 +1819,20 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3251227197460374685}
-    - target: {fileID: 6358940980871967326, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 6656770207778603865, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3251227197460374685}
+    - target: {fileID: 7018795895481022992, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _assetId
+      value: 3174472337
+      objectReference: {fileID: 0}
     - target: {fileID: 7044184185154296097, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 7118287699749949063, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3251227197460374685}
-    - target: {fileID: 7610856659803724825, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: _playerController
       value: 
       objectReference: {fileID: 3251227197460374685}
     - target: {fileID: 7805499000887353074, guid: c65c6ee038096654983d801be093112f, type: 3}
@@ -1943,16 +1882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1645959042927197811 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8886186919247320744, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 7891868864826435803}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2007209584499108504 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8529402701281608259, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 7891868864826435803}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2261295832833097122 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8278795337802945913, guid: c65c6ee038096654983d801be093112f, type: 3}

@@ -146,7 +146,10 @@ public class PC : MonoBehaviour
         if (ctx.performed)
         {
             StartUi();
-            DoorExit.Instance.OpenDoor(_camera);
+            if (Physics.Raycast(_camera.position,_camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("DecompressionExit") || hit.collider.CompareTag("DecompressionMountain")))
+            {
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().OpenDoor(_camera);
+            }
         }
         //OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
@@ -195,7 +198,6 @@ public class PC : MonoBehaviour
             _canOpen = false;
             _textPress.text = "";
         }
-
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
