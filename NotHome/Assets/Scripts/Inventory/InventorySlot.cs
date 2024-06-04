@@ -16,7 +16,6 @@ public class InventorySlot : NetworkBehaviour
     {
         //_itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
         _itemImage = gameObject.GetComponentInChildren<Image>();
-        print(_itemImage == null);
         ResetItem();
         //_numberText.text = "";
     }
@@ -42,12 +41,16 @@ public class InventorySlot : NetworkBehaviour
 
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
     {
+        if(_itemImage == null)
+            _itemImage = gameObject.GetComponentInChildren<Image>();
+
         if (_itemImage != null)
             _itemImage.sprite = _newSprite;
         else
             print("caca");
-        //_number = _newNumber;
-        //_itemContained.SetItem(_name, _newSprite);
+
+        _number = _newNumber;
+        _itemContained.SetItem(_name, _newSprite);
 
     }
 
