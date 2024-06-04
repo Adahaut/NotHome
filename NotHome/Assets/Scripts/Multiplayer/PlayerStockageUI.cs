@@ -45,7 +45,6 @@ public class PlayerStockageUI : NetworkBehaviour
 
     private void Update()
     {
-        UpdateItemList();
         Vector3 MousePos = Input.mousePosition;
 
         PointerEventData pointerEventData = new PointerEventData(_eventSystem);
@@ -88,6 +87,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 }
                 UpdateStockageUI();
             }
+            UpdateItemList();
         }
 
         debug.text = "";
@@ -215,6 +215,7 @@ public class PlayerStockageUI : NetworkBehaviour
     [Command]
     public void UpdateItemList()
     {
+        print("caca");
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
             UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, null /*InventoryBaseManager.instance._inventoryItems[i]._sprite*/);
@@ -225,7 +226,17 @@ public class PlayerStockageUI : NetworkBehaviour
     [Command]
     public void UpdateOneItem(int _index, int _number, Sprite _sprite)
     {
-        _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, _sprite, /*null*/ InventoryBaseManager.instance._inventoryItems[_index]._name);
+        Sprite s = null;
+
+        foreach (Item a in InventoryBaseManager.instance._allItems)
+        {
+            if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == a.ItemName())
+            {
+                s = a.ItemSprite();
+            }
+        }
+
+        _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, s, /*null*/ InventoryBaseManager.instance._inventoryItems[_index]._name);
     }
 
     [Command]
@@ -287,10 +298,8 @@ public class PlayerStockageUI : NetworkBehaviour
     //check if item List contain _name
     private bool ListContain(string _name)
     {
-        print(InventoryBaseManager.instance._inventorySize);
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
-            print(InventoryBaseManager.instance._inventoryItems[i]._name + "\n" + _name);
             if (InventoryBaseManager.instance._inventoryItems[i]._name == _name)
             {
                 return true;
