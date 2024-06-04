@@ -39,6 +39,7 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
     {
+        print("enter update item");
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
         _itemContained.SetItem(_name, _newSprite);
