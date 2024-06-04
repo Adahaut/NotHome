@@ -7,7 +7,8 @@ public class SaveSytem : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerTransform;
-    private GameObject[] _buildings;
+    [SerializeField] private QuestManager _questManager;
+    [SerializeField] private NewFieldManager _newFieldManager;
 
     private void Start()
     {
@@ -33,9 +34,10 @@ public class SaveSytem : MonoBehaviour
     {
         SavedData savedData = new SavedData
         {
-            playerPositions = playerTransform.position,
+            //amelioration + liste inventaire + liste champs + quetes
             // variables a save
-            //amelioration + liste inventaire (liste de struct) + liste champs + quetes
+            playerPositions = playerTransform.position,
+            _actualQuest = _questManager._actualQuest,
         };
 
         string jsonData = JsonUtility.ToJson(savedData);
@@ -54,17 +56,26 @@ public class SaveSytem : MonoBehaviour
         SavedData savedData = JsonUtility.FromJson<SavedData>(jsonData);
 
         //chargement des données
-        playerTransform.position = savedData.playerPositions;
-
         //variables a load
-        //script.variable (public) = savedData.variable
+        playerTransform.position = savedData.playerPositions;
+        _questManager._actualQuest = savedData._actualQuest;
     }
 
+}
+
+[System.Serializable]
+public class PlantData
+{
+    public int index;
+    public bool isPlanted;
+    public int seedId;
+    public float remainingGrowTime;
 }
 
 public class SavedData
 {
     public Vector3 playerPositions;
+    public QuestScriptableObject _actualQuest;
+    public List<PlantData> plants;
 }
-
 
