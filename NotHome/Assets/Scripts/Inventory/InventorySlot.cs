@@ -39,6 +39,7 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
     {
+        _itemImage = GetComponentInChildren<Image>();
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
 
@@ -46,7 +47,7 @@ public class InventorySlot : MonoBehaviour
         _itemContained._sprite = _newSprite;
 
         //_itemContained.SetItem(_name, _newSprite);
-        
+
     }
 
     public void UpdateNumber()
