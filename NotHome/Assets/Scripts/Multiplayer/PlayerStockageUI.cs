@@ -44,7 +44,7 @@ public class PlayerStockageUI : NetworkBehaviour
 
     private void Update()
     {
-        UpdateItemList();
+
         Vector3 MousePos = Input.mousePosition;
 
         PointerEventData pointerEventData = new PointerEventData(_eventSystem);
@@ -54,7 +54,6 @@ public class PlayerStockageUI : NetworkBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
 
         _raycaster.Raycast(pointerEventData, results);
-                    UpdateStockageUI();
 
         if (results.Count > 0)
         {
@@ -74,7 +73,8 @@ public class PlayerStockageUI : NetworkBehaviour
                         RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/,
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
-                    
+                    UpdateStockageUI();
+                    UpdateItemList();
                 }
             }
             if (!_draging && Input.GetMouseButtonDown(0)
@@ -87,6 +87,7 @@ public class PlayerStockageUI : NetworkBehaviour
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
                 }
                 UpdateStockageUI();
+                UpdateItemList();
             }
         }
 
