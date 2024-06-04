@@ -14,6 +14,7 @@ public class InventorySlot : MonoBehaviour
     private void Awake()
     {
         //_itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+        Debug.Log("Test");
         _itemImage = gameObject.GetComponentInChildren<Image>();
         ResetItem();
         //_numberText.text = "";
