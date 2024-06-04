@@ -51,8 +51,8 @@ public class InventorySlot : NetworkBehaviour
         else
             print("caca");
 
-        _number = _newNumber;
-        _itemContained.SetItem(_name, _newSprite);
+        //_number = _newNumber;
+        //_itemContained.SetItem(_name, _newSprite);
 
     }
 
