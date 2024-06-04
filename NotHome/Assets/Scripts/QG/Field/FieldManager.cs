@@ -29,8 +29,8 @@ public class FieldManager : MonoBehaviour
     {
         for (int i = 0; i < 13; i++)
         {
-            Plant plant = new Plant(i.ToString(), null);
-            _plantList.Add(plant);
+            //Plant plant = new Plant(i.ToString(), null);
+            //_plantList.Add(plant);
         }
     }
 
