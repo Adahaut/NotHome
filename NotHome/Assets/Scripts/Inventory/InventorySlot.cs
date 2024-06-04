@@ -43,8 +43,16 @@ public class InventorySlot : MonoBehaviour
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
 
-        _itemContained._name = _name;
-        _itemContained._sprite = _newSprite;
+        if(_itemContained != null)
+        {
+            _itemContained._name = _name;
+            _itemContained._sprite = _newSprite;
+        }
+        else
+        {
+            print("test");
+        }
+        
 
         //_itemContained.SetItem(_name, _newSprite);
 
