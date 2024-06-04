@@ -1,13 +1,14 @@
 using Mirror;
 using UnityEngine;
 
+
 public class ItemObject : ScriptableObject
 {
-    [SerializeField, SyncVar] private string _name;
+    [SyncVar] public string _name;
 
-    [SerializeField, SyncVar] private Sprite _sprite;
+    [SyncVar] public Sprite _sprite;
 
-    [SerializeField, SyncVar] private bool _isAnEquipement;
+    [SyncVar] public bool _isAnEquipement;
 
     public string ItemName() { return _name; }
 
@@ -16,7 +17,7 @@ public class ItemObject : ScriptableObject
 
     public void SetItem(string _newName, Sprite _newSprite)
     {
-        _name = _newName;
+        //_name = _newName;
         //_sprite = _newSprite;
     }
 }
