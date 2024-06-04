@@ -67,13 +67,17 @@ public class PlayerStockageUI : NetworkBehaviour
                     {
                         AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null /*_itemImage.ItemContained().ItemSprite()*/, 
                             GetIndexOf(results[0].gameObject.GetComponent<InventorySlot>().ItemContained().ItemName()), _itemImage);
+                        print("first if");
                     }
                     else
                     {
                         RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null /*_itemImage.ItemContained().ItemSprite()*/,
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
+                        print("second if");
+
                     }
                     UpdateStockageUI();
+                    print("UI Update");
                 }
             }
             if (!_draging && Input.GetMouseButtonDown(0)
@@ -163,6 +167,7 @@ public class PlayerStockageUI : NetworkBehaviour
             UpdateOneItem(_slotIndex, _number, _sprite);
         }
         _playerInventorySlot.ResetItem();
+        print("item added");
     }
 
     public void RemoveItemFromBase(string _name, int _number, Sprite _sprite, int _index, InventorySlot _inventorySlot)
