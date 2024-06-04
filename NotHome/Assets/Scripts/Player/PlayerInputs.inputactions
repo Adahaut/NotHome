@@ -797,6 +797,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Minimap",
+            "id": "f6e5399d-655e-4baf-be29-68c665856e3e",
+            "actions": [
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "88769daf-3740-4fc9-a78f-f0642c594619",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "443e77e8-c640-405f-bcc2-2c89ba08461d",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
