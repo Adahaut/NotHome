@@ -230,6 +230,8 @@ public class PlayerStockageUI : NetworkBehaviour
             }
         }
 
+        print(InventoryBaseManager.instance._inventoryItems[_index]._name);
+
         _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, s, /*null*/ InventoryBaseManager.instance._inventoryItems[_index]._name);
     }
 
