@@ -178,6 +178,7 @@ public class PlayerStockageUI : NetworkBehaviour
     //----------------------------//
 
     // init
+    [Command]
     private _itemSlot initItemSlot()
     {
         _itemSlot slot = new _itemSlot();
@@ -215,7 +216,6 @@ public class PlayerStockageUI : NetworkBehaviour
     [Command]
     public void UpdateItemList()
     {
-        print("caca");
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
             UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, null /*InventoryBaseManager.instance._inventoryItems[i]._sprite*/);
@@ -246,16 +246,7 @@ public class PlayerStockageUI : NetworkBehaviour
         _itemSlot tempSlot = new _itemSlot();
         tempSlot._name = _name;
         tempSlot._number = _number;
-        //tempSlot._sprite = _sprite;
-        //Sprite s = null;
 
-        //foreach(Item i in  InventoryBaseManager.instance._allItems)
-        //{
-        //    if (i.ItemName() == _name)
-        //        s = i.ItemSprite();
-        //}
-
-        //_slotList[_index].GetComponent<Image>().sprite = s;
         InventoryBaseManager.instance._inventoryItems[_index] = tempSlot;
     }
 
