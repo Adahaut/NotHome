@@ -218,6 +218,7 @@ public class PlayerStockageUI : NetworkBehaviour
     }
 
     // Update one Item from list at specific index
+    [Command]
     public void UpdateOneItem(int _index, int _number)
     {
         foreach (Item i in InventoryBaseManager.instance._allItems)
