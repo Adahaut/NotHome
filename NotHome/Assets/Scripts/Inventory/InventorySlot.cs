@@ -40,7 +40,6 @@ public class InventorySlot : MonoBehaviour
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
     {
         _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
-        Debug.Log(_newSprite);
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
 

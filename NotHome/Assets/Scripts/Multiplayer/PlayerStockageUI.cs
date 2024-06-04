@@ -73,7 +73,6 @@ public class PlayerStockageUI : NetworkBehaviour
                         RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/,
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
-                    UpdateStockageUI();
                     UpdateItemList();
                 }
             }
@@ -86,10 +85,10 @@ public class PlayerStockageUI : NetworkBehaviour
                     _draging = true;
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
                 }
-                UpdateStockageUI();
                 UpdateItemList();
             }
         }
+        UpdateStockageUI();
 
         debug.text = "";
         for (int i = 0; i < InventoryBaseManager.instance._inventoryItems.Count; i++)
@@ -105,6 +104,7 @@ public class PlayerStockageUI : NetworkBehaviour
             if (_slotList[i].name != "None")
             {
                 _slotList[i].GetComponent<InventorySlot>().UpdateItemVisuel();
+                print(_slotList[i].GetComponent<InventorySlot>()._itemContained._sprite);
             }
             else
             {
@@ -154,16 +154,19 @@ public class PlayerStockageUI : NetworkBehaviour
         {
             AddNumberItem(_name, _number);
             UpdateOneItem(_slotIndex, _number);
+            print("already in list");
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
         {
             AddNewItem(_name, _number, _slotIndex);
             UpdateOneItem(_slotIndex, _number);
+            print("new item added in list");
         }
         else
         {
             AddNewItem(_name, _number, GetIndexOf("None"));
             UpdateOneItem(_slotIndex, _number);
+            print("else");
         }
         _playerInventorySlot.ResetItem();
     }
@@ -218,14 +221,13 @@ public class PlayerStockageUI : NetworkBehaviour
     [Command]
     public void UpdateOneItem(int _index, int _number)
     {
-        
-
         foreach (Item i in InventoryBaseManager.instance._allItems)
         {
             if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == i.ItemName())
             {
                 Sprite s = i.ItemSprite();
                 _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, s, InventoryBaseManager.instance._inventoryItems[_index]._name);
+                print(_slotList[_index].GetComponent<InventorySlot>()._itemContained._sprite);
                 return;
             }
         }
