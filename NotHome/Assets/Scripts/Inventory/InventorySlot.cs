@@ -41,8 +41,10 @@ public class InventorySlot : NetworkBehaviour
 
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
     {
-        if(_itemImage == null)
+        
             _itemImage = gameObject.GetComponentInChildren<Image>();
+
+        print("test");
 
         if (_itemImage != null)
             _itemImage.sprite = _newSprite;
