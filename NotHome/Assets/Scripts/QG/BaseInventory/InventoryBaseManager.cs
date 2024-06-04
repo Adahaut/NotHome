@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class InventoryBaseManager : InventoryManager
     {
         public string _name;
         public int _number;
-        //public Sprite _sprite;
+        public Sprite _sprite;
     }
 
     private void Awake()
@@ -71,5 +72,4 @@ public class InventoryBaseManager : InventoryManager
         //    }
         //}
     }
-
 }
