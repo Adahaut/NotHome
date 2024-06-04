@@ -11,7 +11,7 @@ public class InventoryBaseManager : InventoryManager
     public Dictionary<string, int> _baseInventory = new Dictionary<string, int>();
 
     [SerializeField] public SyncList<_itemSlot> _inventoryItems = new SyncList<_itemSlot>();
-    public int _inventorySize;
+    [SyncVar] public int _inventorySize;
 
     [System.Serializable]
     public struct _itemSlot
