@@ -31,6 +31,8 @@ public class InventoryBaseManager : InventoryManager
         
     }
 
+    
+
     public bool CheckForMaterial(string _itemName)
     {
         return _baseInventory.ContainsKey(_itemName);
