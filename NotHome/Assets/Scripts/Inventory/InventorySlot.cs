@@ -1,9 +1,10 @@
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : NetworkBehaviour
 {
     [SerializeField] public ItemObject _itemContained;
     public Image _itemImage;
@@ -14,8 +15,8 @@ public class InventorySlot : MonoBehaviour
     private void Awake()
     {
         //_itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
-        Debug.Log("Test");
         _itemImage = gameObject.GetComponentInChildren<Image>();
+        print(_itemImage == null);
         ResetItem();
         //_numberText.text = "";
     }
