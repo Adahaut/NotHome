@@ -29,8 +29,29 @@ public class InventoryBaseManager : InventoryManager
 
     private void Start()
     {
-        
+        //Init();
     }
+
+    //[Command]
+    //private void Init()
+    //{
+    //    InventoryBaseManager.instance._inventorySize = _slotList.Count;
+    //    Debug.Log(_slotList.Count);
+    //    for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
+    //    {
+    //        InventoryBaseManager.instance._inventoryItems.Add(initItemSlot());
+    //    }
+    //}
+
+    //// init
+    //private _itemSlot initItemSlot()
+    //{
+    //    _itemSlot slot = new _itemSlot();
+    //    slot._name = "None";
+    //    slot._number = 0;
+    //    //slot._sprite = null;
+    //    return slot;
+    //}
 
     public bool CheckForMaterial(string _itemName)
     {

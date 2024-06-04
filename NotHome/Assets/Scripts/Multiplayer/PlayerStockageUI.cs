@@ -37,8 +37,8 @@ public class PlayerStockageUI : NetworkBehaviour
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
 
-        if (InventoryBaseManager.instance._inventoryItems.Count == 0)
-            Init();
+        //if (InventoryBaseManager.instance._inventoryItems.Count == 0)
+        //    Init();
 
         _inventoryPanel.gameObject.SetActive(true);
     }
@@ -197,15 +197,7 @@ public class PlayerStockageUI : NetworkBehaviour
         InventoryBaseManager.instance._inventoryItems[_index] = slot;
     }
 
-    [Command]
-    private void Init()
-    {
-        InventoryBaseManager.instance._inventorySize = _slotList.Count;
-        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
-        {
-            InventoryBaseManager.instance._inventoryItems.Add(initItemSlot());
-        }
-    }
+    
 
     //------------------------------------//
     //     Update InventorySlots list     //
