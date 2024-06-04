@@ -287,7 +287,7 @@ public class PlayerStockageUI : NetworkBehaviour
     //check if item List contain _name
     private bool ListContain(string _name)
     {
-        
+        print(InventoryBaseManager.instance._inventorySize);
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
             print(InventoryBaseManager.instance._inventoryItems[i]._name + "\n" + _name);
