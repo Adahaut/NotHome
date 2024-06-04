@@ -47,7 +47,7 @@ public class InventorySlot : NetworkBehaviour
 
 
         _number = _newNumber;
-        //_itemContained.SetItem(_name, _newSprite);
+        _itemContained.SetItem(_name, _newSprite);
 
     }
 
