@@ -52,7 +52,6 @@ public class InventoryManager : NetworkBehaviour
         gameObject.SetActive(false);
         if(isServer)
         {
-            Debug.Log("Init base inventory on server");
             Init();
         }
         

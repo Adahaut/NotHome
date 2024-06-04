@@ -54,6 +54,7 @@ public class PlayerStockageUI : NetworkBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
 
         _raycaster.Raycast(pointerEventData, results);
+                    UpdateStockageUI();
 
         if (results.Count > 0)
         {
@@ -65,7 +66,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 {
                     if (results[0].gameObject.CompareTag(_itemBaseContainerTag))
                     {
-                        AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/, 
+                        AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), 
                             GetIndexOf(results[0].gameObject.GetComponent<InventorySlot>().ItemContained().ItemName()), _itemImage);
                     }
                     else
@@ -73,7 +74,7 @@ public class PlayerStockageUI : NetworkBehaviour
                         RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/,
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
-                    UpdateStockageUI();
+                    
                 }
             }
             if (!_draging && Input.GetMouseButtonDown(0)
@@ -146,22 +147,22 @@ public class PlayerStockageUI : NetworkBehaviour
     ///////////////////////////////////////
 
     //add item in base
-    public void AddItemInBase(string _name, int _number, Sprite _sprite, int _slotIndex, InventorySlot _playerInventorySlot)
+    public void AddItemInBase(string _name, int _number, int _slotIndex, InventorySlot _playerInventorySlot)
     {
         if (ListContain(_name))
         {
             AddNumberItem(_name, _number);
-            UpdateOneItem(_slotIndex, _number, _sprite);
+            UpdateOneItem(_slotIndex, _number);
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
         {
-            AddNewItem(_name, _number, _sprite, _slotIndex);
-            UpdateOneItem(_slotIndex, _number, _sprite);
+            AddNewItem(_name, _number, _slotIndex);
+            UpdateOneItem(_slotIndex, _number);
         }
         else
         {
-            AddNewItem(_name, _number, _sprite, GetIndexOf("None"));
-            UpdateOneItem(_slotIndex, _number, _sprite);
+            AddNewItem(_name, _number, GetIndexOf("None"));
+            UpdateOneItem(_slotIndex, _number);
         }
         _playerInventorySlot.ResetItem();
     }
@@ -170,7 +171,7 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         _inventorySlot.ChangeItem(_name, _sprite, false);
         _inventorySlot.SetNumber(_number);
-        UpdateOneItem(GetIndexOf(_name), _number, _sprite);
+        UpdateOneItem(GetIndexOf(_name), _number);
         RemoveItem(_index);
     }
 
@@ -208,19 +209,30 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
-            UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, null /*InventoryBaseManager.instance._inventoryItems[i]._sprite*/);
+            UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number);
         }
     }
 
     // Update one Item from list at specific index
     [Command]
-    public void UpdateOneItem(int _index, int _number, Sprite _sprite)
+    public void UpdateOneItem(int _index, int _number)
     {
-        _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, _sprite, /*null*/ InventoryBaseManager.instance._inventoryItems[_index]._name);
+        
+
+        foreach (Item i in InventoryBaseManager.instance._allItems)
+        {
+            if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == i.ItemName())
+            {
+                Sprite s = i.ItemSprite();
+                _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, s, InventoryBaseManager.instance._inventoryItems[_index]._name);
+                return;
+            }
+        }
+
     }
 
     [Command]
-    private void UpdateItemInList(string _name, int _number, Sprite _sprite, int _index)
+    private void UpdateItemInList(string _name, int _number, int _index)
     {
        
         _itemSlot tempSlot = new _itemSlot();
@@ -232,12 +244,12 @@ public class PlayerStockageUI : NetworkBehaviour
     }
 
     // add an item that is not already in inventory
-    private void AddNewItem(string _name, int _number, Sprite _sprite, int _index)
+    private void AddNewItem(string _name, int _number, int _index)
     {
         if (!HasPlaceRemaining())
             throw new Exception("no remaining place");
 
-        UpdateItemInList(_name, _number, _sprite, _index);
+        UpdateItemInList(_name, _number, _index);
     }
 
     // a a unmber of item that is in inventory
