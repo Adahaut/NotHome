@@ -1,7 +1,6 @@
 using Mirror;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -71,7 +70,7 @@ public class PlayerStockageUI : NetworkBehaviour
                     }
                     else
                     {
-                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), _itemImage.ItemContained().ItemSprite(),
+                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/,
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
                     UpdateStockageUI();
@@ -240,15 +239,7 @@ public class PlayerStockageUI : NetworkBehaviour
         tempSlot._name = _name;
         tempSlot._number = _number;
         //tempSlot._sprite = _sprite;
-        Sprite s = null;
-
-        foreach(Item i in  InventoryBaseManager.instance._allItems)
-        {
-            if (i.ItemName() == _name)
-                s = i.ItemSprite();
-        }
-
-        _slotList[_index].GetComponent<Image>().sprite = s;
+        
         InventoryBaseManager.instance._inventoryItems[_index] = tempSlot;
     }
 
