@@ -178,7 +178,6 @@ public class PlayerStockageUI : NetworkBehaviour
     //----------------------------//
 
     // init
-    [Command]
     private _itemSlot initItemSlot()
     {
         _itemSlot slot = new _itemSlot();
