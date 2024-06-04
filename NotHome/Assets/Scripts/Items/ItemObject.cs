@@ -1,13 +1,13 @@
-using Org.BouncyCastle.Asn1;
+using Mirror;
 using UnityEngine;
 
 public class ItemObject : ScriptableObject
 {
-    [SerializeField] private string _name;
+    [SerializeField, SyncVar] private string _name;
 
-    [SerializeField] private Sprite _sprite;
+    [SerializeField, SyncVar] private Sprite _sprite;
 
-    [SerializeField] private bool _isAnEquipement;
+    [SerializeField, SyncVar] private bool _isAnEquipement;
 
     public string ItemName() { return _name; }
 
@@ -16,7 +16,7 @@ public class ItemObject : ScriptableObject
 
     public void SetItem(string _newName, Sprite _newSprite)
     {
-        _name = _newName;
+        //_name = _newName;
         //_sprite = _newSprite;
     }
 }
