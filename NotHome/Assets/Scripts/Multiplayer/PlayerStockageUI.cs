@@ -32,6 +32,7 @@ public class PlayerStockageUI : NetworkBehaviour
     private void OnEnable()
     {
         UpdateItemList();
+        UpdateStockageUI();
 
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
@@ -88,7 +89,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 UpdateItemList();
             }
         }
-        //UpdateStockageUI();
+        UpdateStockageUI();
 
         debug.text = "";
         for (int i = 0; i < InventoryBaseManager.instance._inventoryItems.Count; i++)
@@ -96,7 +97,6 @@ public class PlayerStockageUI : NetworkBehaviour
             debug.text += i + " " + InventoryBaseManager.instance._inventoryItems[i]._name + "\n";
         }
     }
-    [ClientRpc]
     private void UpdateStockageUI()
     {
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; ++i)
@@ -215,7 +215,6 @@ public class PlayerStockageUI : NetworkBehaviour
         {
             UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number);
         }
-        UpdateStockageUI();
     }
 
     // Update one Item from list at specific index
