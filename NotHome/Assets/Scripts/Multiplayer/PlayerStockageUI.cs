@@ -1,11 +1,7 @@
 using Mirror;
-using Org.BouncyCastle.Crypto.Macs;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,15 +33,19 @@ public class PlayerStockageUI : NetworkBehaviour
     private void OnEnable()
     {
         UpdateItemList();
+
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
+
         if (InventoryBaseManager.instance._inventoryItems.Count == 0)
             Init();
+
         _inventoryPanel.gameObject.SetActive(true);
     }
 
     private void Update()
     {
+        UpdateItemList();
         Vector3 MousePos = Input.mousePosition;
 
         PointerEventData pointerEventData = new PointerEventData(_eventSystem);
@@ -64,18 +64,14 @@ public class PlayerStockageUI : NetworkBehaviour
                 _draging = false;
                 if (CheckIfHasGoodTag(results[0].gameObject) && CheckIfParentsNotAreSame(_itemImage.gameObject, results[0].gameObject))
                 {
-                    print("lache");
                     if (results[0].gameObject.CompareTag(_itemBaseContainerTag))
                     {
-                        print("a");
                         AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/, 
                             GetIndexOf(results[0].gameObject.GetComponent<InventorySlot>().ItemContained().ItemName()), _itemImage);
                     }
                     else
                     {
-                        print("b");
-                        print("item name : " + _itemImage.ItemContained().ItemName() + " index : " + GetIndexOf(_itemImage.ItemContained().ItemName()));
-                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/,
+                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), _itemImage.ItemContained().ItemSprite(),
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
                     UpdateStockageUI();
@@ -173,7 +169,6 @@ public class PlayerStockageUI : NetworkBehaviour
 
     public void RemoveItemFromBase(string _name, int _number, Sprite _sprite, int _index, InventorySlot _inventorySlot)
     {
-        print(GetIndexOf(_name));
         _inventorySlot.ChangeItem(_name, _sprite, false);
         _inventorySlot.SetNumber(_number);
         UpdateOneItem(GetIndexOf(_name), _number, _sprite);
@@ -226,7 +221,7 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
-            UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, null/*InventoryBaseManager.instance._inventoryItems[i]._sprite*/);
+            UpdateOneItem(i, InventoryBaseManager.instance._inventoryItems[i]._number, null /*InventoryBaseManager.instance._inventoryItems[i]._sprite*/);
         }
     }
 
@@ -234,17 +229,26 @@ public class PlayerStockageUI : NetworkBehaviour
     [Command]
     public void UpdateOneItem(int _index, int _number, Sprite _sprite)
     {
-        _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, _sprite, InventoryBaseManager.instance._inventoryItems[_index]._name);
+        _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, _sprite, /*null*/ InventoryBaseManager.instance._inventoryItems[_index]._name);
     }
 
     [Command]
     private void UpdateItemInList(string _name, int _number, Sprite _sprite, int _index)
     {
+       
         _itemSlot tempSlot = new _itemSlot();
         tempSlot._name = _name;
         tempSlot._number = _number;
         //tempSlot._sprite = _sprite;
+        Sprite s = null;
 
+        foreach(Item i in  InventoryBaseManager.instance._allItems)
+        {
+            if (i.ItemName() == _name)
+                s = i.ItemSprite();
+        }
+
+        _slotList[_index].GetComponent<Image>().sprite = s;
         InventoryBaseManager.instance._inventoryItems[_index] = tempSlot;
     }
 
@@ -287,10 +291,14 @@ public class PlayerStockageUI : NetworkBehaviour
     //check if item List contain _name
     private bool ListContain(string _name)
     {
+        
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
         {
+            print(InventoryBaseManager.instance._inventoryItems[i]._name + "\n" + _name);
             if (InventoryBaseManager.instance._inventoryItems[i]._name == _name)
+            {
                 return true;
+            }
         }
         return false;
     }
