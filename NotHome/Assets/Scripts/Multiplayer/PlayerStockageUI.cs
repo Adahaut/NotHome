@@ -222,15 +222,15 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         Sprite s = null;
 
-        //foreach (Item a in InventoryBaseManager.instance._allItems)
-        //{
-        //    if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == a.ItemName())
-        //    {
-        //        s = a.ItemSprite();
-        //    }
-        //}
+        foreach (Item a in InventoryBaseManager.instance._allItems)
+        {
+            if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == a.ItemName())
+            {
+                s = a.ItemSprite();
+            }
+        }
 
-        _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, s, /*null*/ InventoryBaseManager.instance._inventoryItems[_index]._name);
+        //_slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, s, /*null*/ InventoryBaseManager.instance._inventoryItems[_index]._name);
     }
 
     [Command]
