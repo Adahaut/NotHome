@@ -1,3 +1,4 @@
+using Org.BouncyCastle.Asn1;
 using UnityEngine;
 
 public class ItemObject : ScriptableObject
@@ -15,7 +16,7 @@ public class ItemObject : ScriptableObject
 
     public void SetItem(string _newName, Sprite _newSprite)
     {
-        //_name = _newName;
+        _name = _newName;
         //_sprite = _newSprite;
     }
 }
