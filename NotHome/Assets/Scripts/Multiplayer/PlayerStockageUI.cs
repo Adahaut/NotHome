@@ -32,6 +32,7 @@ public class PlayerStockageUI : NetworkBehaviour
     private void OnEnable()
     {
         UpdateItemList();
+        UpdateStockageUI();
 
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
