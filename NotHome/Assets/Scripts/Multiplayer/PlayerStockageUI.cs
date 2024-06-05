@@ -66,13 +66,12 @@ public class PlayerStockageUI : NetworkBehaviour
                 {
                     if (results[0].gameObject.CompareTag(_itemBaseContainerTag))
                     {
-                        print(_itemImage.Number());
                         AddItemInBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), 
                             GetIndexOf(results[0].gameObject.GetComponent<InventorySlot>().ItemContained().ItemName()), _itemImage);
                     }
                     else
                     {
-                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(), null/*_itemImage.ItemContained().ItemSprite()*/,
+                        RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(),
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
                     UpdateItemList();
@@ -124,7 +123,6 @@ public class PlayerStockageUI : NetworkBehaviour
                     {
                         s = a.ItemSprite();
                         _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = s;
-                        //print(_slotList[i].GetComponent<InventorySlot>().Number());
                         _slotList[i].GetComponent<InventorySlot>().UpdateNumber();
                     }
                 }
@@ -187,7 +185,7 @@ public class PlayerStockageUI : NetworkBehaviour
         _playerInventorySlot.ResetItem();
     }
 
-    public void RemoveItemFromBase(string _name, int _number, Sprite _sprite, int _index, InventorySlot _inventorySlot)
+    public void RemoveItemFromBase(string _name, int _number, int _index, InventorySlot _inventorySlot)
     {
         Sprite s = null;
         foreach (Item i in InventoryBaseManager.instance._allItems)
