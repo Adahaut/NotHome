@@ -53,11 +53,13 @@ public class InventorySlot : MonoBehaviour
         if(_itemImage == null)
             _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
 
+        ResetItem();
+
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
         //UpdateNumber();
 
-        //ResetItem();
+        
         _itemContained.SetItem(_name, _newSprite);
     }
 
