@@ -2,6 +2,14 @@ using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct _itemSlot
+{
+    public string _name;
+    public int _number;
+    //public Sprite _sprite;
+}
+
 public class InventoryBaseManager : InventoryManager
 {
     public static InventoryBaseManager instance;
@@ -13,13 +21,7 @@ public class InventoryBaseManager : InventoryManager
     [SerializeField] public SyncList<_itemSlot> _inventoryItems = new SyncList<_itemSlot>();
     [SyncVar] public int _inventorySize;
 
-    [System.Serializable]
-    public struct _itemSlot
-    {
-        public string _name;
-        public int _number;
-        //public Sprite _sprite;
-    }
+    
 
     private void Awake()
     {
@@ -30,8 +32,6 @@ public class InventoryBaseManager : InventoryManager
     {
         
     }
-
-    
 
     public bool CheckForMaterial(string _itemName)
     {

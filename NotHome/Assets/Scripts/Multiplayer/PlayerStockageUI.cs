@@ -37,12 +37,8 @@ public class PlayerStockageUI : NetworkBehaviour
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
 
-        //if (InventoryBaseManager.instance._inventoryItems.Count == 0)
-        //    Init();
-
         _inventoryPanel.gameObject.SetActive(true);
 
-        print(InventoryBaseManager.instance._allItems.Count);
     }
 
     private void Update()
@@ -103,14 +99,9 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         for (int i = 0; i < InventoryBaseManager.instance._inventorySize; ++i)
         {
-            if (_slotList[i].name != "None")
+            if (_slotList[i].GetComponent<InventorySlot>()._itemContained != null && _slotList[i].GetComponent<InventorySlot>()._itemContained.ItemName() != "None")
             {
                 _slotList[i].GetComponent<InventorySlot>().UpdateItemVisuel();
-                print(_slotList[i].GetComponent<InventorySlot>()._itemContained._sprite);
-            }
-            else
-            {
-
             }
         }
     }
@@ -229,7 +220,6 @@ public class PlayerStockageUI : NetworkBehaviour
             {
                 Sprite s = i.ItemSprite();
                 _slotList[_index].GetComponent<InventorySlot>().UpdateItem(_number, s, InventoryBaseManager.instance._inventoryItems[_index]._name);
-                print(_slotList[_index].GetComponent<InventorySlot>()._itemContained._sprite);
                 return;
             }
         }

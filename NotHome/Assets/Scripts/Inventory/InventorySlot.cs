@@ -11,10 +11,18 @@ public class InventorySlot : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI _numberText;
     public bool _isSeleceted;
 
-    private void Awake()
+    private bool firstOpened;
+
+    private void OnEnable()
     {
-        _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
-        ResetItem();
+        if(!firstOpened)
+        {
+            firstOpened = true;
+            _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+            ResetItem();
+        }
+
+        
         //_numberText.text = "";
     }
 
@@ -76,6 +84,10 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateItemVisuel()
     {
-        _itemImage.sprite = _itemContained.ItemSprite();
+        if(_itemImage == null)
+            _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+
+        if(_itemContained.ItemSprite() != null)
+            _itemImage.sprite = _itemContained.ItemSprite();
     }
 }
