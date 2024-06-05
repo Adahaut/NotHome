@@ -174,8 +174,12 @@ public class PlayerStockageUI : NetworkBehaviour
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
         {
+            Debug.Log("1");
             AddNewItem(_name, _number, _slotIndex);
+            Debug.Log("2");
             UpdateOneItem(_slotIndex, _number);
+            Debug.Log("3");
+
         }
         else
         {
