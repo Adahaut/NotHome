@@ -2,15 +2,14 @@ using Mirror;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerFieldUI : NetworkBehaviour
 {
     [SerializeField] private FieldSlotsLists _playerSlots;
 
-    private void OnEnable()
+    private void Update()
     {
-        if(isOwned)
+        if (isOwned)
         {
             UpdateUI();
         }
@@ -24,6 +23,11 @@ public class PlayerFieldUI : NetworkBehaviour
         for (int i = 0; i < slots.Count; i++)
         {
             Seed plant = NewFieldManager.instance._allPlants[i];
+
+            if (NewFieldManager.instance._seedPlantedObjects[i] != null)
+                slots[i].GetComponent<PlayerFieldSlot>().fillBar.fillAmount =
+                    NewFieldManager.instance._seedPlantedObjects[i]._currentTimer / NewFieldManager.instance._seedPlantedObjects[i]._timeToGrow;
+
             //slots[i].GetComponent<Image>().sprite = plant._img;
             textSlots[i].text = plant._name;
         }

@@ -48,6 +48,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
             if (Vector3.Distance(_transform.position, slot.position) < 75 && !slot.GetComponent<PlayerFieldSlot>()._containSeed)
             {
                 _transform.position = slot.position;
+
                 slot.GetComponent<PlayerFieldSlot>().StartGrowing(_seedPrefab.seedStruct._growingTime, 
                     _seedPrefab.seedStruct._name,
                     _seedPrefab.fruitImage,
@@ -69,12 +70,14 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     public void CmdAddPlant(int index, int seedId)
     {
         GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
+        newSeedObject.GetComponent<SeedObject>().StartGrow();
         Seed newSeed = newSeedObject.GetComponent<SeedObject>().seedStruct;
         newSeed.seedId = seedId;
         newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
 
         NetworkServer.Spawn(newSeedObject.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
+        NewFieldManager.instance._seedPlantedObjects[index] = newSeedObject.GetComponent<SeedObject>();
     }
 
 

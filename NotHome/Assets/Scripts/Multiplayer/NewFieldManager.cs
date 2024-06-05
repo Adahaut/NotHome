@@ -10,8 +10,9 @@ public class NewFieldManager : NetworkBehaviour
 
     public readonly SyncList<Seed> _allPlants = new SyncList<Seed>();
 
-
     public List<Transform> _plantPositons;
+
+    public List<SeedObject> _seedPlantedObjects;
 
     public bool _panelOpen;
 
@@ -37,6 +38,7 @@ public class NewFieldManager : NetworkBehaviour
         for (int i = 0; i < _plantPositons.Count; i++)
         {
             _allPlants.Add(defaultSeed);
+            _seedPlantedObjects.Add(null);
         }
 
         _allPlants.Callback += OnAllPlantsChanged;
