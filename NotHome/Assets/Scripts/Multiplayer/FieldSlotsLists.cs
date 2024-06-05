@@ -1,3 +1,4 @@
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,11 +8,26 @@ using UnityEngine;
 public class FieldSlotsLists : MonoBehaviour
 {
     public List<Transform> _listSlots = new();
-    public List<TMP_Text> _listTexts = new();
+    //public List<TMP_Text> _listTexts = new();
+
+    public TMP_Text debug;
 
     private void FixedUpdate()
     {
         //UpdateText();
+    }
+
+    private void Update()
+    {
+        debug.text = "";
+        for (int i = 0; i < NewFieldManager.instance._seedPlantedObjects.Count; i++)
+        {
+            if (NewFieldManager.instance._seedPlantedObjects[i] != null)
+                debug.text += i + NewFieldManager.instance._seedPlantedObjects[i].seedStruct._name + "\n";
+            else
+                debug.text += i + "\n";
+
+        }
     }
 
     //public void UpdateText()
@@ -23,5 +39,5 @@ public class FieldSlotsLists : MonoBehaviour
     //    }
     //}
 
-    
+
 }

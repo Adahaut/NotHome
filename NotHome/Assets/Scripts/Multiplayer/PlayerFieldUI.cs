@@ -7,8 +7,6 @@ public class PlayerFieldUI : NetworkBehaviour
 {
     [SerializeField] private FieldSlotsLists _playerSlots;
 
-    public TMP_Text debug;
-
     NewFieldManager fieldManager = NewFieldManager.instance;
 
     private void Update()
@@ -18,18 +16,14 @@ public class PlayerFieldUI : NetworkBehaviour
             UpdateUI();
         }
 
-        debug.text = "";
-        for (int i = 0; i < fieldManager._seedPlantedObjects.Count; i++)
-        {
-            debug.text += "i" + fieldManager._seedPlantedObjects == null + "\n";
-        }
+        
 
     }
 
     public void UpdateUI()
     {
         List<Transform> slots = _playerSlots._listSlots;
-        List<TMP_Text> textSlots = _playerSlots._listTexts;
+        //List<TMP_Text> textSlots = _playerSlots._listTexts;
 
         for (int i = 0; i < slots.Count; i++)
         {
@@ -52,7 +46,7 @@ public class PlayerFieldUI : NetworkBehaviour
                 slot.fillBar.fillAmount = 0.05f;
             }
 
-            textSlots[i].text = plant._name;
+            //textSlots[i].text = plant._name;
         }
     }
 
