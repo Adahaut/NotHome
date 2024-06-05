@@ -1,13 +1,14 @@
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : NetworkBehaviour
 {
     [SerializeField] public ItemObject _itemContained;
     public Image _itemImage;
-    [SerializeField] private int _number;
+    [SerializeField] [SyncVar]  private int _number;
     [SerializeField] private TextMeshProUGUI _numberText;
     public bool _isSeleceted;
 
