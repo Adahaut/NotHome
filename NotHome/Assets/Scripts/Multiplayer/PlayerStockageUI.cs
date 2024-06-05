@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 //using System.Diagnostics;
@@ -110,8 +111,6 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         Sprite s = null;
 
-        print(_slotList.Count);
-
         for (int i = 0; i < _slotList.Count; i++)
         {
             if(InventoryBaseManager.instance._inventoryItems[i]._name != "None")
@@ -122,10 +121,14 @@ public class PlayerStockageUI : NetworkBehaviour
                     {
                         s = a.ItemSprite();
                         _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = s;
-                        _slotList[i].GetComponent<InventorySlot>().UpdateNumber();
                     }
                 }
             }
+            else
+            {
+                _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = null;
+            }
+                        _slotList[i].GetComponent<InventorySlot>().UpdateNumber();
         }
     }
 
