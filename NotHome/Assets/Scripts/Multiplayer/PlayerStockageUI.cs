@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -70,19 +71,11 @@ public class PlayerStockageUI : NetworkBehaviour
                     }
                     else
                     {
-                        print(_itemImage.Number());
                         RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(),
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
                     UpdateItemList();
                 }
-            }
-
-
-            if(!_draging && Input.GetMouseButtonDown(0))
-            {
-                print(results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot aa));
-                print(aa.ItemContained().ItemName() != "None");
             }
 
             if (!_draging && Input.GetMouseButtonDown(0)
@@ -132,7 +125,8 @@ public class PlayerStockageUI : NetworkBehaviour
                 _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = null;
             }
             _slotList[i].GetComponent<InventorySlot>().ItemContained().SetItem(InventoryBaseManager.instance._inventoryItems[i]._name, s);
-            _slotList[i].GetComponent<InventorySlot>()._numberText.text = InventoryBaseManager.instance._inventoryItems[i]._number.ToString();
+            _slotList[i].GetComponent<InventorySlot>().SetNumberInventorySlot(InventoryBaseManager.instance._inventoryItems[i]._number);
+            //_slotList[i].GetComponent<InventorySlot>()._numberText.text = InventoryBaseManager.instance._inventoryItems[i]._number.ToString();
             //_slotList[i].GetComponent<InventorySlot>().UpdateNumber();
         }
     }
@@ -292,11 +286,17 @@ public class PlayerStockageUI : NetworkBehaviour
 
     // a a unmber of item that is in inventory
     [Command]
-    private void AddNumberItem(string _name, int _number)
+    private void AddNumberItem(string name, int number)
     {
-        int _index = GetIndexOf(_name);
-        _itemSlot itemSlot = InventoryBaseManager.instance._inventoryItems[_index];
-        itemSlot._number += _number;
+        int _index = GetIndexOf(name);
+        int newNumber = InventoryBaseManager.instance._inventoryItems[_index]._number + number;
+
+        _itemSlot slot = new _itemSlot{
+            _name = name,
+            _number = newNumber
+        };
+
+        InventoryBaseManager.instance._inventoryItems[_index] = slot;
     }
 
     [Command]
