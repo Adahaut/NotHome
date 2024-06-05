@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class InventorySlot : NetworkBehaviour
+public class InventorySlot : MonoBehaviour
 {
     [SerializeField] public ItemObject _itemContained;
     public Image _itemImage;
-    [SerializeField] [SyncVar]  private int _number;
+    [SerializeField] private int _number;
     [SerializeField] private TextMeshProUGUI _numberText;
     public bool _isSeleceted;
 

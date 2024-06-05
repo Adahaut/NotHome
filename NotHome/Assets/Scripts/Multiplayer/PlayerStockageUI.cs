@@ -79,13 +79,16 @@ public class PlayerStockageUI : NetworkBehaviour
             if (!_draging && Input.GetMouseButtonDown(0)
                 && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
             {
+                print("1");
                 _itemImage = results[0].gameObject.GetComponent<InventorySlot>();
                 if (CheckIfHasGoodTag(_itemImage.gameObject))
                 {
+                    print("2");
                     _draging = true;
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
                 }
                 UpdateItemList();
+                print("3");
             }
         }
         UpdateUI();
@@ -176,11 +179,8 @@ public class PlayerStockageUI : NetworkBehaviour
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
         {
-            Debug.Log("1");
             AddNewItem(_name, _number, _slotIndex);
-            Debug.Log("2");
             UpdateOneItem(_slotIndex, _number);
-            Debug.Log("3");
 
         }
         else
