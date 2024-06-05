@@ -47,7 +47,9 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
     {
-        _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+        if(_itemImage == null)
+            _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
 
@@ -84,10 +86,9 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateItemVisuel()
     {
-        if(_itemImage == null)
+        if (_itemImage == null)
             _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
 
-        if(_itemContained.ItemSprite() != null)
-            _itemImage.sprite = _itemContained.ItemSprite();
+        _itemImage.sprite = _itemContained.ItemSprite();
     }
 }

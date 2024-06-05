@@ -1,12 +1,11 @@
 using Mirror;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+//using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static InventoryBaseManager;
 
 public class PlayerStockageUI : NetworkBehaviour
 {
@@ -33,7 +32,7 @@ public class PlayerStockageUI : NetworkBehaviour
     private void OnEnable()
     {
         UpdateItemList();
-        UpdateStockageUI();
+        //UpdateStockageUI();
 
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
@@ -92,6 +91,7 @@ public class PlayerStockageUI : NetworkBehaviour
         }
         UpdateStockageUI();
 
+
         debug.text = "";
         for (int i = 0; i < InventoryBaseManager.instance._inventoryItems.Count; i++)
         {
@@ -126,9 +126,6 @@ public class PlayerStockageUI : NetworkBehaviour
                     }
                 }
             }
-            
-
-            
         }
     }
 
@@ -173,28 +170,39 @@ public class PlayerStockageUI : NetworkBehaviour
         {
             AddNumberItem(_name, _number);
             UpdateOneItem(_slotIndex, _number);
-            print("already in list");
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
         {
             AddNewItem(_name, _number, _slotIndex);
             UpdateOneItem(_slotIndex, _number);
-            print("new item added in list");
         }
         else
         {
             AddNewItem(_name, _number, GetIndexOf("None"));
             UpdateOneItem(_slotIndex, _number);
-            print("else");
         }
         _playerInventorySlot.ResetItem();
     }
 
     public void RemoveItemFromBase(string _name, int _number, Sprite _sprite, int _index, InventorySlot _inventorySlot)
     {
-        _inventorySlot.ChangeItem(_name, _sprite, false);
+        Sprite s = null;
+        foreach (Item i in InventoryBaseManager.instance._allItems)
+        {
+            if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == i.ItemName())
+            {
+                s = i.ItemSprite();
+            }
+        }
+
+        _inventorySlot.ChangeItem(_name, s, false);
         _inventorySlot.SetNumber(_number);
-        UpdateOneItem(GetIndexOf(_name), _number);
+
+        _inventorySlot.UpdateItem(_number, s, _name);
+        _inventorySlot._itemImage.sprite = s;
+
+        //UpdateOneItem(GetIndexOf(_name), _number);
+
         RemoveItem(_index);
     }
 
