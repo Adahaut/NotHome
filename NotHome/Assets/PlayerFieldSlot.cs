@@ -7,9 +7,9 @@ public class PlayerFieldSlot : MonoBehaviour
 
     [Header("Slots References")]
     public Image fillBar;
-    [SerializeField] private TMP_Text seedNameTextUI;
-    [SerializeField] private Image seedImage;
-    [SerializeField] private Image fruitImage;
+    public TMP_Text seedNameTextUI;
+    public Image seedImage;
+    public Image fruitImage;
 
     [HideInInspector] public bool _containSeed = false;
     private bool _growStarted = false;

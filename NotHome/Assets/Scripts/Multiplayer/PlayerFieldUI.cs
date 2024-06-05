@@ -23,12 +23,24 @@ public class PlayerFieldUI : NetworkBehaviour
         for (int i = 0; i < slots.Count; i++)
         {
             Seed plant = NewFieldManager.instance._allPlants[i];
+            PlayerFieldSlot slot = slots[i].GetComponent<PlayerFieldSlot>();
+            NewFieldManager fieldManager = NewFieldManager.instance;
 
             if (NewFieldManager.instance._seedPlantedObjects[i] != null)
-                slots[i].GetComponent<PlayerFieldSlot>().fillBar.fillAmount =
-                    NewFieldManager.instance._seedPlantedObjects[i]._currentTimer / NewFieldManager.instance._seedPlantedObjects[i]._timeToGrow;
+            {
+                slot.seedImage.sprite = fieldManager._seedPlantedObjects[i].seedImage;
+                slot.fruitImage.sprite = fieldManager._seedPlantedObjects[i].fruitImage;
+                slot.seedNameTextUI.text = fieldManager._seedPlantedObjects[i].seedStruct._name;
+                slot.fillBar.fillAmount = fieldManager._seedPlantedObjects[i]._currentTimer / fieldManager._seedPlantedObjects[i]._timeToGrow;
+            }
+            else
+            {
+                slot.seedImage.sprite = null;
+                slot.fruitImage.sprite = null;
+                slot.seedNameTextUI.text = "Empty";
+                slot.fillBar.fillAmount = 0.05f;
+            }
 
-            //slots[i].GetComponent<Image>().sprite = plant._img;
             textSlots[i].text = plant._name;
         }
     }
