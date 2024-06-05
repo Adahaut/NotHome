@@ -74,7 +74,7 @@ public class PlayerStockageUI : NetworkBehaviour
                         RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(),
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
-                    //UpdateItemList();
+                    UpdateItemList();
                 }
             }
             if (!_draging && Input.GetMouseButtonDown(0)
@@ -89,7 +89,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 UpdateItemList();
             }
         }
-        UpdateStockageUI();
+        //UpdateStockageUI();
 
 
         debug.text = "";
