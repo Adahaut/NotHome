@@ -128,6 +128,7 @@ public class PlayerStockageUI : NetworkBehaviour
                     if (InventoryBaseManager.instance._inventoryItems[i]._name == a.ItemName())
                     {
                         s = a.ItemSprite();
+                        _slotList[i].GetComponent<InventorySlot>().ItemContained().SetItem(a.ItemName(), s);
                         _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = s;
                     }
                 }
