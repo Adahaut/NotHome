@@ -203,8 +203,15 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Sprint");
         _isRunning = true;
+        if (context.performed)
+        {
+            SoundWalking.Instance._isRunning = true;
+        }
         if (context.canceled || _playerManager.Stamina <= 0)
+        {
+            SoundWalking.Instance._isRunning = false;
             _isRunning = false;
+        } 
     }
     
     private void Timer()
@@ -247,6 +254,10 @@ public class PC : MonoBehaviour
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
+        if (_moveDir != Vector2.zero)
+            SoundWalking.Instance._isMoving = true;
+        else
+            SoundWalking.Instance._isMoving = false;
     }
     private void MovePlayer()
     {
