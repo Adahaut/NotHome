@@ -89,7 +89,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 UpdateItemList();
             }
         }
-        //UpdateStockageUI();
+        UpdateStockageUI();
 
 
         debug.text = "";
