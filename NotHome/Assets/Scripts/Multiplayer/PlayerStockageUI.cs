@@ -76,19 +76,23 @@ public class PlayerStockageUI : NetworkBehaviour
                     UpdateItemList();
                 }
             }
+
+            if(!_draging && Input.GetMouseButtonDown(0))
+            {
+                print("input");
+                print(results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot aa) + "     " + aa.ItemContained().ItemName() != "None");
+            }
+
             if (!_draging && Input.GetMouseButtonDown(0)
                 && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
             {
-                print("1");
                 _itemImage = results[0].gameObject.GetComponent<InventorySlot>();
                 if (CheckIfHasGoodTag(_itemImage.gameObject))
                 {
-                    print("2");
                     _draging = true;
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
                 }
                 UpdateItemList();
-                print("3");
             }
         }
         UpdateUI();
