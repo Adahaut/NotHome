@@ -49,7 +49,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
                 _seedPrefab.seedStruct._isPlanted = true;
                 _transform.position = GetNearestSlot();
                 CmdAddPlant(_seedPrefab.seedStruct._index, _seedPrefab.seedStruct._id);
-                GetComponentInParent<PlayerFieldUI>().UpdateUI();
+                //GetComponentInParent<PlayerFieldUI>().UpdateUI();
                 PlayerFieldUI.UpdateAllUIs();
             }
             else
@@ -70,25 +70,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
 
         NetworkServer.Spawn(newSeedObject.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
-
-
-        //RpcAddPlant(newSeed.netId, index);
     }
-
-    //[ClientRpc]
-    //public void RpcAddPlant(uint seedNetId, int index)
-    //{
-    //    if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
-    //    {
-    //        Seed seed = seedIdentity.GetComponent<Seed>();
-    //        seed.StartGrow(NewFieldManager.instance._plantPositons[index], index);
-    //        if (!NewFieldManager.instance._allPlants.Contains(seed))
-    //        {
-    //            NewFieldManager.instance._allPlants[index] = seed;
-    //        }
-    //        NewFieldManager.instance.t += 1;
-    //    }
-    //}
 
 
     private Vector3 GetNearestSlot()
@@ -110,21 +92,6 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
         }
         return slotNearest;
     }
-
-
-
-    //public void GetPlantFinish()
-    //{
-    //    Debug.Log("GetPlant");
-    //    _transform.position = _initPos;
-    //    _isPlant = false;
-    //    ListSlotField.Instance._listIsPlant[_indexPlant] = false;
-    //    ListSlotField.Instance._listPlant[_indexPlant].SetActive(false);
-    //    //FieldManager.Instance._timerText[_indexPlant].text = "";
-    //    ListSlotField.Instance._listPlant[_indexPlant].GetComponent<MeshRenderer>().material = FieldManager.Instance._materialBrown;
-    //    gameObject.GetComponent<Button>().enabled = false;
-    //}
-
 
 
 }

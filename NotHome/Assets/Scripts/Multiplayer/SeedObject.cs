@@ -18,5 +18,9 @@ public class SeedObject : NetworkBehaviour
         // Ajoutez ici votre logique de croissance
     }
 
-    
+    private void Update()
+    {
+        print("growing");
+    }
+
 }
