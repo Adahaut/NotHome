@@ -9,10 +9,10 @@ public class NewFieldManager : NetworkBehaviour
     public List<GameObject> _seedPrefabs;
 
     public readonly SyncList<Seed> _allPlants = new SyncList<Seed>();
+    public List<SeedObject> _seedPlantedObjects;
 
     public List<Transform> _plantPositons;
 
-    public List<SeedObject> _seedPlantedObjects;
 
     public bool _panelOpen;
 

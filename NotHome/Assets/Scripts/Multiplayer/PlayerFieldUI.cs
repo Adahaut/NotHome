@@ -7,12 +7,23 @@ public class PlayerFieldUI : NetworkBehaviour
 {
     [SerializeField] private FieldSlotsLists _playerSlots;
 
+    public TMP_Text debug;
+
+    NewFieldManager fieldManager = NewFieldManager.instance;
+
     private void Update()
     {
         if (isOwned)
         {
             UpdateUI();
         }
+
+        debug.text = "";
+        for (int i = 0; i < fieldManager._seedPlantedObjects.Count; i++)
+        {
+            debug.text += "i" + fieldManager._seedPlantedObjects == null + "\n";
+        }
+
     }
 
     public void UpdateUI()
@@ -24,7 +35,7 @@ public class PlayerFieldUI : NetworkBehaviour
         {
             Seed plant = NewFieldManager.instance._allPlants[i];
             PlayerFieldSlot slot = slots[i].GetComponent<PlayerFieldSlot>();
-            NewFieldManager fieldManager = NewFieldManager.instance;
+            
 
             if (NewFieldManager.instance._seedPlantedObjects[i] != null)
             {
