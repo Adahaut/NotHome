@@ -44,13 +44,18 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     {
         if(isOwned)
         {
-            if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
+            Transform slot = GetNearestSlot();
+            if (Vector3.Distance(_transform.position, slot.position) < 75 && !slot.GetComponent<PlayerFieldSlot>()._containSeed)
             {
-                _seedPrefab.seedStruct._isPlanted = true;
-                _transform.position = GetNearestSlot();
+                _transform.position = slot.position;
+                slot.GetComponent<PlayerFieldSlot>().StartGrowing(_seedPrefab.seedStruct._growingTime, 
+                    _seedPrefab.seedStruct._name,
+                    _seedPrefab.fruitImage,
+                    _seedPrefab.seedImage);
+
                 CmdAddPlant(_seedPrefab.seedStruct._index, _seedPrefab.seedStruct._id);
-                //GetComponentInParent<PlayerFieldUI>().UpdateUI();
                 PlayerFieldUI.UpdateAllUIs();
+                this.gameObject.SetActive(false);
             }
             else
             {
@@ -73,19 +78,19 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     }
 
 
-    private Vector3 GetNearestSlot()
+    private Transform GetNearestSlot()
     {
         List<Transform> slots = new();
-        slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
-        Vector3 slotNearest = slots[0].position;
+        slots = _player.GetComponentInChildren<FieldSlotsLists>()._listSlots;
+        Transform slotNearest = slots[0];
         _seedPrefab.seedStruct._index = 0;
         for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].gameObject.activeSelf)
             {
-                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest))
+                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest.position))
                 {
-                    slotNearest = slots[i].position;
+                    slotNearest = slots[i];
                     _seedPrefab.seedStruct._index = i;
                 }
             }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerFieldUI : NetworkBehaviour
 {
-    [SerializeField] private PlayerFieldSlot _playerSlots;
+    [SerializeField] private FieldSlotsLists _playerSlots;
 
     private void OnEnable()
     {

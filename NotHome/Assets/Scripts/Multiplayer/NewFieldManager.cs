@@ -32,7 +32,6 @@ public class NewFieldManager : NetworkBehaviour
             _name = "",
             //_img = null,
             _index = 0,
-            _isPlanted = false,
         };
 
         for (int i = 0; i < _plantPositons.Count; i++)

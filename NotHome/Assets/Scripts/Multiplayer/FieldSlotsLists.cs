@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerFieldSlot : MonoBehaviour
+public class FieldSlotsLists : MonoBehaviour
 {
     public List<Transform> _listSlots = new();
     public List<TMP_Text> _listTexts = new();

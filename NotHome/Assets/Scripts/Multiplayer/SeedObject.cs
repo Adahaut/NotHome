@@ -6,6 +6,9 @@ public class SeedObject : NetworkBehaviour
 {
     public Seed seedStruct = new Seed();
 
+    public Sprite seedImage;
+    public Sprite fruitImage;
+
     //public IEnumerator GrowPlant()
     //{
     //    yield return new WaitForSeconds(GT);
@@ -16,11 +19,6 @@ public class SeedObject : NetworkBehaviour
         //this._index = index;
         //transform.position = position.position;
         // Ajoutez ici votre logique de croissance
-    }
-
-    private void Update()
-    {
-        print("growing");
     }
 
 }
