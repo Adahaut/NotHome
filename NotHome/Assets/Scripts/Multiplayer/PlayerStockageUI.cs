@@ -115,15 +115,20 @@ public class PlayerStockageUI : NetworkBehaviour
 
         for (int i = 0; i < _slotList.Count; i++)
         {
-            foreach (Item a in InventoryBaseManager.instance._allItems)
+            if(InventoryBaseManager.instance._inventoryItems[i]._name != "None")
             {
-                if (InventoryBaseManager.instance._inventoryItems[i]._name != "None" && InventoryBaseManager.instance._inventoryItems[i]._name == a.ItemName())
+                foreach (Item a in InventoryBaseManager.instance._allItems)
                 {
-                    s = a.ItemSprite();
+                    if (InventoryBaseManager.instance._inventoryItems[i]._name == a.ItemName())
+                    {
+                        s = a.ItemSprite();
+                        _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = s;
+                    }
                 }
             }
+            
 
-            _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = s;
+            
         }
     }
 
