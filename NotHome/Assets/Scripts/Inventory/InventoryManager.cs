@@ -18,7 +18,7 @@ public class InventoryManager : NetworkBehaviour
     {
         GameObject _newInventorySlot = Instantiate(_inventorySlotPrefab);
         _newInventorySlot.transform.SetParent(_inventoryPanel.transform);
-        _newInventorySlot.transform.rotation = Quaternion.identity;
+        _newInventorySlot.transform.rotation = Quaternion.Euler(0, 0, 0);
         _slotList.Add(_newInventorySlot);
     }
 
