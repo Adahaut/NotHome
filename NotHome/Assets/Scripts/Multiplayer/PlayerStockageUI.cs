@@ -110,6 +110,8 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         Sprite s = null;
 
+        print(_slotList.Count);
+
         for (int i = 0; i < _slotList.Count; i++)
         {
             if(InventoryBaseManager.instance._inventoryItems[i]._name != "None")
