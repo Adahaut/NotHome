@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayCinematic : MonoBehaviour
@@ -8,7 +9,6 @@ public class PlayCinematic : MonoBehaviour
     [SerializeField] private ParticleSystem[] _smoke;
     [SerializeField] private GameObject[] _explosion;
     private AudioSource[] _audioSources;
-
 
     private void Start()
     {
@@ -78,6 +78,16 @@ public class PlayCinematic : MonoBehaviour
         for(int i = 0;  i < 3; i++)
         {
             _audioSources[i].Stop();
+        }
+    }
+
+    public void DisableCinematic()
+    {
+        gameObject.SetActive(false);
+
+        for (int i = 0; i < _playersRef.Length; i++)
+        {
+            _playersRef[i].SetActive(true);
         }
     }
 }
