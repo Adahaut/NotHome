@@ -9,18 +9,11 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] public ItemObject _itemContained;
     public Image _itemImage;
     [SerializeField] private int _number;
-    [SerializeField] private TextMeshProUGUI _numberText;
+    public TextMeshProUGUI _numberText;
     public bool _isSeleceted;
 
     private bool firstOpened;
 
-    private void OnEnable()
-    {
-        if(!firstOpened)
-        {
-            
-        }
-    }
 
     private void Awake()
     {
