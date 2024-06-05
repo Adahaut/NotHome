@@ -178,7 +178,6 @@ public class PlayerStockageUI : NetworkBehaviour
             AddNewItem(_name, _number, _slotIndex);
             Debug.Log("2");
             UpdateOneItem(_slotIndex, _number);
-            Debug.Log("3");
 
         }
         else
@@ -187,6 +186,7 @@ public class PlayerStockageUI : NetworkBehaviour
             UpdateOneItem(_slotIndex, _number);
         }
         _playerInventorySlot.ResetItem();
+            Debug.Log("3");
     }
 
     public void RemoveItemFromBase(string _name, int _number, int _index, InventorySlot _inventorySlot)
