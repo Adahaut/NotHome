@@ -57,7 +57,7 @@ public class InventorySlot : MonoBehaviour
 
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
-        //UpdateNumber();
+        UpdateNumber();
 
         
         _itemContained.SetItem(_name, _newSprite);
