@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public struct _itemSlot
 {
-    public string _name;
-    public int _number;
+    [SyncVar] public string _name;
+    [SyncVar] public int _number;
     //public Sprite _sprite;
 }
 
