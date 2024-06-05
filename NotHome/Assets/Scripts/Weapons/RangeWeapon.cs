@@ -135,6 +135,7 @@ public class RangeWeapon : MonoBehaviour
             //print(_currentAmmo.ToString());
             if (CanShoot())
             {
+                StartCoroutine(PC.Instance.AnimOneTime("Shoot"));
                 StartRecoil();
                 _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
                 PlayMuzzuleFlash();
