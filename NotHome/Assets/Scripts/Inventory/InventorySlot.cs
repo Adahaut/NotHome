@@ -17,11 +17,16 @@ public class InventorySlot : MonoBehaviour
     {
         if(!firstOpened)
         {
-            firstOpened = true;
-            _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
-            ResetItem();
-            _numberText.text = "";
+            
         }
+    }
+
+    private void Awake()
+    {
+        firstOpened = true;
+        _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+        ResetItem();
+        _numberText.text = "";
     }
 
     public int Number() { return _number; }
