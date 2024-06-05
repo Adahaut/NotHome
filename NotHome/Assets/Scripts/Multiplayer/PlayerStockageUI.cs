@@ -77,11 +77,8 @@ public class PlayerStockageUI : NetworkBehaviour
                 }
             }
 
-            if(!_draging && Input.GetMouseButtonDown(0))
-            {
-                print("input");
-                print(results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot aa) + "     " + aa.ItemContained().ItemName() != "None");
-            }
+            print(!_draging && Input.GetMouseButtonDown(0)
+                && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot aa) && aa.ItemContained().ItemName() != "None");
 
             if (!_draging && Input.GetMouseButtonDown(0)
                 && results[0].gameObject.TryGetComponent<InventorySlot>(out InventorySlot _inventorySlot) && _inventorySlot.ItemContained().ItemName() != "None")
