@@ -19,15 +19,15 @@ public class FieldSlotsLists : MonoBehaviour
 
     private void Update()
     {
-        debug.text = "";
-        for (int i = 0; i < NewFieldManager.instance._seedPlantedObjects.Count; i++)
-        {
-            if (NewFieldManager.instance._seedPlantedObjects[i] != null)
-                debug.text += i + NewFieldManager.instance._seedPlantedObjects[i].seedStruct._name + "\n";
-            else
-                debug.text += i + "\n";
+        debug.text = NewFieldManager.instance._seedPlantedObjects.Count.ToString();
+        //for (int i = 0; i < NewFieldManager.instance._seedPlantedObjects.Count; i++)
+        //{
+        //    if (NewFieldManager.instance._seedPlantedObjects[i] != null)
+        //        debug.text += i + NewFieldManager.instance._seedPlantedObjects[i].seedStruct._name + "\n";
+        //    else
+        //        debug.text += i + "\n";
 
-        }
+        //}
     }
 
     //public void UpdateText()

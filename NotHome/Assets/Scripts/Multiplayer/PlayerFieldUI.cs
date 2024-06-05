@@ -31,12 +31,13 @@ public class PlayerFieldUI : NetworkBehaviour
             PlayerFieldSlot slot = slots[i].GetComponent<PlayerFieldSlot>();
             
 
-            if (NewFieldManager.instance._seedPlantedObjects[i] != null)
+            if (NewFieldManager.instance._seedPlantedObjects[i] != 0 && NetworkServer.spawned.TryGetValue(NewFieldManager.instance._seedPlantedObjects[i], out NetworkIdentity identity))
             {
-                slot.seedImage.sprite = fieldManager._seedPlantedObjects[i].seedImage;
-                slot.fruitImage.sprite = fieldManager._seedPlantedObjects[i].fruitImage;
-                slot.seedNameTextUI.text = fieldManager._seedPlantedObjects[i].seedStruct._name;
-                slot.fillBar.fillAmount = fieldManager._seedPlantedObjects[i]._currentTimer / fieldManager._seedPlantedObjects[i]._timeToGrow;
+                SeedObject obj = identity.gameObject.GetComponent<SeedObject>();
+                slot.seedImage.sprite = obj.seedImage;
+                slot.fruitImage.sprite = obj.fruitImage;
+                slot.seedNameTextUI.text = obj.seedStruct._name;
+                slot.fillBar.fillAmount = obj._currentTimer / obj._timeToGrow;
             }
             else
             {

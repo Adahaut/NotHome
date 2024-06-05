@@ -9,7 +9,7 @@ public class NewFieldManager : NetworkBehaviour
     public List<GameObject> _seedPrefabs;
 
     public readonly SyncList<Seed> _allPlants = new SyncList<Seed>();
-    public List<SeedObject> _seedPlantedObjects;
+    public SyncList<uint> _seedPlantedObjects = new SyncList<uint>();
 
     public List<Transform> _plantPositons;
 
@@ -38,7 +38,7 @@ public class NewFieldManager : NetworkBehaviour
         for (int i = 0; i < _plantPositons.Count; i++)
         {
             _allPlants.Add(defaultSeed);
-            _seedPlantedObjects.Add(null);
+            _seedPlantedObjects.Add(0);
         }
 
         _allPlants.Callback += OnAllPlantsChanged;
