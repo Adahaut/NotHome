@@ -1,6 +1,7 @@
 using Mirror;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -39,10 +40,12 @@ public class PlayerStockageUI : NetworkBehaviour
 
         _inventoryPanel.gameObject.SetActive(true);
 
+
     }
 
     private void Update()
     {
+        UpdateUI();
 
         Vector3 MousePos = Input.mousePosition;
 
@@ -103,6 +106,24 @@ public class PlayerStockageUI : NetworkBehaviour
             {
                 _slotList[i].GetComponent<InventorySlot>().UpdateItemVisuel();
             }
+        }
+    }
+
+    public void UpdateUI()
+    {
+        Sprite s = null;
+
+        for (int i = 0; i < _slotList.Count; i++)
+        {
+            foreach (Item a in InventoryBaseManager.instance._allItems)
+            {
+                if (InventoryBaseManager.instance._inventoryItems[i]._name != "None" && InventoryBaseManager.instance._inventoryItems[i]._name == a.ItemName())
+                {
+                    s = a.ItemSprite();
+                }
+            }
+
+            _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = s;
         }
     }
 
