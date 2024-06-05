@@ -41,6 +41,8 @@ public class PlayerStockageUI : NetworkBehaviour
         //    Init();
 
         _inventoryPanel.gameObject.SetActive(true);
+
+        print(InventoryBaseManager.instance._allItems.Count);
     }
 
     private void Update()
