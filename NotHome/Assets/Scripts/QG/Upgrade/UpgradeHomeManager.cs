@@ -15,6 +15,7 @@ public class UpgradeHomeManager : MonoBehaviour
     [SerializeField] private GameObject _alarm;
     [SerializeField] private ParticleSystem _particleLevelUp;
     private bool _getAlarm;
+    private GameObject _ship;
 
     private void Start()
     {
@@ -34,10 +35,18 @@ public class UpgradeHomeManager : MonoBehaviour
             case "QG":
                 EffectQG();
                 break;
+            case "Ship":
+                EffectShip();
+                break;
             default:
                 Debug.Log("No name building");
                 break;
         }
+    }
+    public void EffectShip()
+    {
+        _ship = gameObject;
+        _ship.GetComponent<MeshRenderer>().material.color = Color.white;
     }
     public void EffectQG()
     {
