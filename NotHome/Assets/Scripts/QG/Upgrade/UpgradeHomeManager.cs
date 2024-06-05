@@ -14,6 +14,7 @@ public class UpgradeHomeManager : MonoBehaviour
     [SerializeField] private ListSlotField _fieldManager;
     [SerializeField] private GameObject _alarm;
     [SerializeField] private ParticleSystem _particleLevelUp;
+    [SerializeField] private GameObject _bridge;
     private bool _getAlarm;
 
     private void Start()
@@ -55,7 +56,7 @@ public class UpgradeHomeManager : MonoBehaviour
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 4:
-                Debug.Log("Déblocage porte pont + schéma du pont");
+                _bridge.SetActive(true);
                 break;
         }
     }
