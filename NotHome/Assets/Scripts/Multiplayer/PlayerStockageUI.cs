@@ -44,8 +44,6 @@ public class PlayerStockageUI : NetworkBehaviour
 
     private void Update()
     {
-        UpdateUI();
-
         Vector3 MousePos = Input.mousePosition;
 
         PointerEventData pointerEventData = new PointerEventData(_eventSystem);
@@ -89,8 +87,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 UpdateItemList();
             }
         }
-        UpdateStockageUI();
-
+        UpdateUI();
 
         debug.text = "";
         for (int i = 0; i < InventoryBaseManager.instance._inventoryItems.Count; i++)
@@ -98,16 +95,16 @@ public class PlayerStockageUI : NetworkBehaviour
             debug.text += i + " " + InventoryBaseManager.instance._inventoryItems[i]._name + "\n";
         }
     }
-    private void UpdateStockageUI()
-    {
-        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; ++i)
-        {
-            if (_slotList[i].GetComponent<InventorySlot>()._itemContained != null && _slotList[i].GetComponent<InventorySlot>()._itemContained.ItemName() != "None")
-            {
-                _slotList[i].GetComponent<InventorySlot>().UpdateItemVisuel();
-            }
-        }
-    }
+    //private void UpdateStockageUI()
+    //{
+    //    for (int i = 0; i < InventoryBaseManager.instance._inventorySize; ++i)
+    //    {
+    //        if (_slotList[i].GetComponent<InventorySlot>()._itemContained != null && _slotList[i].GetComponent<InventorySlot>()._itemContained.ItemName() != "None")
+    //        {
+    //            _slotList[i].GetComponent<InventorySlot>().UpdateItemVisuel();
+    //        }
+    //    }
+    //}
 
     public void UpdateUI()
     {
