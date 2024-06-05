@@ -70,6 +70,7 @@ public class PlayerStockageUI : NetworkBehaviour
                     }
                     else
                     {
+                        print(_itemImage.Number());
                         RemoveItemFromBase(_itemImage.ItemContained().ItemName(), _itemImage.Number(),
                             GetIndexOf(_itemImage.ItemContained().ItemName()), results[0].gameObject.GetComponent<InventorySlot>());
                     }
@@ -97,12 +98,6 @@ public class PlayerStockageUI : NetworkBehaviour
             }
         }
         UpdateUI();
-
-        debug.text = "";
-        for (int i = 0; i < InventoryBaseManager.instance._inventoryItems.Count; i++)
-        {
-            debug.text += i + " " + InventoryBaseManager.instance._inventoryItems[i]._name + "\n";
-        }
     }
     //private void UpdateStockageUI()
     //{
