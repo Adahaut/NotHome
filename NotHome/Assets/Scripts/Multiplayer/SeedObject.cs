@@ -18,13 +18,6 @@ public class SeedObject : NetworkBehaviour
 
     private Vector3 initYPos;
 
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        print("On start server called");
-        _syncedPosition = transform.position;
-    }
-
     public void StartGrow(Vector3 pos)
     {
         if(!_growStarted)
@@ -34,7 +27,11 @@ public class SeedObject : NetworkBehaviour
             _timeToGrow = seedStruct._growingTime;
 
             initYPos = pos;
-            _syncedPosition = pos;
+            if (isServer)
+            {
+                _syncedPosition = pos;
+                RpcSetPosition(pos); 
+            }
         }
     }
 
@@ -58,12 +55,13 @@ public class SeedObject : NetworkBehaviour
 
                 Vector3 newPos = transform.position;
                 newPos.y = newYPos;
-                transform.position = newPos;
 
-                if(isServer)
+                if (isServer)
                 {
-                    _syncedPosition = transform.position;
+                    _syncedPosition = newPos;
                 }
+
+                transform.position = newPos;
             }
             else
             {
@@ -75,6 +73,16 @@ public class SeedObject : NetworkBehaviour
     private void OnPositionChanged(Vector3 oldPosition, Vector3 newPosition)
     {
         transform.position = newPosition;
+    }
+
+    [ClientRpc]
+    private void RpcSetPosition(Vector3 pos)
+    {
+        if (!isServer)
+        {
+            print("test");
+            transform.position = pos;
+        }
     }
 
 }
