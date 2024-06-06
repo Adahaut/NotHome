@@ -15,11 +15,11 @@ public class SeedObject : NetworkBehaviour
 
     [SyncVar] public float _currentTimer;
 
-    float yScale;
-    float initYPos;
-    float posY;
+    private float yScale;
+    private Vector3 initYPos;
+    private float posY;
 
-    public void StartGrow()
+    public void StartGrow(Vector3 pos)
     {
         if(!_growStarted)
         {
@@ -27,7 +27,8 @@ public class SeedObject : NetworkBehaviour
             _currentTimer = 0f;
             _timeToGrow = seedStruct._growingTime;
             yScale = 0.25f;
-            initYPos = transform.localPosition.y;
+
+            initYPos = pos;
         }
     }
 
@@ -38,16 +39,20 @@ public class SeedObject : NetworkBehaviour
             if (_currentTimer < _timeToGrow)
             {
                 _currentTimer += Time.deltaTime;
-                //Modify scale
-                yScale = Mathf.Clamp(_currentTimer / _timeToGrow, 0.25f, 0.75f);
+
+                //Update Scale
+                float t = _currentTimer / _timeToGrow; 
+                float yScale = Mathf.Lerp(0.25f, 0.75f, t);
+
                 Vector3 newScale = new Vector3(.2f, yScale, .2f);
                 transform.localScale = newScale;
-                //Modify position
-                //posY = Mathf.Clamp(_currentTimer / _timeToGrow, initYPos, initYPos + 0.25f);
-                //print(posY);
-                //Vector3 newPos = Vector3.zero;
-                //newPos.y = yScale;
-                //transform.localPosition = newPos;
+
+                //Update Position
+                float newYPos = Mathf.Lerp(initYPos.y, initYPos.y + 0.25f, t);
+
+                Vector3 newPos = transform.position;
+                newPos.y = newYPos;
+                transform.position = newPos;
             }
             else
             {

@@ -12,15 +12,15 @@ public class FieldSlotsLists : MonoBehaviour
 
     private void Update()
     {
-        debug.text = "";
-        for (int i = 0; i < NewFieldManager.instance._seedPlantedObjects.Count; i++)
-        {
-            NetworkClient.spawned.TryGetValue(NewFieldManager.instance._seedPlantedObjects[i], out NetworkIdentity identity);
-            if (identity != null)
-                debug.text += i + "  " + identity.gameObject.name + "\n";
-            else
-                debug.text += i + "\n";
+        //debug.text = "";
+        //for (int i = 0; i < NewFieldManager.instance._seedPlantedObjects.Count; i++)
+        //{
+        //    NetworkClient.spawned.TryGetValue(NewFieldManager.instance._seedPlantedObjects[i], out NetworkIdentity identity);
+        //    if (identity != null)
+        //        debug.text += i + "  " + identity.gameObject.name + "\n";
+        //    else
+        //        debug.text += i + "\n";
 
-        }
+        //}
     }
 }
