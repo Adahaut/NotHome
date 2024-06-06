@@ -29,11 +29,16 @@ public class PlayerFieldUI : NetworkBehaviour
         {
             Seed plant = NewFieldManager.instance._allPlants[i];
             PlayerFieldSlot slot = slots[i].GetComponent<PlayerFieldSlot>();
-            
 
-            if (NewFieldManager.instance._seedPlantedObjects[i] != 0 && NetworkServer.spawned.TryGetValue(NewFieldManager.instance._seedPlantedObjects[i], out NetworkIdentity identity))
+            uint id = NewFieldManager.instance._seedPlantedObjects[i];
+            NetworkIdentity networkIdentity = null;
+            if (id != 0)
+                networkIdentity = NetworkClient.spawned[id];
+
+            if (networkIdentity != null)
             {
-                SeedObject obj = identity.gameObject.GetComponent<SeedObject>();
+                print("test");
+                SeedObject obj = networkIdentity.gameObject.GetComponent<SeedObject>();
                 slot.seedImage.sprite = obj.seedImage;
                 slot.fruitImage.sprite = obj.fruitImage;
                 slot.seedNameTextUI.text = obj.seedStruct._name;

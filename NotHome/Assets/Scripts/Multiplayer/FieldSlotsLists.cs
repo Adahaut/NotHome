@@ -13,33 +13,17 @@ public class FieldSlotsLists : MonoBehaviour
 
     public TMP_Text debug;
 
-    private void FixedUpdate()
-    {
-        //UpdateText();
-    }
-
     private void Update()
     {
-        debug.text = NewFieldManager.instance._seedPlantedObjects.Count.ToString();
+        debug.text = "";
         for (int i = 0; i < NewFieldManager.instance._seedPlantedObjects.Count; i++)
         {
             NetworkServer.spawned.TryGetValue(NewFieldManager.instance._seedPlantedObjects[i], out NetworkIdentity identity);
             if (identity != null)
-                debug.text += i + identity.gameObject.name + "\n";
+                debug.text += i + "  " + identity.gameObject.name + "\n";
             else
                 debug.text += i + "\n";
 
         }
     }
-
-    //public void UpdateText()
-    //{
-    //    for (int i = 0; i < FieldManager.Instance._seedTimers.Count; i++)
-    //    {
-    //        //int seedTime = (int)FieldManager.Instance._seedTimers[i].currentTimer;
-    //        //_listTexts[i].text = (seedTime / 60).ToString("00") + ":" + (seedTime % 60).ToString("00");
-    //    }
-    //}
-
-
 }

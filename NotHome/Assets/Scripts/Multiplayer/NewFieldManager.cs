@@ -44,6 +44,15 @@ public class NewFieldManager : NetworkBehaviour
         _allPlants.Callback += OnAllPlantsChanged;
     }
 
+    public void AddPlant(GameObject plat, int index)
+    {
+        NetworkIdentity goNetworkIdentity = plat.GetComponent<NetworkIdentity>();
+        if (goNetworkIdentity != null)
+        {
+            _seedPlantedObjects[index] = goNetworkIdentity.netId;
+        }
+    }
+
     private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int index, Seed oldItem, Seed newItem)
     {
         //if (op == SyncList<Seed>.Operation.OP_ADD || op == SyncList<Seed>.Operation.OP_SET)

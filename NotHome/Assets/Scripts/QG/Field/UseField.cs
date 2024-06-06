@@ -77,7 +77,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
 
         NetworkServer.Spawn(newSeedObject.gameObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
-        NewFieldManager.instance._seedPlantedObjects[index] = newSeedObject.GetComponent<NetworkIdentity>().netId;
+        NewFieldManager.instance.AddPlant(newSeedObject, index);
     }
 
 
