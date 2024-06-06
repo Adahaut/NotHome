@@ -30,11 +30,14 @@ public class PlayerFieldUI : NetworkBehaviour
             uint id = NewFieldManager.instance._seedPlantedObjects[i];
             NetworkIdentity networkIdentity = null;
             if (id != 0)
-                networkIdentity = NetworkClient.spawned[id];
+                NetworkClient.spawned.TryGetValue(id, out networkIdentity);
 
             if (networkIdentity != null)
             {
                 SeedObject obj = networkIdentity.gameObject.GetComponent<SeedObject>();
+
+                Debug.Log($"Updating slot {i}: {obj.seedStruct._name}, currentTimer: {obj._currentTimer}, timeToGrow: {obj._timeToGrow}");
+
                 slot.seedImage.sprite = obj.seedImage;
                 slot.fruitImage.sprite = obj.fruitImage;
                 slot.seedNameTextUI.text = obj.seedStruct._name;
