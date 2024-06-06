@@ -78,11 +78,13 @@ public class RangeWeapon : MonoBehaviour
 
     public void StartAiming()
     {
+        PC.Instance.SetAnimation("Aiming", true);
         StartCoroutine(Zooming());
     }
 
     public void StopAiming()
     {
+        PC.Instance.SetAnimation("Aiming", false);
         StartCoroutine(Zooming(-1));
     }
 
@@ -115,6 +117,7 @@ public class RangeWeapon : MonoBehaviour
     private IEnumerator Reloading()
     {
         print("reload");
+        PC.Instance.SetAnimation("Reload", true);
         _isReloading = true;
 
         yield return new WaitForSeconds(_weaponData._reloadSpeed);
@@ -122,6 +125,7 @@ public class RangeWeapon : MonoBehaviour
         _isReloading = false;
         _currentAmmo = _weaponData._magSize;
         print("finish reload");
+        PC.Instance.SetAnimation("Reload", false);
     }
 
     public void Shoot()
@@ -131,6 +135,7 @@ public class RangeWeapon : MonoBehaviour
             //print(_currentAmmo.ToString());
             if (CanShoot())
             {
+                StartCoroutine(PC.Instance.AnimOneTime("Shoot"));
                 StartRecoil();
                 _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
                 PlayMuzzuleFlash();
@@ -169,7 +174,6 @@ public class RangeWeapon : MonoBehaviour
     private IEnumerator CameraShake(float _duration, float _strengh)
     {
         float _elapsedTime = 0f;
-
         while (_elapsedTime < _duration)
         {
             _playerController.Rotation = new Vector2(_playerController.Rotation.x, _playerController.Rotation.y - _strengh);
