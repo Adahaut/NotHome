@@ -8,12 +8,13 @@ public class EndCinematic : MonoBehaviour
     [SerializeField] private GameObject _asteroid;
     [SerializeField] private ParticleSystem[] _smoke;
     [SerializeField] private GameObject[] _explosion;
-
-    private Animator _animator;
+    private AudioSource[] _audioSources;
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        _audioSources = GetComponents<AudioSource>();
+
+        _audioSources[0].Play();
     }
 
     public void ActiveSpaceSkybox()
@@ -45,5 +46,6 @@ public class EndCinematic : MonoBehaviour
         {
             ps.Play();
         }
+        _audioSources[1].Play();
     }
 }

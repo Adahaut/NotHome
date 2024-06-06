@@ -6,6 +6,7 @@ public class FixSpaceship : MonoBehaviour
 {
     [SerializeField] private GameObject _spaceshipToFix;
     [SerializeField] private GameObject _spaceshipFixed;
+    [SerializeField] private GameObject _camera;
     private GameObject[] _playersRef;
 
     private void Start()
@@ -23,12 +24,13 @@ public class FixSpaceship : MonoBehaviour
 
     public void FixSpaceShip()
     {
-        _spaceshipToFix.SetActive(false);
-        _spaceshipFixed.SetActive(true);
-        
         for (int i = 0; i < _playersRef.Length; i++)
         {
             _playersRef[i].SetActive(false);
         }
+
+        _spaceshipToFix.SetActive(false);
+        _spaceshipFixed.SetActive(true);
+        _camera.SetActive(true);      
     }
 }
