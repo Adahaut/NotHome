@@ -10,10 +10,10 @@ public class SeedObject : NetworkBehaviour
     public Sprite fruitImage;
 
     
-    private bool _growStarted = false;
-    public float _timeToGrow;
+    [SyncVar] private bool _growStarted = false;
+    [SyncVar] public float _timeToGrow;
 
-    public float _currentTimer;
+    [SyncVar] public float _currentTimer;
 
     float yScale;
     float initYPos;

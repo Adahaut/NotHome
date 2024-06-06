@@ -36,8 +36,6 @@ public class PlayerFieldUI : NetworkBehaviour
             {
                 SeedObject obj = networkIdentity.gameObject.GetComponent<SeedObject>();
 
-                Debug.Log($"Updating slot {i}: {obj.seedStruct._name}, currentTimer: {obj._currentTimer}, timeToGrow: {obj._timeToGrow}");
-
                 slot.seedImage.sprite = obj.seedImage;
                 slot.fruitImage.sprite = obj.fruitImage;
                 slot.seedNameTextUI.text = obj.seedStruct._name;
