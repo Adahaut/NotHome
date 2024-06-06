@@ -53,10 +53,11 @@ public class SeedObject : NetworkBehaviour
                 //Update Position
                 float newYPos = Mathf.Lerp(initYPos.y, initYPos.y + 0.25f, t);
 
+                syncY = newYPos;
                 //Vector3 newPos = transform.position;
                 //newPos.y = newYPos;
                 //transform.position = newPos;
-                transform.position = new Vector3(syncX, newYPos, syncZ);
+                transform.position = new Vector3(syncX, syncY, syncZ);
             }
             else
             {
