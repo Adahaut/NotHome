@@ -15,9 +15,6 @@ public class PlayerFieldUI : NetworkBehaviour
         {
             UpdateUI();
         }
-
-        
-
     }
 
     public void UpdateUI()
@@ -37,7 +34,6 @@ public class PlayerFieldUI : NetworkBehaviour
 
             if (networkIdentity != null)
             {
-                print("test");
                 SeedObject obj = networkIdentity.gameObject.GetComponent<SeedObject>();
                 slot.seedImage.sprite = obj.seedImage;
                 slot.fruitImage.sprite = obj.fruitImage;
