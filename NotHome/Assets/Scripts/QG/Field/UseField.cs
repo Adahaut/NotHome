@@ -69,13 +69,17 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
-        GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
-        newSeedObject.GetComponent<SeedObject>().StartGrow(NewFieldManager.instance._plantPositons[index].position);
+        Vector3 plantPosition = NewFieldManager.instance._plantPositons[index].position;
+
+        GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId], plantPosition, Quaternion.identity);
+
+        newSeedObject.GetComponent<SeedObject>().StartGrow(plantPosition);
+
         Seed newSeed = newSeedObject.GetComponent<SeedObject>().seedStruct;
         newSeed.seedId = seedId;
-        newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
+        newSeedObject.transform.position = plantPosition;
 
-        NetworkServer.Spawn(newSeedObject.gameObject);
+        NetworkServer.Spawn(newSeedObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
         NewFieldManager.instance.AddPlant(newSeedObject, index);
     }

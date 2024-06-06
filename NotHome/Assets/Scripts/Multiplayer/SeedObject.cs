@@ -8,8 +8,12 @@ public class SeedObject : NetworkBehaviour
 
     public Sprite seedImage;
     public Sprite fruitImage;
-    
-    [SyncVar(hook =nameof(OnGrowStartedChanged))] private bool _growStarted = false;
+
+    [SyncVar] private float syncX;
+    [SyncVar] private float syncY;
+    [SyncVar] private float syncZ;
+
+    [SyncVar] private bool _growStarted = false;
     [SyncVar] public float _timeToGrow;
     [SyncVar] public float _currentTimer;
 
@@ -24,6 +28,10 @@ public class SeedObject : NetworkBehaviour
             _timeToGrow = seedStruct._growingTime;
 
             initYPos = pos;
+
+            syncX = pos.x;
+            syncY = pos.y;
+            syncZ = pos.z;
         }
     }
 
@@ -45,30 +53,16 @@ public class SeedObject : NetworkBehaviour
                 //Update Position
                 float newYPos = Mathf.Lerp(initYPos.y, initYPos.y + 0.25f, t);
 
-                Vector3 newPos = transform.position;
-                newPos.y = newYPos;
-                transform.position = newPos;
+                //Vector3 newPos = transform.position;
+                //newPos.y = newYPos;
+                //transform.position = newPos;
+                transform.position = new Vector3(syncX, newYPos, syncZ);
             }
             else
             {
                 _growStarted = false;
             }
         }
-    }
-
-    private void OnGrowStartedChanged(bool oldValue,  bool newValue)
-    {
-        if (newValue)
-            RpcUpdateGrowth(initYPos, _timeToGrow, _currentTimer);
-    }
-
-    [ClientRpc]
-    private void RpcUpdateGrowth(Vector3 initPos, float timeToGrow, float currentTimer)
-    {
-        initYPos = initPos;
-        _timeToGrow = timeToGrow;
-        _currentTimer = currentTimer;
-        _growStarted = true;
     }
 
 }
