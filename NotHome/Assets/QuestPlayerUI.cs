@@ -1,8 +1,9 @@
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestPlayerUI : MonoBehaviour
+public class QuestPlayerUI : NetworkBehaviour
 {
     public GameObject _uiQuest;
     public GameObject _questButton;
@@ -34,4 +35,33 @@ public class QuestPlayerUI : MonoBehaviour
         _objectif.text = _questManager._listQuests[currentIndex]._objectif;
         _lore.text = _questManager._listQuests[currentIndex]._lore;
     }
+
+    [Command]
+    public void NextQuest()
+    {
+        int currentQuest = _questManager.currentQuest;
+        if (currentQuest < _questManager._listQuests.Count - 1 && _questManager._listQuests[currentQuest]._isComplet)
+        {
+            _questManager.currentQuest++;
+            SetTextQuest();
+        }
+
+
+
+        //if (_actualQuest._nextQuest != null && _actualQuest._isComplet)
+        //{
+        //    _actualQuest = _actualQuest._nextQuest;
+        //    if (_actualQuest._isComplet)
+        //        ColorText(0);
+        //    else
+        //        _objectif.color = Color.white;
+        //    SetTextQuest();
+        //}
+    }
+
+    //public void ColorText(int index)
+    //{
+    //    _listQuest[index]._isComplet = true;
+    //    _objectif.color = Color.green;
+    //}
 }

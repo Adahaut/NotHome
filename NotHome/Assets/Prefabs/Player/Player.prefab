@@ -6556,6 +6556,14 @@ PrefabInstance:
     - target: {fileID: 3990636247027727288, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 3953996116127614949}
+    - target: {fileID: 3990636247027727288, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextQuest
+      objectReference: {fileID: 0}
+    - target: {fileID: 3990636247027727288, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: QuestPlayerUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4064133473270261855, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
@@ -7203,6 +7211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0002c63b7d41ee44caed64a73104ada2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _uiQuest: {fileID: 6566735537627280461}
   _questButton: {fileID: 1860917650087140740}
   _title: {fileID: 7367861140813828910}

@@ -3989,7 +3989,6 @@ MonoBehaviour:
   syncInterval: 0
   _uiQuest: {fileID: 0}
   _questButton: {fileID: 0}
-  _listQuest: []
   _title: {fileID: 0}
   _lore: {fileID: 0}
   _objectif: {fileID: 0}
@@ -3998,54 +3997,58 @@ MonoBehaviour:
   - _title: The beginning
     _lore: Discovering the world
     _objectif: Get out of the base
-    _isComplet: 0
+    _isComplet: 1
   - _title: First resource
     _lore: A good haul to start with
     _objectif: Recover 5 metal
-    _isComplet: 0
+    _isComplet: 1
   - _title: First blood
     _lore: Hunting is the best activity
     _objectif: Kill 3 desert spiders
-    _isComplet: 0
+    _isComplet: 1
   - _title: First improvement
     _lore: Discovering the map
     _objectif: Upgrade QG to level 2
-    _isComplet: 0
+    _isComplet: 1
   - _title: The drill
     _lore: Discovering the map
     _objectif: Go to the forest zone
-    _isComplet: 0
+    _isComplet: 1
   - _title: First craft
     _lore: A real blacksmith
     _objectif: Craft 1 x
-    _isComplet: 0
+    _isComplet: 1
   - _title: Murderer
     _lore: A real serial killer
     _objectif: Kill 10 x
-    _isComplet: 0
+    _isComplet: 1
   - _title: Upgrade
     _lore: A good player needs to improve his buildings
     _objectif: Upgrade all available buildings to level 2
-    _isComplet: 0
+    _isComplet: 1
   - _title: Farming
     _lore: A farmer first and foremost
     _objectif: Collect 15 seeds in the field
-    _isComplet: 0
+    _isComplet: 1
   - _title: Exploration
     _lore: The day's hike
     _objectif: Go to the Mountain zone
-    _isComplet: 0
+    _isComplet: 1
   - _title: Drone
     _lore: Site reconnaissance
     _objectif: Using the drone for the 1st time
-    _isComplet: 0
+    _isComplet: 1
   - _title: Upgrade
     _lore: A real player !
     _objectif: Upgrade all available buildings to level 3
-    _isComplet: 0
+    _isComplet: 1
   - _title: Repair
     _lore: It's good to be home
     _objectif: Repairing the ship
+    _isComplet: 1
+  - _title: Finished
+    _lore: 
+    _objectif: 
     _isComplet: 0
   currentQuest: 0
 --- !u!114 &1732474425
