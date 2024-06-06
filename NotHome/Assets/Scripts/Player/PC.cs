@@ -209,12 +209,17 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Sprint");
         _isRunning = true;
+        if (context.performed)
+        {
+            SoundWalking.Instance._isRunning = true;
+        }
         if (_moveDir != Vector2.zero)
             _animator.SetBool("Run", true);
         if (context.canceled || _playerManager.Stamina <= 0)
         {
             _isRunning = false;
             _animator.SetBool("Run", false);
+            SoundWalking.Instance._isRunning = false;
         }
     }
     
@@ -263,9 +268,15 @@ public class PC : MonoBehaviour
     {
         _moveDir = ctx.ReadValue<Vector2>();
         if (_moveDir != Vector2.zero)
+        {
+            SoundWalking.Instance._isMoving = true;
             _animator.SetBool("Walking", true);
+        }
         else
+        {
+            SoundWalking.Instance._isMoving = false;
             _animator.SetBool("Walking", false);
+        }
     }
     private void MovePlayer()
     {
