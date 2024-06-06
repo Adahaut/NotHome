@@ -1,21 +1,22 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MapUI : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _mapsList = new List<GameObject>();
-    [SerializeField] private List<ItemObject> _usbKeysList = new List<ItemObject>();
-    [SerializeField] private List<GameObject> _Buttons = new List<GameObject>();
+    private List<GameObject> _mapsList = new List<GameObject>();
+    private List<ItemObject> _usbKeysList = new List<ItemObject>();
+    private List<GameObject> _Buttons = new List<GameObject>();
     [SerializeField] private List<Camera> _minimapsCamera = new List<Camera>();
-    [SerializeField] private List<GameObject> _cameraDeplacementZone = new List<GameObject>();
+    [SerializeField] private RawImage _mapImage;
+    [SerializeField] private List<RenderTexture> _minimapsRenderSprite = new List<RenderTexture>();
 
     [SerializeField] private int _cameraMaxZoom, _cameraMinZoom;
     private Vector3 _dir;
-    private int _currentMapIndex;
+    [SerializeField] private int _currentMapIndex;
     private float _timer;
     bool _camActive = false;
 
@@ -34,10 +35,10 @@ public class MapUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _camActive = false;
         DesactiveAllMaps();
         SetActiveButtons();
         GetComponentInParent<PC>().gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[3].Enable();
+        _currentMapIndex = _minimapsRenderSprite.IndexOf((RenderTexture)_mapImage.texture);
     }
 
     private void OnDisable()
@@ -129,6 +130,7 @@ public class MapUI : MonoBehaviour
             {
                 _newPos.z = -(_camZone.z);
             }
+            
             _currentCamera.transform.localPosition = _newPos;
         }
     }
@@ -151,7 +153,7 @@ public class MapUI : MonoBehaviour
 
     private void CamDeplacement(Camera _currentCamera)
     {
-        if (!_camActive || _currentCamera == null)
+        if (_currentCamera == null)
             return;
 
         if (Input.GetMouseButtonDown(0))
