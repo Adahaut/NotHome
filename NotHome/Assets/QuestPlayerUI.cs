@@ -39,12 +39,16 @@ public class QuestPlayerUI : NetworkBehaviour
     [Command]
     public void NextQuest()
     {
-        int currentQuest = _questManager.currentQuest;
-        if (currentQuest < _questManager._listQuests.Count - 1 && _questManager._listQuests[currentQuest]._isComplet)
+        if(isOwned)
         {
-            _questManager.currentQuest++;
-            SetTextQuest();
+            int currentQuest = _questManager.currentQuest;
+            if (currentQuest < _questManager._listQuests.Count - 1 && _questManager._listQuests[currentQuest]._isComplet)
+            {
+                _questManager.currentQuest++;
+                SetTextQuest();
+            }
         }
+        
 
 
 
