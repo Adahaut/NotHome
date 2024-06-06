@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,11 @@ public class QuestPlayerUI : NetworkBehaviour
     [SerializeField] private TMP_Text _title;
     [SerializeField] private TMP_Text _lore;
     [SerializeField] private TMP_Text _objectif;
+
+    [Header("POPUP")]
+    [SerializeField] private GameObject popup;
+    [SerializeField] private Animator popupAnimator;
+    [SerializeField] private TMP_Text titleQuestCompleted;
 
     QuestManager _questManager;
 
@@ -42,33 +48,24 @@ public class QuestPlayerUI : NetworkBehaviour
     [Command]
     public void NextQuest()
     {
-        if(isOwned)
+        if (isOwned)
         {
-            int currentQuest = _questManager.currentQuest;
-            if (currentQuest < _questManager._listQuests.Count - 1 && _questManager._listQuests[currentQuest]._isComplet)
-            {
-                _questManager.currentQuest++;
-                SetTextQuest();
-            }
+            PopUpQuestAchieve();
+            _questManager.NextQuest();
         }
-        
-
-
-
-        //if (_actualQuest._nextQuest != null && _actualQuest._isComplet)
-        //{
-        //    _actualQuest = _actualQuest._nextQuest;
-        //    if (_actualQuest._isComplet)
-        //        ColorText(0);
-        //    else
-        //        _objectif.color = Color.white;
-        //    SetTextQuest();
-        //}
     }
 
-    //public void ColorText(int index)
-    //{
-    //    _listQuest[index]._isComplet = true;
-    //    _objectif.color = Color.green;
-    //}
+    [ClientRpc]
+    public void PopUpQuestAchieve()
+    {
+        popup.SetActive(true);
+        titleQuestCompleted.text = _questManager._listQuests[_questManager.currentQuest]._title;
+        StartCoroutine(TEMPCoroutine());
+    }
+
+    IEnumerator TEMPCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        popup.SetActive(false);
+    }
 }

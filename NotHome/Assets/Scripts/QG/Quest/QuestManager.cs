@@ -39,6 +39,15 @@ public class QuestManager : NetworkBehaviour
         //SetTextQuest();
     }
 
+    //Call this function to set next quest
+    public void NextQuest()
+    {
+        if (currentQuest < _listQuests.Count - 1 && _listQuests[currentQuest]._isComplet)
+        {
+            currentQuest++;
+        }
+    }
+
     public void SetQuestUpLevel2()
     {
         //_questUpLevel2 += 1;
