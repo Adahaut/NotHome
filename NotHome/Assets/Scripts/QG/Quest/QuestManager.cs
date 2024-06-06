@@ -1,9 +1,10 @@
+using Mirror;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestManager : MonoBehaviour
+public class QuestManager : NetworkBehaviour
 {
     public GameObject _uiQuest;
     public GameObject _questButton;
@@ -17,6 +18,11 @@ public class QuestManager : MonoBehaviour
     private int _questUpLevel2;
     private int _questUpLevel3;
 
+
+    public List<QuestStruct> _listToFillInInspector = new List<QuestStruct>();
+    public SyncList<QuestStruct> _listQuests = new SyncList<QuestStruct>();
+    [SyncVar] public int currentQuest;
+
     private void Awake()
     {
         if (Instance == null)
@@ -26,8 +32,24 @@ public class QuestManager : MonoBehaviour
     }
     private void Start()
     {
-        SetTextQuest();
+        
+        foreach(QuestStruct s in _listToFillInInspector)
+        {
+            _listQuests.Add(s);
+        }
+        //SetTextQuest();
     }
+
+    private void Update()
+    {
+        print(_listQuests.Count);
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+    }
+
     public void SetQuestUpLevel2()
     {
         _questUpLevel2 += 1;
@@ -40,19 +62,11 @@ public class QuestManager : MonoBehaviour
         if (_questUpLevel2 >= 4)
             ColorText(11);
     }
-    public void OpenQuest()
-    {
-        _uiQuest.SetActive(true);
-        MapManager.Instance._uiMap.SetActive(false);
-        _questButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
-        MapManager.Instance._mapButton.GetComponent<Image>().color = Color.white;
-        SetTextQuest();
-    }
     private void SetTextQuest()
     {
-        _title.text = _actualQuest._title;
-        _objectif.text = _actualQuest._objectif;
-        _lore.text = _actualQuest._lore;
+        //_title.text = _actualQuest._title;
+        //_objectif.text = _actualQuest._objectif;
+        //_lore.text = _actualQuest._lore;
     }
     public void ColorText(int index)
     {
