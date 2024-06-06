@@ -4,6 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct QuestNotificationMessage : NetworkMessage
+{
+    public string title;
+}
+
 public class QuestManager : NetworkBehaviour
 {
     public GameObject _uiQuest;
@@ -39,12 +44,17 @@ public class QuestManager : NetworkBehaviour
         //SetTextQuest();
     }
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+    }
 
     public void NextQuest()
     {
         if (currentQuest < _listQuests.Count - 1 && _listQuests[currentQuest]._isComplet)
         {
-            PlayerUIPopup.AllPlayerPopup(_listQuests[currentQuest]._title);
+            QuestNotificationMessage message = new QuestNotificationMessage { title = _listQuests[currentQuest]._title };
+            NetworkServer.SendToAll(message);
             currentQuest++;
         }
     }

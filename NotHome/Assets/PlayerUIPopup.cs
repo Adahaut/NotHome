@@ -1,9 +1,10 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlayerUIPopup : MonoBehaviour
+public class PlayerUIPopup : NetworkBehaviour
 {
     [Header("POPUP")]
     [SerializeField] private GameObject popup;
@@ -15,15 +16,18 @@ public class PlayerUIPopup : MonoBehaviour
         popup.SetActive(true);
         titleQuestCompleted.text = text;
         StartCoroutine(Tempcoroutine());
-        print("caca");
     }
 
-    public static void AllPlayerPopup(string text)
+    public override void OnStartClient()
     {
-        foreach (var playerUIPopup in FindObjectsOfType<PlayerUIPopup>())
-        {
-            playerUIPopup.PopUpQuestAchieve(text);
-        }
+        base.OnStartClient();
+        NetworkClient.RegisterHandler<QuestNotificationMessage>(OnClientReceiveMessage);
+    }
+
+    void OnClientReceiveMessage(QuestNotificationMessage msg)
+    {
+        PopUpQuestAchieve(msg.title);
+        Debug.Log("caca");
     }
 
     IEnumerator Tempcoroutine()
