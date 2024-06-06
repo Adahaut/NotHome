@@ -1,3 +1,4 @@
+using Mirror;
 using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,11 @@ public class FieldSlotsLists : MonoBehaviour
         debug.text = NewFieldManager.instance._seedPlantedObjects.Count.ToString();
         for (int i = 0; i < NewFieldManager.instance._seedPlantedObjects.Count; i++)
         {
-            debug.text += i + NewFieldManager.instance._seedPlantedObjects[i] + "\n";
+            NetworkServer.spawned.TryGetValue(NewFieldManager.instance._seedPlantedObjects[i], out NetworkIdentity identity);
+            if (identity != null)
+                debug.text += i + identity.gameObject.name + "\n";
+            else
+                debug.text += i + "\n";
 
         }
     }
