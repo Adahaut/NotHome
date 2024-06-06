@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -23,6 +24,11 @@ public class QuestManager : NetworkBehaviour
     public SyncList<QuestStruct> _listQuests = new SyncList<QuestStruct>();
     [SyncVar] public int currentQuest;
 
+    [Header("POPUP")]
+    [SerializeField] private GameObject popup;
+    [SerializeField] private Animator popupAnimator;
+    [SerializeField] private TMP_Text titleQuestCompleted;
+
     private void Awake()
     {
         if (Instance == null)
@@ -45,7 +51,20 @@ public class QuestManager : NetworkBehaviour
         if (currentQuest < _listQuests.Count - 1 && _listQuests[currentQuest]._isComplet)
         {
             currentQuest++;
+            PopUpQuestAchieve();
         }
+    }
+    public void PopUpQuestAchieve()
+    {
+        popup.SetActive(true);
+        titleQuestCompleted.text = _listQuests[currentQuest]._title;
+        StartCoroutine(TEMPCoroutine());
+    }
+
+    IEnumerator TEMPCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        popup.SetActive(false);
     }
 
     public void SetQuestUpLevel2()

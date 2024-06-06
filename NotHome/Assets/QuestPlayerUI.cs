@@ -13,10 +13,7 @@ public class QuestPlayerUI : NetworkBehaviour
     [SerializeField] private TMP_Text _lore;
     [SerializeField] private TMP_Text _objectif;
 
-    [Header("POPUP")]
-    [SerializeField] private GameObject popup;
-    [SerializeField] private Animator popupAnimator;
-    [SerializeField] private TMP_Text titleQuestCompleted;
+    
 
     QuestManager _questManager;
 
@@ -50,22 +47,8 @@ public class QuestPlayerUI : NetworkBehaviour
     {
         if (isOwned)
         {
-            PopUpQuestAchieve();
             _questManager.NextQuest();
         }
     }
-
-    [ClientRpc]
-    public void PopUpQuestAchieve()
-    {
-        popup.SetActive(true);
-        titleQuestCompleted.text = _questManager._listQuests[_questManager.currentQuest]._title;
-        StartCoroutine(TEMPCoroutine());
-    }
-
-    IEnumerator TEMPCoroutine()
-    {
-        yield return new WaitForSeconds(2f);
-        popup.SetActive(false);
-    }
+    
 }
