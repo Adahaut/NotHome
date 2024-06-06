@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class EndCinematic : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject _spaceSkybox;
+    [SerializeField] private GameObject _meteorit;
+
+    public void ActiveSpaceSkybox()
     {
-        
+        _spaceSkybox.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ActiveMeteorit()
     {
-        
+        _meteorit.SetActive(true);
     }
 }

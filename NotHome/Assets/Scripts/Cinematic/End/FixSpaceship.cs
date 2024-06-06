@@ -6,7 +6,6 @@ public class FixSpaceship : MonoBehaviour
 {
     [SerializeField] private GameObject _spaceshipToFix;
     [SerializeField] private GameObject _spaceshipFixed;
-    [SerializeField] private GameObject _creditsCanva;
     private GameObject[] _playersRef;
 
     private void Start()
@@ -26,8 +25,7 @@ public class FixSpaceship : MonoBehaviour
     {
         _spaceshipToFix.SetActive(false);
         _spaceshipFixed.SetActive(true);
-        _creditsCanva.SetActive(true);
-
+        
         for (int i = 0; i < _playersRef.Length; i++)
         {
             _playersRef[i].SetActive(false);
