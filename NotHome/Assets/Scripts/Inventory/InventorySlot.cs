@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] private ItemObject _itemContained;
-    private GameObject _itemImage;
+    [SerializeField] public ItemObject _itemContained;
+    public Image _itemImage;
     [SerializeField] private int _number;
-    [SerializeField] private TextMeshProUGUI _numberText;
+    //[SerializeField] private TextMeshProUGUI _numberText;
+    public bool _isSeleceted;
 
     private void Awake()
     {
-        _itemImage = transform.GetChild(0).gameObject;
+        _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
         ResetItem();
-        _numberText.text = "";
+        //_numberText.text = "";
     }
 
     public int Number() { return _number; }
@@ -36,9 +37,17 @@ public class InventorySlot : MonoBehaviour
             UpdateNumber();
     }
 
+    public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
+    {
+        _itemImage.sprite = _newSprite;
+        _number = _newNumber;
+        _itemContained.SetItem(_name, _newSprite);
+        
+    }
+
     public void UpdateNumber()
     {
-        _numberText.text = _number.ToString();
+        //_numberText.text = _number.ToString();
     }
 
     public ItemObject ItemContained() {  return _itemContained; }
@@ -50,6 +59,7 @@ public class InventorySlot : MonoBehaviour
             _itemContained.SetItem(_ItemName, _itemSprite);
             UpdateNumber();
             UpdateItemVisuel();
+            GetComponent<Image>().sprite = null;
         }
     }
 
@@ -58,12 +68,12 @@ public class InventorySlot : MonoBehaviour
         _itemContained = new ItemObject();
         _itemContained.SetItem("None", null);
         _number = 0;
-        _numberText.text = "";
+        //_numberText.text = "";
         UpdateItemVisuel();
     }
 
-    private void UpdateItemVisuel()
+    public void UpdateItemVisuel()
     {
-        _itemImage.GetComponent<Image>().sprite = _itemContained.ItemSprite();
+        _itemImage.sprite = _itemContained.ItemSprite();
     }
 }

@@ -26,12 +26,16 @@ public class PC : MonoBehaviour
     private bool _isOpen;
 
     [Header("Inventory")]
-    [SerializeField] private GameObject _inventory;
+    [SerializeField] public GameObject _inventory;
     [SerializeField] private string _itemTag;
     [SerializeField] private int _itemPickRange;
+    private InventoryBaseManager _baseInventory;
 
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
+
+    [Header("Book")]
+    [SerializeField] private GameObject _book;
 
     [Header("PlayerManager")]
     [SerializeField] private PlayerManager _playerManager;
@@ -40,16 +44,21 @@ public class PC : MonoBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+    private Farts _farts;
+
+    private float _fartCooldown;
+    private bool _isInBook;
     private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
     private bool _isRunning;
+    private bool _canJump;
     private bool _isJump;
     private bool _canUseTorch;
     private CharacterController _characterController;
     private float _timer;
-    private bool _isInBaseInventory;
+    public bool _isInBaseInventory;
     [SerializeField] private GameObject _torch;
 
     private Vector3 _moveDirection = Vector3.zero;
@@ -60,10 +69,13 @@ public class PC : MonoBehaviour
     
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Transform _transform;
+    private Animator _animator;
 
     public Vector2 Rotation { get { return _rotation2; } set {  _rotation2 = value; } }
 
     public bool IsDead {  get { return _isDead; } set {  _isDead = value; } }
+
+    public bool IsInBook { get { return  _isInBook; } }
 
     public static PC Instance;
 
@@ -71,14 +83,18 @@ public class PC : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        
     }
 
 
     public void Start()
     {
+        _animator = GetComponentInChildren<Animator>();
+        _baseInventory = GetComponentInChildren<InventoryBaseManager>();
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
         _characterController = GetComponent<CharacterController>();
+        _farts = GetComponent<Farts>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -91,9 +107,32 @@ public class PC : MonoBehaviour
         _isInBaseInventory = _isIn;
     }
 
+    public void StartFart(InputAction.CallbackContext ctx)
+    {
+        if (_fartCooldown > 0)
+            return;
+        _fartCooldown = 1f;
+        _farts.PlayRandomFartSound();
+    }
+
     public InventoryManager GetInventory()
     {
         return _inventory.GetComponent<InventoryManager>();
+    }
+
+    public void OpenBook(InputAction.CallbackContext ctx)
+    {
+        _book.SetActive(!_book.activeInHierarchy);
+        if (_book.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            _isInBook = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            _isInBook = false;
+        }
     }
 
     public void SetInventoryActive(bool _active)
@@ -108,8 +147,15 @@ public class PC : MonoBehaviour
     {
         Debug.Log("Interaction");
         if (ctx.performed)
+        {
+            StartCoroutine(AnimOneTime("Interaction"));
             StartUi();
-        OfficeManager.Instance.MouvToChair();
+            if (Physics.Raycast(_camera.position,_camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("DecompressionExit") || hit.collider.CompareTag("DecompressionMountain")))
+            {
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().OpenDoor(_camera);
+            }
+        }
+        //OfficeManager.Instance.MouvToChair();
         if(_timer <= 0)
         {
             PickUpObject();
@@ -120,8 +166,10 @@ public class PC : MonoBehaviour
     {
         if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
         {
+            StartCoroutine(AnimOneTime("StartJump"));
             ChangeStamina(-10);
             _currentStaminaTime = _staminaTimer;
+            _canJump = true;
             _isJump = true;
         } 
     }
@@ -134,7 +182,7 @@ public class PC : MonoBehaviour
     }
     void Update()
     {
-        if (!_isDead)
+        if (!_isDead && !_isInBook)
         {
             RotateCamera();
             MovePlayer();
@@ -156,14 +204,23 @@ public class PC : MonoBehaviour
             _canOpen = false;
             _textPress.text = "";
         }
-
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
         Debug.Log("Sprint");
         _isRunning = true;
-        if (context.canceled)
+        if (context.performed)
+        {
+            SoundWalking.Instance._isRunning = true;
+        }
+        if (_moveDir != Vector2.zero)
+            _animator.SetBool("Run", true);
+        if (context.canceled || _playerManager.Stamina <= 0)
+        {
             _isRunning = false;
+            _animator.SetBool("Run", false);
+            SoundWalking.Instance._isRunning = false;
+        }
     }
     
     private void Timer()
@@ -176,14 +233,24 @@ public class PC : MonoBehaviour
         {
             _currentStaminaTime -= Time.deltaTime;
         }
+        if(_fartCooldown > 0)
+        {
+            _fartCooldown -= Time.deltaTime;
+        }
     }
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
     {
         if (ctx.control.name == "rightStick")
+        {
             _rotation = ctx.ReadValue<Vector2>() * _sensitivityController;
+        }
+
         else
+        {
             _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
+        }
+            
     }
     private void RotateCamera()
     {
@@ -193,9 +260,23 @@ public class PC : MonoBehaviour
         _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
+    public void SetAnimation(string name, bool state)
+    {
+        _animator.SetBool(name, state);
+    }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
+        if (_moveDir != Vector2.zero)
+        {
+            SoundWalking.Instance._isMoving = true;
+            _animator.SetBool("Walking", true);
+        }
+        else
+        {
+            SoundWalking.Instance._isMoving = false;
+            _animator.SetBool("Walking", false);
+        }
     }
     private void MovePlayer()
     {
@@ -207,18 +288,22 @@ public class PC : MonoBehaviour
         float movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        if (_isJump && _canMove && _characterController.isGrounded)
+        if (_canJump && _canMove && _characterController.isGrounded)
         {
             _moveDirection.y = _jumpPower;
-            _isJump = false;
+            _canJump = false;
         }
         else
         {
             if (_isRunning)
             {
-                if(!_runningStaminaLose)
+                if(!_runningStaminaLose && _moveDir != Vector2.zero)
                 {
                     StartCoroutine(RunningStamina());
+                }
+                if (_playerManager.Stamina <= 0)
+                {
+                    _isRunning = false; 
                 }
             }
             _moveDirection.y = movementDirectionY;
@@ -227,9 +312,18 @@ public class PC : MonoBehaviour
 
         if (!_characterController.isGrounded)
         {
+            _animator.SetBool("Falling", true);
             _moveDirection.y -= _gravity * Time.deltaTime;
         }
-
+        else
+        {
+            _animator.SetBool("Falling", false);
+            if (_isJump)
+            {
+                StartCoroutine(AnimOneTime("EndJump"));
+                _isJump = false;
+            }
+        }
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
@@ -308,15 +402,26 @@ public class PC : MonoBehaviour
 
         if (_hits.Length > 0)
         {
+            bool taking = false;
             for (int i = 0; i < _hits.Length; i++)
             {
                 if (_hits[i].collider.CompareTag(_itemTag))
                 {
+                    taking = true;
+                    
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
                     Destroy(_hits[i].collider.gameObject);
                 }
             }
+            if (taking)
+                StartCoroutine(AnimOneTime("Taking"));
         }
+    }
+    public IEnumerator AnimOneTime(string name)
+    {
+        _animator.SetBool(name, true);
+        yield return new WaitForSeconds(0.25f);
+        _animator.SetBool(name, false);
     }
 
     private void ChangeStamina(float _value)
@@ -347,8 +452,8 @@ public class PC : MonoBehaviour
         while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
-            ChangeStamina(-5);
-            yield return new WaitForSeconds(1f);
+            ChangeStamina(-0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
         _runningStaminaLose = false;
     }
@@ -361,6 +466,10 @@ public class PC : MonoBehaviour
     public void SetUseTorch(bool useTorch)
     {
         _canUseTorch = useTorch;
+    }
+    public float GetDistRayCast()
+    {
+        return _distRayCast;
     }
 
     // Ui Player
@@ -385,12 +494,14 @@ public class PC : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Disable();
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Enable();
             _isOpen = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
+            GetComponentInChildren<PlayerInput>().actions.actionMaps[2].Disable();
             _isOpen = false;
         }
     }

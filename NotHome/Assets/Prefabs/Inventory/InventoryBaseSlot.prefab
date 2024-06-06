@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6374840852332564424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -90,7 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemContained: {fileID: 0}
+  _itemImage: {fileID: 0}
+  _number: 0
   _numberText: {fileID: 4533273830399402465}
+  _isSeleceted: 0
 --- !u!1 &5049182673635122811
 GameObject:
   m_ObjectHideFlags: 0

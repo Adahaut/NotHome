@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 281556088607864668}
   - component: {fileID: 1332132358558299012}
+  - component: {fileID: 4956880015746768991}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,3 +47,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBarQG: {fileID: 0}
   _textHp: {fileID: 0}
+--- !u!114 &4956880015746768991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3868126490967763627}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b7719e4b4219b48a51949e13537917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _directionalLight: {fileID: 0}
+  _preset: {fileID: 11400000, guid: bd4b1d733cbc9084dafce0e4de95e68a, type: 2}
+  _timeOfDay: 7
+  _nightSkyBox: {fileID: 2100000, guid: 99e05b34ab705f545b449ac67828271c, type: 2}
+  _daySkyBox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
