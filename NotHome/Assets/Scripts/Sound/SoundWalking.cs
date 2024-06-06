@@ -33,13 +33,13 @@ public class SoundWalking : MonoBehaviour
             {
                 switch (hit.collider.tag)
                 {
-                    case "Stone":
+                    case "Forest":
                         SetSound(0);
                         break;
                     case "Mountain":
                         SetSound(2);
                         break;
-                    case "Forest":
+                    case "Desert":
                         SetSound(4);
                         break;
                     default:
