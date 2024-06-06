@@ -1,4 +1,4 @@
-using Mirror;
+﻿using Mirror;
 using UnityEngine;
 
 [System.Serializable]
@@ -50,14 +50,34 @@ public class SeedObject : NetworkBehaviour
                 //Update Position
                 float newYPos = Mathf.Lerp(initYPos.y, initYPos.y + 0.25f, t);
 
-                Vector3 newPos = transform.localPosition;
+                Vector3 newPos = transform.position;
                 newPos.y = newYPos;
-                transform.localPosition = newPos;
+                CmdSendPositionToServer( newPos );
+                //transform.position = newPos;
             }
             else
             {
                 _growStarted = false;
             }
+        }
+    }
+
+    void CmdSendPositionToServer(Vector3 position)
+    {
+        // Mettre � jour la position du joueur sur le serveur
+        transform.position = position;
+
+        // Envoyer la position mise � jour � tous les clients
+        RpcUpdatePositionOnClients(position);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePositionOnClients(Vector3 position)
+    {
+        if (!isOwned)
+        {
+            // Mettre � jour la position du joueur sur les clients
+            transform.position = position;
         }
     }
 
