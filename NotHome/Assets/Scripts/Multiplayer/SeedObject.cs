@@ -13,8 +13,7 @@ public class SeedObject : NetworkBehaviour
     [SyncVar] public float _timeToGrow;
     [SyncVar] public float _currentTimer;
 
-    [SyncVar(hook = nameof(OnPositionChanged))]
-    private Vector3 _syncedPosition;
+    [SyncVar] public Vector3 currentPosition = Vector3.zero;
 
     private Vector3 initYPos;
 
@@ -27,11 +26,6 @@ public class SeedObject : NetworkBehaviour
             _timeToGrow = seedStruct._growingTime;
 
             initYPos = pos;
-            if (isServer)
-            {
-                _syncedPosition = pos;
-                RpcSetPosition(pos); 
-            }
         }
     }
 
@@ -56,12 +50,11 @@ public class SeedObject : NetworkBehaviour
                 Vector3 newPos = transform.position;
                 newPos.y = newYPos;
 
-                if (isServer)
-                {
-                    _syncedPosition = newPos;
-                }
-
                 transform.position = newPos;
+                if(isServer)
+                {
+                    RpcSyncPlantPosition(newPos);
+                }
             }
             else
             {
@@ -70,19 +63,18 @@ public class SeedObject : NetworkBehaviour
         }
     }
 
-    private void OnPositionChanged(Vector3 oldPosition, Vector3 newPosition)
+    private void LateUpdate()
     {
-        transform.position = newPosition;
+        if(!isServer)
+        {
+            this.transform.position = currentPosition;
+        }
     }
 
     [ClientRpc]
-    private void RpcSetPosition(Vector3 pos)
+    private void RpcSyncPlantPosition(Vector3 position)
     {
-        if (!isServer)
-        {
-            print("test");
-            transform.position = pos;
-        }
+        currentPosition = position;
     }
 
 }
