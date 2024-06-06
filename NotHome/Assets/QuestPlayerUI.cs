@@ -24,7 +24,10 @@ public class QuestPlayerUI : NetworkBehaviour
         //Change colors of buttons
         _questButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
         MapManager.Instance._mapButton.GetComponent<Image>().color = Color.white;
+    }
 
+    private void Update()
+    {
         SetTextQuest();
     }
 
