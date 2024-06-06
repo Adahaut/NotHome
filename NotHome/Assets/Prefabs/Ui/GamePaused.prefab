@@ -129,8 +129,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3152244602451556152}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+      - m_Target: {fileID: 2157738244277232653}
+        m_TargetAssemblyTypeName: OptionManager, Assembly-CSharp
         m_MethodName: SetVolumeMusic
         m_Mode: 0
         m_Arguments:
@@ -1011,6 +1011,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1887742890017758911}
+  - component: {fileID: 2157738244277232653}
   m_Layer: 0
   m_Name: UiOption
   m_TagString: Untagged
@@ -1042,6 +1043,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2157738244277232653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3057618223880357337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0eb234818e3bed4d9481a53cd9e1eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toggleFullScreen: {fileID: 6897642178666628261}
+  _audioMixer: {fileID: 24100000, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
+  _dropdownResolution: {fileID: 497841648718398574}
 --- !u!1 &3156740262919481240
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,9 +1613,6 @@ MonoBehaviour:
   _uiPause: {fileID: 78269451154162762}
   _uiButton: {fileID: 4962737628248207931}
   _uiOption: {fileID: 3057618223880357337}
-  _toggleFullScreen: {fileID: 6897642178666628261}
-  _audioMixer: {fileID: 24100000, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
-  _dropdownResolution: {fileID: 497841648718398574}
 --- !u!1 &3687977838459792111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1928,8 +1941,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3152244602451556152}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+      - m_Target: {fileID: 2157738244277232653}
+        m_TargetAssemblyTypeName: OptionManager, Assembly-CSharp
         m_MethodName: SetResolution
         m_Mode: 0
         m_Arguments:
@@ -2783,8 +2796,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3152244602451556152}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+      - m_Target: {fileID: 2157738244277232653}
+        m_TargetAssemblyTypeName: OptionManager, Assembly-CSharp
         m_MethodName: SetFullScreen
         m_Mode: 0
         m_Arguments:
@@ -3088,8 +3101,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3152244602451556152}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+      - m_Target: {fileID: 2157738244277232653}
+        m_TargetAssemblyTypeName: OptionManager, Assembly-CSharp
         m_MethodName: SetVolumeSound
         m_Mode: 0
         m_Arguments:
