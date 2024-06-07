@@ -262,20 +262,20 @@ public class PC : MonoBehaviour
     }
     public void SetAnimation(string name, bool state)
     {
-        _animator.SetBool(name, state);
+        //_animator.SetBool(name, state);
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
         if (_moveDir != Vector2.zero)
         {
-            SoundWalking.Instance._isMoving = true;
-            _animator.SetBool("Walking", true);
+            //SoundWalking.Instance._isMoving = true;
+            //_animator.SetBool("Walking", true);
         }
         else
         {
-            SoundWalking.Instance._isMoving = false;
-            _animator.SetBool("Walking", false);
+            //SoundWalking.Instance._isMoving = false;
+            //_animator.SetBool("Walking", false);
         }
     }
     private void MovePlayer()
@@ -312,12 +312,12 @@ public class PC : MonoBehaviour
 
         if (!_characterController.isGrounded)
         {
-            _animator.SetBool("Falling", true);
+            //_animator.SetBool("Falling", true);
             _moveDirection.y -= _gravity * Time.deltaTime;
         }
         else
         {
-            _animator.SetBool("Falling", false);
+            //_animator.SetBool("Falling", false);
             if (_isJump)
             {
                 StartCoroutine(AnimOneTime("EndJump"));
@@ -419,9 +419,9 @@ public class PC : MonoBehaviour
     }
     public IEnumerator AnimOneTime(string name)
     {
-        _animator.SetBool(name, true);
+        //_animator.SetBool(name, true);
         yield return new WaitForSeconds(0.25f);
-        _animator.SetBool(name, false);
+        //_animator.SetBool(name, false);
     }
 
     private void ChangeStamina(float _value)
