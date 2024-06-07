@@ -245,6 +245,9 @@ MonoBehaviour:
   _currentStaminaTime: 0
   _staminaRegenStarted: 0
   _runningStaminaLose: 0
+  _book: {fileID: 0}
+  _isInBook: 0
+  _torch: {fileID: 0}
   yRotationLimit: 88
 --- !u!81 &1728485283472307026
 AudioListener:
@@ -1176,6 +1179,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3667293984986487829}
     m_Modifications:
+    - target: {fileID: -8072433318476332922, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _assetId
+      value: 1396416858
+      objectReference: {fileID: 0}
     - target: {fileID: 302266541803566371, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
