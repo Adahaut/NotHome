@@ -60,6 +60,7 @@ public class PC : MonoBehaviour
     private float _timer;
     public bool _isInBaseInventory;
     [SerializeField] private GameObject _torch;
+    [SerializeField] private ParticleSystem _particleFootprint;
 
     private Vector3 _moveDirection = Vector3.zero;
     private Vector2 _rotation = Vector2.zero;
@@ -269,17 +270,19 @@ public class PC : MonoBehaviour
         _moveDir = ctx.ReadValue<Vector2>();
         if (_moveDir != Vector2.zero)
         {
-            //SoundWalking.Instance._isMoving = true;
-            //_animator.SetBool("Walking", true);
+            SoundWalking.Instance._isMoving = true;
+            _animator.SetBool("Walking", true);
         }
         else
         {
-            //SoundWalking.Instance._isMoving = false;
-            //_animator.SetBool("Walking", false);
+            SoundWalking.Instance._isMoving = false;
+            _animator.SetBool("Walking", false);
         }
     }
     private void MovePlayer()
     {
+        var main = _particleFootprint.main;
+
         Vector3 forward = _transform.TransformDirection(Vector3.forward);
         Vector3 right = _transform.TransformDirection(Vector3.right);
 
@@ -312,17 +315,31 @@ public class PC : MonoBehaviour
 
         if (!_characterController.isGrounded)
         {
-            //_animator.SetBool("Falling", true);
+            _animator.SetBool("Falling", true);
             _moveDirection.y -= _gravity * Time.deltaTime;
+            main.loop = false;
         }
         else
         {
-            //_animator.SetBool("Falling", false);
+            _animator.SetBool("Falling", false);
             if (_isJump)
             {
                 StartCoroutine(AnimOneTime("EndJump"));
                 _isJump = false;
             }
+            if (_moveDir != Vector2.zero)
+            {
+                if (!main.loop)
+                {
+                    main.loop = true;
+                    _particleFootprint.Play();
+                }
+            }
+            else
+            {
+                main.loop = false;
+            }
+
         }
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
@@ -419,9 +436,9 @@ public class PC : MonoBehaviour
     }
     public IEnumerator AnimOneTime(string name)
     {
-        //_animator.SetBool(name, true);
+        _animator.SetBool(name, true);
         yield return new WaitForSeconds(0.25f);
-        //_animator.SetBool(name, false);
+        _animator.SetBool(name, false);
     }
 
     private void ChangeStamina(float _value)
