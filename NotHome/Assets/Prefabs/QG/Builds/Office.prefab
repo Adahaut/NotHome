@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1723290788972925512}
+  - component: {fileID: 157745942783156309}
+  - component: {fileID: 5456959782911351199}
+  - component: {fileID: 2837251148160399253}
   m_Layer: 8
   m_Name: Office
   m_TagString: Untagged
@@ -32,6 +35,137 @@ Transform:
   - {fileID: 8686793354811496430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &157745942783156309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196594243622864618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3527231675
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &5456959782911351199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196594243622864618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 1723290788972925512}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 1
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  bufferResetMultiplier: 3
+  changedDetection: 1
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+--- !u!114 &2837251148160399253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196594243622864618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01762af45f7b2e141b39aa69db91499c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _uiQuest: {fileID: 0}
+  _questButton: {fileID: 0}
+  _title: {fileID: 0}
+  _lore: {fileID: 0}
+  _objectif: {fileID: 0}
+  _actualQuest: {fileID: 0}
+  _listToFillInInspector:
+  - _title: The beginning
+    _lore: Discovering the world
+    _objectif: Get out of the base
+    _isComplet: 1
+  - _title: First resource
+    _lore: A good haul to start with
+    _objectif: Recover 5 metal
+    _isComplet: 1
+  - _title: First blood
+    _lore: Hunting is the best activity
+    _objectif: Kill 3 desert spiders
+    _isComplet: 1
+  - _title: First improvement
+    _lore: Discovering the map
+    _objectif: Upgrade QG to level 2
+    _isComplet: 1
+  - _title: The drill
+    _lore: Discovering the map
+    _objectif: Go to the forest zone
+    _isComplet: 1
+  - _title: First craft
+    _lore: A real blacksmith
+    _objectif: Craft 1 x
+    _isComplet: 1
+  - _title: Murderer
+    _lore: A real serial killer
+    _objectif: Kill 10 x
+    _isComplet: 1
+  - _title: Upgrade
+    _lore: A good player needs to improve his buildings
+    _objectif: Upgrade all available buildings to level 2
+    _isComplet: 1
+  - _title: Farming
+    _lore: A farmer first and foremost
+    _objectif: Collect 15 seeds in the field
+    _isComplet: 1
+  - _title: Exploration
+    _lore: The day's hike
+    _objectif: Go to the Mountain zone
+    _isComplet: 1
+  - _title: Drone
+    _lore: Site reconnaissance
+    _objectif: Using the drone for the 1st time
+    _isComplet: 1
+  - _title: Upgrade
+    _lore: A real player !
+    _objectif: Upgrade all available buildings to level 3
+    _isComplet: 1
+  - _title: Repair
+    _lore: It's good to be home
+    _objectif: Repairing the ship
+    _isComplet: 1
+  - _title: Finished
+    _lore: 
+    _objectif: 
+    _isComplet: 0
+  currentQuest: 0
 --- !u!1 &7209826532905126561
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,3 +285,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _index: 1
+  usedPlayer: {fileID: 0}
+  _isOpen: 0

@@ -2694,14 +2694,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4223078168046542474, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4223078168046542474, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5288283433219272275, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
       propertyPath: m_Name
       value: Stockage
@@ -2746,112 +2738,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7247700371341022122, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
+      propertyPath: sceneId
+      value: 413670792
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5288283433219272275, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1172697159}
-    - targetCorrespondingSourceObject: {fileID: 5288283433219272275, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1172697158}
-    - targetCorrespondingSourceObject: {fileID: 5288283433219272275, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1172697160}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
 --- !u!1 &1172697155 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5288283433219272275, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
   m_PrefabInstance: {fileID: 1172697154}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1172697157 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5904197070531813075, guid: 1c0ca5ee150f66f4ba1d3b4464413b53, type: 3}
-  m_PrefabInstance: {fileID: 1172697154}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1172697158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172697155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 1172697157}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  coordinateSpace: 0
-  sendIntervalMultiplier: 1
-  timelineOffset: 0
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  bufferResetMultiplier: 3
-  changedDetection: 1
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
---- !u!114 &1172697159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172697155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 413670792
-  _assetId: 1845029951
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
---- !u!114 &1172697160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1172697155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e66c8fe8cfdd0469fa1db421249546, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _inventoryPanel: {fileID: 0}
-  _inventorySlotPrefab: {fileID: 1832631408618658791, guid: 135d2e15a79a10941a6a9a600f762bb1, type: 3}
-  _inventorySlotStartNumber: 15
-  _slotList: []
-  _allItems:
-  - {fileID: 5809743472006700729, guid: 56e3281aeb4e48b479ece6d177aa9df1, type: 3}
-  - {fileID: 5809743472006700729, guid: 87a935f01d803074a94e9bcdaa10eb09, type: 3}
-  - {fileID: 5809743472006700729, guid: aa39736f4cf2ee54d9cc9af876840767, type: 3}
-  - {fileID: 5809743472006700729, guid: b6ebca41ccd8bf041825abadfcde5090, type: 3}
-  - {fileID: 5809743472006700729, guid: 6a2774c3958a509408df85537004c6e9, type: 3}
-  - {fileID: 5809743472006700729, guid: 4133b51fc9b48cb4e94a0a1d0efa073c, type: 3}
-  - {fileID: 5809743472006700729, guid: b2bdd1b8f6e27a248bc79d84a794e6c0, type: 3}
-  - {fileID: 5809743472006700729, guid: 360f8c9ee7046ea48af23dc52fd9d2a6, type: 3}
-  - {fileID: 5809743472006700729, guid: 5f476bc06e4e5a64082d4046555bf1a1, type: 3}
-  _inventorySize: 0
 --- !u!1 &1359992759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3903,102 +3803,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4196594243622864618, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
   m_PrefabInstance: {fileID: 2080671701}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1732474423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732474422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01762af45f7b2e141b39aa69db91499c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _uiQuest: {fileID: 0}
-  _questButton: {fileID: 0}
-  _title: {fileID: 0}
-  _lore: {fileID: 0}
-  _objectif: {fileID: 0}
-  _actualQuest: {fileID: 0}
-  _listToFillInInspector:
-  - _title: The beginning
-    _lore: Discovering the world
-    _objectif: Get out of the base
-    _isComplet: 1
-  - _title: First resource
-    _lore: A good haul to start with
-    _objectif: Recover 5 metal
-    _isComplet: 1
-  - _title: First blood
-    _lore: Hunting is the best activity
-    _objectif: Kill 3 desert spiders
-    _isComplet: 1
-  - _title: First improvement
-    _lore: Discovering the map
-    _objectif: Upgrade QG to level 2
-    _isComplet: 1
-  - _title: The drill
-    _lore: Discovering the map
-    _objectif: Go to the forest zone
-    _isComplet: 1
-  - _title: First craft
-    _lore: A real blacksmith
-    _objectif: Craft 1 x
-    _isComplet: 1
-  - _title: Murderer
-    _lore: A real serial killer
-    _objectif: Kill 10 x
-    _isComplet: 1
-  - _title: Upgrade
-    _lore: A good player needs to improve his buildings
-    _objectif: Upgrade all available buildings to level 2
-    _isComplet: 1
-  - _title: Farming
-    _lore: A farmer first and foremost
-    _objectif: Collect 15 seeds in the field
-    _isComplet: 1
-  - _title: Exploration
-    _lore: The day's hike
-    _objectif: Go to the Mountain zone
-    _isComplet: 1
-  - _title: Drone
-    _lore: Site reconnaissance
-    _objectif: Using the drone for the 1st time
-    _isComplet: 1
-  - _title: Upgrade
-    _lore: A real player !
-    _objectif: Upgrade all available buildings to level 3
-    _isComplet: 1
-  - _title: Repair
-    _lore: It's good to be home
-    _objectif: Repairing the ship
-    _isComplet: 1
-  - _title: Finished
-    _lore: 
-    _objectif: 
-    _isComplet: 0
-  currentQuest: 0
---- !u!114 &1732474425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732474422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 4028384138
-  _assetId: 3527231675
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
 --- !u!1 &1747155208
 GameObject:
   m_ObjectHideFlags: 0
@@ -4777,6 +4581,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 157745942783156309, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
+      propertyPath: sceneId
+      value: 4028384138
+      objectReference: {fileID: 0}
     - target: {fileID: 1723290788972925512, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 609.83954
@@ -4824,57 +4632,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4196594243622864618, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1732474425}
-    - targetCorrespondingSourceObject: {fileID: 4196594243622864618, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2080671703}
-    - targetCorrespondingSourceObject: {fileID: 4196594243622864618, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1732474423}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
---- !u!4 &2080671702 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1723290788972925512, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
-  m_PrefabInstance: {fileID: 2080671701}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2080671703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732474422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 2080671702}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 1
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  coordinateSpace: 0
-  sendIntervalMultiplier: 1
-  timelineOffset: 0
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  bufferResetMultiplier: 3
-  changedDetection: 1
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
 --- !u!1001 &118856798294168428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4886,10 +4645,6 @@ PrefabInstance:
     - target: {fileID: 106525206143396028, guid: 25d841aeeaba0f645bcf789214180519, type: 3}
       propertyPath: sceneId
       value: 205787023
-      objectReference: {fileID: 0}
-    - target: {fileID: 7640835376899339626, guid: 25d841aeeaba0f645bcf789214180519, type: 3}
-      propertyPath: _seedPlantedObjects.Array.size
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8635225779897772192, guid: 25d841aeeaba0f645bcf789214180519, type: 3}
       propertyPath: m_LocalPosition.x
