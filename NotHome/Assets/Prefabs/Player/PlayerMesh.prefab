@@ -838,7 +838,7 @@ MonoBehaviour:
     m_ActionName: Player/Fart[/Keyboard/p]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6772717303431109376}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InventoryBaseManager, Assembly-CSharp
         m_MethodName: InventoryBaseManagerManette
         m_Mode: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
     m_ActionName: InventoryManette/Direction[/XInputControllerWindows/leftStick/right]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6772717303431109376}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InventoryBaseManager, Assembly-CSharp
         m_MethodName: Selection
         m_Mode: 0
@@ -1447,7 +1447,7 @@ MonoBehaviour:
   _distRayCast: 3
   _textPress: {fileID: 3088226925715639547}
   _uiPlayer:
-  - {fileID: 3631996864160137131}
+  - {fileID: 0}
   - {fileID: 209788113214722331}
   - {fileID: 5464378700927355171}
   - {fileID: 4062033725132438106}
@@ -2424,6 +2424,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4891196314714064706}
     m_Modifications:
+    - target: {fileID: -8072433318476332922, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _assetId
+      value: 3557188311
+      objectReference: {fileID: 0}
     - target: {fileID: 73699587557870557, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2792,11 +2796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3631996864160137131 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 433971365959940274, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 3774780991229609753}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4062033725132438106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 882012186418855235, guid: c65c6ee038096654983d801be093112f, type: 3}
@@ -2839,17 +2838,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8038172618345867679, guid: c65c6ee038096654983d801be093112f, type: 3}
   m_PrefabInstance: {fileID: 3774780991229609753}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6772717303431109376 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7610856659803724825, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 3774780991229609753}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5464378700927355171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e66c8fe8cfdd0469fa1db421249546, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6979412388776026668 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6105031549103105333, guid: c65c6ee038096654983d801be093112f, type: 3}

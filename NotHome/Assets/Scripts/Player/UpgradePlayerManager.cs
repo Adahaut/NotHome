@@ -10,7 +10,7 @@ public class UpgradePlayerManager : MonoBehaviour
 
     private void Start()
     {
-        _inventoryManager = PC.Instance.GetInventory();
+        _inventoryManager = GetComponent<InventoryManager>();
         _playerManager = GetComponent<PlayerManager>();
     }
     public void SetEffectLevelPlayer()

@@ -16,7 +16,7 @@ public class PlayerAttack : MonoBehaviour
     public bool _isAiming;
     public bool _isRangeWeaponEqupiped;
     public bool _isMeleeWeaponEqupiped;
-    private PC _playerController;
+    private PlayerController _playerController;
 
 
     [SerializeField] private float _cadence;
@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
         {
             Instance = this;
         }
-        _playerController = GetComponent<PC>();
+        _playerController = GetComponent<PlayerController>();
         _isAimingFinished = true;
         _isRecoilFinished = true;
 
@@ -43,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(_playerController != null )
         {
-            if (_playerController.IsInBook)
+            if (_playerController._isInBook)
                 return;
             if (_isRangeWeaponEqupiped)
             {
@@ -68,7 +68,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Aim(InputAction.CallbackContext context)
     {
-        if (_playerController.IsInBook || !_isRangeWeaponEqupiped)
+        if (_playerController._isInBook || !_isRangeWeaponEqupiped)
             return;
         if (context.started)
         {
@@ -94,7 +94,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Reload(InputAction.CallbackContext context)
     {
-        if (_playerController.IsInBook)
+        if (_playerController._isInBook)
             return;
         _reloading?.Invoke();
     }

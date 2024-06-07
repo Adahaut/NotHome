@@ -12,7 +12,7 @@ public class RangeWeapon : MonoBehaviour
                      private Vector3 _startWeaponHolder;
     [SerializeField] private Transform _endWeaponHolder;
     public bool _isAiming;
-    [SerializeField] private PC _playerController;
+    [SerializeField] private PlayerController _playerController;
     [SerializeField] private float _speedFactor;
     private ProceduralRecoil _recoil;
     [SerializeField] private GameObject _muzzuleFlashEffect;
@@ -56,7 +56,7 @@ public class RangeWeapon : MonoBehaviour
         _playerAttack = GetComponentInParent<PlayerAttack>();
         _originalPosition = _transform.localPosition;
         _recoil = GetComponent<ProceduralRecoil>();
-        _playerController = GetComponentInParent<PC>();
+        _playerController = GetComponentInParent<PlayerController>();
     }
     public void NextWeapon()
     {
@@ -78,13 +78,13 @@ public class RangeWeapon : MonoBehaviour
 
     public void StartAiming()
     {
-        PC.Instance.SetAnimation("Aiming", true);
+        _playerController.SetAnimation("Aiming", true);
         StartCoroutine(Zooming());
     }
 
     public void StopAiming()
     {
-        PC.Instance.SetAnimation("Aiming", false);
+        _playerController.SetAnimation("Aiming", false);
         StartCoroutine(Zooming(-1));
     }
 
@@ -117,7 +117,7 @@ public class RangeWeapon : MonoBehaviour
     private IEnumerator Reloading()
     {
         print("reload");
-        PC.Instance.SetAnimation("Reload", true);
+        _playerController.SetAnimation("Reload", true);
         _isReloading = true;
 
         yield return new WaitForSeconds(_weaponData._reloadSpeed);
@@ -125,7 +125,7 @@ public class RangeWeapon : MonoBehaviour
         _isReloading = false;
         _currentAmmo = _weaponData._magSize;
         print("finish reload");
-        PC.Instance.SetAnimation("Reload", false);
+        _playerController.SetAnimation("Reload", false);
     }
 
     public void Shoot()
@@ -135,7 +135,7 @@ public class RangeWeapon : MonoBehaviour
             //print(_currentAmmo.ToString());
             if (CanShoot())
             {
-                StartCoroutine(PC.Instance.AnimOneTime("Shoot"));
+                StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
                 _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
                 PlayMuzzuleFlash();
