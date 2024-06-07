@@ -844,6 +844,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: le mec bossu
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 98e1ec5f92c7f55418b89f7333ef94e5, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -897,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a708c51c1fcc04cbf2f5a30fb47b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLife: 0
+  _maxLife: 100
   _currentLife: 0
   _helthSlider: {fileID: 0}
 --- !u!195 &91212025
@@ -3753,6 +3757,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mentis
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4240,6 +4248,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "araign\xE9e du desert"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 955a9f8ad1003474fa2d142d0347b01a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4298,7 +4310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a708c51c1fcc04cbf2f5a30fb47b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLife: 0
+  _maxLife: 100
   _currentLife: 0
   _helthSlider: {fileID: 0}
 --- !u!195 &623116213
@@ -4473,6 +4485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 97a5120c5cbf79042a5a74ea8faed975, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4531,7 +4547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a708c51c1fcc04cbf2f5a30fb47b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLife: 0
+  _maxLife: 100
   _currentLife: 0
   _helthSlider: {fileID: 0}
 --- !u!195 &726761390
@@ -10878,7 +10894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1962830789
 AudioSource:
   m_ObjectHideFlags: 0

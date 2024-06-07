@@ -34,13 +34,9 @@ public class LifeManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if(_currentLife < 0)
-            return;
-
-
         _currentLife -= damage;
         print(_currentLife);
-        if (gameObject.tag == "Player")
+        if (gameObject.tag == "Player" && _helthSlider != null)
             SetHealthBar();
 
         if (_currentLife <= 0)

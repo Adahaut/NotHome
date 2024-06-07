@@ -140,10 +140,13 @@ public class RangeWeapon : MonoBehaviour
                 _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
                 PlayMuzzuleFlash();
                 
-                if (Physics.Raycast(_muzzle.position, _transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
+                if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
-               //     print("touche " + _hitInfo.collider.name);
-                    //damage enemies here
+                    if (_hitInfo.collider.GetComponent<LifeManager>() != null)
+                    {
+                        print(_hitInfo.collider.name);
+                        _hitInfo.collider.GetComponent<LifeManager>()._currentLife -= _weaponData._damages;
+                    }
                 }
                 _currentAmmo--;
                 _timeSinceLastShot = 0;

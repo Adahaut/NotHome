@@ -7,7 +7,7 @@ public class WeaponData : ScriptableObject
     public string _name;
 
     [Header("Shooting")]
-    public float _damages;
+    public int _damages;
     public float _maxDistance;
     public bool _isAutomatic;
 
