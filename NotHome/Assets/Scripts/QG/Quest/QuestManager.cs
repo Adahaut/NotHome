@@ -50,12 +50,7 @@ public class QuestManager : NetworkBehaviour
             QuestNotificationMessage msg = new QuestNotificationMessage { title = _listQuests[currentQuest]._title };
             if (isServer)
             {
-                Debug.Log("Sending quest notification: " + _listQuests[currentQuest]._title);
                 NetworkServer.SendToAll(msg);
-            }
-            else
-            {
-                Debug.LogWarning("Attempted to send quest notification from non-server instance.");
             }
 
             currentQuest++;

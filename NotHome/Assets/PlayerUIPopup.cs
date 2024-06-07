@@ -13,9 +13,8 @@ public class PlayerUIPopup : NetworkBehaviour
 
     public void PopUpQuestAchieve(string text)
     {
-        if(isOwned)
+        if(isClient)
         {
-            Debug.Log("PopUpQuestAchieve called with text: " + text);
             popup.SetActive(true);
             popupAnimator.SetBool("OpenNotification", true);
             titleQuestCompleted.text = text;
@@ -28,13 +27,11 @@ public class PlayerUIPopup : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        Debug.Log("Client started and handler registered");
         NetworkClient.RegisterHandler<QuestNotificationMessage>(OnClientReceiveMessage);
     }
 
     void OnClientReceiveMessage(QuestNotificationMessage msg)
     {
-        Debug.Log("Client received message: " + msg.title);
         PopUpQuestAchieve(msg.title);
     }
 
