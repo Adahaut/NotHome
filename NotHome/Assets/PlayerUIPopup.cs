@@ -36,7 +36,9 @@ public class PlayerUIPopup : NetworkBehaviour
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach(GameObject player in players)
         {
-            player.GetComponentInChildren<PlayerUIPopup>().PopUpQuestAchieve(msg.title);
+            print(this.transform.root);
+            if(player != this.transform.root)
+                player.GetComponentInChildren<PlayerUIPopup>().PopUpQuestAchieve(msg.title);
         }
     }
 
