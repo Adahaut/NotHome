@@ -73,9 +73,13 @@ public class QuestManager : NetworkBehaviour
         //    ColorText(11);
     }
 
-    public void ColorText(int index)
+    public void QuestComplete(int index)
     {
-        //_listQuest[index]._isComplet = true;
+        QuestStruct temp = _listQuests[index];
+        temp._isComplet = true;
+
+        _listQuests[index] = temp;
+        NextQuest();
         //_objectif.color = Color.green;
     }
 }

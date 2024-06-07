@@ -44,7 +44,7 @@ public class UpgradeHomeManager : MonoBehaviour
         {
             case 2:
                 QuestManager.Instance.SetQuestUpLevel2();
-                QuestManager.Instance.ColorText(3);
+                QuestManager.Instance.QuestComplete(3);
                 MapManager.Instance._canOpenUiMap = true;
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
