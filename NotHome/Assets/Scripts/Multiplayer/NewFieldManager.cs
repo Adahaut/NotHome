@@ -9,9 +9,10 @@ public class NewFieldManager : NetworkBehaviour
     public List<GameObject> _seedPrefabs;
 
     public readonly SyncList<Seed> _allPlants = new SyncList<Seed>();
-
+    public SyncList<uint> _seedPlantedObjects = new SyncList<uint>();
 
     public List<Transform> _plantPositons;
+
 
     public bool _panelOpen;
 
@@ -32,15 +33,24 @@ public class NewFieldManager : NetworkBehaviour
             _name = "",
             //_img = null,
             _index = 0,
-            _isPlanted = false,
         };
 
         for (int i = 0; i < _plantPositons.Count; i++)
         {
             _allPlants.Add(defaultSeed);
+            _seedPlantedObjects.Add(0);
         }
 
         _allPlants.Callback += OnAllPlantsChanged;
+    }
+
+    public void AddPlant(GameObject plat, int index)
+    {
+        NetworkIdentity goNetworkIdentity = plat.GetComponent<NetworkIdentity>();
+        if (goNetworkIdentity != null)
+        {
+            _seedPlantedObjects[index] = goNetworkIdentity.netId;
+        }
     }
 
     private void OnAllPlantsChanged(SyncList<Seed>.Operation op, int index, Seed oldItem, Seed newItem)

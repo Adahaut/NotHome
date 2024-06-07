@@ -2,15 +2,16 @@ using Mirror;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerFieldUI : NetworkBehaviour
 {
-    [SerializeField] private PlayerFieldSlot _playerSlots;
+    [SerializeField] private FieldSlotsLists _playerSlots;
 
-    private void OnEnable()
+    NewFieldManager fieldManager = NewFieldManager.instance;
+
+    private void Update()
     {
-        if(isOwned)
+        if (isOwned)
         {
             UpdateUI();
         }
@@ -19,13 +20,36 @@ public class PlayerFieldUI : NetworkBehaviour
     public void UpdateUI()
     {
         List<Transform> slots = _playerSlots._listSlots;
-        List<TMP_Text> textSlots = _playerSlots._listTexts;
+        //List<TMP_Text> textSlots = _playerSlots._listTexts;
 
         for (int i = 0; i < slots.Count; i++)
         {
             Seed plant = NewFieldManager.instance._allPlants[i];
-            //slots[i].GetComponent<Image>().sprite = plant._img;
-            textSlots[i].text = plant._name;
+            PlayerFieldSlot slot = slots[i].GetComponent<PlayerFieldSlot>();
+
+            uint id = NewFieldManager.instance._seedPlantedObjects[i];
+            NetworkIdentity networkIdentity = null;
+            if (id != 0)
+                NetworkClient.spawned.TryGetValue(id, out networkIdentity);
+
+            if (networkIdentity != null)
+            {
+                SeedObject obj = networkIdentity.gameObject.GetComponent<SeedObject>();
+
+                slot.seedImage.sprite = obj.seedImage;
+                slot.fruitImage.sprite = obj.fruitImage;
+                slot.seedNameTextUI.text = obj.seedStruct._name;
+                slot.fillBar.fillAmount = obj._currentTimer / obj._timeToGrow;
+            }
+            else
+            {
+                slot.seedImage.sprite = null;
+                slot.fruitImage.sprite = null;
+                slot.seedNameTextUI.text = "Empty";
+                slot.fillBar.fillAmount = 0.05f;
+            }
+
+            //textSlots[i].text = plant._name;
         }
     }
 

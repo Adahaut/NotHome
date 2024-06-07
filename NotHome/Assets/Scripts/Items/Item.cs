@@ -1,6 +1,7 @@
+using Mirror;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : NetworkBehaviour
 {
     [SerializeField] private string _name;
 
@@ -9,7 +10,7 @@ public class Item : MonoBehaviour
     [SerializeField] private int _radius;
 
     public bool _isOnAnotherGameObject;
-
+    
     public string ItemName() { return _name; }
 
     public Sprite ItemSprite() { return _sprite; }

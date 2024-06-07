@@ -1,5 +1,3 @@
-using UnityEngine;
-
 [System.Serializable]
 public struct Seed
 {
@@ -11,6 +9,4 @@ public struct Seed
     //public Sprite _img;
 
     public int _index; 
-    public bool _isPlanted;
-
 }

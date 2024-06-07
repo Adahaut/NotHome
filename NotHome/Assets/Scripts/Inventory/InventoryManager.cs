@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static InventoryBaseManager;
 
 public class InventoryManager : NetworkBehaviour
 {
@@ -17,6 +18,7 @@ public class InventoryManager : NetworkBehaviour
     {
         GameObject _newInventorySlot = Instantiate(_inventorySlotPrefab);
         _newInventorySlot.transform.SetParent(_inventoryPanel.transform);
+        _newInventorySlot.transform.rotation = Quaternion.Euler(0, 0, 0);
         _slotList.Add(_newInventorySlot);
     }
 
@@ -49,7 +51,38 @@ public class InventoryManager : NetworkBehaviour
     {
         InventoryInitialisation();
         gameObject.SetActive(false);
+        if(isServer)
+        {
+            Init();
+        }
+        
     }
+
+    #region Base Inventory
+
+    [Command]
+    private void Init()
+    {
+        InventoryBaseManager.instance._inventorySize = 15;
+        for (int i = 0; i < InventoryBaseManager.instance._inventorySize; i++)
+        {
+            InventoryBaseManager.instance._inventoryItems.Add(initItemSlot());
+        }
+    }
+
+    // init
+    private _itemSlot initItemSlot()
+    {
+        _itemSlot slot = new _itemSlot();
+        slot._name = "None";
+        slot._number = 0;
+        //slot._sprite = null;
+        return slot;
+    }
+
+    #endregion
+
+
 
     public void AddItem(string _ItemName, Sprite _itemSprite, bool _isAnEquipement, int _number = 1)
     {

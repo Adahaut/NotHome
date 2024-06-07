@@ -1,13 +1,14 @@
+using Mirror;
 using UnityEngine;
 
 [CreateAssetMenu]
 public class ItemObject : ScriptableObject
 {
-    [SerializeField] private string _name;
+    [SyncVar] public string _name;
 
-    [SerializeField] private Sprite _sprite;
+    [SyncVar] public Sprite _sprite;
 
-    [SerializeField] private bool _isAnEquipement;
+    [SyncVar] public bool _isAnEquipement;
 
     public string ItemName() { return _name; }
 
