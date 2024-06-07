@@ -40,7 +40,7 @@ public class PlayerUIPopup : NetworkBehaviour
 
     void OnServerReceiveMessage(NetworkConnection conn, QuestNotificationMessage msg)
     {
-        PopUpQuestAchieve(msg.title);
+        NetworkServer.SendToAll(msg);
     }
 
     IEnumerator Tempcoroutine()
