@@ -18,6 +18,11 @@ public class UpgradeHomeManager : MonoBehaviour
     private bool _getAlarm;
     private GameObject _ship;
 
+    private GameObject[] _playersRef;
+    [SerializeField] private GameObject _spaceshipToFix;
+    [SerializeField] private GameObject _spaceshipFixed;
+    [SerializeField] private GameObject _camera;
+
     private void Start()
     {
         _textLevel.text = "Level " + _levelBuilding.ToString();
@@ -46,8 +51,16 @@ public class UpgradeHomeManager : MonoBehaviour
     }
     public void EffectShip()
     {
-        _ship = gameObject;
-        _ship.GetComponent<MeshRenderer>().material.color = Color.white;
+        _playersRef = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < _playersRef.Length; i++)
+        {
+            _playersRef[i].SetActive(false);
+        }
+
+        _spaceshipToFix.SetActive(false);
+        _spaceshipFixed.SetActive(true);
+        _camera.SetActive(true);
     }
     public void EffectQG()
     {
