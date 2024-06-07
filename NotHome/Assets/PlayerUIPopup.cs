@@ -13,12 +13,16 @@ public class PlayerUIPopup : NetworkBehaviour
 
     public void PopUpQuestAchieve(string text)
     {
-        Debug.Log("PopUpQuestAchieve called with text: " + text);
-        popup.SetActive(true);
-        popupAnimator.SetBool("OpenNotification", true);
-        titleQuestCompleted.text = text;
-        notificationSound.Play();
-        StartCoroutine(Tempcoroutine());
+        if(isOwned)
+        {
+            Debug.Log("PopUpQuestAchieve called with text: " + text);
+            popup.SetActive(true);
+            popupAnimator.SetBool("OpenNotification", true);
+            titleQuestCompleted.text = text;
+            notificationSound.Play();
+            StartCoroutine(Tempcoroutine());
+        }
+        
     }
 
     public override void OnStartClient()
