@@ -13,7 +13,7 @@ public class PlayerUIPopup : NetworkBehaviour
 
     public void PopUpQuestAchieve(string text)
     {
-        if(isClient)
+        if(isOwned)
         {
             popup.SetActive(true);
             popupAnimator.SetBool("OpenNotification", true);
@@ -33,6 +33,11 @@ public class PlayerUIPopup : NetworkBehaviour
     void OnClientReceiveMessage(QuestNotificationMessage msg)
     {
         PopUpQuestAchieve(msg.title);
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject player in players)
+        {
+            player.GetComponentInChildren<PlayerUIPopup>().PopUpQuestAchieve(msg.title);
+        }
     }
 
     IEnumerator Tempcoroutine()
