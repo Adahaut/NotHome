@@ -6,6 +6,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject _uiPause;
     [SerializeField] private GameObject _uiButton;
     [SerializeField] private GameObject _uiOption;
+    [SerializeField] private GameObject _uiControl;
 
     
 
@@ -35,6 +36,11 @@ public class PauseManager : MonoBehaviour
     {
         _uiOption.SetActive(!_uiOption.activeSelf);
         _uiButton.SetActive(!_uiOption.activeSelf);
+    }
+    public void Control()
+    {
+        _uiControl.SetActive(!_uiControl.activeSelf);
+        _uiOption.SetActive(!_uiControl.activeSelf);
     }
     public void Exit()
     {

@@ -11,7 +11,7 @@ public class GetButton : MonoBehaviour
     public void Any(InputAction.CallbackContext ctx)
     {
         InputSystem.onAnyButtonPress.CallOnce(ctrl => _text = ctrl.name);
-        if (_text.Length < 2)
+        if (_text.Length < 2 || _text == "space" || _text == "leftShift" || _text == "semicolon")
         {
             _listButton[_indexButton].GetComponent<ChangeControl>().Change();
         }

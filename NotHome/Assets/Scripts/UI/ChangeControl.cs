@@ -14,7 +14,8 @@ public class ChangeControl : MonoBehaviour
     {
         _playerInput = transform.parent.parent.parent.GetComponentInChildren<PlayerInput>();
         _playerInput.actions.actionMaps[0].actions[_indexAction].Disable();
-        _control = _playerInput.actions.actionMaps[0].actions[_indexAction].bindings[_indexBinding].path[11].ToString();
+        _control = _playerInput.actions.actionMaps[0].actions[_indexAction].bindings[_indexBinding].path.ToString();
+        _control = _control[11..];
         ChangeQwerty();
         GetComponentInChildren<TextMeshProUGUI>().text = _control.ToUpper();
     }
