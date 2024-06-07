@@ -41,36 +41,39 @@ public class QuestManager : NetworkBehaviour
         {
             _listQuests.Add(s);
         }
-        //SetTextQuest();
-    }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
     }
 
     public void NextQuest()
     {
         if (currentQuest < _listQuests.Count - 1 && _listQuests[currentQuest]._isComplet)
         {
-            QuestNotificationMessage message = new QuestNotificationMessage { title = _listQuests[currentQuest]._title };
-            NetworkServer.SendToAll(message);
+            QuestNotificationMessage msg = new QuestNotificationMessage { title = _listQuests[currentQuest]._title };
+            if (isServer)
+            {
+                Debug.Log("Sending quest notification: " + _listQuests[currentQuest]._title);
+                NetworkServer.SendToAll(msg);
+            }
+            else
+            {
+                Debug.LogWarning("Attempted to send quest notification from non-server instance.");
+            }
+
             currentQuest++;
         }
     }
 
     public void SetQuestUpLevel2()
     {
-        //_questUpLevel2 += 1;
-        //if (_questUpLevel2 >= 4)
-        //    ColorText(7);
+        _questUpLevel2 += 1;
+        if (_questUpLevel2 >= 4)
+            QuestComplete(7);
     }
 
     public void SetQuestUpLevel3()
     {
-        //_questUpLevel2 += 1;
-        //if (_questUpLevel2 >= 4)
-        //    ColorText(11);
+        _questUpLevel2 += 1;
+        if (_questUpLevel2 >= 4)
+            QuestComplete(11);
     }
 
     public void QuestComplete(int index)

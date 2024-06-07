@@ -1,6 +1,5 @@
 using Mirror;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +13,7 @@ public class PlayerUIPopup : NetworkBehaviour
 
     public void PopUpQuestAchieve(string text)
     {
+        Debug.Log("PopUpQuestAchieve called with text: " + text);
         popup.SetActive(true);
         popupAnimator.SetBool("OpenNotification", true);
         titleQuestCompleted.text = text;
@@ -24,23 +24,14 @@ public class PlayerUIPopup : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        Debug.Log("Client started and handler registered");
         NetworkClient.RegisterHandler<QuestNotificationMessage>(OnClientReceiveMessage);
-    }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        NetworkServer.RegisterHandler<QuestNotificationMessage>(OnServerReceiveMessage);
     }
 
     void OnClientReceiveMessage(QuestNotificationMessage msg)
     {
+        Debug.Log("Client received message: " + msg.title);
         PopUpQuestAchieve(msg.title);
-    }
-
-    void OnServerReceiveMessage(NetworkConnection conn, QuestNotificationMessage msg)
-    {
-        NetworkServer.SendToAll(msg);
     }
 
     IEnumerator Tempcoroutine()
