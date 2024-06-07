@@ -18,6 +18,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
 
     private void Start()
     {
+        _player = transform.root.gameObject;
         //GetComponent<Image>().sprite = _seedPrefab.seedStruct._img;
         GetComponentInChildren<TMP_Text>().text = _seedPrefab.seedStruct._name;
         StartCoroutine(FindFieldManager());
