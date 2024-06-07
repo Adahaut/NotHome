@@ -28,7 +28,16 @@ public class DroneManager : MonoBehaviour
 
     [Range(0f, 90f)][SerializeField] float _yRotationLimit = 88f;
     private Transform _transform;
-    
+    public static DroneManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     public void Start()
     {
         _transform = transform;
