@@ -2092,6 +2092,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7042758997846793017, guid: 56e3281aeb4e48b479ece6d177aa9df1, type: 3}
+      propertyPath: sceneId
+      value: 3862905994
+      objectReference: {fileID: 0}
     - target: {fileID: 3264141781379779818, guid: 56e3281aeb4e48b479ece6d177aa9df1, type: 3}
       propertyPath: m_Name
       value: FruitItem
@@ -2224,6 +2228,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 23.88, y: 0, z: 0}
+--- !u!1 &859975312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4196594243622864618, guid: 7f22d427b3698db439779b5dcc58307d, type: 3}
+  m_PrefabInstance: {fileID: 2080671701}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &879624152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2464,6 +2473,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4088004963533004039, guid: 87a935f01d803074a94e9bcdaa10eb09, type: 3}
+      propertyPath: sceneId
+      value: 1681840095
+      objectReference: {fileID: 0}
     - target: {fileID: 3264141781379779818, guid: 87a935f01d803074a94e9bcdaa10eb09, type: 3}
       propertyPath: m_Name
       value: HomiumItem
@@ -2760,6 +2773,7 @@ MonoBehaviour:
   _inventorySlotPrefab: {fileID: 1832631408618658791, guid: 135d2e15a79a10941a6a9a600f762bb1, type: 3}
   _inventorySlotStartNumber: 15
   _slotList: []
+  _allItems: []
   _inventorySize: 0
 --- !u!1001 &1204559193
 PrefabInstance:
@@ -3096,8 +3110,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   buildings:
-  - {fileID: 0}
+  - {fileID: 1604284862}
   - {fileID: 1172697155}
+  - {fileID: 859975312}
 --- !u!4 &1373478056
 Transform:
   m_ObjectHideFlags: 0
@@ -3665,6 +3680,11 @@ Terrain:
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
+--- !u!1 &1604284862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3211213783656877202, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+  m_PrefabInstance: {fileID: 8847736872123657925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1614744122
 PrefabInstance:
   m_ObjectHideFlags: 0
