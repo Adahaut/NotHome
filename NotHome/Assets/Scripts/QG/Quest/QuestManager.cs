@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -52,8 +53,8 @@ public class QuestManager : NetworkBehaviour
             {
                 NetworkServer.SendToAll(msg);
             }
-
             currentQuest++;
+            NextQuest();
         }
     }
 
@@ -61,23 +62,36 @@ public class QuestManager : NetworkBehaviour
     {
         _questUpLevel2 += 1;
         if (_questUpLevel2 >= 4)
-            QuestComplete(7);
+        {
+            QuestStruct temp = _listQuests[7];
+            temp._isComplet = true;
+            _listQuests[7] = temp;
+            NextQuest();
+        }
     }
 
     public void SetQuestUpLevel3()
     {
-        _questUpLevel2 += 1;
-        if (_questUpLevel2 >= 4)
-            QuestComplete(11);
+        _questUpLevel3 += 1;
+        if (_questUpLevel3 >= 3)
+        {
+            QuestStruct temp = _listQuests[11];
+            temp._isComplet = true;
+            _listQuests[11] = temp;
+            NextQuest();
+        }
     }
 
     public void QuestComplete(int index)
     {
-        QuestStruct temp = _listQuests[index];
-        temp._isComplet = true;
+        if (index + 1 == currentQuest)
+        {
+            QuestStruct temp = _listQuests[index];
+            temp._isComplet = true;
 
-        _listQuests[index] = temp;
-        NextQuest();
-        //_objectif.color = Color.green;
+            _listQuests[index] = temp;
+            NextQuest();
+            //_objectif.color = Color.green;
+        }
     }
 }
