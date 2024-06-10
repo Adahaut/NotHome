@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeWeapon : MonoBehaviour
@@ -33,6 +34,10 @@ public class RangeWeapon : MonoBehaviour
 
     [SerializeField] private GameObject _redDot;
     [SerializeField] private GameObject _laser;
+
+    [SerializeField] public List<GameObject> _level2Weapon = new List<GameObject>();
+    [SerializeField] public List<GameObject> _level3Weapon = new List<GameObject>();
+    [SerializeField] public List<GameObject> _level4Weapon = new List<GameObject>();
 
     public static RangeWeapon Instance;
 
@@ -71,6 +76,15 @@ public class RangeWeapon : MonoBehaviour
     {
         _laser.SetActive(true);
     }
+
+    public void UpgradeWeaponVisual(List<GameObject> _meshList)
+    {
+        for (int i = 0;  i < _meshList.Count; i++)
+        {
+            _meshList[i].SetActive(true);
+        }
+    }
+
     private bool CanShoot()
     {
         return !_isReloading && _timeSinceLastShot > 1f / (_weaponData._fireRate / 60f);
