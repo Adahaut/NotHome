@@ -224,7 +224,7 @@ public class PlayerStockageUI : NetworkBehaviour
     }
 
     [Command]
-    private void UpdateOneItemStruct(int _index, string _name, int _number, Sprite _sprite)
+    public void UpdateOneItemStruct(int _index, string _name, int _number, Sprite _sprite)
     {
         _itemSlot slot = new _itemSlot();
         slot._name = _name;
@@ -264,7 +264,7 @@ public class PlayerStockageUI : NetworkBehaviour
     }
 
     [Command]
-    private void UpdateItemInList(string _name, int _number, int _index)
+    public void UpdateItemInList(string _name, int _number, int _index)
     {
        
         _itemSlot tempSlot = new _itemSlot();
@@ -331,7 +331,7 @@ public class PlayerStockageUI : NetworkBehaviour
         return false;
     }
 
-    private int GetIndexOf(string _name)
+    public int GetIndexOf(string _name)
     {
         if (!ListContain(_name))
             throw new Exception("item is not is the List");

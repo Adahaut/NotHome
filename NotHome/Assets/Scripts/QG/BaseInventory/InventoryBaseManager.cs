@@ -1,5 +1,6 @@
 using Mirror;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -35,17 +36,36 @@ public class InventoryBaseManager : InventoryManager
 
     public bool CheckForMaterial(string _itemName)
     {
-        return _baseInventory.ContainsKey(_itemName);
+        for (int i = 0; i < _inventoryItems.Count; i++)
+        {
+            if (_inventoryItems[i]._name == _itemName)
+                return true;
+        }
+        return false;
+    }
+
+    private int GetIndexOfItem(string _itemName)
+    {
+        int _index = 0;
+        for (int i = 0; i < _inventoryItems.Count; i++)
+        {
+            if (_inventoryItems[i]._name == _itemName)
+            {
+                _index = i;
+                break;
+            }
+        }
+        return _index;
     }
 
     public bool CheckForNumber(string _itemName, int _number) 
     { 
-        return _baseInventory[_itemName] >= _number;
+        return _inventoryItems[GetIndexOfItem(_itemName)]._number >= _number;
     }
 
     public int NumberOfMaterial(string _itemName)
     {
-        return _baseInventory[_itemName];
+        return _inventoryItems[GetIndexOfItem(_itemName)]._number;
     }
 
     public new void RemoveItems(string _itemName, int _number)
@@ -53,22 +73,22 @@ public class InventoryBaseManager : InventoryManager
         //if (_baseInventory[_itemName] > _number)
         //{
         //    _baseInventory[_itemName] -= _number;
-        //    for (int i = 0; i < _inventorySlots.Count; i++)
+        //    for (int i = 0; i < _inventoryItems.Count; i++)
         //    {
-        //        if (_inventorySlots[i].ItemContained().ItemName() == _itemName)
+        //        if (_inventoryItems[i]._name == _itemName)
         //        {
-        //            _inventorySlots[i].SetNumber(_inventorySlots[i].Number() - _number);
+        //            _inventoryItems[i].SetNumber(_inventoryItems[i].Number() - _number);
         //        }
         //    }
         //}
         //else
         //{
         //    _baseInventory.Remove(_itemName);
-        //    for (int i = 0; i < _inventorySlots.Count; i++)
+        //    for (int i = 0; i < _inventoryItems.Count; i++)
         //    {
-        //        if (_inventorySlots[i].ItemContained().ItemName() == _itemName)
+        //        if (_inventoryItems[i]._name == _itemName)
         //        {
-        //            _inventorySlots[i].ResetItem();
+        //            _inventoryItems[i].ResetItem();
         //        }
         //    }
         //}
