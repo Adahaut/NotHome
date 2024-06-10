@@ -12,10 +12,11 @@ public class PlayerCameraManager : NetworkBehaviour
     public List<GameObject> screens = new List<GameObject> ();
 
     public Camera playerRenderCamera;
-    [HideInInspector] [SyncVar] public GameObject screen;
+    [HideInInspector] [SyncVar] public int screenIndex;
 
     private void Start()
     {
+        screenIndex = -1;
         for (int i = 0; i < renderTextures.Length; i++)
         {
             screens.Add(GameObject.Find("CameraPlane" + i.ToString()));
@@ -35,8 +36,8 @@ public class PlayerCameraManager : NetworkBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
-            players[i].GetComponent<PlayerCameraManager>().screen = screens[i];
-            screens[i].transform.GetChild(0).gameObject.SetActive(false);
+            players[i].GetComponent<PlayerCameraManager>().screenIndex = i;
+            //screens[i].transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
