@@ -5,12 +5,11 @@ using UnityEngine;
 public class Farts : NetworkBehaviour
 {
     [SerializeField] private List<AudioClip> _fartsSound = new List<AudioClip>();
-    private AudioSource _fartOrigine;
     [SerializeField] private GameObject _fartParticle;
 
     private void Awake()
     {
-        _fartOrigine = transform.GetChild(6).GetComponent<AudioSource>();
+        //_fartOrigine = transform.GetChild(6).GetComponent<AudioSource>();
     }
 
     public void PlayRandomFartSound()

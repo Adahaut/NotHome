@@ -189,7 +189,6 @@ public class PlayerController : NetworkBehaviour
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
-        Debug.Log("Sprint");
         _isRunning = true;
         if (context.performed)
         {
