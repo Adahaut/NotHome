@@ -1,38 +1,22 @@
-//using Mirror;
-//using Unity.VisualScripting;
-//using UnityEngine;
+using Mirror;
+using Unity.VisualScripting;
+using UnityEngine;
 
-//public class PlayerCameraControlTower : NetworkBehaviour
-//{
+public class PlayerCameraControlTower : NetworkBehaviour
+{
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerCameraManager>().screen.SetActive(false);
+        }
+    }
 
-//    public RenderTexture[] renderTextures;
-
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        if(other.CompareTag("Player"))
-//        {
-//            //other.gameObject.GetComponentInChildren<FollowCamera>().linkedCam.enabled = false;
-//            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-//            for (int i = 0; i < players.Length; i++)
-//            {
-//                if (players[i] != other.gameObject)
-//                    players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
-//            }
-//        }
-//    }
-
-//    private void OnTriggerExit(Collider other)
-//    {
-//        if (other.CompareTag("Player"))
-//        {
-//            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-//            for (int i = 0; i < players.Length; i++)
-//            {
-//                if (players[i] != other.gameObject)
-//                    players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = null;
-//            }
-//        }
-//    }
-//}
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerCameraManager>().screen.SetActive(true);
+        }
+    }
+}
