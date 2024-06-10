@@ -26,8 +26,8 @@ public class UpgradeHomeManager : MonoBehaviour
 
     private void Start()
     {
-        _textLevel.text = "Level " + _levelBuilding.ToString();
-        _inventoryManager = PC.Instance.GetInventory();
+        //_textLevel.text = "Level " + _levelBuilding.ToString();
+        //_inventoryManager = PC.Instance.GetInventory();
     }
     public void SetEffectBuilding()
     {

@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeWeapon : MonoBehaviour
+public class RangeWeapon : NetworkBehaviour
 {
     [SerializeField] private WeaponData _weaponData;
     [SerializeField] private Transform _muzzle;
@@ -35,9 +36,13 @@ public class RangeWeapon : MonoBehaviour
     [SerializeField] private GameObject _redDot;
     [SerializeField] private GameObject _laser;
 
+<<<<<<< feat-multiplayer-2
+    [SerializeField] private NetworkIdentity identity;
+=======
     [SerializeField] public List<GameObject> _level2Weapon = new List<GameObject>();
     [SerializeField] public List<GameObject> _level3Weapon = new List<GameObject>();
     [SerializeField] public List<GameObject> _level4Weapon = new List<GameObject>();
+>>>>>>> feat-Dev
 
     public static RangeWeapon Instance;
 
@@ -151,8 +156,14 @@ public class RangeWeapon : MonoBehaviour
             {
                 StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
-                _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
-                PlayMuzzuleFlash();
+
+                //if (identity.isOwned || identity.isServer)
+                //    CmdPlayShootSound();
+                if(isOwned)
+                    CmdPlayShootSound();
+
+                if(isOwned)
+                    CmdPlayMuzzleFlash();
                 
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
@@ -172,12 +183,31 @@ public class RangeWeapon : MonoBehaviour
         }
     }
 
-    private void PlayMuzzuleFlash()
+    [Command]
+    void CmdPlayShootSound()
     {
-        GameObject _muzzuleFlash = Instantiate(_muzzuleFlashEffect, _muzzle);
-        _muzzuleFlash.transform.position = _muzzle.position + (_muzzuleFlash.transform.right * 0.1f);
-        _muzzuleFlash.GetComponent<ParticleSystem>().Play();
-        Destroy(_muzzuleFlash, 0.2f);
+        RpcPlayShootSound();
+    }
+
+    [ClientRpc]
+    void RpcPlayShootSound()
+    {
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position);
+    }
+
+    [Command]
+    private void CmdPlayMuzzleFlash()
+    {
+        RpcPlayMuzzleFlash();
+    }
+
+    [ClientRpc]
+    private void RpcPlayMuzzleFlash()
+    {
+        GameObject _muzzleFlash = Instantiate(_muzzuleFlashEffect, _muzzle.position, _muzzle.rotation);
+        _muzzleFlash.transform.position = _muzzle.position + (_muzzleFlash.transform.right * 0.1f);
+        _muzzleFlash.GetComponent<ParticleSystem>().Play();
+        Destroy(_muzzleFlash, 0.2f);
     }
 
     private void StartRecoil()

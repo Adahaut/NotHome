@@ -22,6 +22,7 @@ public class PlayerNetwork : NetworkBehaviour
     public Camera mainCamera;
 
     [SerializeField] private GameObject playerUI;
+    [SerializeField] private GameObject playerBody;
 
     private BuildingManager buildingManager;
 
@@ -34,6 +35,7 @@ public class PlayerNetwork : NetworkBehaviour
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
+            playerBody.SetActive(false);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
 
