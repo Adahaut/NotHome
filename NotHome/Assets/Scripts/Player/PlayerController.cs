@@ -88,7 +88,7 @@ public class PlayerController : NetworkBehaviour
         _animator = GetComponentInChildren<Animator>();
         _characterController = GetComponent<CharacterController>();
         _playerManager = GetComponent<PlayerManager>();
-        _farts = GetComponentInChildren<Farts>();
+        _farts = GetComponent<Farts>();
         _transform = transform;
         Cursor.lockState = CursorLockMode.Locked;
 
