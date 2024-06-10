@@ -139,7 +139,7 @@ public class RangeWeapon : NetworkBehaviour
                 StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
 
-                if (isOwned)
+                if (isOwned || isServer)
                     CmdPlayShootSound();
 
                 PlayMuzzuleFlash();
