@@ -25,10 +25,12 @@ public class PlayerCameraManager : NetworkBehaviour
     {
         //if(isOwned)
         //    StartCoroutine(LoadCameras());
+
         if (isOwned)
         {
             GameObject.FindAnyObjectByType<PlayerCameraControlTower>().AddScreen(screenIndex);
-            playerRenderCamera.targetTexture = renderTextures[screenIndex];
+            StartCoroutine(LoadCameras());
+            //playerRenderCamera.targetTexture = renderTextures[screenIndex];
         }
     }
 
@@ -40,7 +42,7 @@ public class PlayerCameraManager : NetworkBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
-            players[i].GetComponent<PlayerCameraManager>().screenIndex = i;
+            //players[i].GetComponent<PlayerCameraManager>().screenIndex = i;
             //screens[i].transform.GetChild(0).gameObject.SetActive(false);
         }
     }
