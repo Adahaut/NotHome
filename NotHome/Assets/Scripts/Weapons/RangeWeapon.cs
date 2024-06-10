@@ -184,8 +184,8 @@ public class RangeWeapon : NetworkBehaviour
     {
         GameObject _muzzuleFlash = Instantiate(_muzzuleFlashEffect, _muzzle);
         NetworkServer.Spawn(_muzzuleFlash);
-        _muzzuleFlash.transform.position = _muzzle.position + (_muzzuleFlash.transform.right * 0.1f);
-        _muzzuleFlash.GetComponent<ParticleSystem>().Play();
+        //_muzzuleFlash.transform.position = _muzzle.position + (_muzzuleFlash.transform.right * 0.1f);
+        //_muzzuleFlash.GetComponent<ParticleSystem>().Play();
         Destroy(_muzzuleFlash, 0.2f);
     }
 
