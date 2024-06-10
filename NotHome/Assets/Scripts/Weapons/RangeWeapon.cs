@@ -35,6 +35,8 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private GameObject _redDot;
     [SerializeField] private GameObject _laser;
 
+    [SerializeField] private NetworkIdentity identity;
+
     public static RangeWeapon Instance;
 
     private void Awake()
@@ -139,7 +141,7 @@ public class RangeWeapon : NetworkBehaviour
                 StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
 
-                if (isOwned || isServer)
+                if (identity.isOwned || identity.isServer)
                     CmdPlayShootSound();
 
                 PlayMuzzuleFlash();

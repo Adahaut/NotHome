@@ -4593,6 +4593,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c7cd2beacfed143a8af102449da63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _weaponData: {fileID: 11400000, guid: 0571b9572a4b99b438d9c11bcf0ac9e3, type: 2}
   _muzzle: {fileID: 9039342603401463470}
   _savedCameraTransform: {fileID: 0}
@@ -4608,6 +4611,7 @@ MonoBehaviour:
   _upRecoilValue: {x: -25, y: 0, z: 0}
   _redDot: {fileID: 0}
   _laser: {fileID: 0}
+  identity: {fileID: -640250862484899110}
 --- !u!114 &8589329444739212994
 MonoBehaviour:
   m_ObjectHideFlags: 0
