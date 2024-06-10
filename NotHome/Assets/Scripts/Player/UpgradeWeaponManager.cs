@@ -22,14 +22,17 @@ public class UpgradeWeaponManager : MonoBehaviour
                 switch (_levelWeapon)
                 {
                     case 2:
+                        PlayerAttack.Instance.UpgradeMachetteVisual(0);
                         PlayerAttack.Instance.SetAttack(20);
                         PlayerAttack.Instance.SetCadence(1.5f);
                         break;
                     case 3:
+                        PlayerAttack.Instance.UpgradeMachetteVisual(1);
                         PlayerAttack.Instance.SetAttack(25);
                         PlayerAttack.Instance.SetCadence(1f);
                         break;
                     case 4:
+                        PlayerAttack.Instance.UpgradeMachetteVisual(2);
                         PlayerAttack.Instance.SetAttack(35);
                         PlayerAttack.Instance.SetCadence(0.5f);
                         break;
@@ -41,10 +44,15 @@ public class UpgradeWeaponManager : MonoBehaviour
                 RangeWeapon.Instance.NextWeapon();
                 switch (_levelWeapon)
                 {
+                    case 2:
+                        RangeWeapon.Instance.UpgradeWeaponVisual(RangeWeapon.Instance._level2Weapon);
+                        break;
                     case 3:
+                        RangeWeapon.Instance.UpgradeWeaponVisual(RangeWeapon.Instance._level3Weapon);
                         RangeWeapon.Instance.AciveRedDot();
                         break;
                     case 4:
+                        RangeWeapon.Instance.UpgradeWeaponVisual(RangeWeapon.Instance._level4Weapon);
                         RangeWeapon.Instance.ActiveLaser();
                         break;
                     default:

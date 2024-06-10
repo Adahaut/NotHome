@@ -1,3 +1,4 @@
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,17 +9,27 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] public ItemObject _itemContained;
     public Image _itemImage;
     [SerializeField] private int _number;
-    //[SerializeField] private TextMeshProUGUI _numberText;
+    public TextMeshProUGUI _numberText;
     public bool _isSeleceted;
+
+    private bool firstOpened;
+
 
     private void Awake()
     {
+        firstOpened = true;
         _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
         ResetItem();
-        //_numberText.text = "";
+        _numberText.text = "";
     }
 
     public int Number() { return _number; }
+
+    public void SetNumberInventorySlot(int n)
+    {
+        _number = n;
+        _numberText.text = _number.ToString();
+    }
 
     public void AddNumber() 
     {  
@@ -39,15 +50,22 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
     {
+        if(_itemImage == null)
+            _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+
+        ResetItem();
+
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
-        _itemContained.SetItem(_name, _newSprite);
+        UpdateNumber();
+
         
+        _itemContained.SetItem(_name, _newSprite);
     }
 
     public void UpdateNumber()
     {
-        //_numberText.text = _number.ToString();
+        _numberText.text = _number.ToString();
     }
 
     public ItemObject ItemContained() {  return _itemContained; }
@@ -68,12 +86,15 @@ public class InventorySlot : MonoBehaviour
         _itemContained = new ItemObject();
         _itemContained.SetItem("None", null);
         _number = 0;
-        //_numberText.text = "";
+        _numberText.text = "";
         UpdateItemVisuel();
     }
 
     public void UpdateItemVisuel()
     {
+        if (_itemImage == null)
+            _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
+
         _itemImage.sprite = _itemContained.ItemSprite();
     }
 }

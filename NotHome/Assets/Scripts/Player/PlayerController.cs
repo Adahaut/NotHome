@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using TMPro;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -46,6 +47,12 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private bool _staminaRegenStarted;
     [SerializeField] private bool _runningStaminaLose;
 
+
+    [Header("Book")]
+    [SerializeField] private GameObject _book;
+    public bool _isInBook;
+
+
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
@@ -54,6 +61,8 @@ public class PlayerController : NetworkBehaviour
     private CharacterController _characterController;
     private float _timer;
     private bool _isInBaseInventory;
+    private Animator _animator;
+
 
     private Vector3 _moveDirection = Vector3.zero;
     private Vector2 _rotation = Vector2.zero;
@@ -62,21 +71,21 @@ public class PlayerController : NetworkBehaviour
     private Vector2 _scrollDir;
 
     private Farts _farts;
-
     private float _fartCooldown;
+
     private bool _canUseTorch;
-
     [SerializeField] private GameObject _torch;
-
-
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Transform _transform;
 
     public Vector2 Rotation { get { return _rotation2; } set { _rotation2 = value; } }
 
+    bool _canJump;
+
     public override void OnStartAuthority()
     {
+        _animator = GetComponentInChildren<Animator>();
         _characterController = GetComponent<CharacterController>();
         _playerManager = GetComponent<PlayerManager>();
         _transform = transform;
@@ -119,18 +128,6 @@ public class PlayerController : NetworkBehaviour
         _isInBaseInventory = _isIn;
     }
 
-    public void SetUseTorch(bool useTorch)
-    {
-        _canUseTorch = useTorch;
-    }
-
-    public void StartFart(InputAction.CallbackContext ctx)
-    {
-        if (_fartCooldown > 0)
-            return;
-        _fartCooldown = 1f;
-        _farts.PlayRandomFartSound();
-    }
     public InventoryManager GetInventory()
     {
         return _inventory.GetComponent<InventoryManager>();
@@ -150,7 +147,7 @@ public class PlayerController : NetworkBehaviour
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
-            PickUpObject();
+            CmdPickUpObject();
             _timer = 0.05f;
         }
     }
@@ -158,8 +155,10 @@ public class PlayerController : NetworkBehaviour
     {
         if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
         {
+            StartCoroutine(AnimOneTime("StartJump"));
             ChangeStamina(-10);
             _currentStaminaTime = _staminaTimer;
+            _canJump = true;
             _isJump = true;
         }
     }
@@ -189,9 +188,20 @@ public class PlayerController : NetworkBehaviour
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
+        Debug.Log("Sprint");
         _isRunning = true;
-        if (context.canceled)
+        if (context.performed)
+        {
+            //SoundWalking.Instance._isRunning = true;
+        }
+        if (_moveDir != Vector2.zero)
+            _animator.SetBool("Run", true);
+        if (context.canceled || _playerManager.Stamina <= 0)
+        {
             _isRunning = false;
+            _animator.SetBool("Run", false);
+            //SoundWalking.Instance._isRunning = false;
+        }
     }
 
     private void Timer()
@@ -224,13 +234,15 @@ public class PlayerController : NetworkBehaviour
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
-    }
-
-    public void AlightTorch(InputAction.CallbackContext ctx)
-    {
-        if (_canUseTorch && ctx.performed)
+        if (_moveDir != Vector2.zero)
         {
-            _torch.SetActive(!_torch.activeSelf);
+            //SoundWalking.Instance._isMoving = true;
+            _animator.SetBool("Walking", true);
+        }
+        else
+        {
+            //SoundWalking.Instance._isMoving = false;
+            _animator.SetBool("Walking", false);
         }
     }
     private void MovePlayer()
@@ -243,18 +255,22 @@ public class PlayerController : NetworkBehaviour
         float movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        if (_isJump && _canMove && _characterController.isGrounded)
+        if (_canJump && _canMove && _characterController.isGrounded)
         {
             _moveDirection.y = _jumpPower;
-            _isJump = false;
+            _canJump = false;
         }
         else
         {
             if (_isRunning)
             {
-                if (!_runningStaminaLose)
+                if (!_runningStaminaLose && _moveDir != Vector2.zero)
                 {
                     StartCoroutine(RunningStamina());
+                }
+                if (_playerManager.Stamina <= 0)
+                {
+                    _isRunning = false;
                 }
             }
             _moveDirection.y = movementDirectionY;
@@ -263,10 +279,31 @@ public class PlayerController : NetworkBehaviour
 
         if (!_characterController.isGrounded)
         {
+            _animator.SetBool("Falling", true);
             _moveDirection.y -= _gravity * Time.deltaTime;
         }
-
+        else
+        {
+            _animator.SetBool("Falling", false);
+            if (_isJump)
+            {
+                StartCoroutine(AnimOneTime("EndJump"));
+                _isJump = false;
+            }
+        }
         _characterController.Move(_moveDirection * Time.deltaTime);
+    }
+
+    public IEnumerator AnimOneTime(string name)
+    {
+        _animator.SetBool(name, true);
+        yield return new WaitForSeconds(0.25f);
+        _animator.SetBool(name, false);
+    }
+
+    public void SetAnimation(string name, bool state)
+    {
+        _animator.SetBool(name, state);
     }
 
     public void MouseScrollY(InputAction.CallbackContext ctx)
@@ -337,23 +374,21 @@ public class PlayerController : NetworkBehaviour
         return _index;
     }
 
-    // Methode to add an object to the inventory
-    private void PickUpObject()
+    private void CmdPickUpObject()
     {
-        RaycastHit[] _hits = Physics.SphereCastAll(_transform.position, _itemPickRange, _transform.up);
-
-        if (_hits.Length > 0)
+        if(Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider != null && hit.collider.CompareTag(_itemTag))
         {
-            for (int i = 0; i < _hits.Length; i++)
-            {
-                if (_hits[i].collider.CompareTag(_itemTag))
-                {
-                    _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
-                    Destroy(_hits[i].collider.gameObject);
-                }
-            }
+            _inventory.GetComponent<InventoryManager>().AddItem(hit.collider.GetComponent<Item>().ItemName(), hit.collider.GetComponent<Item>().ItemSprite(), false);
+            CmdDestroyItem(hit.collider.gameObject);
         }
     }
+
+    [Command]
+    private void CmdDestroyItem(GameObject item)
+    {
+        NetworkServer.Destroy(item);
+    }
+
 
     private void ChangeStamina(float _value)
     {
@@ -429,6 +464,37 @@ public class PlayerController : NetworkBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
             _isOpen = false;
+        }
+    }
+
+    public void StartFart(InputAction.CallbackContext ctx)
+    {
+        if (_fartCooldown > 0)
+            return;
+        _fartCooldown = 1f;
+        _farts.PlayRandomFartSound();
+    }
+
+    public void AlightTorch(InputAction.CallbackContext ctx)
+    {
+        if (_canUseTorch && ctx.performed)
+        {
+            _torch.SetActive(!_torch.activeSelf);
+        }
+    }
+
+    public void OpenBook(InputAction.CallbackContext ctx)
+    {
+        _book.SetActive(!_book.activeInHierarchy);
+        if (_book.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            _isInBook = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            _isInBook = false;
         }
     }
 }

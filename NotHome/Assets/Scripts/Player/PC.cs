@@ -36,6 +36,7 @@ public class PC : MonoBehaviour
 
     [Header("Book")]
     [SerializeField] private GameObject _book;
+    private bool _isInBook;
 
     [Header("PlayerManager")]
     [SerializeField] private PlayerManager _playerManager;
@@ -47,7 +48,6 @@ public class PC : MonoBehaviour
     private Farts _farts;
 
     private float _fartCooldown;
-    private bool _isInBook;
     private bool _isDead;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
@@ -55,10 +55,10 @@ public class PC : MonoBehaviour
     private bool _isRunning;
     private bool _canJump;
     private bool _isJump;
-    private bool _canUseTorch;
     private CharacterController _characterController;
     private float _timer;
     public bool _isInBaseInventory;
+    private bool _canUseTorch;
     [SerializeField] private GameObject _torch;
     [SerializeField] private ParticleSystem _particleFootprint;
 
@@ -424,6 +424,8 @@ public class PC : MonoBehaviour
             {
                 if (_hits[i].collider.CompareTag(_itemTag))
                 {
+                    if (_hits[i].collider.name == "Metal")
+                        QuestManager.Instance.SetQuestMetal();
                     taking = true;
                     
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);

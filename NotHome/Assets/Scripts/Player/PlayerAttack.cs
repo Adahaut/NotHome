@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,8 @@ public class PlayerAttack : MonoBehaviour
     public bool _isAiming;
     public bool _isRangeWeaponEqupiped;
     public bool _isMeleeWeaponEqupiped;
-    private PC _playerController;
+    private PlayerController _playerController;
+    public List<GameObject> _machetteUpgrades = new List<GameObject>();
 
 
     [SerializeField] private float _cadence;
@@ -29,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
         {
             Instance = this;
         }
-        _playerController = GetComponent<PC>();
+        _playerController = GetComponent<PlayerController>();
         _isAimingFinished = true;
         _isRecoilFinished = true;
 
@@ -39,19 +41,32 @@ public class PlayerAttack : MonoBehaviour
         _cadenceTimer += Time.deltaTime;
     }
 
+    public void UpgradeMachetteVisual(int _index)
+    {
+        for(int i = 0; i  < _machetteUpgrades.Count; i++)
+        {
+            _machetteUpgrades[i].SetActive(false);
+        }
+        _machetteUpgrades[_index].SetActive(true);
+    }
+
     public void Attack(InputAction.CallbackContext context)
     {
-        if (_playerController.IsInBook)
-            return;
-        if(_isRangeWeaponEqupiped)
+        if(_playerController != null )
         {
-            _shootAction?.Invoke();
+            if (_playerController._isInBook)
+                return;
+            if (_isRangeWeaponEqupiped)
+            {
+                _shootAction?.Invoke();
+            }
+            else if (_cadenceTimer >= _cadence && _isMeleeWeaponEqupiped)
+            {
+                _cadenceTimer = 0;
+                StartCoroutine(ActiveDesactiveCollider());
+            }
         }
-        else if (_cadenceTimer >= _cadence && _isMeleeWeaponEqupiped)
-        {
-            _cadenceTimer = 0;
-            StartCoroutine(ActiveDesactiveCollider());
-        }
+        
         
     }
     public void SetCadence(float number)
@@ -64,7 +79,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Aim(InputAction.CallbackContext context)
     {
-        if (_playerController.IsInBook || !_isRangeWeaponEqupiped)
+        if (_playerController._isInBook || !_isRangeWeaponEqupiped)
             return;
         if (context.started)
         {
@@ -90,7 +105,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Reload(InputAction.CallbackContext context)
     {
-        if (_playerController.IsInBook)
+        if (_playerController._isInBook)
             return;
         _reloading?.Invoke();
     }

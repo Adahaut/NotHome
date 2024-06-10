@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeWeapon : MonoBehaviour
@@ -12,7 +13,7 @@ public class RangeWeapon : MonoBehaviour
                      private Vector3 _startWeaponHolder;
     [SerializeField] private Transform _endWeaponHolder;
     public bool _isAiming;
-    [SerializeField] private PC _playerController;
+    [SerializeField] private PlayerController _playerController;
     [SerializeField] private float _speedFactor;
     private ProceduralRecoil _recoil;
     [SerializeField] private GameObject _muzzuleFlashEffect;
@@ -33,6 +34,10 @@ public class RangeWeapon : MonoBehaviour
 
     [SerializeField] private GameObject _redDot;
     [SerializeField] private GameObject _laser;
+
+    [SerializeField] public List<GameObject> _level2Weapon = new List<GameObject>();
+    [SerializeField] public List<GameObject> _level3Weapon = new List<GameObject>();
+    [SerializeField] public List<GameObject> _level4Weapon = new List<GameObject>();
 
     public static RangeWeapon Instance;
 
@@ -56,7 +61,7 @@ public class RangeWeapon : MonoBehaviour
         _playerAttack = GetComponentInParent<PlayerAttack>();
         _originalPosition = _transform.localPosition;
         _recoil = GetComponent<ProceduralRecoil>();
-        _playerController = GetComponentInParent<PC>();
+        _playerController = GetComponentInParent<PlayerController>();
     }
     public void NextWeapon()
     {
@@ -71,6 +76,15 @@ public class RangeWeapon : MonoBehaviour
     {
         _laser.SetActive(true);
     }
+
+    public void UpgradeWeaponVisual(List<GameObject> _meshList)
+    {
+        for (int i = 0;  i < _meshList.Count; i++)
+        {
+            _meshList[i].SetActive(true);
+        }
+    }
+
     private bool CanShoot()
     {
         return !_isReloading && _timeSinceLastShot > 1f / (_weaponData._fireRate / 60f);
@@ -78,13 +92,13 @@ public class RangeWeapon : MonoBehaviour
 
     public void StartAiming()
     {
-        PC.Instance.SetAnimation("Aiming", true);
+        _playerController.SetAnimation("Aiming", true);
         StartCoroutine(Zooming());
     }
 
     public void StopAiming()
     {
-        PC.Instance.SetAnimation("Aiming", false);
+        _playerController.SetAnimation("Aiming", false);
         StartCoroutine(Zooming(-1));
     }
 
@@ -117,7 +131,7 @@ public class RangeWeapon : MonoBehaviour
     private IEnumerator Reloading()
     {
         print("reload");
-        PC.Instance.SetAnimation("Reload", true);
+        _playerController.SetAnimation("Reload", true);
         _isReloading = true;
 
         yield return new WaitForSeconds(_weaponData._reloadSpeed);
@@ -125,7 +139,7 @@ public class RangeWeapon : MonoBehaviour
         _isReloading = false;
         _currentAmmo = _weaponData._magSize;
         print("finish reload");
-        PC.Instance.SetAnimation("Reload", false);
+        _playerController.SetAnimation("Reload", false);
     }
 
     public void Shoot()
@@ -135,15 +149,18 @@ public class RangeWeapon : MonoBehaviour
             //print(_currentAmmo.ToString());
             if (CanShoot())
             {
-                StartCoroutine(PC.Instance.AnimOneTime("Shoot"));
+                StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
                 _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
                 PlayMuzzuleFlash();
                 
-                if (Physics.Raycast(_muzzle.position, _transform.forward, out RaycastHit _hitInfo, _weaponData._maxDistance))
+                if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
-               //     print("touche " + _hitInfo.collider.name);
-                    //damage enemies here
+                    if (_hitInfo.collider.GetComponent<LifeManager>() != null)
+                    {
+                        print(_hitInfo.collider.name);
+                        _hitInfo.collider.GetComponent<LifeManager>()._currentLife -= _weaponData._damages;
+                    }
                 }
                 _currentAmmo--;
                 _timeSinceLastShot = 0;

@@ -9,3 +9,12 @@ public class QuestScriptableObject : ScriptableObject
     public QuestScriptableObject _nextQuest;
     public bool _isComplet;
 }
+
+[System.Serializable]
+public struct QuestStruct
+{
+    public string _title;
+    public string _lore;
+    public string _objectif;
+    public bool _isComplet;
+}

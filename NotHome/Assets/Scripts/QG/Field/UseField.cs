@@ -18,6 +18,7 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
 
     private void Start()
     {
+        _player = transform.root.gameObject;
         //GetComponent<Image>().sprite = _seedPrefab.seedStruct._img;
         GetComponentInChildren<TMP_Text>().text = _seedPrefab.seedStruct._name;
         StartCoroutine(FindFieldManager());
@@ -44,13 +45,19 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     {
         if(isOwned)
         {
-            if (Vector3.Distance(_transform.position, GetNearestSlot()) < 75)
+            Transform slot = GetNearestSlot();
+            if (Vector3.Distance(_transform.position, slot.position) < 75 && !slot.GetComponent<PlayerFieldSlot>()._containSeed)
             {
-                _seedPrefab.seedStruct._isPlanted = true;
-                _transform.position = GetNearestSlot();
+                _transform.position = slot.position;
+
+                slot.GetComponent<PlayerFieldSlot>().StartGrowing(_seedPrefab.seedStruct._growingTime, 
+                    _seedPrefab.seedStruct._name,
+                    _seedPrefab.fruitImage,
+                    _seedPrefab.seedImage);
+
                 CmdAddPlant(_seedPrefab.seedStruct._index, _seedPrefab.seedStruct._id);
-                GetComponentInParent<PlayerFieldUI>().UpdateUI();
                 PlayerFieldUI.UpdateAllUIs();
+                this.gameObject.SetActive(false);
             }
             else
             {
@@ -63,68 +70,41 @@ public class UseField : NetworkBehaviour, IDragHandler, IEndDragHandler
     [Command]
     public void CmdAddPlant(int index, int seedId)
     {
-        GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId]);
+        Vector3 plantPosition = NewFieldManager.instance._plantPositons[index].position;
+
+        GameObject newSeedObject = Instantiate(NewFieldManager.instance._seedPrefabs[seedId], plantPosition, Quaternion.identity);
+
+        newSeedObject.GetComponent<SeedObject>().StartGrow(plantPosition);
+
         Seed newSeed = newSeedObject.GetComponent<SeedObject>().seedStruct;
         newSeed.seedId = seedId;
-        newSeedObject.transform.position = NewFieldManager.instance._plantPositons[index].position;
+        newSeedObject.transform.position = plantPosition;
 
-        NetworkServer.Spawn(newSeedObject.gameObject);
+        NetworkServer.Spawn(newSeedObject);
         NewFieldManager.instance._allPlants[index] = newSeed;
-
-
-        //RpcAddPlant(newSeed.netId, index);
+        NewFieldManager.instance.AddPlant(newSeedObject, index);
     }
 
-    //[ClientRpc]
-    //public void RpcAddPlant(uint seedNetId, int index)
-    //{
-    //    if (NetworkServer.spawned.TryGetValue(seedNetId, out NetworkIdentity seedIdentity))
-    //    {
-    //        Seed seed = seedIdentity.GetComponent<Seed>();
-    //        seed.StartGrow(NewFieldManager.instance._plantPositons[index], index);
-    //        if (!NewFieldManager.instance._allPlants.Contains(seed))
-    //        {
-    //            NewFieldManager.instance._allPlants[index] = seed;
-    //        }
-    //        NewFieldManager.instance.t += 1;
-    //    }
-    //}
 
-
-    private Vector3 GetNearestSlot()
+    private Transform GetNearestSlot()
     {
         List<Transform> slots = new();
-        slots = _player.GetComponentInChildren<PlayerFieldSlot>()._listSlots;
-        Vector3 slotNearest = slots[0].position;
+        slots = _player.GetComponentInChildren<FieldSlotsLists>()._listSlots;
+        Transform slotNearest = slots[0];
         _seedPrefab.seedStruct._index = 0;
         for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].gameObject.activeSelf)
             {
-                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest))
+                if (Vector3.Distance(_transform.position, slots[i].position) < Vector3.Distance(_transform.position, slotNearest.position))
                 {
-                    slotNearest = slots[i].position;
+                    slotNearest = slots[i];
                     _seedPrefab.seedStruct._index = i;
                 }
             }
         }
         return slotNearest;
     }
-
-
-
-    //public void GetPlantFinish()
-    //{
-    //    Debug.Log("GetPlant");
-    //    _transform.position = _initPos;
-    //    _isPlant = false;
-    //    ListSlotField.Instance._listIsPlant[_indexPlant] = false;
-    //    ListSlotField.Instance._listPlant[_indexPlant].SetActive(false);
-    //    //FieldManager.Instance._timerText[_indexPlant].text = "";
-    //    ListSlotField.Instance._listPlant[_indexPlant].GetComponent<MeshRenderer>().material = FieldManager.Instance._materialBrown;
-    //    gameObject.GetComponent<Button>().enabled = false;
-    //}
-
 
 
 }

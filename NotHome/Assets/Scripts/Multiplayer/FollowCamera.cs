@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    [SerializeField] private Camera linkedCam;
+    public Camera linkedCam;
 
     [SerializeField] private Camera cam;
     private void Update()

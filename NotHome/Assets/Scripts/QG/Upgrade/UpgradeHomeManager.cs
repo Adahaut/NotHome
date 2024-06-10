@@ -16,6 +16,13 @@ public class UpgradeHomeManager : MonoBehaviour
     [SerializeField] private ParticleSystem _particleLevelUp;
     [SerializeField] private GameObject _bridge;
     private bool _getAlarm;
+    private GameObject _ship;
+
+    private GameObject[] _playersRef;
+    [SerializeField] private GameObject _spaceshipToFix;
+    [SerializeField] private GameObject _spaceshipFixed;
+    [SerializeField] private GameObject _camera;
+    [SerializeField] List<GameObject> _UpdgardesVisuals = new List<GameObject>();
 
     private void Start()
     {
@@ -35,10 +42,26 @@ public class UpgradeHomeManager : MonoBehaviour
             case "QG":
                 EffectQG();
                 break;
+            case "Ship":
+                EffectShip();
+                break;
             default:
                 Debug.Log("No name building");
                 break;
         }
+    }
+    public void EffectShip()
+    {
+        _playersRef = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < _playersRef.Length; i++)
+        {
+            _playersRef[i].SetActive(false);
+        }
+
+        _spaceshipToFix.SetActive(false);
+        _spaceshipFixed.SetActive(true);
+        _camera.SetActive(true);
     }
     public void EffectQG()
     {
@@ -46,7 +69,7 @@ public class UpgradeHomeManager : MonoBehaviour
         {
             case 2:
                 QuestManager.Instance.SetQuestUpLevel2();
-                QuestManager.Instance.ColorText(3);
+                QuestManager.Instance.QuestComplete(3);
                 MapManager.Instance._canOpenUiMap = true;
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
@@ -84,10 +107,15 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
+                _UpdgardesVisuals[0].SetActive(true);
                 QuestManager.Instance.SetQuestUpLevel2();
                 break;
             case 3:
+                _UpdgardesVisuals[1].SetActive(true);
                 QuestManager.Instance.SetQuestUpLevel3();
+                break;
+            case 4:
+                _UpdgardesVisuals[2].SetActive(true);
                 break;
             default:
                 break;
