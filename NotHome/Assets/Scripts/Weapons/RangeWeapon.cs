@@ -1,7 +1,8 @@
+using Mirror;
 using System.Collections;
 using UnityEngine;
 
-public class RangeWeapon : MonoBehaviour
+public class RangeWeapon : NetworkBehaviour
 {
     [SerializeField] private WeaponData _weaponData;
     [SerializeField] private Transform _muzzle;
@@ -137,7 +138,10 @@ public class RangeWeapon : MonoBehaviour
             {
                 StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
-                _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
+
+                if (isOwned)
+                    CmdPlayShootSound();
+
                 PlayMuzzuleFlash();
                 
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
@@ -156,6 +160,18 @@ public class RangeWeapon : MonoBehaviour
         {
             StartReload();
         }
+    }
+
+    [Command]
+    void CmdPlayShootSound()
+    {
+        RpcPlayShootSound();
+    }
+
+    [ClientRpc]
+    void RpcPlayShootSound()
+    {
+        _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
     }
 
     private void PlayMuzzuleFlash()
