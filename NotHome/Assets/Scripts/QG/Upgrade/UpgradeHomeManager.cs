@@ -22,6 +22,7 @@ public class UpgradeHomeManager : MonoBehaviour
     [SerializeField] private GameObject _spaceshipToFix;
     [SerializeField] private GameObject _spaceshipFixed;
     [SerializeField] private GameObject _camera;
+    [SerializeField] List<GameObject> _UpdgardesVisuals = new List<GameObject>();
 
     private void Start()
     {
@@ -106,10 +107,15 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
+                _UpdgardesVisuals[0].SetActive(true);
                 QuestManager.Instance.SetQuestUpLevel2();
                 break;
             case 3:
+                _UpdgardesVisuals[1].SetActive(true);
                 QuestManager.Instance.SetQuestUpLevel3();
+                break;
+            case 4:
+                _UpdgardesVisuals[2].SetActive(true);
                 break;
             default:
                 break;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,7 @@ public class PlayerAttack : MonoBehaviour
     public bool _isRangeWeaponEqupiped;
     public bool _isMeleeWeaponEqupiped;
     private PlayerController _playerController;
+    public List<GameObject> _machetteUpgrades = new List<GameObject>();
 
 
     [SerializeField] private float _cadence;
@@ -37,6 +39,15 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         _cadenceTimer += Time.deltaTime;
+    }
+
+    public void UpgradeMachetteVisual(int _index)
+    {
+        for(int i = 0; i  < _machetteUpgrades.Count; i++)
+        {
+            _machetteUpgrades[i].SetActive(false);
+        }
+        _machetteUpgrades[_index].SetActive(true);
     }
 
     public void Attack(InputAction.CallbackContext context)

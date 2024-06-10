@@ -1,5 +1,6 @@
 using Mirror;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeWeapon : NetworkBehaviour
@@ -35,7 +36,13 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private GameObject _redDot;
     [SerializeField] private GameObject _laser;
 
+<<<<<<< feat-multiplayer-2
     [SerializeField] private NetworkIdentity identity;
+=======
+    [SerializeField] public List<GameObject> _level2Weapon = new List<GameObject>();
+    [SerializeField] public List<GameObject> _level3Weapon = new List<GameObject>();
+    [SerializeField] public List<GameObject> _level4Weapon = new List<GameObject>();
+>>>>>>> feat-Dev
 
     public static RangeWeapon Instance;
 
@@ -74,6 +81,15 @@ public class RangeWeapon : NetworkBehaviour
     {
         _laser.SetActive(true);
     }
+
+    public void UpgradeWeaponVisual(List<GameObject> _meshList)
+    {
+        for (int i = 0;  i < _meshList.Count; i++)
+        {
+            _meshList[i].SetActive(true);
+        }
+    }
+
     private bool CanShoot()
     {
         return !_isReloading && _timeSinceLastShot > 1f / (_weaponData._fireRate / 60f);

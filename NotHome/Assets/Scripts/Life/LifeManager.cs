@@ -54,6 +54,14 @@ public class LifeManager : MonoBehaviour
 
     private void EnemyDeath()
     {
+        if (gameObject.name == "Spider")
+        {
+            QuestManager.Instance.SetQuestSpider();
+        }
+        else if (gameObject.name == "X")
+        {
+            QuestManager.Instance.SetQuestX();
+        }
         Destroy(gameObject);
     }
 

@@ -407,6 +407,8 @@ public class PC : MonoBehaviour
             {
                 if (_hits[i].collider.CompareTag(_itemTag))
                 {
+                    if (_hits[i].collider.name == "Metal")
+                        QuestManager.Instance.SetQuestMetal();
                     taking = true;
                     
                     _inventory.GetComponent<InventoryManager>().AddItem(_hits[i].collider.GetComponent<Item>().ItemName(), _hits[i].collider.GetComponent<Item>().ItemSprite(), false);
