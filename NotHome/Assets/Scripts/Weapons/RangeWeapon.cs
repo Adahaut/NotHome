@@ -36,13 +36,12 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private GameObject _redDot;
     [SerializeField] private GameObject _laser;
 
-<<<<<<< feat-multiplayer-2
+
     [SerializeField] private NetworkIdentity identity;
-=======
+
     [SerializeField] public List<GameObject> _level2Weapon = new List<GameObject>();
     [SerializeField] public List<GameObject> _level3Weapon = new List<GameObject>();
     [SerializeField] public List<GameObject> _level4Weapon = new List<GameObject>();
->>>>>>> feat-Dev
 
     public static RangeWeapon Instance;
 
