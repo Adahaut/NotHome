@@ -146,7 +146,8 @@ public class RangeWeapon : NetworkBehaviour
                 if(isOwned)
                     CmdPlayShootSound();
 
-                PlayMuzzuleFlash();
+                if(isOwned)
+                    PlayMuzzuleFlash();
                 
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
