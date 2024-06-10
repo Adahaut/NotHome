@@ -20,7 +20,6 @@ public class PlayerCameraControlTower : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             screens[other.GetComponent<PlayerCameraManager>().screenIndex].transform.GetChild(0).gameObject.SetActive(true);
-            //other.gameObject.GetComponent<PlayerCameraManager>().screen.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
@@ -29,7 +28,6 @@ public class PlayerCameraControlTower : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             screens[other.GetComponent<PlayerCameraManager>().screenIndex].transform.GetChild(0).gameObject.SetActive(false);
-            //other.gameObject.GetComponent<PlayerCameraManager>().screen.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
@@ -40,7 +38,6 @@ public class PlayerCameraControlTower : NetworkBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            //gameObject.GetComponent<PlayerCameraManager>().screen.transform.GetChild(0).gameObject.SetActive(false);
             if (players[i].GetComponent<PlayerCameraManager>().screenIndex != -1)
             {
                 screens[players[i].GetComponent<PlayerCameraManager>().screenIndex].transform.GetChild(0).gameObject.SetActive(false);
