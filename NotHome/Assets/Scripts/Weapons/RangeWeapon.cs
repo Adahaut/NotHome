@@ -141,8 +141,10 @@ public class RangeWeapon : NetworkBehaviour
                 StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
 
-                if (identity.isOwned || identity.isServer)
-                    CmdPlayShootSound();
+                //if (identity.isOwned || identity.isServer)
+                //    CmdPlayShootSound();
+                if(isOwned)
+                    AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position);
 
                 PlayMuzzuleFlash();
                 
@@ -173,7 +175,8 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound()
     {
-        _riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
+        
+        //_riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
     }
 
     private void PlayMuzzuleFlash()
