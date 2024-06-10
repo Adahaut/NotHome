@@ -91,6 +91,7 @@ public class UseCrafter : MonoBehaviour
         for (int i = 0; i < _materialsNameForCraft.Count; i++)
             RemoveItemsForCraft(_materialsNameForCraft[i]);
         _playerInventory.AddItem(_currentCraft._resultName, _currentCraft._resultSprite, _currentCraft._isAnEquipement);
+        QuestManager.Instance.QuestComplete(5);
     }
 
     private void RemoveItemsForCraft(string _materialName)

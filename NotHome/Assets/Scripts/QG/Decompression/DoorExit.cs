@@ -9,6 +9,7 @@ public class DoorExit : MonoBehaviour
     public static DoorExit Instance;
     private bool _qgIsLevel3;
     private bool _isDecompression;
+    [SerializeField] private string _nameZone;
     [SerializeField] private GameObject _smokeParticle;
     [SerializeField] private GameObject _alarmSAS;
     [SerializeField] private GameObject _light;
@@ -37,6 +38,7 @@ public class DoorExit : MonoBehaviour
             if (!_doorExit.activeSelf)
             {
                 QuestManager.Instance.QuestComplete(0);
+                QuestManager.Instance.SetZoneQuest(_nameZone);
             }
             _smokeParticle.SetActive(false);
             _doorExit.SetActive(true);

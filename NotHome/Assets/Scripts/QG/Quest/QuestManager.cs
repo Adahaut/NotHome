@@ -1,6 +1,7 @@
 using Mirror;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,9 @@ public class QuestManager : NetworkBehaviour
     [SerializeField] private QuestScriptableObject _actualQuest;
     private int _questUpLevel2;
     private int _questUpLevel3;
+    private int _counterSpider;
+    private int _counterX;
+    private int _counterMetal;
 
 
     public List<QuestStruct> _listToFillInInspector = new List<QuestStruct>();
@@ -57,6 +61,30 @@ public class QuestManager : NetworkBehaviour
             NextQuest();
         }
     }
+    public void SetQuestSpider()
+    {
+        int indexQuest = 2;
+        if (currentQuest == indexQuest)
+        {
+            _counterSpider++;
+            if (_counterSpider >= 3)
+            {
+                QuestComplete(indexQuest);
+            }
+        }
+    }
+    public void SetQuestX()
+    {
+        int indexQuest = 6;
+        if (currentQuest == indexQuest)
+        {
+            _counterSpider++;
+            if (_counterX >= 10)
+            {
+                QuestComplete(indexQuest);
+            }
+        }
+    }
 
     public void SetQuestUpLevel2()
     {
@@ -81,10 +109,36 @@ public class QuestManager : NetworkBehaviour
             NextQuest();
         }
     }
+    public void SetQuestMetal()
+    {
+        int indexQuest = 1;
+        if (currentQuest == indexQuest)
+        {
+            _counterMetal++;
+            if (_counterMetal >= 5)
+                QuestComplete(indexQuest);
+        }
+    }
+    public void SetZoneQuest(string zone)
+    {
+        switch (zone)
+        {
+            case "Forest":
+                QuestComplete(4);
+                break;
+            case "Mountain":
+                QuestComplete(9);
+                break;
+            default:
+                Debug.Log("No zone name");
+                break;
+
+        }
+    }
 
     public void QuestComplete(int index)
     {
-        if (index + 1 == currentQuest)
+        if (index == currentQuest)
         {
             QuestStruct temp = _listQuests[index];
             temp._isComplet = true;
