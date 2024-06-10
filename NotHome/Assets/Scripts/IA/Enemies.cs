@@ -17,6 +17,7 @@ public class Enemies : MonoBehaviour
     private bool _alreadyAttacked;
     private float _distanceToPlayer;
     private Collider _playerDetectionCollider;
+    private Animator _animator;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class Enemies : MonoBehaviour
         _players = GameObject.FindGameObjectsWithTag("Player");
         _playerDetectionCollider = GetComponentInChildren<BoxCollider>();
         _playerDetectionCollider.enabled = false;
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -133,8 +135,10 @@ public class Enemies : MonoBehaviour
     {
         if (!_alreadyAttacked)
         {
+            _animator.SetBool("IsAttacking", true);
             _alreadyAttacked = true;
             _playerDetectionCollider.enabled = true;
+            _animator.SetBool("IsAttacking", false);
             Invoke(nameof(ResetAttack), _timeBetweenAttacks);
         }
     }
@@ -149,5 +153,15 @@ public class Enemies : MonoBehaviour
         {
             Attack();
         }
+    }
+
+    public void ActiveCollider()
+    {
+        _playerDetectionCollider.enabled = true;
+    }
+
+    public void DesactiveCollider()
+    {
+        _playerDetectionCollider.enabled = false;
     }
 }
