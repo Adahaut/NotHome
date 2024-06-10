@@ -2049,6 +2049,7 @@ MonoBehaviour:
   _isAiming: 0
   _isRangeWeaponEqupiped: 1
   _isMeleeWeaponEqupiped: 0
+  _machetteUpgrades: []
   _cadence: 2
 --- !u!114 &7216602018743013806
 MonoBehaviour:
@@ -2213,6 +2214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4653e93a3b97f0e48af7e30ce0cd623a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _fartsSound:
   - {fileID: 8300000, guid: 8023b57468e11a64fad21e146ccfee71, type: 3}
   - {fileID: 8300000, guid: aeb088a02c047e144bae5f5ec50d0a2e, type: 3}
@@ -4026,6 +4030,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7118287699749949063, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6111432323842770088}
+    - target: {fileID: 7118287699749949063, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenUi
+      objectReference: {fileID: 0}
     - target: {fileID: 7250440910748750117, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -4086,6 +4098,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerController, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 7847434041911206613, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _inventoryBase
+      value: 
+      objectReference: {fileID: 1494109134185865936}
     - target: {fileID: 8043341053840667464, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -4189,6 +4205,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4087198637060373613, guid: c65c6ee038096654983d801be093112f, type: 3}
   m_PrefabInstance: {fileID: 3774780991229609753}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1494109134185865936 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2368492188317509065, guid: c65c6ee038096654983d801be093112f, type: 3}
+  m_PrefabInstance: {fileID: 3774780991229609753}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5464378700927355171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa69d656072f5ac48974cba970c28ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1824544363156659149 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3256280795987811540, guid: c65c6ee038096654983d801be093112f, type: 3}
@@ -4641,6 +4668,9 @@ MonoBehaviour:
   _redDot: {fileID: 0}
   _laser: {fileID: 0}
   identity: {fileID: -640250862484899110}
+  _level2Weapon: []
+  _level3Weapon: []
+  _level4Weapon: []
 --- !u!114 &8589329444739212994
 MonoBehaviour:
   m_ObjectHideFlags: 0

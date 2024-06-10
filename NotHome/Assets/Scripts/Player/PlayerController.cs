@@ -1,14 +1,9 @@
 using Mirror;
-using Org.BouncyCastle.Tls.Crypto;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Runtime.CompilerServices;
 using TMPro;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
 
 public class PlayerController : NetworkBehaviour
 {
