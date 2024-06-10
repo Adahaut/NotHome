@@ -8,6 +8,8 @@ public class PlayerCameraControlTower : NetworkBehaviour
 {
     public List<GameObject> screens = new List<GameObject>();
 
+    public List<int> listScreenIndexScreen;
+
     private void Start()
     {
         //en afficher que 3
@@ -29,6 +31,12 @@ public class PlayerCameraControlTower : NetworkBehaviour
         {
             screens[other.GetComponent<PlayerCameraManager>().screenIndex].transform.GetChild(0).gameObject.SetActive(false);
         }
+    }
+
+    public void AddScreen(int screenIndex)
+    {
+        listScreenIndexScreen.Add(screenIndex);
+        
     }
 
     IEnumerator SetupScreens()

@@ -5,10 +5,11 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerCameraManager : NetworkBehaviour
 {
-    public RenderTexture[] renderTextures;
+    public List<RenderTexture> renderTextures = new List<RenderTexture>();
     public List<GameObject> screens = new List<GameObject> ();
 
     public Camera playerRenderCamera;
@@ -17,15 +18,24 @@ public class PlayerCameraManager : NetworkBehaviour
     private void Start()
     {
         screenIndex = -1;
-        for (int i = 0; i < renderTextures.Length; i++)
+        for (int i = 0; i < renderTextures.Count; i++)
         {
             screens.Add(GameObject.Find("CameraPlane" + i.ToString()));
         }
+
+        
+
     }
     public override void OnStartClient()
     {
-        if(isOwned)
-            StartCoroutine(LoadCameras());
+        //if(isOwned)
+        //    StartCoroutine(LoadCameras());
+        print(screenIndex);
+        if (isOwned)
+        {
+            GameObject.FindAnyObjectByType<PlayerCameraControlTower>().AddScreen(screenIndex);
+            playerRenderCamera.targetTexture = renderTextures[screenIndex];
+        }
     }
 
     IEnumerator LoadCameras()
