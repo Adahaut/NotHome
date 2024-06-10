@@ -144,7 +144,7 @@ public class RangeWeapon : NetworkBehaviour
                 //if (identity.isOwned || identity.isServer)
                 //    CmdPlayShootSound();
                 if(isOwned)
-                    AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position);
+                    CmdPlayShootSound();
 
                 PlayMuzzuleFlash();
                 
@@ -175,8 +175,7 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound()
     {
-        
-        //_riffleAudioSource.PlayOneShot(_riffleAudioClip, 1);
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position);
     }
 
     private void PlayMuzzuleFlash()
