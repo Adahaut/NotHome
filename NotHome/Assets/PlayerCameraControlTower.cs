@@ -61,4 +61,10 @@ public class PlayerCameraControlTower : NetworkBehaviour
             }
         }
     }
+
+    [Server]
+    void DisableObject(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
 }
