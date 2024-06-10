@@ -11,8 +11,8 @@ public class PlayerCameraManager : NetworkBehaviour
     public RenderTexture[] renderTextures;
     public List<GameObject> screens = new List<GameObject> ();
 
-    [SyncVar] public Camera playerRenderCamera;
-    [HideInInspector] public GameObject screen;
+    public Camera playerRenderCamera;
+    [HideInInspector] [SyncVar] public GameObject screen;
 
     private void Start()
     {
