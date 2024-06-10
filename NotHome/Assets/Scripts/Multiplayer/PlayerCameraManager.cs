@@ -1,11 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerCameraManager : NetworkBehaviour
 {
@@ -17,7 +13,6 @@ public class PlayerCameraManager : NetworkBehaviour
 
     private void Start()
     {
-        screenIndex = -1;
         for (int i = 0; i < renderTextures.Count; i++)
         {
             screens.Add(GameObject.Find("CameraPlane" + i.ToString()));
@@ -30,7 +25,6 @@ public class PlayerCameraManager : NetworkBehaviour
     {
         //if(isOwned)
         //    StartCoroutine(LoadCameras());
-        print(screenIndex);
         if (isOwned)
         {
             GameObject.FindAnyObjectByType<PlayerCameraControlTower>().AddScreen(screenIndex);
