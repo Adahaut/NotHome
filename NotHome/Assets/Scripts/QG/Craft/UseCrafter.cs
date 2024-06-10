@@ -1,3 +1,4 @@
+using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,8 +12,8 @@ public class UseCrafter : MonoBehaviour
     [SerializeField] private Image _spriteCraft;
     [SerializeField] private List<GameObject> _materialsText = new List<GameObject>();
     [SerializeField] private InventoryManager _playerInventory;
+    [SerializeField] private PlayerStockageUI _inventoryBase;
 
-    [SerializeField] private InventoryBaseManager _baseInventory;
     private List<string> _materialsNameForCraft = new List<string>();
     private List<int> _materialsNumberForCraft = new List<int>();
     private int _indexMove;
@@ -20,6 +21,11 @@ public class UseCrafter : MonoBehaviour
     private void OnEnable()
     {
         ClearTexts();
+    }
+
+    private void Start()
+    {
+        _playerInventory = GetComponentInParent<PlayerController>()._inventory.GetComponent<InventoryManager>();
     }
 
     public void OnClick(Button button)
@@ -97,9 +103,24 @@ public class UseCrafter : MonoBehaviour
     private void RemoveItemsForCraft(string _materialName)
     {
         _playerInventory.RemoveItems(_materialName, _materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
-        print(_materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
-        if(_baseInventory.CheckForMaterial(_materialName))
-            _baseInventory.RemoveItems(_materialName, _materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
+        if (InventoryBaseManager.instance.CheckForMaterial(_materialName))
+            RemoveItemFromBase(_materialName, _materialsNumberForCraft[_materialsNameForCraft.IndexOf(_materialName)]);
+    }
+
+    private void RemoveItemFromBase(string _name, int _numberRemoved)
+    {
+        int _index = _inventoryBase.GetIndexOf(_name);
+
+        if (InventoryBaseManager.instance._inventoryItems[_index]._number == _numberRemoved)
+        {
+            _inventoryBase.RemoveItemFromBase(_name, _numberRemoved, _index, _inventoryBase._slotList[_index].GetComponent<InventorySlot>());
+        }
+        else
+        {
+            _inventoryBase.UpdateItemInList(_name, _index, _numberRemoved);
+        }
+
+        _inventoryBase.UpdateUI();
     }
 
     private bool CheckInplayerInventoryAndBase()
@@ -128,9 +149,9 @@ public class UseCrafter : MonoBehaviour
 
     private bool CheckInBothInventory(int i, int y)
     {
-        if (_baseInventory.CheckForMaterial(_materialsNameForCraft[i]) || (_playerInventory.GetInventorySlot(y).ItemContained().ItemName() == _materialsNameForCraft[i]))
+        if (InventoryBaseManager.instance.CheckForMaterial(_materialsNameForCraft[i]) || (_playerInventory.GetInventorySlot(y).ItemContained().ItemName() == _materialsNameForCraft[i]))
         {
-            if (_baseInventory.CheckForMaterial(_materialsNameForCraft[i]) && _baseInventory.NumberOfMaterial(_materialsNameForCraft[i]) + _playerInventory.GetInventorySlot(y).Number() >= _materialsNumberForCraft[i])
+            if (InventoryBaseManager.instance.CheckForMaterial(_materialsNameForCraft[i]) && InventoryBaseManager.instance.NumberOfMaterial(_materialsNameForCraft[i]) + _playerInventory.GetInventorySlot(y).Number() >= _materialsNumberForCraft[i])
             {
                 return true;
             }

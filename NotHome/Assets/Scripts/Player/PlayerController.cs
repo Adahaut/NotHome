@@ -33,7 +33,7 @@ public class PlayerController : NetworkBehaviour
     private bool _isOpen;
 
     [Header("Inventory")]
-    [SerializeField] private GameObject _inventory;
+    [SerializeField] public GameObject _inventory;
     [SerializeField] private string _itemTag;
     [SerializeField] private int _itemPickRange;
 
