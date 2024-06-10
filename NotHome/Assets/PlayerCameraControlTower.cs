@@ -50,13 +50,10 @@ public class PlayerCameraControlTower : NetworkBehaviour
     {
         yield return new WaitForSeconds(1f);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        print("1 hahahah");
         for (int i = 0; i < players.Length; i++)
         {
-            print(players[i].GetComponent<PlayerCameraManager>().screenIndex);
             if (players[i].GetComponent<PlayerCameraManager>().screenIndex != -1)
             {
-                print(i + "cc");
                 screens[listScreenIndexScreen[i]].transform.GetChild(0).gameObject.SetActive(false);
             }
         }

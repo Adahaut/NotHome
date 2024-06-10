@@ -1876,6 +1876,7 @@ GameObject:
   - component: {fileID: 6111432323842770088}
   - component: {fileID: 3709064287066778298}
   - component: {fileID: 8560312892606734211}
+  - component: {fileID: 6782456894075962786}
   - component: {fileID: -1771404588244235772}
   - component: {fileID: -6499860905611913568}
   m_Layer: 3
@@ -2197,7 +2198,34 @@ MonoBehaviour:
   - {fileID: 8400000, guid: f90abce8131971f4181fe1dbc07d538b, type: 2}
   - {fileID: 8400000, guid: 7e8f3607f30e11f4f8bc93422e166874, type: 2}
   - {fileID: 8400000, guid: c89f22d8dff512548b25198c8e8334cc, type: 2}
+  screens: []
   playerRenderCamera: {fileID: 5571988994038543630}
+  screenIndex: 0
+--- !u!114 &6782456894075962786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236232325511716344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4653e93a3b97f0e48af7e30ce0cd623a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fartsSound:
+  - {fileID: 8300000, guid: 8023b57468e11a64fad21e146ccfee71, type: 3}
+  - {fileID: 8300000, guid: aeb088a02c047e144bae5f5ec50d0a2e, type: 3}
+  - {fileID: 8300000, guid: be0efc9ca90602c4bb0c9cf247a6827e, type: 3}
+  - {fileID: 8300000, guid: 03b4ebcbe9076044789b2a488b318e47, type: 3}
+  - {fileID: 8300000, guid: b94c0da7dbedadb4896ce0d547ababbd, type: 3}
+  - {fileID: 8300000, guid: d6f84b297d2fff346a0de59e92c71f54, type: 3}
+  - {fileID: 8300000, guid: ad0c37cb34275204dbe1ddbb50213d64, type: 3}
+  - {fileID: 8300000, guid: df157c3680983fb4487536c101e21551, type: 3}
+  - {fileID: 8300000, guid: af98227570588d24aae1197d3e13e91b, type: 3}
+  - {fileID: 8300000, guid: b10fd12a0ec81ef46849b61ee6433fce, type: 3}
+  - {fileID: 8300000, guid: 6b59dcc4bc2e73840a1ee8fd9dff6569, type: 3}
+  _fartParticle: {fileID: 0}
 --- !u!82 &-1771404588244235772
 AudioSource:
   m_ObjectHideFlags: 0

@@ -88,6 +88,7 @@ public class PlayerController : NetworkBehaviour
         _animator = GetComponentInChildren<Animator>();
         _characterController = GetComponent<CharacterController>();
         _playerManager = GetComponent<PlayerManager>();
+        _farts = GetComponentInChildren<Farts>();
         _transform = transform;
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -445,6 +446,12 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (_fartCooldown > 0)
+            _fartCooldown -= Time.deltaTime;
+    }
+
     public void OpenUi(int index)
     {
         _uiPlayer[index].SetActive(!_uiPlayer[index].activeSelf);
@@ -471,8 +478,10 @@ public class PlayerController : NetworkBehaviour
     {
         if (_fartCooldown > 0)
             return;
+        
         _fartCooldown = 1f;
         _farts.PlayRandomFartSound();
+        print("fart");
     }
 
     public void AlightTorch(InputAction.CallbackContext ctx)
