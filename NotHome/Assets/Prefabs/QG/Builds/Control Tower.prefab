@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4400788457962861}
   - component: {fileID: 3774607925753194993}
   - component: {fileID: 1803123483839234777}
+  - component: {fileID: 4534891149095455082}
   m_Layer: 8
   m_Name: Drone
   m_TagString: Untagged
@@ -120,11 +121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9986ea8367d4edf4aa73427db674f44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _camera: {fileID: 535157236883843413}
   _sensitivity: 30
   _walkSpeed: 8
   _upPower: 7
-  _canMove: 1
   _playerInput: {fileID: 0}
   _cameraPlayer: {fileID: 0}
   _uiDrone: {fileID: 0}
@@ -155,6 +158,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4534891149095455082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200324521482400696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 999495976
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &577269812346006388
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _index: 8
+  _isOpen: 0
 --- !u!1 &4271112134823421783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,6 +1170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _index: 7
+  _isOpen: 0
 --- !u!1 &7784787841148438377
 GameObject:
   m_ObjectHideFlags: 0

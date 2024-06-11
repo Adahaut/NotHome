@@ -6,29 +6,29 @@ using UnityEngine.InputSystem;
 public class DroneManager : NetworkBehaviour
 {
     [SerializeField] private Transform _camera;
-    [SyncVar] public bool _canUseDrone;
+    public static bool _canUseDrone;
 
-    private Vector2 _moveDir;
-    private Vector2 _rotation = Vector2.zero;
-    private Vector3 _moveDirection = Vector3.zero;
-    private Vector2 _rotation2 = Vector2.zero;
-    private Vector3 _initPos = Vector3.zero;
+    private static Vector2 _moveDir;
+    private static Vector2 _rotation = Vector2.zero;
+    private static Vector3 _moveDirection = Vector3.zero;
+    private static Vector2 _rotation2 = Vector2.zero;
+    private static Vector3 _initPos = Vector3.zero;
 
     [SerializeField] private float _sensitivity;
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _upPower;
 
-    public bool _canMove = false;
-    private bool _isUp;
-    private bool _isDown;
+    public static bool _canMove = false;
+    private static bool _isUp;
+    private static bool _isDown;
 
-    private CharacterController _characterController;
-    public PlayerInput _playerInput;
-    public Camera _cameraPlayer;
+    private static CharacterController _characterController;
+    public static PlayerInput _playerInput;
+    public static Camera _cameraPlayer;
     [SerializeField] private GameObject _uiDrone;
 
     [Range(0f, 90f)][SerializeField] float _yRotationLimit = 88f;
-    private Transform _transform;
+    private static Transform _transform;
     public static DroneManager Instance;
 
     private void Awake()
@@ -65,6 +65,7 @@ public class DroneManager : NetworkBehaviour
     }
     public void GetInputSpace(InputAction.CallbackContext ctx)
     {
+        
         _isUp = true;
         if (ctx.canceled)
         {
@@ -100,7 +101,6 @@ public class DroneManager : NetworkBehaviour
         {
             _moveDirection.y = 0;
         }
-        print(_moveDirection);
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
     private void RotateCameraDrone()
@@ -133,11 +133,13 @@ public class DroneManager : NetworkBehaviour
     {
         _canUseDrone = true;
         _canMove = false;
+
         _characterController.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-        _uiDrone.SetActive(true);
-        _cameraPlayer.enabled = true;
         _playerInput.actions.actionMaps[1].Disable();
+        _playerInput.actions.actionMaps[0].Enable();
+        Cursor.lockState = CursorLockMode.Locked;
+        _cameraPlayer.enabled = true;
+        _characterController.enabled = false;
         _transform.position = _initPos;
         _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
