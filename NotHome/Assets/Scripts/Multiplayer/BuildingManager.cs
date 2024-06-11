@@ -32,6 +32,7 @@ public class BuildingManager : NetworkBehaviour
 
     public void AssignAuthority(NetworkConnectionToClient conn, GameObject b)
     {
+        RemoveAuthority(b);
         b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
     }
 

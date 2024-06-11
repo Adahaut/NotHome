@@ -167,7 +167,6 @@ public class DroneManager : NetworkBehaviour
     public void ExitDrone(InputAction.CallbackContext ctx)
     {
         CmdUpdatePosition(_initPos);
-        BuildingManager.instance.RemoveAuthority(this.gameObject);
 
         _canUseDrone = true;
         _canMove = false;
