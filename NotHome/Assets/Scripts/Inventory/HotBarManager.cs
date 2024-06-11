@@ -15,7 +15,7 @@ public class HotBarManager : MonoBehaviour
     [SerializeField] private List<GameObject> _hotBarSlotList = new List<GameObject>();
 
     [SerializeField] private Color _hotBarSlotSelectedColor;
-    [SerializeField] private Color _hotBarSlotUnselectedColor;
+    [SerializeField] private Color _hotBarSlotUnselectedColor = Color.white;
 
     private PlayerAttack _playerAttack;
 
@@ -47,7 +47,7 @@ public class HotBarManager : MonoBehaviour
     {
         for (int i = 0; i < _hotBarSlotList.Count; ++i) 
         {
-            _hotBarSlotList[i].GetComponent<Image>().color = _hotBarSlotUnselectedColor;
+            _hotBarSlotList[i].GetComponent<Image>().color = /*_hotBarSlotUnselectedColor*/Color.white;
         }
         SetSelectedHotBarSlot();
         

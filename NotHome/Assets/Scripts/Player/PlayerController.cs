@@ -48,6 +48,7 @@ public class PlayerController : NetworkBehaviour
     public bool _isInBook;
 
 
+    public bool _canAttack = true;
     private Rigidbody _rigidbodyPlayer;
     private bool _isGrounded;
     private float _initSpeed;
@@ -462,12 +463,14 @@ public class PlayerController : NetworkBehaviour
     {
         if (active)
         {
+            _canAttack = false;
             Cursor.lockState = CursorLockMode.None;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Disable();
             _isOpen = true;
         }
         else
         {
+            _canAttack = true;
             Cursor.lockState = CursorLockMode.Locked;
             GetComponentInChildren<PlayerInput>().actions.actionMaps[0].Enable();
             _isOpen = false;

@@ -1,11 +1,12 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class RangeWeapon : NetworkBehaviour
 {
-    [SerializeField] private WeaponData _weaponData;
+    [SerializeField] public WeaponData _weaponData;
     [SerializeField] private Transform _muzzle;
     [SerializeField] private Transform _savedCameraTransform;
     [SerializeField] private Camera _playerCamera;
@@ -18,6 +19,8 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private float _speedFactor;
     private ProceduralRecoil _recoil;
     [SerializeField] private GameObject _muzzuleFlashEffect;
+    [SerializeField] private GameObject _smokeBulletImpact;
+    public int _weaponLevel;
 
     private AudioSource _riffleAudioSource;
     [SerializeField] private AudioClip _riffleAudioClip;
@@ -163,10 +166,11 @@ public class RangeWeapon : NetworkBehaviour
                 
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
+                    CreateSmoke(_hitInfo.point);
                     if (_hitInfo.collider.GetComponent<LifeManager>() != null)
                     {
                         print(_hitInfo.collider.name);
-                        _hitInfo.collider.GetComponent<LifeManager>()._currentLife -= _weaponData._damages;
+                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages);
                     }
                 }
                 _currentAmmo--;
@@ -177,6 +181,12 @@ public class RangeWeapon : NetworkBehaviour
         {
             StartReload();
         }
+    }
+
+    private void CreateSmoke(Vector3 _position)
+    {
+        GameObject _smoke = Instantiate(_smokeBulletImpact, _position, Quaternion.identity);
+        Destroy(_smoke, 0.2f);
     }
 
     [Command]
@@ -208,7 +218,7 @@ public class RangeWeapon : NetworkBehaviour
 
     private void StartRecoil()
     {
-        //_recoil.Recoil();
+        _recoil.Recoil();
         StartCoroutine(CameraShake(0.1f, 1));
     }
 

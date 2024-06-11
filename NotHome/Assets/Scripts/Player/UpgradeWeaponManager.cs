@@ -41,7 +41,8 @@ public class UpgradeWeaponManager : MonoBehaviour
                 }
                 break;
             case "Distance":
-                RangeWeapon.Instance.NextWeapon();
+                RangeWeapon.Instance.NextWeapon(); 
+                RangeWeapon.Instance._weaponLevel++;
                 switch (_levelWeapon)
                 {
                     case 2:

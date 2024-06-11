@@ -93,18 +93,46 @@ public class InventoryManager : NetworkBehaviour
     {
         for (int i = 0; i < _slotList.Count; i++)
         {
+            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
+            {
+                _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() + _number);
+                return;
+            }
+        }
+        for (int i = 0; i < _slotList.Count; i++)
+        {
             if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
             {
                 _slotList[i].GetComponent<InventorySlot>().SetNumber(_number);
                 _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite, _isAnEquipement);
                 return;
             }
-            else if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
+        }
+    }
+
+    public bool HasRemainingPlace(string _ItemName = "None")
+    {
+        for (int i = 0; i < _slotList.Count; i++)
+        {
+            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None" 
+                || _slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
             {
-                _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() + _number);
-                return;
+                return true;
             }
         }
+        return false;
+    }
+
+    public bool ContainItem(string _ItemName)
+    {
+        for (int i = 0; i < _slotList.Count; i++)
+        {
+            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void RemoveItems(string _itemName, int _number)
