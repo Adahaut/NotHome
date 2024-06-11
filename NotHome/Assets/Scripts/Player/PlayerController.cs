@@ -78,8 +78,6 @@ public class PlayerController : NetworkBehaviour
 
     bool _canJump;
 
-    public static PlayerController Instance;
-
     public override void OnStartAuthority()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -506,9 +504,5 @@ public class PlayerController : NetworkBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             _isInBook = false;
         }
-    }
-    public void SetNewPosition(Vector3 position)
-    {
-        _transform.position = position;
     }
 }
