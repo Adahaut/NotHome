@@ -169,7 +169,7 @@ public class RangeWeapon : NetworkBehaviour
                     if (_hitInfo.collider.GetComponent<LifeManager>() != null)
                     {
                         print(_hitInfo.collider.name);
-                        _hitInfo.collider.GetComponent<LifeManager>()._currentLife -= _weaponData._damages;
+                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages);
                     }
                 }
                 _currentAmmo--;
