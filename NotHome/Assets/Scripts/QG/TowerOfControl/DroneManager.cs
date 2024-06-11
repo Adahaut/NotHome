@@ -166,7 +166,10 @@ public class DroneManager : NetworkBehaviour
     }
     public void ExitDrone(InputAction.CallbackContext ctx)
     {
-        RpcUpdatePosition(_initPos);
+        if(isOwned)
+        {
+            CmdUpdatePosition(_initPos);
+        }
 
         _canUseDrone = true;
         _canMove = false;
