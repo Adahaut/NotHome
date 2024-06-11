@@ -31,6 +31,9 @@ public class DroneManager : NetworkBehaviour
     private static Transform _transform;
     public static DroneManager Instance;
 
+    [SyncVar(hook = nameof(OnPositionChanged))]
+    private Vector3 _syncedPosition;
+
     private void Awake()
     {
         if (Instance == null)
@@ -53,22 +56,39 @@ public class DroneManager : NetworkBehaviour
         {
             MoveDrone();
             RotateCameraDrone();
-            RpcUpdatePositionOnServer(transform.position);
-            ServUpdatePositionOnServer(transform.position);
+            if (isServer)
+            {
+                RpcUpdatePositionOnClients(transform.position);
+            }
+            else
+            {
+                CmdUpdatePositionOnServer(transform.position);
+            }
         }
     }
 
-    [Server]
-    void ServUpdatePositionOnServer(Vector3 pos)
+    [Command]
+    void CmdUpdatePositionOnServer(Vector3 pos)
     {
-        print("test");
-        transform.position = pos;
+        print("caca");
+        _syncedPosition = pos;
     }
 
     [ClientRpc]
-    void RpcUpdatePositionOnServer(Vector3 pos)
+    void RpcUpdatePositionOnClients(Vector3 pos)
     {
-        transform.position = pos;
+        if (!isServer)
+        {
+            transform.position = pos;
+        }
+    }
+
+    void OnPositionChanged(Vector3 oldPos, Vector3 newPos)
+    {
+        if (!isLocalPlayer)
+        {
+            transform.position = newPos;
+        }
     }
 
     public void GetInputDrone(InputAction.CallbackContext ctx)

@@ -441,6 +441,7 @@ public class PlayerController : NetworkBehaviour
             
             if(hit.collider.GetComponent<DroneManager>())
             {
+                BuildingManager.instance.AssignAuthority(connectionToClient, hit.collider.gameObject);
                 DroneManager drone = hit.collider.GetComponent<DroneManager>();
                 drone.StartDrone(GetComponentInChildren<FollowCamera>().cam, GetComponentInChildren<PlayerInput>());
             }
