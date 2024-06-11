@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -441,11 +442,17 @@ public class PlayerController : NetworkBehaviour
             
             if(hit.collider.GetComponent<DroneManager>())
             {
-                BuildingManager.instance.AssignAuthority(connectionToClient, hit.collider.gameObject);
+                SetAuthorityToDrone(hit.collider.gameObject);
                 DroneManager drone = hit.collider.GetComponent<DroneManager>();
                 drone.StartDrone(GetComponentInChildren<FollowCamera>().cam, GetComponentInChildren<PlayerInput>());
             }
         }
+    }
+
+    [Command]
+    void SetAuthorityToDrone(GameObject c)
+    {
+        BuildingManager.instance.AssignAuthority(connectionToClient, c);
     }
 
     private void FixedUpdate()

@@ -57,20 +57,40 @@ public class DroneManager : NetworkBehaviour
         {
             MoveDrone();
             RotateCameraDrone();
-            UpdatePosition();
+            if (isOwned)
+            {
+                CmdUpdatePosition(transform.position);
+            }
         }
-        transform.position = _syncedPosition;
+        if (!isOwned)
+        {
+            transform.position = _syncedPosition;
+        }
     }
 
-    void UpdatePosition()
+    [Command]
+    void CmdUpdatePosition(Vector3 newPosition)
     {
-        _syncedPosition = transform.position;
+        print("jonbuhgfivdh ked");
+        _syncedPosition = newPosition;
+        RpcUpdatePosition(newPosition);
     }
 
+    [ClientRpc]
+    void RpcUpdatePosition(Vector3 newPosition)
+    {
+        if (!isOwned)
+        {
+            _syncedPosition = newPosition;
+            transform.position = newPosition;
+        }
+    }
     void OnPositionChanged(Vector3 oldPos, Vector3 newPos)
     {
-        // Met à jour la position sur le changement de SyncVar
-        transform.position = newPos;
+        if (!isOwned)
+        {
+            transform.position = newPos;
+        }
     }
 
     public void GetInputDrone(InputAction.CallbackContext ctx)
