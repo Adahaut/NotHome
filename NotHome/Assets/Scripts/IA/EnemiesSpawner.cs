@@ -1,45 +1,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SpawnZone
+{
+    public List<Transform> _points;
+    public List<GameObject> _spawnablePrefabs;
+    public int _numberOfEnemiesToSpawn;
+}
+
 public class EnemiesSpawner : MonoBehaviour
 {
-    public List<Transform> _spawnPoints;
-    public GameObject _enemyPrefab;
-    public int _numberOfEnemiesToSpawn;
+    public List<SpawnZone> _spawnZones;
 
     void Start()
     {
-        SpawnEnemies();
+        SpawnEnemies(1);
     }
 
-    void SpawnEnemies()
+    public void SpawnEnemies(int _zoneIndex)
     {
-        for (int i = 0; i < _numberOfEnemiesToSpawn; i++)
+        if (_zoneIndex < 0 || _zoneIndex >= _spawnZones.Count)
         {
-            Vector3 _spawnPosition = GetRandomPointInPolygon();
-            Instantiate(_enemyPrefab, _spawnPosition, Quaternion.identity);
+            Debug.LogError("Invalid spawn zone index.");
+            return;
+        }
+
+        SpawnZone _selectedZone = _spawnZones[_zoneIndex];
+
+        for (int i = 0; i < _selectedZone._numberOfEnemiesToSpawn; i++)
+        {
+            GameObject _prefabToSpawn = _selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)];
+            Vector3 _spawnPosition = GetRandomPointInPolygon(_selectedZone._points);
+            Instantiate(_prefabToSpawn, _spawnPosition, Quaternion.identity);
         }
     }
 
-    Vector3 GetRandomPointInPolygon()
+    Vector3 GetRandomPointInPolygon(List<Transform> _polygon)
     {
         Vector3 _randomPoint = Vector3.zero;
         bool _pointInPolygon = false;
 
         while (!_pointInPolygon)
         {
-            //Limits of the polygon
-            Bounds bounds = new Bounds(_spawnPoints[0].position, Vector3.zero);
-            foreach (Transform _point in _spawnPoints)
+            //limit of the selected spawn area
+            Bounds bounds = new Bounds(_polygon[0].position, Vector3.zero);
+            foreach (Transform point in _polygon)
             {
-                bounds.Encapsulate(_point.position);
+                bounds.Encapsulate(point.position);
             }
 
             //random point in the area
             _randomPoint = new Vector3(Random.Range(bounds.min.x, bounds.max.x), 100, Random.Range(bounds.min.z, bounds.max.z));
 
             //check if is in the area
-            if (IsPointInPolygon(_randomPoint))
+            if (IsPointInPolygon(_randomPoint, _polygon))
             {
                 _pointInPolygon = true;
             }
@@ -48,25 +63,24 @@ public class EnemiesSpawner : MonoBehaviour
         return _randomPoint;
     }
 
-    bool IsPointInPolygon(Vector3 point)
+    bool IsPointInPolygon(Vector3 _point, List<Transform> _polygon)
     {
-        // Utiliser la méthode de l'algorithme du rayon pour vérifier si le point est dans le polygone
-        int crossingNumber = 0;
+        int _crossingNumber = 0;
 
-        for (int i = 0; i < _spawnPoints.Count; i++)
+        for (int i = 0; i < _polygon.Count; i++)
         {
-            Transform p1 = _spawnPoints[i];
-            Transform p2 = _spawnPoints[(i + 1) % _spawnPoints.Count];
+            Transform p1 = _polygon[i];
+            Transform p2 = _polygon[(i + 1) % _polygon.Count];
 
-            // Vérifier si un rayon horizontal vers la droite croise une arête du polygone
-            if (((p1.position.z <= point.z && point.z < p2.position.z) || (p2.position.z <= point.z && point.z < p1.position.z)) &&
-                (point.x < (p2.position.x - p1.position.x) * (point.z - p1.position.z) / (p2.position.z - p1.position.z) + p1.position.x))
+            //Vérifier si un rayon horizontal vers la droite croise une arête du polygone
+            if (((p1.position.z <= _point.z && _point.z < p2.position.z) || (p2.position.z <= _point.z && _point.z < p1.position.z)) &&
+                (_point.x < (p2.position.x - p1.position.x) * (_point.z - p1.position.z) / (p2.position.z - p1.position.z) + p1.position.x))
             {
-                crossingNumber++;
+                _crossingNumber++;
             }
         }
 
-        // Le point est à l'intérieur du polygone si le nombre de croisements est impair
-        return (crossingNumber % 2 == 1);
+        //Le point est à l'intérieur du polygone si le nombre de croisements est impair
+        return (_crossingNumber % 2 == 1);
     }
 }
