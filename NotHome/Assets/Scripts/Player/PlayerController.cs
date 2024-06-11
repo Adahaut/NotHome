@@ -224,7 +224,7 @@ public class PlayerController : NetworkBehaviour
         _rotation2.x += _rotation.x * Time.deltaTime;
         _rotation2.y -= _rotation.y * Time.deltaTime;
         _rotation2.y = Mathf.Clamp(_rotation2.y, -yRotationLimit, yRotationLimit);
-        _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
+        transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
