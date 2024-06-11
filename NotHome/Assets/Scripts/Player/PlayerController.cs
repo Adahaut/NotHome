@@ -140,7 +140,11 @@ public class PlayerController : NetworkBehaviour
     public void Interaction(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
+        {
             StartUi();
+            if (Ladder.Instance != null)
+                Ladder.Instance.TpLadder(_camera, _distRayCast, this);
+        }
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
@@ -148,6 +152,7 @@ public class PlayerController : NetworkBehaviour
             _timer = 0.05f;
         }
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
