@@ -77,7 +77,7 @@ public class InventorySlot : MonoBehaviour
             _itemContained.SetItem(_ItemName, _itemSprite);
             UpdateNumber();
             UpdateItemVisuel();
-            GetComponent<Image>().sprite = null;
+            _itemImage.sprite = _itemSprite;
         }
     }
 
