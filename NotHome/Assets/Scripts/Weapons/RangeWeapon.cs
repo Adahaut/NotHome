@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RangeWeapon : NetworkBehaviour
 {
-    [SerializeField] private WeaponData _weaponData;
+    [SerializeField] public WeaponData _weaponData;
     [SerializeField] private Transform _muzzle;
     [SerializeField] private Transform _savedCameraTransform;
     [SerializeField] private Camera _playerCamera;
@@ -18,6 +18,7 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private float _speedFactor;
     private ProceduralRecoil _recoil;
     [SerializeField] private GameObject _muzzuleFlashEffect;
+    public int _weaponLevel;
 
     private AudioSource _riffleAudioSource;
     [SerializeField] private AudioClip _riffleAudioClip;
@@ -211,7 +212,7 @@ public class RangeWeapon : NetworkBehaviour
 
     private void StartRecoil()
     {
-        //_recoil.Recoil();
+        _recoil.Recoil();
         StartCoroutine(CameraShake(0.1f, 1));
     }
 

@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     public bool _isMeleeWeaponEqupiped;
     private PlayerController _playerController;
     public List<GameObject> _machetteUpgrades = new List<GameObject>();
+    private RangeWeapon _rangeWeapon;
 
 
     [SerializeField] private float _cadence;
@@ -34,8 +35,13 @@ public class PlayerAttack : MonoBehaviour
         _playerController = GetComponent<PlayerController>();
         _isAimingFinished = true;
         _isRecoilFinished = true;
-
     }
+
+    private void Start()
+    {
+        _rangeWeapon = GetComponentInChildren<RangeWeapon>();
+    }
+
     private void Update()
     {
         _cadenceTimer += Time.deltaTime;
@@ -79,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Aim(InputAction.CallbackContext context)
     {
-        if (_playerController._isInBook || !_isRangeWeaponEqupiped)
+        if (_playerController._isInBook || !_isRangeWeaponEqupiped || _rangeWeapon._weaponLevel < 3 || !_playerController._canAttack)
             return;
         if (context.started)
         {
