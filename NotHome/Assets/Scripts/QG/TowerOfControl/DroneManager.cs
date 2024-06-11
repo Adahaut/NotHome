@@ -54,15 +54,15 @@ public class DroneManager : NetworkBehaviour
             MoveDrone();
             RotateCameraDrone();
             RpcUpdatePositionOnServer(transform.position);
+            ServUpdatePositionOnServer(transform.position);
         }
     }
 
-    private void LateUpdate()
+    [Server]
+    void ServUpdatePositionOnServer(Vector3 pos)
     {
-        //if(!isServer)
-        //{
-        //    this.transform.position = 
-        //}
+        print("test");
+        transform.position = pos;
     }
 
     [ClientRpc]
