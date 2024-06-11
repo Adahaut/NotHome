@@ -230,16 +230,20 @@ public class PlayerController : NetworkBehaviour
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
-        if (_moveDir != Vector2.zero)
+        if(isOwned)
         {
-            //SoundWalking.Instance._isMoving = true;
-            _animator.SetBool("Walking", true);
+            if (_moveDir != Vector2.zero)
+            {
+                //SoundWalking.Instance._isMoving = true;
+                _animator.SetBool("Walking", true);
+            }
+            else
+            {
+                //SoundWalking.Instance._isMoving = false;
+                _animator.SetBool("Walking", false);
+            }
         }
-        else
-        {
-            //SoundWalking.Instance._isMoving = false;
-            _animator.SetBool("Walking", false);
-        }
+        
     }
     private void MovePlayer()
     {

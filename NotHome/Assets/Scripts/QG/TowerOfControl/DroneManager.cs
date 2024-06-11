@@ -55,6 +55,18 @@ public class DroneManager : NetworkBehaviour
             RotateCameraDrone();
         }
     }
+
+    private void LateUpdate()
+    {
+        RpcUpdatePositionOnServer(transform.position);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePositionOnServer(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
     public void GetInputDrone(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
