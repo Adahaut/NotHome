@@ -177,6 +177,7 @@ public class DroneManager : NetworkBehaviour
         _characterController.enabled = false;
 
         _transform.position = _initPos;
+        _syncedPosition = _initPos;
         if (isOwned)
             CmdResetDronePosition();
 
