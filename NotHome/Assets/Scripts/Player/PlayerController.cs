@@ -139,7 +139,11 @@ public class PlayerController : NetworkBehaviour
     public void Interaction(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
+        {
             StartUi();
+            if (Ladder.Instance != null)
+                Ladder.Instance.TpLadder(_camera, _distRayCast, _rigidbodyPlayer.gameObject);
+        }
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
