@@ -78,6 +78,8 @@ public class PlayerController : NetworkBehaviour
 
     bool _canJump;
 
+    public static PlayerController Instance;
+
     public override void OnStartAuthority()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -142,7 +144,7 @@ public class PlayerController : NetworkBehaviour
         {
             StartUi();
             if (Ladder.Instance != null)
-                Ladder.Instance.TpLadder(_camera, _distRayCast, _rigidbodyPlayer.gameObject);
+                Ladder.Instance.TpLadder(_camera, _distRayCast, this);
         }
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
@@ -151,6 +153,7 @@ public class PlayerController : NetworkBehaviour
             _timer = 0.05f;
         }
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
@@ -503,5 +506,9 @@ public class PlayerController : NetworkBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             _isInBook = false;
         }
+    }
+    public void SetNewPosition(Vector3 position)
+    {
+        _transform.position = position;
     }
 }
