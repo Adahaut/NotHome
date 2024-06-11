@@ -224,26 +224,22 @@ public class PlayerController : NetworkBehaviour
         _rotation2.x += _rotation.x * Time.deltaTime;
         _rotation2.y -= _rotation.y * Time.deltaTime;
         _rotation2.y = Mathf.Clamp(_rotation2.y, -yRotationLimit, yRotationLimit);
-        transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
+        _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
     public void GetInputPlayer(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
-        if(isOwned)
+        if (_moveDir != Vector2.zero)
         {
-            if (_moveDir != Vector2.zero)
-            {
-                //SoundWalking.Instance._isMoving = true;
-                _animator.SetBool("Walking", true);
-            }
-            else
-            {
-                //SoundWalking.Instance._isMoving = false;
-                _animator.SetBool("Walking", false);
-            }
+            //SoundWalking.Instance._isMoving = true;
+            _animator.SetBool("Walking", true);
         }
-        
+        else
+        {
+            //SoundWalking.Instance._isMoving = false;
+            _animator.SetBool("Walking", false);
+        }
     }
     private void MovePlayer()
     {
