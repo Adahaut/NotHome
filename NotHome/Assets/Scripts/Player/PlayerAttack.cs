@@ -58,7 +58,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(_playerController != null )
+        if(_playerController != null && _playerController._canAttack)
         {
             if (_playerController._isInBook)
                 return;

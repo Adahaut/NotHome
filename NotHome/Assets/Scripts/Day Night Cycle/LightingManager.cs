@@ -9,6 +9,7 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private Material _nightSkyBox;
     [SerializeField] private Material _daySkyBox;
 
+    public float _timeSpeed;
     private void Update()
     {
         if (_preset == null)
@@ -16,7 +17,7 @@ public class LightingManager : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            _timeOfDay += Time.deltaTime;
+            _timeOfDay += Time.deltaTime * _timeSpeed;
             _timeOfDay %= 24;
         }
         UpdateLighting(_timeOfDay / 24f);
