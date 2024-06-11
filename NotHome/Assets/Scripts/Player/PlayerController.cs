@@ -31,6 +31,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public GameObject _inventory;
     [SerializeField] private string _itemTag;
     [SerializeField] private int _itemPickRange;
+    private InventorySlot _slotSelected;
+    private bool _isInInventory;
 
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
@@ -119,6 +121,7 @@ public class PlayerController : NetworkBehaviour
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
         _inventory.SetActive(!_inventory.activeInHierarchy);
+        _isInInventory = _inventory.activeInHierarchy;
     }
     public void SetIsInBaseInventory(bool _isIn)
     {
@@ -306,12 +309,26 @@ public class PlayerController : NetworkBehaviour
     {
         if (_timer <= 0)
         {
-            CheckIfHotBarIsShowed();
             _scrollDir = ctx.ReadValue<Vector2>();
             int _indexAddition = 0;
             if (_scrollDir.y > 0) _indexAddition = 1;
             else if (_scrollDir.y < 0) _indexAddition = -1;
-            ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
+
+            if (_isInInventory)
+            {
+                if(_slotSelected == null)
+                    _slotSelected = _inventory.GetComponent<InventoryManager>().SelectAt(0);
+                else
+                {
+                    _slotSelected = _inventory.GetComponent<InventoryManager>().SelectAt(_inventory.GetComponent<InventoryManager>().IndexOfSlot(_slotSelected) + _indexAddition);
+                }
+            }
+            else
+            {
+                CheckIfHotBarIsShowed();
+                ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
+                
+            }
             _timer = 0.01f;
         }
     }
@@ -374,6 +391,8 @@ public class PlayerController : NetworkBehaviour
     {
         if(Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider != null && hit.collider.CompareTag(_itemTag))
         {
+            if(!_inventory.GetComponent<InventoryManager>().HasRemainingPlace(hit.collider.GetComponent<Item>().ItemName()))
+                return;
             _inventory.GetComponent<InventoryManager>().AddItem(hit.collider.GetComponent<Item>().ItemName(), hit.collider.GetComponent<Item>().ItemSprite(), false);
             CmdDestroyItem(hit.collider.gameObject);
         }
@@ -509,4 +528,19 @@ public class PlayerController : NetworkBehaviour
             _isInBook = false;
         }
     }
+
+    public void DropItem(InputAction.CallbackContext ctx)
+    {
+        if(_slotSelected == null || _slotSelected.ItemContained().ItemName() == "None" || _timer > 0)
+            return;
+        for(int i = 0; i < _slotSelected.Number(); i++)
+        {
+            print(_inventory.GetComponent<InventoryManager>().GetItemPrefab(_slotSelected.ItemContained().ItemName()));
+            //GameObject _droppedItem = NetworkServer.Spawn(_inventory.GetComponent<InventoryManager>().GetItemPrefab(_slotSelected.ItemContained().ItemName()), gameObject);
+        }
+
+        _slotSelected.ResetItem();
+        _timer = 0.01f;
+    }
+
 }
