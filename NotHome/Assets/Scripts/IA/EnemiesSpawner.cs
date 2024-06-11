@@ -12,10 +12,11 @@ public class SpawnZone
 public class EnemiesSpawner : MonoBehaviour
 {
     public List<SpawnZone> _spawnZones;
+    public LayerMask _groundLayer; 
 
     void Start()
     {
-        SpawnEnemies(1);
+        SpawnEnemies(0);
     }
 
     public void SpawnEnemies(int _zoneIndex)
@@ -32,6 +33,10 @@ public class EnemiesSpawner : MonoBehaviour
         {
             GameObject _prefabToSpawn = _selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)];
             Vector3 _spawnPosition = GetRandomPointInPolygon(_selectedZone._points);
+
+            // Adjust the spawn position to be on the ground
+            _spawnPosition = GetGroundPosition(_spawnPosition);
+
             Instantiate(_prefabToSpawn, _spawnPosition, Quaternion.identity);
         }
     }
@@ -43,17 +48,17 @@ public class EnemiesSpawner : MonoBehaviour
 
         while (!_pointInPolygon)
         {
-            //limit of the selected spawn area
+            // Limit of the selected spawn area
             Bounds bounds = new Bounds(_polygon[0].position, Vector3.zero);
             foreach (Transform point in _polygon)
             {
                 bounds.Encapsulate(point.position);
             }
 
-            //random point in the area
+            // Random point in the area
             _randomPoint = new Vector3(Random.Range(bounds.min.x, bounds.max.x), 100, Random.Range(bounds.min.z, bounds.max.z));
 
-            //check if is in the area
+            // Check if is in the area
             if (IsPointInPolygon(_randomPoint, _polygon))
             {
                 _pointInPolygon = true;
@@ -61,6 +66,17 @@ public class EnemiesSpawner : MonoBehaviour
         }
 
         return _randomPoint;
+    }
+
+    Vector3 GetGroundPosition(Vector3 _position)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(_position.x, 100, _position.z), Vector3.down, out hit, Mathf.Infinity, _groundLayer))
+        {
+            return hit.point;
+        }
+
+        return _position;
     }
 
     bool IsPointInPolygon(Vector3 _point, List<Transform> _polygon)
@@ -72,7 +88,7 @@ public class EnemiesSpawner : MonoBehaviour
             Transform p1 = _polygon[i];
             Transform p2 = _polygon[(i + 1) % _polygon.Count];
 
-            //Vérifier si un rayon horizontal vers la droite croise une arête du polygone
+            // Vérifier si un rayon horizontal vers la droite croise une arête du polygone
             if (((p1.position.z <= _point.z && _point.z < p2.position.z) || (p2.position.z <= _point.z && _point.z < p1.position.z)) &&
                 (_point.x < (p2.position.x - p1.position.x) * (_point.z - p1.position.z) / (p2.position.z - p1.position.z) + p1.position.x))
             {
@@ -80,7 +96,7 @@ public class EnemiesSpawner : MonoBehaviour
             }
         }
 
-        //Le point est à l'intérieur du polygone si le nombre de croisements est impair
+        // Le point est à l'intérieur du polygone si le nombre de croisements est impair
         return (_crossingNumber % 2 == 1);
     }
 }
