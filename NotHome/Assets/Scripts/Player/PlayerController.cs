@@ -388,7 +388,6 @@ public class PlayerController : NetworkBehaviour
 
     private void ChangeStamina(float _value)
     {
-
         _playerManager.Stamina += _value;
         _playerManager.SetStaminaBar();
     }
@@ -411,6 +410,10 @@ public class PlayerController : NetworkBehaviour
     private IEnumerator RunningStamina()
     {
         _runningStaminaLose = true;
+        if (!_playerManager._stamParent.activeSelf)
+        {
+            _playerManager.StartStamina(true, 1f);
+        }
         while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
