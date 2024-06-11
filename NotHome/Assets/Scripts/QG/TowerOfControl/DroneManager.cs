@@ -177,6 +177,25 @@ public class DroneManager : NetworkBehaviour
         _characterController.enabled = false;
 
         _transform.position = _initPos;
+        if (isOwned)
+            CmdResetDronePosition();
+
+        _transform.eulerAngles = Vector3.zero;
+        _camera.eulerAngles = Vector3.zero;
+    }
+
+    [Command]
+    void CmdResetDronePosition()
+    {
+        _syncedPosition = _initPos;
+        RpcResetDronePosition(_initPos);
+    }
+
+    [ClientRpc]
+    void RpcResetDronePosition(Vector3 resetPos)
+    {
+        _syncedPosition = resetPos;
+        transform.position = resetPos;
         _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
     }
