@@ -166,11 +166,6 @@ public class DroneManager : NetworkBehaviour
     }
     public void ExitDrone(InputAction.CallbackContext ctx)
     {
-        if(isOwned)
-        {
-            CmdUpdatePosition(_initPos);
-        }
-
         _canUseDrone = true;
         _canMove = false;
 
@@ -180,6 +175,8 @@ public class DroneManager : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         _cameraPlayer.enabled = true;
         _characterController.enabled = false;
+
+        _transform.position = _initPos;
         _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
     }
