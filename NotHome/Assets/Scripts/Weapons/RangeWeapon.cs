@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -46,6 +47,9 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] public List<GameObject> _level3Weapon = new List<GameObject>();
     [SerializeField] public List<GameObject> _level4Weapon = new List<GameObject>();
 
+    private List<List<GameObject>> _levelWeaponList = new();
+    [SerializeField] private List<WeaponData> _weaponLvl = new();
+
     public static RangeWeapon Instance;
 
     private void Awake()
@@ -58,6 +62,10 @@ public class RangeWeapon : NetworkBehaviour
     private void Start()
     {
         _transform = transform;
+        _levelWeaponList.Add(_level2Weapon);
+        _levelWeaponList.Add(_level3Weapon);
+        _levelWeaponList.Add(_level4Weapon);
+        _weaponData = _weaponLvl[_weaponLevel - 1];
         PlayerAttack._shootAction += Shoot;
         PlayerAttack._reloading += StartReload;
         PlayerAttack._aimAction += StartAiming;
@@ -69,6 +77,7 @@ public class RangeWeapon : NetworkBehaviour
         _originalPosition = _transform.localPosition;
         _recoil = GetComponent<ProceduralRecoil>();
         _playerController = GetComponentInParent<PlayerController>();
+        UpdateWeaponVisualAtLaunch();
     }
     public void NextWeapon()
     {
@@ -89,6 +98,14 @@ public class RangeWeapon : NetworkBehaviour
         for (int i = 0;  i < _meshList.Count; i++)
         {
             _meshList[i].SetActive(true);
+        }
+    }
+
+    private void UpdateWeaponVisualAtLaunch()
+    {
+        for (int i = 0; i < _weaponLevel; ++i)
+        {
+            UpgradeWeaponVisual(_levelWeaponList[i]);
         }
     }
 
