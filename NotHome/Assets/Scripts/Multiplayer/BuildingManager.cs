@@ -35,5 +35,10 @@ public class BuildingManager : NetworkBehaviour
         b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
     }
 
+    public void RemoveAuthority(GameObject b)
+    {
+        b.GetComponent<NetworkIdentity>().RemoveClientAuthority();
+    }
+
 }
 

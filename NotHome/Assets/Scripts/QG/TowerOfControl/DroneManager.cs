@@ -71,7 +71,6 @@ public class DroneManager : NetworkBehaviour
     [Command]
     void CmdUpdatePosition(Vector3 newPosition)
     {
-        print("jonbuhgfivdh ked");
         _syncedPosition = newPosition;
         RpcUpdatePosition(newPosition);
     }
@@ -167,6 +166,9 @@ public class DroneManager : NetworkBehaviour
     }
     public void ExitDrone(InputAction.CallbackContext ctx)
     {
+        CmdUpdatePosition(_initPos);
+        BuildingManager.instance.RemoveAuthority(this.gameObject);
+
         _canUseDrone = true;
         _canMove = false;
 
@@ -176,7 +178,6 @@ public class DroneManager : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         _cameraPlayer.enabled = true;
         _characterController.enabled = false;
-        _transform.position = _initPos;
         _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
     }
