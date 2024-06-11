@@ -151,7 +151,6 @@ public class RangeWeapon : NetworkBehaviour
     {
         if(_currentAmmo > 0)
         {
-            //print(_currentAmmo.ToString());
             if (CanShoot())
             {
                 StartCoroutine(_playerController.AnimOneTime("Shoot"));

@@ -2,12 +2,15 @@ using Mirror;
 using Steamworks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+
 //using System.Diagnostics;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Timeline.Actions.MenuPriority;
 
 public class PlayerStockageUI : NetworkBehaviour
 {
@@ -189,20 +192,36 @@ public class PlayerStockageUI : NetworkBehaviour
 
     public void RemoveItemFromBase(string _name, int _number, int _index, InventorySlot _inventorySlot)
     {
-        Sprite s = null;
-        foreach (Item i in InventoryBaseManager.instance._allItems)
+        if(!_inventorySlot.GetComponentInParent<InventoryManager>().HasRemainingPlace(_name))
+            return;
+
+        if(_inventorySlot.GetComponentInParent<InventoryManager>().ContainItem(_name))
         {
-            if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == i.ItemName())
+            _inventorySlot.GetComponentInParent<InventoryManager>().AddItem(_name, null, false, _number);
+        }
+        else
+        {
+            Sprite _sprite = null;
+            foreach (Item _item in InventoryBaseManager.instance._allItems)
             {
-                s = i.ItemSprite();
+                if (InventoryBaseManager.instance._inventoryItems[_index]._name != "None" && InventoryBaseManager.instance._inventoryItems[_index]._name == _item.ItemName())
+                {
+                    _sprite = _item.ItemSprite();
+                }
+            }
+            if(_inventorySlot.ItemContained().ItemName() == "None")
+            {
+                _inventorySlot.ChangeItem(_name, _sprite, false);
+                _inventorySlot.SetNumber(_number);
+
+                _inventorySlot.UpdateItem(_number, _sprite, _name);
+                _inventorySlot._itemImage.sprite = _sprite;
+            }
+            else
+            {
+                _inventorySlot.GetComponentInParent<InventoryManager>().AddItem(_name, _sprite, false, _number);
             }
         }
-
-        _inventorySlot.ChangeItem(_name, s, false);
-        _inventorySlot.SetNumber(_number);
-
-        _inventorySlot.UpdateItem(_number, s, _name);
-        _inventorySlot._itemImage.sprite = s;
 
         //UpdateOneItem(GetIndexOf(_name), _number);
 
