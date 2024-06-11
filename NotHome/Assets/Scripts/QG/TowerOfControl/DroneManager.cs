@@ -64,11 +64,7 @@ public class DroneManager : NetworkBehaviour
 
     void UpdatePosition()
     {
-        if (isServer)
-        {
-            // Met à jour la position sur le serveur
-            _syncedPosition = transform.position;
-        }
+        _syncedPosition = transform.position;
     }
 
     void OnPositionChanged(Vector3 oldPos, Vector3 newPos)
