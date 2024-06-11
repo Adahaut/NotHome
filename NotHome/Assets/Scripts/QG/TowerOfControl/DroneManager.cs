@@ -124,11 +124,10 @@ public class DroneManager : NetworkBehaviour
     }
     public void StartDrone(Camera playerCam, PlayerInput playerInput)
     {
-        _cameraPlayer = playerCam;
-        _playerInput = playerInput;
-
         if (_canUseDrone)
         {
+            _cameraPlayer = playerCam;
+            _playerInput = playerInput;
             _canUseDrone = false;
             QuestManager.Instance.QuestComplete(10);
             _canMove = true;
