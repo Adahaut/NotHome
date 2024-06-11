@@ -185,20 +185,14 @@ public class RangeWeapon : NetworkBehaviour
     [Command]
     void CmdPlayShootSound()
     {
-        RpcPlayShootSound();
+        RpcPlayShootSound(/*this.transform.position*/);
     }
 
     [ClientRpc]
-    void RpcPlayShootSound()
+    void RpcPlayShootSound(/*Vector3 position*/)
     {
-        //AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position);
-        AudioSource audioSource = GetComponent<AudioSource>();
-
-        if (audioSource != null && _riffleAudioClip != null)
-        {
-            print("shoot sound");
-            audioSource.PlayOneShot(_riffleAudioClip);
-        }
+        print(this.transform.position);
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position/*position*/);
     }
 
     [Command]
