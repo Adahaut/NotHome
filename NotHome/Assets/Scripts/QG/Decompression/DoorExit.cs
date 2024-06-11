@@ -51,9 +51,9 @@ public class DoorExit : MonoBehaviour
     {
         _qgIsLevel3 = true;
     }
-    public void OpenDoor(Transform camera)
+    public void OpenDoor(Transform camera, float distRayCast)
     {
-        if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, PC.Instance.GetDistRayCast()))
+        if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
             if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
             {
