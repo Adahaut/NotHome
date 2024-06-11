@@ -47,6 +47,7 @@ public class DroneManager : NetworkBehaviour
         _canUseDrone = true;
         _transform = transform;
         _initPos = _transform.position;
+        _syncedPosition = _initPos;
         _characterController = GetComponent<CharacterController>();
         //_playerInput.actions.actionMaps[1].Disable();
     }
@@ -56,39 +57,24 @@ public class DroneManager : NetworkBehaviour
         {
             MoveDrone();
             RotateCameraDrone();
-            if (isServer)
-            {
-                RpcUpdatePositionOnClients(transform.position);
-            }
-            else
-            {
-                CmdUpdatePositionOnServer(transform.position);
-            }
+            UpdatePosition();
         }
+        transform.position = _syncedPosition;
     }
 
-    [Command]
-    void CmdUpdatePositionOnServer(Vector3 pos)
+    void UpdatePosition()
     {
-        print("caca");
-        _syncedPosition = pos;
-    }
-
-    [ClientRpc]
-    void RpcUpdatePositionOnClients(Vector3 pos)
-    {
-        if (!isServer)
+        if (isServer)
         {
-            transform.position = pos;
+            // Met à jour la position sur le serveur
+            _syncedPosition = transform.position;
         }
     }
 
     void OnPositionChanged(Vector3 oldPos, Vector3 newPos)
     {
-        if (!isLocalPlayer)
-        {
-            transform.position = newPos;
-        }
+        // Met à jour la position sur le changement de SyncVar
+        transform.position = newPos;
     }
 
     public void GetInputDrone(InputAction.CallbackContext ctx)
