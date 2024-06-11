@@ -4879,11 +4879,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4271112134823421783, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6036582677622157018, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: m_Name
       value: Control Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377381830501080129, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377381830501080129, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6529258719903901488, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462403879814755187, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+      propertyPath: m_Name
+      value: DroneInterfaceInteraction
       objectReference: {fileID: 0}
     - target: {fileID: 8097586880190266288, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: _camera
@@ -4934,10 +4950,37 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7837894956432123117, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+    - {fileID: 8421955850194173228, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 200324521482400696, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 696960470}
   m_SourcePrefab: {fileID: 100100000, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+--- !u!1 &696960469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 200324521482400696, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+  m_PrefabInstance: {fileID: 696960468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &696960470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696960469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3917807242
+  _assetId: 999495976
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1001 &726761385
 PrefabInstance:
   m_ObjectHideFlags: 0

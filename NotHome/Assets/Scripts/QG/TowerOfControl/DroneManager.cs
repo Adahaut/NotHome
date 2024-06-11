@@ -1,11 +1,12 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class DroneManager : MonoBehaviour
+public class DroneManager : NetworkBehaviour
 {
     [SerializeField] private Transform _camera;
-    public static bool _canUseDrone;
+    [SyncVar] public bool _canUseDrone;
 
     private Vector2 _moveDir;
     private Vector2 _rotation = Vector2.zero;
@@ -22,8 +23,8 @@ public class DroneManager : MonoBehaviour
     private bool _isDown;
 
     private CharacterController _characterController;
-    [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private Camera _cameraPlayer;
+    public PlayerInput _playerInput;
+    public Camera _cameraPlayer;
     [SerializeField] private GameObject _uiDrone;
 
     [Range(0f, 90f)][SerializeField] float _yRotationLimit = 88f;
@@ -40,10 +41,11 @@ public class DroneManager : MonoBehaviour
 
     public void Start()
     {
+        _canUseDrone = true;
         _transform = transform;
         _initPos = _transform.position;
         _characterController = GetComponent<CharacterController>();
-        _playerInput.actions.actionMaps[1].Disable();
+        //_playerInput.actions.actionMaps[1].Disable();
     }
     private void Update()
     {
@@ -83,6 +85,7 @@ public class DroneManager : MonoBehaviour
         float curSpeedX = _canMove ? _walkSpeed * _moveDir.y : 0;
         float curSpeedY = _canMove ? _walkSpeed * _moveDir.x : 0;
         float movementDirectionY = _moveDirection.y;
+
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
         _moveDirection.y = 0;
         if (_isUp && _canMove)
@@ -97,7 +100,7 @@ public class DroneManager : MonoBehaviour
         {
             _moveDirection.y = 0;
         }
-
+        print(_moveDirection);
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
     private void RotateCameraDrone()
@@ -108,21 +111,27 @@ public class DroneManager : MonoBehaviour
         _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
-    public void StartDrone()
+    public void StartDrone(Camera playerCam, PlayerInput playerInput)
     {
+        _cameraPlayer = playerCam;
+        _playerInput = playerInput;
+
         if (_canUseDrone)
         {
+            _canUseDrone = false;
             QuestManager.Instance.QuestComplete(10);
             _canMove = true;
             _characterController.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
-            _uiDrone.SetActive(false);
-            _cameraPlayer.enabled = false;
-            _playerInput.actions.actionMaps[1].Enable();
+            //_uiDrone.SetActive(false);
+            playerCam.enabled = false;
+            playerInput.actions.actionMaps[0].Disable();
+            playerInput.actions.actionMaps[1].Enable();
         }
     }
     public void ExitDrone(InputAction.CallbackContext ctx)
     {
+        _canUseDrone = true;
         _canMove = false;
         _characterController.enabled = false;
         Cursor.lockState = CursorLockMode.None;

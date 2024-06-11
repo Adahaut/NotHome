@@ -430,13 +430,19 @@ public class PlayerController : NetworkBehaviour
     {
         if (_canOpen && Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
         {
-            //hit.collider.GetComponent<BuildInterractable>().SetUsedPlayer(gameObject);
+
             if(hit.collider.GetComponent<BuildInterractable>())
             {
                 OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
                 hit.collider.GetComponent<BuildInterractable>()._isOpen = true;
+                return;
             }
             
+            if(hit.collider.GetComponent<DroneManager>())
+            {
+                DroneManager drone = hit.collider.GetComponent<DroneManager>();
+                drone.StartDrone(GetComponentInChildren<FollowCamera>().cam, GetComponentInChildren<PlayerInput>());
+            }
         }
     }
 

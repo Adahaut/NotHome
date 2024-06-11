@@ -1010,13 +1010,13 @@ MonoBehaviour:
     m_ActionName: Player/Reload[/Keyboard/r]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1662077986977072786, guid: 46e15b5c297036e46bb54cddee94af53, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1701956542081216668, guid: a39196a98ef8ce04aa9773995b866e2a, type: 3}
+        m_TargetAssemblyTypeName: DroneManager, Assembly-CSharp
+        m_MethodName: GetInputDrone
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1026,13 +1026,13 @@ MonoBehaviour:
     m_ActionName: Drone/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1662077986977072786, guid: 46e15b5c297036e46bb54cddee94af53, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1701956542081216668, guid: a39196a98ef8ce04aa9773995b866e2a, type: 3}
+        m_TargetAssemblyTypeName: DroneManager, Assembly-CSharp
+        m_MethodName: GetMouseDeltaDrone
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1042,13 +1042,13 @@ MonoBehaviour:
     m_ActionName: Drone/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1662077986977072786, guid: 46e15b5c297036e46bb54cddee94af53, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1701956542081216668, guid: a39196a98ef8ce04aa9773995b866e2a, type: 3}
+        m_TargetAssemblyTypeName: DroneManager, Assembly-CSharp
+        m_MethodName: GetInputSpace
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1058,13 +1058,13 @@ MonoBehaviour:
     m_ActionName: Drone/Space[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1662077986977072786, guid: 46e15b5c297036e46bb54cddee94af53, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1701956542081216668, guid: a39196a98ef8ce04aa9773995b866e2a, type: 3}
+        m_TargetAssemblyTypeName: DroneManager, Assembly-CSharp
+        m_MethodName: GetInputShift
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1074,13 +1074,13 @@ MonoBehaviour:
     m_ActionName: Drone/LeftShift[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1662077986977072786, guid: 46e15b5c297036e46bb54cddee94af53, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1701956542081216668, guid: a39196a98ef8ce04aa9773995b866e2a, type: 3}
+        m_TargetAssemblyTypeName: DroneManager, Assembly-CSharp
+        m_MethodName: ExitDrone
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1866,7 +1866,6 @@ GameObject:
   - component: {fileID: 4891196314714064706}
   - component: {fileID: -640250862484899110}
   - component: {fileID: 2775146212536797020}
-  - component: {fileID: 6079680459703277141}
   - component: {fileID: 8826550358205335597}
   - component: {fileID: 1894164336023575211}
   - component: {fileID: 2836417839884567922}
@@ -1954,33 +1953,6 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
---- !u!54 &6079680459703277141
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5236232325511716344}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
 --- !u!143 &8826550358205335597
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2004,7 +1976,7 @@ CharacterController:
   m_Radius: 0
   m_SlopeLimit: 45
   m_StepOffset: 0
-  m_SkinWidth: 0.0001
+  m_SkinWidth: 0.5
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &1894164336023575211
@@ -3512,11 +3484,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 249704638487184767, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 249704638487184767, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 302266541803566371, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Pivot.x
@@ -3723,12 +3695,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2172781379262096883, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6111432323842770088}
+    - target: {fileID: 2172781379262096883, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OpenUi
       objectReference: {fileID: 0}
     - target: {fileID: 2172781379262096883, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PC, Assembly-CSharp
+      value: PlayerController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2172781379262096883, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3800,11 +3776,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3378165524744944934, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3378165524744944934, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3447256055992742069, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
@@ -3884,11 +3860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5049069689591512130, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5049069689591512130, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5079258104742095333, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
@@ -3922,13 +3898,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 5493350871236684616, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 5483912871609835639, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5493350871236684616, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5493350871236684616, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5659604857842946504, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
@@ -3945,6 +3925,10 @@ PrefabInstance:
     - target: {fileID: 6105031549103105333, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Name
       value: 7 - MinimapSelector
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105031549103105333, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6174983499453003357, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
@@ -4168,11 +4152,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9153336866407461106, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9153336866407461106, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -8072433318476332922, guid: c65c6ee038096654983d801be093112f, type: 3}

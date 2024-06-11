@@ -16,7 +16,7 @@ public class MinimapSwaper : MonoBehaviour
     [SerializeField] private RenderTexture _noMinimapSprite;
 
     private InventorySlot _usbKeySlot;
-    private PC _playerController;
+    private PlayerController _playerController;
     [SerializeField] private EventSystem _eventSystem;
     [SerializeField] private GraphicRaycaster _raycaster;
     private GameObject _result;
@@ -27,11 +27,14 @@ public class MinimapSwaper : MonoBehaviour
     private void Awake()
     {
         _usbKeySlot = GetComponentInChildren<InventorySlot>();
-        _playerController = GetComponentInParent<PC>();
+        _playerController = GetComponentInParent<PlayerController>();
     }
 
     private void OnEnable()
     {
+        if(_playerController == null)
+            _playerController = GetComponentInParent<PlayerController>();
+
         _playerController.SetInventoryActive(true);
     }
 

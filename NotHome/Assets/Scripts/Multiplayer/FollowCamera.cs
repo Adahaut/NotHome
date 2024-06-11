@@ -6,7 +6,7 @@ public class FollowCamera : MonoBehaviour
 {
     public Camera linkedCam;
 
-    [SerializeField] private Camera cam;
+    public Camera cam;
     private void Update()
     {
         linkedCam.transform.position = cam.transform.position;

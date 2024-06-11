@@ -150,14 +150,11 @@ public class RangeWeapon : NetworkBehaviour
     {
         if(_currentAmmo > 0)
         {
-            //print(_currentAmmo.ToString());
             if (CanShoot())
             {
                 StartCoroutine(_playerController.AnimOneTime("Shoot"));
                 StartRecoil();
 
-                //if (identity.isOwned || identity.isServer)
-                //    CmdPlayShootSound();
                 if(isOwned)
                     CmdPlayShootSound();
 
@@ -185,14 +182,13 @@ public class RangeWeapon : NetworkBehaviour
     [Command]
     void CmdPlayShootSound()
     {
-        RpcPlayShootSound(/*this.transform.position*/);
+        RpcPlayShootSound();
     }
 
     [ClientRpc]
-    void RpcPlayShootSound(/*Vector3 position*/)
+    void RpcPlayShootSound()
     {
-        print(this.transform.position);
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position/*position*/);
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position);
     }
 
     [Command]

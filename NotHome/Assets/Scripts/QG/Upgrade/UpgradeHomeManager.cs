@@ -92,7 +92,7 @@ public class UpgradeHomeManager : MonoBehaviour
         }
         else if (_levelBuilding >= 3)
         {
-            DroneManager._canUseDrone = true;
+            //DroneManager._canUseDrone = true;
             QuestManager.Instance.SetQuestUpLevel3();
         }  
     }
