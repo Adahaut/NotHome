@@ -77,7 +77,6 @@ public class DroneManager : NetworkBehaviour
     }
     public void GetInputSpace(InputAction.CallbackContext ctx)
     {
-        
         _isUp = true;
         if (ctx.canceled)
         {
