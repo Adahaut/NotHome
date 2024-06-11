@@ -16,7 +16,7 @@ public class Enemies : MonoBehaviour
     private bool _hasSeenPlayer;
     private bool _alreadyAttacked;
     private float _distanceToPlayer;
-    private Collider _playerDetectionCollider;
+    public Collider _playerDetectionCollider;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class Enemies : MonoBehaviour
         _initialPosition = _transform.position;
         _agent = GetComponent<NavMeshAgent>();
         _players = GameObject.FindGameObjectsWithTag("Player");
-        _playerDetectionCollider = GetComponentInChildren<BoxCollider>();
+        //_playerDetectionCollider = GetComponentInChildren<BoxCollider>();
         _playerDetectionCollider.enabled = false;
     }
 

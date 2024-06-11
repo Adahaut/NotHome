@@ -16,6 +16,7 @@ public class Boss2 : MonoBehaviour
 
     private void Start()
     {
+        _hq = GameObject.Find("MiniMaps (1)");
         _agent = GetComponent<NavMeshAgent>();
         _transform = transform;
         _hqTransform = _hq.transform;

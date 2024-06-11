@@ -62,6 +62,7 @@ public class LifeManager : MonoBehaviour
         {
             QuestManager.Instance.SetQuestX();
         }
+
         Destroy(gameObject);
     }
 
