@@ -50,6 +50,8 @@ public class RangeWeapon : NetworkBehaviour
     private List<List<GameObject>> _levelWeaponList = new();
     [SerializeField] private List<WeaponData> _weaponLvl = new();
 
+    public float _maxHearingDistance = 15f;
+
     public static RangeWeapon Instance;
 
     private void Awake()
@@ -180,7 +182,6 @@ public class RangeWeapon : NetworkBehaviour
                     CmdPlayShootSound(transform.position);
                     CmdPlayMuzzleFlash();
                 }
-
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
                     CreateSmoke(_hitInfo.point);
@@ -225,18 +226,20 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound(Vector3 pos)
     {
-        PlaySoundAtPosition(pos);
-    }
-
-    void PlaySoundAtPosition(Vector3 pos)
-    {
-        float distance = Vector3.Distance(transform.position, pos);
-        float volume = Mathf.Clamp(1 / distance, 0.1f, 1f);
-
-        AudioSource audioSource = GetComponent<AudioSource>();
-        if (audioSource != null)
+        //AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
+        if (isOwned)
         {
-            audioSource.PlayOneShot(_riffleAudioClip, volume);
+            // Check distance for the host
+            float distance = Vector3.Distance(transform.position, pos);
+            if (distance <= _maxHearingDistance)
+            {
+                AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
+            }
+        }
+        else
+        {
+            // For other clients, play sound without distance check
+            AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
         }
     }
 
