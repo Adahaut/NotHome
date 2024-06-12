@@ -212,19 +212,23 @@ public class PlayerController : NetworkBehaviour
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
-        _isRunning = true;
-        if (context.performed)
+        if(isOwned)
         {
-            //SoundWalking.Instance._isRunning = true;
+            _isRunning = true;
+            if (context.performed)
+            {
+                //SoundWalking.Instance._isRunning = true;
+            }
+            if (_moveDir != Vector2.zero)
+                _animator.SetBool("Run", true);
+            if (context.canceled || _playerManager.Stamina <= 0)
+            {
+                _isRunning = false;
+                _animator.SetBool("Run", false);
+                //SoundWalking.Instance._isRunning = false;
+            }
         }
-        if (_moveDir != Vector2.zero)
-            _animator.SetBool("Run", true);
-        if (context.canceled || _playerManager.Stamina <= 0)
-        {
-            _isRunning = false;
-            _animator.SetBool("Run", false);
-            //SoundWalking.Instance._isRunning = false;
-        }
+        
     }
 
     private void Timer()
