@@ -204,13 +204,14 @@ public class RangeWeapon : NetworkBehaviour
     void CmdPlayShootSound(Vector3 pos)
     {
         AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
-        //RpcPlayShootSound(pos);
+        RpcPlayShootSound(pos);
     }
 
     [ClientRpc]
     void RpcPlayShootSound(Vector3 pos)
     {
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
+        if(!isServer)
+            AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
     }
 
     public void KillEnemy(GameObject e)
