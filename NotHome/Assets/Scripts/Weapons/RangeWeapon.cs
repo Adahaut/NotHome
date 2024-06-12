@@ -210,11 +210,6 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound(Vector3 position)
     {
-        PlayShootSound(position);
-    }
-
-    void PlayShootSound(Vector3 position)
-    {
         AudioSource.PlayClipAtPoint(_riffleAudioClip, position);
     }
 
