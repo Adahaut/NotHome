@@ -176,11 +176,11 @@ public class RangeWeapon : NetworkBehaviour
                 StartRecoil();
 
                 if(isOwned)
+                {
                     CmdPlayShootSound(transform.position);
-
-                if(isOwned)
                     CmdPlayMuzzleFlash();
-                
+                }
+
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
                     CreateSmoke(_hitInfo.point);
@@ -225,7 +225,19 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound(Vector3 pos)
     {
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
+        PlaySoundAtPosition(pos);
+    }
+
+    void PlaySoundAtPosition(Vector3 pos)
+    {
+        float distance = Vector3.Distance(transform.position, pos);
+        float volume = Mathf.Clamp(1 / distance, 0.1f, 1f);
+
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(_riffleAudioClip, volume);
+        }
     }
 
     [Command]
