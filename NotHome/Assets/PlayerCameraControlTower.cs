@@ -19,7 +19,7 @@ public class PlayerCameraControlTower : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        StartCoroutine(SetupScreens());
+        //StartCoroutine(SetupScreens());
         base.OnStartServer();
     }
 
