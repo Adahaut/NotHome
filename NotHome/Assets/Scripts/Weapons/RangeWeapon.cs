@@ -204,21 +204,14 @@ public class RangeWeapon : NetworkBehaviour
     [Command]
     void CmdPlayShootSound(Vector3 pos)
     {
-        RpcPlayShootSound(pos, netId);
+        RpcPlayShootSound(pos);
     }
 
     [ClientRpc]
-    void RpcPlayShootSound(Vector3 pos, uint shooterNetId)
+    void RpcPlayShootSound(Vector3 pos)
     {
-        if (isLocalPlayer && netId != shooterNetId)
-        {
-            float distance = Vector3.Distance(transform.position, pos);
-            if (distance <= _maxHearingDistance)
-            {
-                AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
-            }
-        }
-        else if (netId == shooterNetId)
+        float distance = Vector3.Distance(transform.position, pos);
+        if (distance <= _maxHearingDistance)
         {
             AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
         }
