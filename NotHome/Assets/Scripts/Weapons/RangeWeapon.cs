@@ -226,19 +226,7 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound(Vector3 pos)
     {
-        //AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
-        if (!isOwned)
-        {
-            float distance = Vector3.Distance(transform.position, pos);
-            if (distance <= _maxHearingDistance)
-            {
-                AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
-            }
-        }
-        else
-        {
-            AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
-        }
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
     }
 
     [Command]
