@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class SpawnZone
     public int _numberOfEnemiesToSpawn;
 }
 
-public class EnemiesSpawner : MonoBehaviour
+public class EnemiesSpawner : NetworkBehaviour
 {
     public List<SpawnZone> _spawnZones;
     public LayerMask _groundLayer; 
@@ -37,7 +38,8 @@ public class EnemiesSpawner : MonoBehaviour
             // Adjust the spawn position to be on the ground
             _spawnPosition = GetGroundPosition(_spawnPosition);
 
-            Instantiate(_prefabToSpawn, _spawnPosition, Quaternion.identity);
+            GameObject go = Instantiate(_prefabToSpawn, _spawnPosition, Quaternion.identity);
+            NetworkServer.Spawn(go);
         }
     }
 
