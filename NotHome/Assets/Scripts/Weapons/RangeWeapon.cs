@@ -180,6 +180,7 @@ public class RangeWeapon : NetworkBehaviour
 
                 if(isOwned)
                 {
+                    print(_muzzle.position);
                     CmdPlayShootSound(_muzzle.position);
                     CmdPlayMuzzleFlash();
                 }
