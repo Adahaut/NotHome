@@ -236,12 +236,12 @@ public class PlayerController : NetworkBehaviour
         if (_moveDir != Vector2.zero)
         {
             //SoundWalking.Instance._isMoving = true;
-            _animator.SetBool("Walking", true);
+            //_animator.SetBool("Walking", true);
         }
         else
         {
             //SoundWalking.Instance._isMoving = false;
-            _animator.SetBool("Walking", false);
+            //_animator.SetBool("Walking", false);
         }
     }
     private void MovePlayer()
@@ -251,6 +251,10 @@ public class PlayerController : NetworkBehaviour
 
         float curSpeedX = _canMove ? (_isRunning ? _runSpeed : _walkSpeed) * _moveDir.y : 0;
         float curSpeedY = _canMove ? (_isRunning ? _runSpeed : _walkSpeed) * _moveDir.x : 0;
+
+        _animator.SetFloat("y", curSpeedX / 10f);
+        _animator.SetFloat("x", curSpeedY / 10f);
+
         float movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
