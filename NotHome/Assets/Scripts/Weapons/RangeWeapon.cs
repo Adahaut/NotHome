@@ -54,6 +54,7 @@ public class RangeWeapon : NetworkBehaviour
 
     public static RangeWeapon Instance;
     public GameObject _hitMarker;
+    public GameObject _bloodEffect;
 
     private void Awake()
     {
@@ -196,14 +197,18 @@ public class RangeWeapon : NetworkBehaviour
 
                 if(isOwned)
                     CmdPlayMuzzleFlash();
-                
+
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
-                    CreateSmoke(_hitInfo.point);
                     if (_hitInfo.collider.GetComponent<LifeManager>() != null)
                     {
-                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages, this.transform.root.gameObject);
+                        CreateBlood(_hitInfo.point);
                         StartCoroutine(HitMarker());
+                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages, this.transform.root.gameObject);
+                    }
+                    else
+                    {
+                        CreateSmoke(_hitInfo.point);
                     }
                 }
                 _currentAmmo--;
@@ -231,6 +236,12 @@ public class RangeWeapon : NetworkBehaviour
     {
         GameObject _smoke = Instantiate(_smokeBulletImpact, _position, Quaternion.identity);
         Destroy(_smoke, 0.2f);
+    }
+
+    private void CreateBlood(Vector3 _position)
+    {
+        GameObject _blood = Instantiate(_bloodEffect, _position, Quaternion.identity);
+        Destroy(_blood, 1f);
     }
 
     [Command]
@@ -301,7 +312,7 @@ public class RangeWeapon : NetworkBehaviour
     private IEnumerator HitMarker()
     {
         _hitMarker.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         _hitMarker.SetActive(false);
     }
 }
