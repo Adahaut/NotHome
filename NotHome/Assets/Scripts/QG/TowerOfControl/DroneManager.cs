@@ -59,9 +59,17 @@ public class DroneManager : NetworkBehaviour
             RotateCameraDrone();
             if (isOwned)
             {
+                
                 CmdUpdatePosition(transform.position);
             }
         }
+        else
+        {
+            if (isOwned)
+                CmdUpdatePosition(_initPos);
+        }
+
+
         if (!isOwned)
         {
             transform.position = _syncedPosition;
@@ -175,10 +183,6 @@ public class DroneManager : NetworkBehaviour
         _canMove = false;
 
         transform.position = _initPos;
-        if (GetComponent<NetworkIdentity>().isOwned)
-        {
-            CmdUpdatePosition(_initPos);
-        }
 
         _characterController.enabled = false;
         _playerInput.actions.actionMaps[1].Disable();
