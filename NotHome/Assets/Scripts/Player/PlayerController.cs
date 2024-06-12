@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -22,6 +23,8 @@ public class PlayerController : NetworkBehaviour
 
     [Header("Player UI")]
     [SerializeField] private GameObject playerUiCanvas;
+    [SerializeField] private GameObject droneUI;
+    [SerializeField] private Image fillDroneBar;
     [SerializeField] private float _distRayCast;
     [SerializeField] private TextMeshProUGUI _textPress;
     [SerializeField] private List<GameObject> _uiPlayer;
@@ -444,8 +447,22 @@ public class PlayerController : NetworkBehaviour
             {
                 SetAuthorityToDrone(hit.collider.gameObject);
                 DroneManager drone = hit.collider.GetComponent<DroneManager>();
-                drone.StartDrone(GetComponentInChildren<FollowCamera>().cam, GetComponentInChildren<PlayerInput>());
+                drone.StartDrone(GetComponentInChildren<FollowCamera>().cam, GetComponentInChildren<PlayerInput>(), this.gameObject, fillDroneBar);
+                if(isOwned)
+                {
+                    playerUiCanvas.SetActive(false);
+                    droneUI.SetActive(true);
+                }
             }
+        }
+    }
+
+    public void EnableCanvasAfterUsingDrone()
+    {
+        if (isOwned)
+        {
+            playerUiCanvas.SetActive(true);
+            droneUI.SetActive(false);
         }
     }
 

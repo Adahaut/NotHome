@@ -1,6 +1,7 @@
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class DroneManager : NetworkBehaviour
@@ -17,6 +18,9 @@ public class DroneManager : NetworkBehaviour
     [SerializeField] private float _sensitivity;
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _upPower;
+    [SerializeField] private float _maxUsingTime;
+
+    private float currentTimer;
 
     public static bool _canMove = false;
     private static bool _isUp;
@@ -33,6 +37,9 @@ public class DroneManager : NetworkBehaviour
 
     [SyncVar(hook = nameof(OnPositionChanged))]
     private Vector3 _syncedPosition;
+
+    private static GameObject controledByPlayer;
+    private static Image timeBar;
 
     private void Awake()
     {
@@ -55,12 +62,20 @@ public class DroneManager : NetworkBehaviour
     {
         if (_canMove)
         {
-            MoveDrone();
-            RotateCameraDrone();
-            if (isOwned)
+            if (currentTimer > 0)
             {
-                
-                CmdUpdatePosition(transform.position);
+                currentTimer -= Time.deltaTime;
+                timeBar.fillAmount = currentTimer / _maxUsingTime;
+                MoveDrone();
+                RotateCameraDrone();
+                if (isOwned)
+                {
+                    CmdUpdatePosition(transform.position);
+                }
+            }
+            else
+            {
+                QuitDrone();
             }
         }
         else
@@ -160,10 +175,13 @@ public class DroneManager : NetworkBehaviour
     }
 
 
-    public void StartDrone(Camera playerCam, PlayerInput playerInput)
+    public void StartDrone(Camera playerCam, PlayerInput playerInput, GameObject player, Image fillBar)
     {
         if (_canUseDrone)
         {
+            timeBar = fillBar;
+            currentTimer = _maxUsingTime;
+            controledByPlayer = player;
             _initPos = _transform.position;
             _cameraPlayer = playerCam;
             _playerInput = playerInput;
@@ -178,6 +196,11 @@ public class DroneManager : NetworkBehaviour
         }
     }
     public void ExitDrone(InputAction.CallbackContext ctx)
+    {
+        QuitDrone();
+    }
+
+    private void QuitDrone()
     {
         _canUseDrone = true;
         _canMove = false;
@@ -195,5 +218,7 @@ public class DroneManager : NetworkBehaviour
 
         _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
+
+        controledByPlayer.GetComponent<PlayerController>().EnableCanvasAfterUsingDrone();
     }
 }
