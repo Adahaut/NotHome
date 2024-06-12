@@ -41,6 +41,9 @@ public class DroneManager : NetworkBehaviour
     [SyncVar(hook = nameof(OnRotationChanged))]
     private Quaternion _syncedRotation;
 
+    [SyncVar(hook = nameof(OnRotationCameraChanged))]
+    private Quaternion _syncedCameraRotation;
+
     private static GameObject controledByPlayer;
     private static Image timeBar;
 
@@ -73,7 +76,7 @@ public class DroneManager : NetworkBehaviour
                 RotateCameraDrone();
                 if (isOwned)
                 {
-                    CmdUpdatePositionAndRotation(transform.position, transform.rotation);
+                    CmdUpdatePositionAndRotation(transform.position, transform.rotation, _camera.rotation);
                 }
             }
             else
@@ -84,7 +87,7 @@ public class DroneManager : NetworkBehaviour
         else
         {
             if (isOwned)
-                CmdUpdatePositionAndRotation(_initPos, Quaternion.identity);
+                CmdUpdatePositionAndRotation(_initPos, Quaternion.identity, Quaternion.identity);
         }
 
 
@@ -92,28 +95,33 @@ public class DroneManager : NetworkBehaviour
         {
             transform.position = _syncedPosition;
             transform.rotation = _syncedRotation;
+            _camera.rotation = _syncedCameraRotation;
         }
     }
 
     [Command]
-    void CmdUpdatePositionAndRotation(Vector3 newPosition, Quaternion newRotation)
+    void CmdUpdatePositionAndRotation(Vector3 newPosition, Quaternion newRotation, Quaternion cameraRotation)
     {
         _syncedPosition = newPosition;
         _syncedRotation = newRotation;
+        _syncedCameraRotation = cameraRotation;
         transform.position = newPosition;
         transform.rotation = newRotation;
-        RpcUpdatePositionAndRotation(newPosition, newRotation);
+        _camera.rotation = cameraRotation;
+        RpcUpdatePositionAndRotation(newPosition, newRotation, cameraRotation);
     }
 
     [ClientRpc]
-    void RpcUpdatePositionAndRotation(Vector3 newPosition, Quaternion newRotation)
+    void RpcUpdatePositionAndRotation(Vector3 newPosition, Quaternion newRotation, Quaternion cameraRotation)
     {
         if (!isOwned)
         {
             _syncedPosition = newPosition;
             _syncedRotation = newRotation;
+            _syncedCameraRotation= cameraRotation;
             transform.position = newPosition;
             transform.rotation = newRotation;
+            _camera.rotation = cameraRotation;
         }
     }
 
@@ -132,6 +140,17 @@ public class DroneManager : NetworkBehaviour
             transform.rotation = newRot;
         }
     }
+
+    void OnRotationCameraChanged(Quaternion oldRot, Quaternion newRot)
+    {
+        if (!isOwned)
+        {
+            _camera.rotation = newRot;
+        }
+    }
+
+
+    #region Inputs
 
     public void GetInputDrone(InputAction.CallbackContext ctx)
     {
@@ -156,6 +175,7 @@ public class DroneManager : NetworkBehaviour
             _isDown= false;
     }
 
+    #endregion
 
     private void MoveDrone()
     {
