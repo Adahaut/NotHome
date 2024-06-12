@@ -51,7 +51,7 @@ public class RangeWeapon : NetworkBehaviour
     private List<List<GameObject>> _levelWeaponList = new();
     [SerializeField] private List<WeaponData> _weaponLvl = new();
 
-    public float _maxHearingDistance = 15f;
+    public GameObject soundToInstanciate;
 
     public static RangeWeapon Instance;
 
@@ -210,7 +210,11 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound(Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, position);
+        GameObject go = Instantiate(soundToInstanciate, position, Quaternion.identity);
+        NetworkServer.Spawn(go);
+        go.GetComponent<AudioSource>().clip = _riffleAudioClip;
+        go.GetComponent<AudioSource>().Play();
+        //AudioSource.PlayClipAtPoint(_riffleAudioClip, position);
     }
 
     public void KillEnemy(GameObject e)
