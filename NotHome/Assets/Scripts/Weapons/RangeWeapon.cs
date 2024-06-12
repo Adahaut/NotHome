@@ -67,6 +67,8 @@ public class RangeWeapon : NetworkBehaviour
         _levelWeaponList.Add(_level2Weapon);
         _levelWeaponList.Add(_level3Weapon);
         _levelWeaponList.Add(_level4Weapon);
+        if (_weaponLevel == 0)
+            _weaponLevel = 1;
         _weaponData = _weaponLvl[_weaponLevel - 1];
         PlayerAttack._shootAction += Shoot;
         PlayerAttack._reloading += StartReload;
@@ -106,6 +108,8 @@ public class RangeWeapon : NetworkBehaviour
 
     private void UpdateMuzzulePosition()
     {
+        print(_weaponLevel);
+        print(_muzzlePositionByLevel[_weaponLevel]);
         _muzzle.localPosition = new Vector3(_muzzlePositionByLevel[_weaponLevel], _muzzle.localPosition.y, _muzzle.localPosition.z);
     }
 

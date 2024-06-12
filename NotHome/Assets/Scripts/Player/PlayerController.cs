@@ -536,11 +536,20 @@ public class PlayerController : NetworkBehaviour
         for(int i = 0; i < _slotSelected.Number(); i++)
         {
             print(_inventory.GetComponent<InventoryManager>().GetItemPrefab(_slotSelected.ItemContained().ItemName()));
-            //GameObject _droppedItem = NetworkServer.Spawn(_inventory.GetComponent<InventoryManager>().GetItemPrefab(_slotSelected.ItemContained().ItemName()), gameObject);
+            GameObject _droppedItem = Instantiate(_inventory.GetComponent<InventoryManager>().GetItemPrefab(_slotSelected.ItemContained().ItemName()), 
+                GenerateRandomSpawnPoint(-1.5f, 1.5f), Quaternion.identity);
+            NetworkServer.Spawn(_droppedItem);
         }
 
         _slotSelected.ResetItem();
         _timer = 0.01f;
     }
+
+    private Vector3 GenerateRandomSpawnPoint(float _minFaxtor, float _maxFactor)
+    {
+        Vector3 _pos = _transform.position;
+        return new Vector3(_pos.x + Random.Range(_minFaxtor, _maxFactor), _pos.y, _pos.z + Random.Range(_minFaxtor, _maxFactor));
+    }
+
 
 }
