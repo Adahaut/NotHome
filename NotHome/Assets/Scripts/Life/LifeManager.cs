@@ -32,7 +32,7 @@ public class LifeManager : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, GameObject player = null)
     {
         _currentLife -= damage;
         print(_currentLife);
@@ -44,6 +44,7 @@ public class LifeManager : MonoBehaviour
             if(gameObject.tag == "Enemy")
             {
                 EnemyDeath();
+                player.GetComponentInChildren<RangeWeapon>().KillEnemy(gameObject);
             }
             else if(gameObject.tag == "Player")
             {
