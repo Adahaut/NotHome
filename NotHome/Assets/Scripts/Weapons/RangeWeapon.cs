@@ -117,11 +117,14 @@ public class RangeWeapon : NetworkBehaviour
     public void StartAiming()
     {
         _playerController.SetAnimation("Aiming", true);
+        _playerController._weapon.GetComponent<Animator>().enabled = false;
         StartCoroutine(Zooming());
     }
 
     public void StopAiming()
     {
+        if (_playerController.GetMoveDir() != Vector2.zero)
+            _playerController._weapon.GetComponent<Animator>().enabled = true;
         _playerController.SetAnimation("Aiming", false);
         StartCoroutine(Zooming(-1));
     }
@@ -186,8 +189,7 @@ public class RangeWeapon : NetworkBehaviour
                     CreateSmoke(_hitInfo.point);
                     if (_hitInfo.collider.GetComponent<LifeManager>() != null)
                     {
-                        print(_hitInfo.collider.name);
-                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages);
+                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages, this.transform.root.gameObject);
                     }
                 }
                 _currentAmmo--;
@@ -198,6 +200,17 @@ public class RangeWeapon : NetworkBehaviour
         {
             StartReload();
         }
+    }
+
+    public void KillEnemy(GameObject e)
+    {
+        DestroyEnemyOnServer(e);
+    }
+
+    [Command]
+    void DestroyEnemyOnServer(GameObject toDestroy)
+    {
+        NetworkServer.Destroy(toDestroy);
     }
 
     private void CreateSmoke(Vector3 _position)

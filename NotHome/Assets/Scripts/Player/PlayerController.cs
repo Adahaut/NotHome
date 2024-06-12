@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -21,6 +23,8 @@ public class PlayerController : NetworkBehaviour
 
     [Header("Player UI")]
     [SerializeField] private GameObject playerUiCanvas;
+    [SerializeField] private GameObject droneUI;
+    [SerializeField] private Image fillDroneBar;
     [SerializeField] private float _distRayCast;
     [SerializeField] private TextMeshProUGUI _textPress;
     [SerializeField] private List<GameObject> _uiPlayer;
@@ -71,6 +75,10 @@ public class PlayerController : NetworkBehaviour
 
     private bool _canUseTorch;
     [SerializeField] private GameObject _torch;
+    public GameObject _weapon;
+    [SerializeField] private GameObject _animCam;
+    [SerializeField] private float _speedAnimWeapon;
+    [SerializeField] private float _speedAnimCam;
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Transform _transform;
@@ -81,6 +89,8 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
+        _animCam.GetComponent<Animator>().speed = _speedAnimCam;
+        _weapon.GetComponent<Animator>().speed = _speedAnimWeapon;
         _animator = GetComponentInChildren<Animator>();
         _characterController = GetComponent<CharacterController>();
         _playerManager = GetComponent<PlayerManager>();
@@ -141,8 +151,13 @@ public class PlayerController : NetworkBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
+        //DoorExit.Instance.OpenDoor(_camera, _distRayCast);
         if (ctx.performed)
+        {
             StartUi();
+            if (Ladder.Instance != null)
+                Ladder.Instance.TpLadder(_camera, _distRayCast, this);
+        }
         //OfficeManager.Instance.MouvToChair();
         if (_timer <= 0)
         {
@@ -150,6 +165,7 @@ public class PlayerController : NetworkBehaviour
             _timer = 0.05f;
         }
     }
+
     public void OnJump(InputAction.CallbackContext context)
     {
         if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
@@ -190,12 +206,16 @@ public class PlayerController : NetworkBehaviour
         _isRunning = true;
         if (context.performed)
         {
+            _weapon.GetComponent<Animator>().speed *= 2;
+            _animCam.GetComponent<Animator>().speed *= 2;
             //SoundWalking.Instance._isRunning = true;
         }
         if (_moveDir != Vector2.zero)
             _animator.SetBool("Run", true);
         if (context.canceled || _playerManager.Stamina <= 0)
         {
+            _weapon.GetComponent<Animator>().speed /= 2;
+            _animCam.GetComponent<Animator>().speed /= 2;
             _isRunning = false;
             _animator.SetBool("Run", false);
             //SoundWalking.Instance._isRunning = false;
@@ -234,11 +254,17 @@ public class PlayerController : NetworkBehaviour
         _moveDir = ctx.ReadValue<Vector2>();
         if (_moveDir != Vector2.zero)
         {
+            _animCam.GetComponent<Animator>().enabled = true;
+            if (!GetComponentInChildren<RangeWeapon>()._isAiming)
+                _weapon.GetComponent<Animator>().enabled = true;
             //SoundWalking.Instance._isMoving = true;
             _animator.SetBool("Walking", true);
         }
         else
         {
+            _animCam.GetComponent<Animator>().enabled = false;
+            _weapon.GetComponent<Animator>().playbackTime = 0;
+            _weapon.GetComponent<Animator>().enabled = false;
             //SoundWalking.Instance._isMoving = false;
             _animator.SetBool("Walking", false);
         }
@@ -390,7 +416,6 @@ public class PlayerController : NetworkBehaviour
 
     private void ChangeStamina(float _value)
     {
-
         _playerManager.Stamina += _value;
         _playerManager.SetStaminaBar();
     }
@@ -413,6 +438,10 @@ public class PlayerController : NetworkBehaviour
     private IEnumerator RunningStamina()
     {
         _runningStaminaLose = true;
+        if (!_playerManager._stamParent.activeSelf)
+        {
+            _playerManager.StartStamina(true, 1f);
+        }
         while (_isRunning && _playerManager.Stamina > 0)
         {
             _currentStaminaTime = _staminaTimer;
@@ -443,10 +472,31 @@ public class PlayerController : NetworkBehaviour
             
             if(hit.collider.GetComponent<DroneManager>())
             {
+                SetAuthorityToDrone(hit.collider.gameObject);
                 DroneManager drone = hit.collider.GetComponent<DroneManager>();
-                drone.StartDrone(GetComponentInChildren<FollowCamera>().cam, GetComponentInChildren<PlayerInput>());
+                drone.StartDrone(GetComponentInChildren<FollowCamera>().cam, GetComponentInChildren<PlayerInput>(), this.gameObject, fillDroneBar);
+                if(isOwned)
+                {
+                    playerUiCanvas.SetActive(false);
+                    droneUI.SetActive(true);
+                }
             }
         }
+    }
+
+    public void EnableCanvasAfterUsingDrone()
+    {
+        if (isOwned)
+        {
+            playerUiCanvas.SetActive(true);
+            droneUI.SetActive(false);
+        }
+    }
+
+    [Command]
+    void SetAuthorityToDrone(GameObject c)
+    {
+        BuildingManager.instance.AssignAuthority(connectionToClient, c);
     }
 
     private void FixedUpdate()
@@ -495,6 +545,10 @@ public class PlayerController : NetworkBehaviour
         {
             _torch.SetActive(!_torch.activeSelf);
         }
+    }
+    public Vector2 GetMoveDir()
+    {
+        return _moveDir;
     }
 
     public void OpenBook(InputAction.CallbackContext ctx)
