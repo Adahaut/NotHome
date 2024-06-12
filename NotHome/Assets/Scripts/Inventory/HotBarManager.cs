@@ -24,10 +24,14 @@ public class HotBarManager : MonoBehaviour
     private bool _isOpen;
     private bool _isCoroutineRunning;
 
+    private Animator _animator;
+
     private void Start()
     {
         InitializeHotBar();
         _playerAttack = GetComponentInParent<PlayerAttack>();
+        _animator = GetComponentInParent<Animator>();
+        SetWeaponActive();
     }
 
     private void InitializeHotBar()
@@ -74,13 +78,17 @@ public class HotBarManager : MonoBehaviour
     {
         _playerAttack._isRangeWeaponEqupiped = false;
         _playerAttack._isMeleeWeaponEqupiped = false;
+        _animator.SetBool("RangeWeapon", false);
+        _animator.SetBool("MeleeWeapon", false);
         if (_hotBarSlotIndex == 0)
         {
             _playerAttack._isRangeWeaponEqupiped = true;
+            _animator.SetBool("RangeWeapon", true);
         }
         else if (_hotBarSlotIndex == 1)
         {
             _playerAttack._isMeleeWeaponEqupiped = true;
+            _animator.SetBool("MeleeWeapon", true);
         }
     }
 

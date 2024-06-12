@@ -2,7 +2,6 @@ using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static InventoryBaseManager;
 
 public class InventoryManager : NetworkBehaviour
 {
@@ -13,6 +12,24 @@ public class InventoryManager : NetworkBehaviour
 
     public List<GameObject> _slotList = new List<GameObject>();
 
+    [SerializeField] private List<GameObject> _itemsPrefabs = new List<GameObject>();
+    [SerializeField] private Color _selectedColor = Color.yellow;
+
+
+    public GameObject GetItemPrefab(string _name)
+    {
+        for(int i = 0;  i < _itemsPrefabs.Count; ++i)
+        {
+            if (_itemsPrefabs[i].name == _name + "Item")
+                return _itemsPrefabs[i];
+        }
+        return null;
+    }
+
+    private void OnEnable()
+    {
+        UnSelectAll();
+    }
 
     private void CreateCase()
     {
@@ -22,12 +39,27 @@ public class InventoryManager : NetworkBehaviour
         _slotList.Add(_newInventorySlot);
     }
 
-    public void UnSelectionAll()
+    public void UnSelectAll()
     {
         for(int i = 0; i < _slotList.Count; i++)
         {
-            _slotList[i].GetComponent<Image>().color = Color.black;
+            _slotList[i].GetComponent<Image>().color = Color.white;
         }
+    }
+
+    public InventorySlot SelectAt(int _index)
+    {
+        if (_index < 0) _index = _slotList.Count - 1;
+        else if (_index > _slotList.Count - 1) _index = 0;
+
+        UnSelectAll();
+        _slotList[_index].GetComponent<Image>().color = _selectedColor;
+        return _slotList[_index].GetComponent<InventorySlot>();
+    }
+
+    public int IndexOfSlot(InventorySlot _slot)
+    {
+        return _slotList.IndexOf(_slot.gameObject);
     }
 
     public InventorySlot GetInventorySlot(int _index)
@@ -91,6 +123,7 @@ public class InventoryManager : NetworkBehaviour
 
     private void TryAddItem(string _ItemName, Sprite _itemSprite, bool _isAnEquipement, int _number)
     {
+
         for (int i = 0; i < _slotList.Count; i++)
         {
             if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
