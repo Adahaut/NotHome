@@ -13,7 +13,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private Transform _camera;
 
     [Header("Value" + "\n")]
-    [SerializeField] private float _sensitivity;
+    public float _sensitivity;
     [SerializeField] private float _sensitivityController;
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _runSpeed;
@@ -149,6 +149,8 @@ public class PlayerController : NetworkBehaviour
     }
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
+        if (ctx.performed)
+            PauseManager.Instance.Resume();
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PauseManager : MonoBehaviour
 {
@@ -8,10 +9,17 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject _uiOption;
     [SerializeField] private GameObject _uiControl;
 
-    
-
-    
+    [SerializeField] private PlayerInput _playerInput;
     public static bool _gameIsPaused;
+    public static PauseManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -21,11 +29,15 @@ public class PauseManager : MonoBehaviour
     {
         if (!_gameIsPaused)
         {
+            Cursor.lockState = CursorLockMode.None;
+            _playerInput.actions.actionMaps[0].Disable();
             _uiPause.SetActive(true);
             _gameIsPaused = true;
         }
         else
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            _playerInput.actions.actionMaps[0].Enable();
             _uiPause.SetActive(false);
             _uiButton.SetActive(true);
             _uiOption.SetActive(false);
@@ -45,13 +57,5 @@ public class PauseManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
-    }
-    
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape)) 
-        { 
-            Resume();                           // A enlever
-        }
     }
 }
