@@ -143,7 +143,7 @@ public class PlayerController : NetworkBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
-        DoorExit.Instance.OpenDoor(_camera, _distRayCast);
+        //DoorExit.Instance.OpenDoor(_camera, _distRayCast);
         if (ctx.performed)
         {
             StartUi();
