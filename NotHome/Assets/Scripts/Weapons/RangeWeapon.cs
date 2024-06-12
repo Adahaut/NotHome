@@ -117,11 +117,14 @@ public class RangeWeapon : NetworkBehaviour
     public void StartAiming()
     {
         _playerController.SetAnimation("Aiming", true);
+        _playerController._weapon.GetComponent<Animator>().enabled = false;
         StartCoroutine(Zooming());
     }
 
     public void StopAiming()
     {
+        if (_playerController.GetMoveDir() != Vector2.zero)
+            _playerController._weapon.GetComponent<Animator>().enabled = true;
         _playerController.SetAnimation("Aiming", false);
         StartCoroutine(Zooming(-1));
     }

@@ -75,6 +75,10 @@ public class PlayerController : NetworkBehaviour
 
     private bool _canUseTorch;
     [SerializeField] private GameObject _torch;
+    public GameObject _weapon;
+    [SerializeField] private GameObject _animCam;
+    [SerializeField] private float _speedAnimWeapon;
+    [SerializeField] private float _speedAnimCam;
 
     [Range(0f, 90f)][SerializeField] float yRotationLimit = 88f;
     private Transform _transform;
@@ -85,6 +89,8 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
+        _animCam.GetComponent<Animator>().speed = _speedAnimCam;
+        _weapon.GetComponent<Animator>().speed = _speedAnimWeapon;
         _animator = GetComponentInChildren<Animator>();
         _characterController = GetComponent<CharacterController>();
         _playerManager = GetComponent<PlayerManager>();
@@ -198,12 +204,16 @@ public class PlayerController : NetworkBehaviour
         _isRunning = true;
         if (context.performed)
         {
+            _weapon.GetComponent<Animator>().speed *= 2;
+            _animCam.GetComponent<Animator>().speed *= 2;
             //SoundWalking.Instance._isRunning = true;
         }
         if (_moveDir != Vector2.zero)
             _animator.SetBool("Run", true);
         if (context.canceled || _playerManager.Stamina <= 0)
         {
+            _weapon.GetComponent<Animator>().speed /= 2;
+            _animCam.GetComponent<Animator>().speed /= 2;
             _isRunning = false;
             _animator.SetBool("Run", false);
             //SoundWalking.Instance._isRunning = false;
@@ -242,11 +252,17 @@ public class PlayerController : NetworkBehaviour
         _moveDir = ctx.ReadValue<Vector2>();
         if (_moveDir != Vector2.zero)
         {
+            _animCam.GetComponent<Animator>().enabled = true;
+            if (!GetComponentInChildren<RangeWeapon>()._isAiming)
+                _weapon.GetComponent<Animator>().enabled = true;
             //SoundWalking.Instance._isMoving = true;
             _animator.SetBool("Walking", true);
         }
         else
         {
+            _animCam.GetComponent<Animator>().enabled = false;
+            _weapon.GetComponent<Animator>().playbackTime = 0;
+            _weapon.GetComponent<Animator>().enabled = false;
             //SoundWalking.Instance._isMoving = false;
             _animator.SetBool("Walking", false);
         }
@@ -527,6 +543,10 @@ public class PlayerController : NetworkBehaviour
         {
             _torch.SetActive(!_torch.activeSelf);
         }
+    }
+    public Vector2 GetMoveDir()
+    {
+        return _moveDir;
     }
 
     public void OpenBook(InputAction.CallbackContext ctx)
