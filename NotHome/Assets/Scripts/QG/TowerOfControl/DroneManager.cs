@@ -72,6 +72,7 @@ public class DroneManager : NetworkBehaviour
     void CmdUpdatePosition(Vector3 newPosition)
     {
         _syncedPosition = newPosition;
+        transform.position = newPosition;
         RpcUpdatePosition(newPosition);
     }
 
@@ -176,7 +177,7 @@ public class DroneManager : NetworkBehaviour
         transform.position = _initPos;
         if (GetComponent<NetworkIdentity>().isOwned)
         {
-            CmdUpdatePosition(transform.position);
+            CmdUpdatePosition(_initPos);
         }
 
         _characterController.enabled = false;
