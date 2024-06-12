@@ -122,7 +122,14 @@ public class PlayerController : NetworkBehaviour
 
     public void OpenInventory(InputAction.CallbackContext ctx)
     {
-        _inventory.SetActive(!_inventory.activeInHierarchy);
+        if(isOwned)
+        {
+            if(ctx.started)
+                _inventory.SetActive(true);
+            if(ctx.canceled)
+                _inventory.SetActive(false);
+        }
+        
     }
     public void SetIsInBaseInventory(bool _isIn)
     {
@@ -143,31 +150,39 @@ public class PlayerController : NetworkBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
-        //DoorExit.Instance.OpenDoor(_camera, _distRayCast);
-        if (ctx.performed)
+        if(isOwned)
         {
-            StartUi();
-            if (Ladder.Instance != null)
-                Ladder.Instance.TpLadder(_camera, _distRayCast, this);
+            //DoorExit.Instance.OpenDoor(_camera, _distRayCast);
+            if (ctx.performed)
+            {
+                StartUi();
+                if (Ladder.Instance != null)
+                    Ladder.Instance.TpLadder(_camera, _distRayCast, this);
+            }
+            //OfficeManager.Instance.MouvToChair();
+            if (_timer <= 0)
+            {
+                CmdPickUpObject();
+                _timer = 0.05f;
+            }
         }
-        //OfficeManager.Instance.MouvToChair();
-        if (_timer <= 0)
-        {
-            CmdPickUpObject();
-            _timer = 0.05f;
-        }
+        
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
+        if(isOwned)
         {
-            StartCoroutine(AnimOneTime("StartJump"));
-            ChangeStamina(-10);
-            _currentStaminaTime = _staminaTimer;
-            _canJump = true;
-            _isJump = true;
+            if (_characterController.isGrounded && _playerManager.Stamina >= 10 && context.performed && !_isOpen)
+            {
+                StartCoroutine(AnimOneTime("StartJump"));
+                ChangeStamina(-10);
+                _currentStaminaTime = _staminaTimer;
+                _canJump = true;
+                _isJump = true;
+            }
         }
+        
     }
     void Update()
     {
@@ -226,10 +241,14 @@ public class PlayerController : NetworkBehaviour
 
     public void GetMouseDelta(InputAction.CallbackContext ctx)
     {
-        if (ctx.control.name == "rightStick")
-            _rotation = ctx.ReadValue<Vector2>() * _sensitivityController;
-        else
-            _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
+        if(isOwned)
+        {
+            if (ctx.control.name == "rightStick")
+                _rotation = ctx.ReadValue<Vector2>() * _sensitivityController;
+            else
+                _rotation = ctx.ReadValue<Vector2>() * _sensitivity;
+        }
+        
     }
     private void RotateCamera()
     {
@@ -322,40 +341,60 @@ public class PlayerController : NetworkBehaviour
 
     public void MouseScrollY(InputAction.CallbackContext ctx)
     {
-        if (_timer <= 0)
+        if(isOwned)
         {
-            CheckIfHotBarIsShowed();
-            _scrollDir = ctx.ReadValue<Vector2>();
-            int _indexAddition = 0;
-            if (_scrollDir.y > 0) _indexAddition = 1;
-            else if (_scrollDir.y < 0) _indexAddition = -1;
-            ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
-            _timer = 0.01f;
+            if (_timer <= 0)
+            {
+                CheckIfHotBarIsShowed();
+                _scrollDir = ctx.ReadValue<Vector2>();
+                int _indexAddition = 0;
+                if (_scrollDir.y > 0) _indexAddition = 1;
+                else if (_scrollDir.y < 0) _indexAddition = -1;
+                ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
+                _timer = 0.01f;
+            }
         }
+        
     }
 
     public void HotBarSelection1(InputAction.CallbackContext ctx)
     {
-        CheckIfHotBarIsShowed();
-        ChangeToHotBarSlot(0);
+        if(isOwned)
+        {
+            CheckIfHotBarIsShowed();
+            ChangeToHotBarSlot(0);
+        }
+        
     }
 
     public void HotBarSelection2(InputAction.CallbackContext ctx)
     {
-        CheckIfHotBarIsShowed();
-        ChangeToHotBarSlot(1);
+        if(isOwned)
+        {
+            CheckIfHotBarIsShowed();
+            ChangeToHotBarSlot(1);
+        }
+        
     }
 
     public void HotBarSelection3(InputAction.CallbackContext ctx)
     {
-        CheckIfHotBarIsShowed();
-        ChangeToHotBarSlot(2);
+        if(isOwned)
+        {
+            CheckIfHotBarIsShowed();
+            ChangeToHotBarSlot(2);
+        }
+        
     }
 
     public void HotBarSelection4(InputAction.CallbackContext ctx)
     {
-        CheckIfHotBarIsShowed();
-        ChangeToHotBarSlot(3);
+        if (isOwned)
+        {
+            CheckIfHotBarIsShowed();
+            ChangeToHotBarSlot(3);
+        }
+        
     }
 
     private void CheckIfHotBarIsShowed()
@@ -522,17 +561,20 @@ public class PlayerController : NetworkBehaviour
 
     public void StartFart(InputAction.CallbackContext ctx)
     {
-        if (_fartCooldown > 0)
-            return;
+        if(isOwned)
+        {
+            if (_fartCooldown > 0)
+                return;
+
+            _fartCooldown = 1f;
+            _farts.PlayRandomFartSound();
+        }
         
-        _fartCooldown = 1f;
-        _farts.PlayRandomFartSound();
-        print("fart");
     }
 
     public void AlightTorch(InputAction.CallbackContext ctx)
     {
-        if (_canUseTorch && ctx.performed)
+        if (isOwned && _canUseTorch && ctx.performed)
         {
             _torch.SetActive(!_torch.activeSelf);
         }
@@ -540,16 +582,20 @@ public class PlayerController : NetworkBehaviour
 
     public void OpenBook(InputAction.CallbackContext ctx)
     {
-        _book.SetActive(!_book.activeInHierarchy);
-        if (_book.activeInHierarchy)
+        if(isOwned)
         {
-            Cursor.lockState = CursorLockMode.Confined;
-            _isInBook = true;
+            _book.SetActive(!_book.activeInHierarchy);
+            if (_book.activeInHierarchy)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                _isInBook = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                _isInBook = false;
+            }
         }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            _isInBook = false;
-        }
+        
     }
 }
