@@ -41,6 +41,7 @@ public class OutlineSelector : MonoBehaviour
                     outline.enabled = true;
                     outline.OutlineColor = _outlineColor;
                     outline.OutlineWidth = _outlineWidth;
+                    outline.OutlineMode = Outline.Mode.OutlineVisible;
                 }
             }
             else
