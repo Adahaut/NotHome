@@ -200,6 +200,7 @@ public class DroneManager : NetworkBehaviour
         {
             _moveDirection.y = 0;
         }
+
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
     private void RotateCameraDrone()

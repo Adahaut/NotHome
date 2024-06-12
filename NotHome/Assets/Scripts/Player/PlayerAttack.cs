@@ -20,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController _playerController;
     public List<GameObject> _machetteUpgrades = new List<GameObject>();
     private RangeWeapon _rangeWeapon;
+    private Animator _animator;
 
 
     [SerializeField] private float _cadence;
