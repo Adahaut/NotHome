@@ -38,6 +38,9 @@ public class DroneManager : NetworkBehaviour
     [SyncVar(hook = nameof(OnPositionChanged))]
     private Vector3 _syncedPosition;
 
+    [SyncVar(hook = nameof(OnRotationChanged))]
+    private Vector3 _syncedRotation;
+
     private static GameObject controledByPlayer;
     private static Image timeBar;
 
@@ -55,8 +58,8 @@ public class DroneManager : NetworkBehaviour
         _transform = transform;
         _initPos = _transform.position;
         _syncedPosition = _initPos;
+        _syncedRotation = _transform.eulerAngles;
         _characterController = GetComponent<CharacterController>();
-        //_playerInput.actions.actionMaps[1].Disable();
     }
     private void Update()
     {
@@ -70,7 +73,7 @@ public class DroneManager : NetworkBehaviour
                 RotateCameraDrone();
                 if (isOwned)
                 {
-                    CmdUpdatePosition(transform.position);
+                    CmdUpdatePositionAndRotation(transform.position, transform.eulerAngles);
                 }
             }
             else
@@ -81,7 +84,7 @@ public class DroneManager : NetworkBehaviour
         else
         {
             if (isOwned)
-                CmdUpdatePosition(_initPos);
+                CmdUpdatePositionAndRotation(_initPos, Vector3.zero);
         }
 
 
@@ -92,20 +95,24 @@ public class DroneManager : NetworkBehaviour
     }
 
     [Command]
-    void CmdUpdatePosition(Vector3 newPosition)
+    void CmdUpdatePositionAndRotation(Vector3 newPosition, Vector3 newRotation)
     {
         _syncedPosition = newPosition;
+        _syncedRotation = newRotation;
         transform.position = newPosition;
-        RpcUpdatePosition(newPosition);
+        transform.eulerAngles = newRotation;
+        RpcUpdatePositionAndRotation(newPosition, newRotation);
     }
 
     [ClientRpc]
-    void RpcUpdatePosition(Vector3 newPosition)
+    void RpcUpdatePositionAndRotation(Vector3 newPosition, Vector3 newRotation)
     {
         if (!isOwned)
         {
             _syncedPosition = newPosition;
+            _syncedRotation = newRotation;
             transform.position = newPosition;
+            transform.eulerAngles = newRotation;
         }
     }
     void OnPositionChanged(Vector3 oldPos, Vector3 newPos)
@@ -113,6 +120,14 @@ public class DroneManager : NetworkBehaviour
         if (!isOwned)
         {
             transform.position = newPos;
+        }
+    }
+
+    void OnRotationChanged(Vector3 oldRot, Vector3 newRot)
+    {
+        if (!isOwned)
+        {
+            transform.eulerAngles = newRot;
         }
     }
 
