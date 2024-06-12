@@ -176,7 +176,7 @@ public class RangeWeapon : NetworkBehaviour
                 StartRecoil();
 
                 if(isOwned)
-                    CmdPlayShootSound();
+                    CmdPlayShootSound(transform.position);
 
                 if(isOwned)
                     CmdPlayMuzzleFlash();
@@ -217,15 +217,15 @@ public class RangeWeapon : NetworkBehaviour
     }
 
     [Command]
-    void CmdPlayShootSound()
+    void CmdPlayShootSound(Vector3 pos)
     {
-        RpcPlayShootSound();
+        RpcPlayShootSound(pos);
     }
 
     [ClientRpc]
-    void RpcPlayShootSound()
+    void RpcPlayShootSound(Vector3 pos)
     {
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, this.transform.position);
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
     }
 
     [Command]
