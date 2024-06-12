@@ -53,6 +53,7 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private List<float> _muzzlePositionByLevel = new();
 
     public static RangeWeapon Instance;
+    public GameObject _hitMarker;
 
     private void Awake()
     {
@@ -202,6 +203,7 @@ public class RangeWeapon : NetworkBehaviour
                     if (_hitInfo.collider.GetComponent<LifeManager>() != null)
                     {
                         _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages, this.transform.root.gameObject);
+                        StartCoroutine(HitMarker());
                     }
                 }
                 _currentAmmo--;
@@ -296,5 +298,10 @@ public class RangeWeapon : NetworkBehaviour
         _timeSinceLastShot += Time.deltaTime;
     }
 
-
+    private IEnumerator HitMarker()
+    {
+        _hitMarker.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        _hitMarker.SetActive(false);
+    }
 }
