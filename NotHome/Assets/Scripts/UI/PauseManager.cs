@@ -8,7 +8,8 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject _uiButton;
     [SerializeField] private GameObject _uiOption;
     [SerializeField] private GameObject _uiControl;
-    
+
+    [SerializeField] private PlayerInput _playerInput;
     public static bool _gameIsPaused;
     public static PauseManager Instance;
 
@@ -29,14 +30,14 @@ public class PauseManager : MonoBehaviour
         if (!_gameIsPaused)
         {
             Cursor.lockState = CursorLockMode.None;
-            //transform.parent.parent.GetComponent<PlayerInput>().actions.actionMaps[0].Disable();
+            _playerInput.actions.actionMaps[0].Disable();
             _uiPause.SetActive(true);
             _gameIsPaused = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
-            //transform.parent.parent.GetComponent<PlayerInput>().actions.actionMaps[0].Enable();
+            _playerInput.actions.actionMaps[0].Enable();
             _uiPause.SetActive(false);
             _uiButton.SetActive(true);
             _uiOption.SetActive(false);
