@@ -6,6 +6,7 @@ public class LifeManager : MonoBehaviour
     [SerializeField] private int _maxLife;
     public int _currentLife;
     private PlayerDeathAndRespawn _playerDeathAndRespawnManager;
+    private Animator _animator;
 
     [SerializeField] private Slider _helthSlider;
 
@@ -30,14 +31,24 @@ public class LifeManager : MonoBehaviour
             _playerDeathAndRespawnManager = GetComponent<PlayerDeathAndRespawn>();
             SetMaxHealth();
         }
+        else
+        {
+            _animator = GetComponent<Animator>();
+        }
     }
 
     public void TakeDamage(int damage)
     {
         _currentLife -= damage;
-        print(_currentLife);
+
         if (gameObject.tag == "Player" && _helthSlider != null)
+        {
             SetHealthBar();
+        }            
+        else
+        {
+            _animator.SetBool("Hit", true);
+        }            
 
         if (_currentLife <= 0)
         {
