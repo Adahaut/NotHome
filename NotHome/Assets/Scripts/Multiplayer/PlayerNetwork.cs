@@ -61,12 +61,6 @@ public class PlayerNetwork : NetworkBehaviour
         }
     }
 
-    [Command]
-    public void CmdRequestAuthority()
-    {
-        buildingManager.AssignAuthority(connectionToClient);
-    }
-
     private void OnDestroy()
     {
         if (mainCamera != null && _playerCameras.Contains(mainCamera)) _playerCameras.Remove(mainCamera);

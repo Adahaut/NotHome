@@ -17,20 +17,13 @@ public class PlayerCameraManager : NetworkBehaviour
         {
             screens.Add(GameObject.Find("CameraPlane" + i.ToString()));
         }
-
-        
-
     }
     public override void OnStartClient()
     {
-        //if(isOwned)
-        //    StartCoroutine(LoadCameras());
-
         if (isOwned)
         {
             GameObject.FindAnyObjectByType<PlayerCameraControlTower>().AddScreen(screenIndex);
             StartCoroutine(LoadCameras());
-            //playerRenderCamera.targetTexture = renderTextures[screenIndex];
         }
     }
 

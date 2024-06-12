@@ -1,35 +1,51 @@
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class DroneManager : NetworkBehaviour
 {
     [SerializeField] private Transform _camera;
-    [SyncVar] public bool _canUseDrone;
+    public static bool _canUseDrone;
 
-    private Vector2 _moveDir;
-    private Vector2 _rotation = Vector2.zero;
-    private Vector3 _moveDirection = Vector3.zero;
-    private Vector2 _rotation2 = Vector2.zero;
-    private Vector3 _initPos = Vector3.zero;
+    private static Vector2 _moveDir;
+    private static Vector2 _rotation = Vector2.zero;
+    private static Vector3 _moveDirection = Vector3.zero;
+    private static Vector2 _rotation2 = Vector2.zero;
+    private static Vector3 _initPos = Vector3.zero;
 
     [SerializeField] private float _sensitivity;
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _upPower;
+    [SerializeField] private float _maxUsingTime;
 
-    public bool _canMove = false;
-    private bool _isUp;
-    private bool _isDown;
+    private float currentTimer;
 
-    private CharacterController _characterController;
-    public PlayerInput _playerInput;
-    public Camera _cameraPlayer;
+    public static bool _canMove = false;
+    private static bool _isUp;
+    private static bool _isDown;
+
+    private static CharacterController _characterController;
+    public static PlayerInput _playerInput;
+    public static Camera _cameraPlayer;
     [SerializeField] private GameObject _uiDrone;
 
     [Range(0f, 90f)][SerializeField] float _yRotationLimit = 88f;
-    private Transform _transform;
+    private static Transform _transform;
     public static DroneManager Instance;
+
+    [SyncVar(hook = nameof(OnPositionChanged))]
+    private Vector3 _syncedPosition;
+
+    [SyncVar(hook = nameof(OnRotationChanged))]
+    private Quaternion _syncedRotation;
+
+    [SyncVar(hook = nameof(OnRotationCameraChanged))]
+    private Quaternion _syncedCameraRotation;
+
+    private static GameObject controledByPlayer;
+    private static Image timeBar;
 
     private void Awake()
     {
@@ -44,17 +60,98 @@ public class DroneManager : NetworkBehaviour
         _canUseDrone = true;
         _transform = transform;
         _initPos = _transform.position;
+        _syncedPosition = _initPos;
+        _syncedRotation = _transform.rotation;
         _characterController = GetComponent<CharacterController>();
-        //_playerInput.actions.actionMaps[1].Disable();
     }
     private void Update()
     {
         if (_canMove)
         {
-            MoveDrone();
-            RotateCameraDrone();
+            if (currentTimer > 0)
+            {
+                currentTimer -= Time.deltaTime;
+                timeBar.fillAmount = currentTimer / _maxUsingTime;
+                MoveDrone();
+                RotateCameraDrone();
+                if (isOwned)
+                {
+                    CmdUpdatePositionAndRotation(transform.position, transform.rotation, _camera.rotation);
+                }
+            }
+            else
+            {
+                QuitDrone();
+            }
+        }
+        else
+        {
+            if (isOwned)
+                CmdUpdatePositionAndRotation(_initPos, Quaternion.identity, Quaternion.identity);
+        }
+
+
+        if (!isOwned)
+        {
+            transform.position = _syncedPosition;
+            transform.rotation = _syncedRotation;
+            _camera.rotation = _syncedCameraRotation;
         }
     }
+
+    [Command]
+    void CmdUpdatePositionAndRotation(Vector3 newPosition, Quaternion newRotation, Quaternion cameraRotation)
+    {
+        _syncedPosition = newPosition;
+        _syncedRotation = newRotation;
+        _syncedCameraRotation = cameraRotation;
+        transform.position = newPosition;
+        transform.rotation = newRotation;
+        _camera.rotation = cameraRotation;
+        RpcUpdatePositionAndRotation(newPosition, newRotation, cameraRotation);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePositionAndRotation(Vector3 newPosition, Quaternion newRotation, Quaternion cameraRotation)
+    {
+        if (!isOwned)
+        {
+            _syncedPosition = newPosition;
+            _syncedRotation = newRotation;
+            _syncedCameraRotation= cameraRotation;
+            transform.position = newPosition;
+            transform.rotation = newRotation;
+            _camera.rotation = cameraRotation;
+        }
+    }
+
+    void OnPositionChanged(Vector3 oldPos, Vector3 newPos)
+    {
+        if (!isOwned)
+        {
+            transform.position = newPos;
+        }
+    }
+
+    void OnRotationChanged(Quaternion oldRot, Quaternion newRot)
+    {
+        if (!isOwned)
+        {
+            transform.rotation = newRot;
+        }
+    }
+
+    void OnRotationCameraChanged(Quaternion oldRot, Quaternion newRot)
+    {
+        if (!isOwned)
+        {
+            _camera.rotation = newRot;
+        }
+    }
+
+
+    #region Inputs
+
     public void GetInputDrone(InputAction.CallbackContext ctx)
     {
         _moveDir = ctx.ReadValue<Vector2>();
@@ -77,6 +174,9 @@ public class DroneManager : NetworkBehaviour
         if (ctx.canceled)
             _isDown= false;
     }
+
+    #endregion
+
     private void MoveDrone()
     {
         Vector3 forward = _transform.TransformDirection(Vector3.forward);
@@ -100,7 +200,6 @@ public class DroneManager : NetworkBehaviour
         {
             _moveDirection.y = 0;
         }
-        print(_moveDirection);
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
     private void RotateCameraDrone()
@@ -111,19 +210,23 @@ public class DroneManager : NetworkBehaviour
         _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
-    public void StartDrone(Camera playerCam, PlayerInput playerInput)
-    {
-        _cameraPlayer = playerCam;
-        _playerInput = playerInput;
 
+
+    public void StartDrone(Camera playerCam, PlayerInput playerInput, GameObject player, Image fillBar)
+    {
         if (_canUseDrone)
         {
+            timeBar = fillBar;
+            currentTimer = _maxUsingTime;
+            controledByPlayer = player;
+            _initPos = _transform.position;
+            _cameraPlayer = playerCam;
+            _playerInput = playerInput;
             _canUseDrone = false;
             QuestManager.Instance.QuestComplete(10);
             _canMove = true;
             _characterController.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
-            //_uiDrone.SetActive(false);
             playerCam.enabled = false;
             playerInput.actions.actionMaps[0].Disable();
             playerInput.actions.actionMaps[1].Enable();
@@ -131,15 +234,29 @@ public class DroneManager : NetworkBehaviour
     }
     public void ExitDrone(InputAction.CallbackContext ctx)
     {
+        QuitDrone();
+    }
+
+    private void QuitDrone()
+    {
         _canUseDrone = true;
         _canMove = false;
+
+        transform.position = _initPos;
+
         _characterController.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-        _uiDrone.SetActive(true);
-        _cameraPlayer.enabled = true;
         _playerInput.actions.actionMaps[1].Disable();
+        _playerInput.actions.actionMaps[0].Enable();
+        Cursor.lockState = CursorLockMode.Locked;
+        _cameraPlayer.enabled = true;
+        _characterController.enabled = false;
+
         _transform.position = _initPos;
+        _transform.rotation = Quaternion.identity;
+
         _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
+
+        controledByPlayer.GetComponent<PlayerController>().EnableCanvasAfterUsingDrone();
     }
 }
