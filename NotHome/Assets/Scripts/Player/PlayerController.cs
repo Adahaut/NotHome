@@ -171,27 +171,29 @@ public class PlayerController : NetworkBehaviour
     }
     void Update()
     {
-        RotateCamera();
-        MovePlayer();
-        Timer();
-        CmdSendPositionToServer(transform.position);
-
-        if (!_staminaRegenStarted && CanRegenStamina())
+        if(isOwned)
         {
-            StartCoroutine(RegenStamina());
-        }
+            RotateCamera();
+            MovePlayer();
+            Timer();
+            CmdSendPositionToServer(transform.position);
 
-        if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.gameObject.layer == 8)
-        {
-            _textPress.text = "Press E for interact";
-            _canOpen = true;
-        }
-        else
-        {
-            _canOpen = false;
-            _textPress.text = "";
-        }
+            if (!_staminaRegenStarted && CanRegenStamina())
+            {
+                StartCoroutine(RegenStamina());
+            }
 
+            if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.gameObject.layer == 8)
+            {
+                _textPress.text = "Press E for interact";
+                _canOpen = true;
+            }
+            else
+            {
+                _canOpen = false;
+                _textPress.text = "";
+            }
+        }
     }
     public void SprintPlayer(InputAction.CallbackContext context)
     {
@@ -262,9 +264,6 @@ public class PlayerController : NetworkBehaviour
         float curSpeedY = _canMove ? (_isRunning ? _runSpeed : _walkSpeed) * _moveDir.x : 0;
         float movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
-
-        if(_characterController == null)
-            _characterController = GetComponent<CharacterController>();
 
         if (_canJump && _canMove && _characterController.isGrounded)
         {
