@@ -542,7 +542,6 @@ public class PlayerController : NetworkBehaviour
     {
         _uiPlayer[index].SetActive(!_uiPlayer[index].activeSelf);
         DisablePlayer(_uiPlayer[index].activeSelf);
-        print(_uiPlayer[index].activeSelf);
     }
 
     public void DisablePlayer(bool active)
