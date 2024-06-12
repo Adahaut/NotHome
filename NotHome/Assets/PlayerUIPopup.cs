@@ -27,6 +27,7 @@ public class PlayerUIPopup : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        popup.SetActive(false);
         NetworkClient.RegisterHandler<QuestNotificationMessage>(OnClientReceiveMessage);
     }
 
@@ -50,5 +51,11 @@ public class PlayerUIPopup : NetworkBehaviour
     {
         yield return new WaitForSeconds(3.5f);
         popupAnimator.SetBool("OpenNotification", false);
+        Invoke("DisablePopupObject", 0.3f);
+    }
+
+    void DisablePopupObject()
+    {
+        popup.SetActive(false);
     }
 }

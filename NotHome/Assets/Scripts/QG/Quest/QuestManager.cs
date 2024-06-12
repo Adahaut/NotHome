@@ -18,10 +18,10 @@ public class QuestManager : NetworkBehaviour
     public static QuestManager Instance;
     //public List<QuestScriptableObject> _listQuest = new();
 
-    [SerializeField] private TextMeshProUGUI _title;
-    [SerializeField] private TextMeshProUGUI _lore;
-    [SerializeField] private TextMeshProUGUI _objectif;
-    [SerializeField] private QuestScriptableObject _actualQuest;
+    //[SerializeField] private TextMeshProUGUI _title;
+    //[SerializeField] private TextMeshProUGUI _lore;
+    //[SerializeField] private TextMeshProUGUI _objectif;
+    //[SerializeField] private QuestScriptableObject _actualQuest;
     private int _questUpLevel2;
     private int _questUpLevel3;
     private int _counterSpider;

@@ -51,8 +51,8 @@ public class PlayerManager : MonoBehaviour
         SetMaxThirst();
         SetMaxOxygene(_maxOxygene);
 
-        StartCoroutine(HungerBarFall());
-        StartCoroutine(ThirstBarFall());
+        //StartCoroutine(HungerBarFall());
+        //StartCoroutine(ThirstBarFall());
         StartCoroutine(OxygeneBarFall());
     }
 
@@ -87,12 +87,12 @@ public class PlayerManager : MonoBehaviour
     public void SetMaxHunger()
     {
         _hunger = _maxHunger;
-        _hungerSlider.fillAmount = _maxHunger;
+        //_hungerSlider.fillAmount = _maxHunger;
     }
     public void SetMaxThirst()
     {
         _thirst = _maxThirst;
-        _thirstSlider.fillAmount = _maxThirst;
+        //_thirstSlider.fillAmount = _maxThirst;
     }
     public void SetMaxOxygene(float maxOxygene)
     {
