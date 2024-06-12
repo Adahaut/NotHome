@@ -200,6 +200,19 @@ public class RangeWeapon : NetworkBehaviour
         }
     }
 
+    [Command]
+    void CmdPlayShootSound(Vector3 pos)
+    {
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
+        //RpcPlayShootSound(pos);
+    }
+
+    [ClientRpc]
+    void RpcPlayShootSound(Vector3 pos)
+    {
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
+    }
+
     public void KillEnemy(GameObject e)
     {
         DestroyEnemyOnServer(e);
@@ -217,17 +230,6 @@ public class RangeWeapon : NetworkBehaviour
         Destroy(_smoke, 0.2f);
     }
 
-    [Command]
-    void CmdPlayShootSound(Vector3 pos)
-    {
-        RpcPlayShootSound(pos);
-    }
-
-    [ClientRpc]
-    void RpcPlayShootSound(Vector3 pos)
-    {
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
-    }
 
     [Command]
     private void CmdPlayMuzzleFlash()
