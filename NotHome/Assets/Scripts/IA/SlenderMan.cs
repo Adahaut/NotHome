@@ -12,12 +12,14 @@ public class SlenderMan : MonoBehaviour
     private GameObject _closestPlayer;
     private bool _isVisibleByAnyPlayer;
     [SerializeField] private float _killingDistance;
+    public Animator _animator;
 
     private void Start()
     {
         _players = GameObject.FindGameObjectsWithTag("Player");
         _agent = GetComponent<NavMeshAgent>();
         _thisTransform = transform;
+        _animator = GetComponentInChildren<Animator>();
 
         //check for the closest player and visibility
         StartCoroutine(UpdateClosestPlayerAndVisibility());
@@ -33,10 +35,12 @@ public class SlenderMan : MonoBehaviour
 
         if (_isVisibleByAnyPlayer)
         {
+            _animator.speed = 0f;
             _agent.enabled = false;
         }
         else
         {
+            _animator.speed = 1f;
             _agent.enabled = true;
             _agent.SetDestination(_closestPlayer.transform.position);
         }
@@ -71,7 +75,8 @@ public class SlenderMan : MonoBehaviour
 
             if(_distance < _killingDistance)
             {
-                closestPlayer.GetComponent<LifeManager>().TakeDamage(5000);
+                //closestPlayer.GetComponent<LifeManager>().TakeDamage(5000);
+                StartCoroutine(Attack(closestPlayer));
             }
         }
 
@@ -101,4 +106,12 @@ public class SlenderMan : MonoBehaviour
 
         return false;
     }
+
+    private IEnumerator Attack(GameObject closestPlayer)
+    {
+        _animator.SetBool("IsAttacking", true);
+        yield return new WaitForSeconds(1.15f);
+        closestPlayer.GetComponent<LifeManager>().TakeDamage(5000);
+    }
+
 }
