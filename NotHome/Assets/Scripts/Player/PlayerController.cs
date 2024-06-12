@@ -263,6 +263,9 @@ public class PlayerController : NetworkBehaviour
         float movementDirectionY = _moveDirection.y;
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
+        if(_characterController == null)
+            _characterController = GetComponent<CharacterController>();
+
         if (_canJump && _canMove && _characterController.isGrounded)
         {
             _moveDirection.y = _jumpPower;
