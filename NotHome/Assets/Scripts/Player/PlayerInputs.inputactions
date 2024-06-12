@@ -177,15 +177,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Any",
-                    "type": "Button",
-                    "id": "ea2a97e1-973d-4830-8101-88ffdc11233b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Drop",
                     "type": "Button",
                     "id": "28b10401-40a1-48c7-9b92-123901be163b",
@@ -561,39 +552,6 @@
                 },
                 {
                     "name": "",
-                    "id": "ea68170c-0ffe-42cb-8e45-81114c45b4eb",
-                    "path": "<Keyboard>/anyKey",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Any",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c3280d31-b9be-423d-ae43-074eda789a15",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Any",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cef990b3-0928-41b1-8469-9351deeecb4e",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Any",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cb1b29e6-1aea-434a-be66-9f0005a0a035",
                     "path": "<Keyboard>/g",
                     "interactions": "",
@@ -883,6 +841,56 @@
                     "processors": "",
                     "groups": "",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Any",
+            "id": "5ea0b0fa-d07b-4d73-8c9f-6c3fd47e8c87",
+            "actions": [
+                {
+                    "name": "Any",
+                    "type": "Button",
+                    "id": "6218b47f-933a-41e6-aa85-ea5d2fa633ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0d4c61f7-c6c2-42df-864f-93e944538cd2",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Any",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf7fa8cb-3efd-4547-b63a-8065f790a2f8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Any",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73976146-577a-4629-8186-d94db1576473",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Any",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
