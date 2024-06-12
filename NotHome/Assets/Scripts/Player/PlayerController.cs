@@ -588,17 +588,17 @@ public class PlayerController : NetworkBehaviour
     {
         if(isOwned)
         {
-            _book.SetActive(!_book.activeInHierarchy);
-            if (_book.activeInHierarchy)
-            {
-                Cursor.lockState = CursorLockMode.Confined;
-                _isInBook = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                _isInBook = false;
-            }
+            //_book.SetActive(!_book.activeInHierarchy);
+            //if (_book.activeInHierarchy)
+            //{
+            //    Cursor.lockState = CursorLockMode.Confined;
+            //    _isInBook = true;
+            //}
+            //else
+            //{
+            //    Cursor.lockState = CursorLockMode.Locked;
+            //    _isInBook = false;
+            //}
         }
         
     }
