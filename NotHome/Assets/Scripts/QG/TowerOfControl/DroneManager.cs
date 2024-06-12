@@ -114,6 +114,8 @@ public class DroneManager : NetworkBehaviour
         if (ctx.canceled)
             _isDown= false;
     }
+
+
     private void MoveDrone()
     {
         Vector3 forward = _transform.TransformDirection(Vector3.forward);
@@ -147,10 +149,13 @@ public class DroneManager : NetworkBehaviour
         _transform.localEulerAngles = new Vector3(0, _rotation2.x, 0);
         _camera.localEulerAngles = new Vector3(_rotation2.y, 0, 0);
     }
+
+
     public void StartDrone(Camera playerCam, PlayerInput playerInput)
     {
         if (_canUseDrone)
         {
+            _initPos = _transform.position;
             _cameraPlayer = playerCam;
             _playerInput = playerInput;
             _canUseDrone = false;
@@ -158,7 +163,6 @@ public class DroneManager : NetworkBehaviour
             _canMove = true;
             _characterController.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
-            //_uiDrone.SetActive(false);
             playerCam.enabled = false;
             playerInput.actions.actionMaps[0].Disable();
             playerInput.actions.actionMaps[1].Enable();
@@ -169,6 +173,12 @@ public class DroneManager : NetworkBehaviour
         _canUseDrone = true;
         _canMove = false;
 
+        transform.position = _initPos;
+        if (GetComponent<NetworkIdentity>().isOwned)
+        {
+            CmdUpdatePosition(transform.position);
+        }
+
         _characterController.enabled = false;
         _playerInput.actions.actionMaps[1].Disable();
         _playerInput.actions.actionMaps[0].Enable();
@@ -177,26 +187,7 @@ public class DroneManager : NetworkBehaviour
         _characterController.enabled = false;
 
         _transform.position = _initPos;
-        _syncedPosition = _initPos;
-        if (isOwned)
-            CmdResetDronePosition();
 
-        _transform.eulerAngles = Vector3.zero;
-        _camera.eulerAngles = Vector3.zero;
-    }
-
-    [Command]
-    void CmdResetDronePosition()
-    {
-        _syncedPosition = _initPos;
-        RpcResetDronePosition(_initPos);
-    }
-
-    [ClientRpc]
-    void RpcResetDronePosition(Vector3 resetPos)
-    {
-        _syncedPosition = resetPos;
-        transform.position = resetPos;
         _transform.eulerAngles = Vector3.zero;
         _camera.eulerAngles = Vector3.zero;
     }
