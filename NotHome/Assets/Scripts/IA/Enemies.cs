@@ -11,7 +11,7 @@ public class Enemies : MonoBehaviour
     private NavMeshAgent _agent;
     private Vector3 _initialPosition;
     private Transform _transform;
-    private GameObject[] _players;
+    public GameObject[] _players;
     private GameObject _closestPlayer;
     private bool _hasSeenPlayer;
     private bool _alreadyAttacked;

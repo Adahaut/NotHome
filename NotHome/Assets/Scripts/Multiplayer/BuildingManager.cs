@@ -30,12 +30,15 @@ public class BuildingManager : NetworkBehaviour
         }
     }
 
-    public void AssignAuthority(NetworkConnectionToClient conn)
+    public void AssignAuthority(NetworkConnectionToClient conn, GameObject b)
     {
-        foreach (GameObject b in buildings)
-        {
-            b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
-        }
+        RemoveAuthority(b);
+        b.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
+    }
+
+    public void RemoveAuthority(GameObject b)
+    {
+        b.GetComponent<NetworkIdentity>().RemoveClientAuthority();
     }
 
 }

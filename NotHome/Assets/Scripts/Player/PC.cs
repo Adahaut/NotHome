@@ -152,7 +152,7 @@ public class PC : MonoBehaviour
             StartUi();
             if (Physics.Raycast(_camera.position,_camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("DecompressionExit") || hit.collider.CompareTag("DecompressionMountain")))
             {
-                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().OpenDoor(_camera);
+                //hit.collider.transform.parent.GetComponentInChildren<DoorExit>().OpenDoor(_camera);
             }
         }
         //OfficeManager.Instance.MouvToChair();
