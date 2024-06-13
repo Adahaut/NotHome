@@ -191,7 +191,9 @@ public class RangeWeapon : NetworkBehaviour
 
                 if(isOwned)
                 {
-                    CmdPlayShootSound(transform.position);
+                    //CmdPlayShootSound(transform.position);
+                    AudioSource.PlayClipAtPoint(_riffleAudioClip, transform.position);
+
                     CmdPlayMuzzleFlash();
                 }
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
@@ -221,7 +223,7 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     void RpcPlayShootSound(Vector3 shootPosition)
     { 
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, shootPosition);
+        //AudioSource.PlayClipAtPoint(_riffleAudioClip, shootPosition);
     }
 
     public void KillEnemy(GameObject e)
