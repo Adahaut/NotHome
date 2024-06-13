@@ -95,12 +95,6 @@ public class RangeWeapon : NetworkBehaviour
         NetworkClient.RegisterHandler<SoundPositionNotification>(OnClientReceiveMessage);
     }
 
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        NetworkServer.RegisterHandler<SoundPositionNotification>(OnReceiveMessage);
-    }
-
     public void NextWeapon()
     {
         if (_weaponData._nextWeapon != null)
@@ -208,15 +202,7 @@ public class RangeWeapon : NetworkBehaviour
 
                 if(isOwned)
                 {
-                    //CmdPlayShootSound(transform.position);
-                    SoundPositionNotification msg = new SoundPositionNotification
-                    {
-                        x = transform.position.x,
-                        y = transform.position.y,
-                        z = transform.position.z
-                    };
-                    NetworkClient.Send(msg);
-
+                    SendSoundToAllPLayers(transform.position);
                     CmdPlayMuzzleFlash();
                 }
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
@@ -237,28 +223,23 @@ public class RangeWeapon : NetworkBehaviour
         }
     }
 
+    [Command]
+    void SendSoundToAllPLayers(Vector3 position)
+    {
+        SoundPositionNotification msg = new SoundPositionNotification
+        {
+            x = position.x,
+            y = position.y,
+            z = position.z
+        };
+        NetworkServer.SendToAll(msg);
+    }
+
     void OnClientReceiveMessage(SoundPositionNotification msg)
     {
         Vector3 spawn = new Vector3(msg.x, msg.y, msg.z);
         AudioSource.PlayClipAtPoint(_riffleAudioClip, spawn);
     }
-
-    private void OnReceiveMessage(NetworkConnection conn, SoundPositionNotification msg)
-    {
-        NetworkServer.SendToAll(msg);
-    }
-
-    //[Command]
-    //void CmdPlayShootSound(Vector3 shootPosition)
-    //{
-    //    RpcPlayShootSound(shootPosition);
-    //}
-
-    //[ClientRpc]
-    //void RpcPlayShootSound(Vector3 shootPosition)
-    //{
-    //    AudioSource.PlayClipAtPoint(_riffleAudioClip, shootPosition);
-    //}
 
     public void KillEnemy(GameObject e)
     {
