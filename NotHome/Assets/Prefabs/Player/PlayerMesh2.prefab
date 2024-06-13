@@ -2337,7 +2337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7361818999778740036
 Transform:
   m_ObjectHideFlags: 0
@@ -7418,6 +7418,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a4d3888093414429d6a51c798ce24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _enemyDetectionCollider: {fileID: 6134492554753304191}
   _damages: 10
   _isAimingFinished: 0
