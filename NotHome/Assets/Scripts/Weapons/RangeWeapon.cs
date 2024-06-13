@@ -192,9 +192,9 @@ public class RangeWeapon : NetworkBehaviour
                 if(isOwned)
                 {
                     //CmdPlayShootSound(transform.position);
-                    sound = Instantiate(soundToInstanciate, transform.position, Quaternion.identity);
-                    sound.GetComponent<AudioSource>().clip = _riffleAudioClip;
-                    CmdInstantiateObject();
+                    //sound = Instantiate(soundToInstanciate, transform.position, Quaternion.identity);
+                    //sound.GetComponent<AudioSource>().clip = _riffleAudioClip;
+                    //CmdInstantiateObject();
 
                     CmdPlayMuzzleFlash();
                 }
