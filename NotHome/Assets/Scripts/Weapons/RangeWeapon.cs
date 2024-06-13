@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -50,6 +51,7 @@ public class RangeWeapon : NetworkBehaviour
 
     private List<List<GameObject>> _levelWeaponList = new();
     [SerializeField] private List<WeaponData> _weaponLvl = new();
+    [SerializeField] private List<float> _muzzlePositionByLevel = new();
 
     public GameObject soundToInstanciate;
 
@@ -68,6 +70,8 @@ public class RangeWeapon : NetworkBehaviour
         _levelWeaponList.Add(_level2Weapon);
         _levelWeaponList.Add(_level3Weapon);
         _levelWeaponList.Add(_level4Weapon);
+        if (_weaponLevel == 0)
+            _weaponLevel = 1;
         _weaponData = _weaponLvl[_weaponLevel - 1];
         PlayerAttack._shootAction += Shoot;
         PlayerAttack._reloading += StartReload;
@@ -102,6 +106,14 @@ public class RangeWeapon : NetworkBehaviour
         {
             _meshList[i].SetActive(true);
         }
+        UpdateMuzzulePosition();
+    }
+
+    private void UpdateMuzzulePosition()
+    {
+        print(_weaponLevel);
+        print(_muzzlePositionByLevel[_weaponLevel]);
+        _muzzle.localPosition = new Vector3(_muzzlePositionByLevel[_weaponLevel], _muzzle.localPosition.y, _muzzle.localPosition.z);
     }
 
     private void UpdateWeaponVisualAtLaunch()
@@ -120,11 +132,14 @@ public class RangeWeapon : NetworkBehaviour
     public void StartAiming()
     {
         _playerController.SetAnimation("Aiming", true);
+        _playerController._weapon.GetComponent<Animator>().enabled = false;
         StartCoroutine(Zooming());
     }
 
     public void StopAiming()
     {
+        if (_playerController.GetMoveDir() != Vector2.zero)
+            _playerController._weapon.GetComponent<Animator>().enabled = true;
         _playerController.SetAnimation("Aiming", false);
         StartCoroutine(Zooming(-1));
     }
@@ -251,7 +266,7 @@ public class RangeWeapon : NetworkBehaviour
     [ClientRpc]
     private void RpcPlayMuzzleFlash()
     {
-        GameObject _muzzleFlash = Instantiate(_muzzuleFlashEffect, _muzzle.position, _muzzle.rotation);
+        GameObject _muzzleFlash = Instantiate(_muzzuleFlashEffect, _muzzle.position, _muzzle.rotation, _muzzle);
         _muzzleFlash.transform.position = _muzzle.position + (_muzzleFlash.transform.right * 0.1f);
         _muzzleFlash.GetComponent<ParticleSystem>().Play();
         Destroy(_muzzleFlash, 0.2f);
@@ -271,6 +286,14 @@ public class RangeWeapon : NetworkBehaviour
         while (_elapsedTime < _duration)
         {
             _playerController.Rotation = new Vector2(_playerController.Rotation.x, _playerController.Rotation.y - _strengh);
+
+            _elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        _elapsedTime = 0f;
+        while (_elapsedTime < _duration * 10)
+        {
+            _playerController.Rotation = new Vector2(_playerController.Rotation.x, _playerController.Rotation.y + (_strengh / 10f));
 
             _elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();

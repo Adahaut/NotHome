@@ -7,13 +7,11 @@ using UnityEngine.UI;
 public class ChangeControl : MonoBehaviour
 {
     private string _control = "";
-    private PlayerInput _playerInput;
+    [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private int _indexAction;
     [SerializeField] private int _indexBinding;
     private void Start()
     {
-        _playerInput = transform.parent.parent.parent.GetComponentInChildren<PlayerInput>();
-        _playerInput.actions.actionMaps[0].actions[_indexAction].Disable();
         _control = _playerInput.actions.actionMaps[0].actions[_indexAction].bindings[_indexBinding].path.ToString();
         _control = _control[11..];
         ChangeQwerty();
