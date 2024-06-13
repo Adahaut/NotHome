@@ -13,6 +13,7 @@ public class SlenderMan : MonoBehaviour
     private bool _isVisibleByAnyPlayer;
     [SerializeField] private float _killingDistance;
     public Animator _animator;
+    [SerializeField] private AudioSource[] _audioSources;
 
     private void Start()
     {
@@ -110,6 +111,7 @@ public class SlenderMan : MonoBehaviour
     private IEnumerator Attack(GameObject closestPlayer)
     {
         _animator.SetBool("IsAttacking", true);
+        _audioSources[2].Play();
         yield return new WaitForSeconds(1.15f);
         closestPlayer.GetComponent<LifeManager>().TakeDamage(5000);
     }

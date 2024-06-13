@@ -6,6 +6,7 @@ public class Boss2 : MonoBehaviour
     [SerializeField] private GameObject _hq;
     [SerializeField] private float _timeBetweenAttacks;
     [SerializeField] private float _attackRange;
+    [SerializeField] private AudioSource[] _audioSources;
 
     private NavMeshAgent _agent;
     private Transform _transform;
@@ -13,6 +14,7 @@ public class Boss2 : MonoBehaviour
     private bool _alreadyAttacked;
     private float _distanceToHq;
     public Collider _attackCollider;
+    private Animator _animator;
 
     private void Start()
     {
@@ -20,6 +22,7 @@ public class Boss2 : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _transform = transform;
         _hqTransform = _hq.transform;
+        _animator = GetComponent<Animator>();
 
         _agent.SetDestination(_hqTransform.position);
     }
@@ -49,9 +52,10 @@ public class Boss2 : MonoBehaviour
     {
         if (!_alreadyAttacked)
         {
+            _animator.SetBool("IsAttacking", true);
             _alreadyAttacked = true;
             _attackCollider.enabled = true;
-            Debug.Log("BossAttack");
+            _animator.SetBool("IsAttacking", false);
             Invoke(nameof(ResetAttack), _timeBetweenAttacks);
         }
     }
@@ -61,9 +65,22 @@ public class Boss2 : MonoBehaviour
         _attackCollider.enabled = false;
         _alreadyAttacked = false;
 
+        // Reactivate attack if player is still in attack range
         if (HqInAttackRange())
         {
             Attack();
         }
+    }
+
+    //active collider in animation to attack
+    public void ActiveCollider()
+    {
+        _attackCollider.enabled = true;
+        _audioSources[2].Play();
+    }
+
+    public void DesactiveCollider()
+    {
+        _attackCollider.enabled = false;
     }
 }

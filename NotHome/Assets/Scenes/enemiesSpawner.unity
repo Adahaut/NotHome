@@ -4708,6 +4708,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273e9314ac2c6654a8edfae118743914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _spawnZones:
   - _points:
     - {fileID: 469205253}
@@ -4831,6 +4834,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3250926886535658741, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
+      propertyPath: sceneId
+      value: 193231166
+      objectReference: {fileID: 0}
     - target: {fileID: 3774607925753194993, guid: 9d69635897bc78044927e09d85ca1e43, type: 3}
       propertyPath: _player
       value: 

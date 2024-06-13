@@ -13,6 +13,8 @@ public class LifeManager : MonoBehaviour
 
     [SerializeField] private Slider _helthSlider;
 
+    [SerializeField] private AudioClip[] _hitAudioClip;
+    private AudioSource[] _audioSource;
     [Header("Only for the player")]
     [SerializeField] private Gradient _damageGradient;
     [SerializeField] private Image _damageIndicator;
@@ -34,6 +36,7 @@ public class LifeManager : MonoBehaviour
 
     void Start()
     {
+        _audioSource = GetComponents<AudioSource>();
         if(_damageIndicator != null)
         {
             _damageIndicator.color = new Color(0, 0, 0, 0);
@@ -41,7 +44,7 @@ public class LifeManager : MonoBehaviour
 
         _currentLife = _maxLife;
 
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
             _playerDeathAndRespawnManager = GetComponent<PlayerDeathAndRespawn>();
             SetMaxHealth();
@@ -55,28 +58,31 @@ public class LifeManager : MonoBehaviour
     public void TakeDamage(int damage, GameObject player = null)
     {
         _currentLife -= damage;
-        if (gameObject.tag == "Player")
+
+        AudioClip randomClip = _hitAudioClip[Random.Range(0, _hitAudioClip.Length)];
+        _audioSource[1].clip = randomClip;
+        _audioSource[1].Play();
+
+        if (gameObject.tag == "Player" && _helthSlider != null)
         {
-            StartBlinking(true);
-            if(_helthSlider != null)
-                SetHealthBar();
-        }         
+            SetHealthBar();
+        }
         else
         {
             _animator.SetBool("Hit", true);
-        }           
+        }
 
         if (_currentLife <= 0)
         {
-            if(gameObject.tag == "Enemy")
+            if (gameObject.tag == "Enemy")
             {
                 EnemyDeath();
                 player.GetComponentInChildren<RangeWeapon>().KillEnemy(gameObject);
             }
-            else if(gameObject.tag == "Player")
+            else if (gameObject.tag == "Player")
             {
                 PlayerDeath();
-            }            
+            }
         }
     }
 
