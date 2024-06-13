@@ -69,7 +69,7 @@ public class LifeManager : MonoBehaviour
         }
         else
         {
-            _animator.SetBool("Hit", true);
+        //    _animator.SetBool("Hit", true);
         }
 
         if (_currentLife <= 0)
