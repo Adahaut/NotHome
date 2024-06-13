@@ -72,17 +72,17 @@ public class Real3DFontEditor : Editor {
 	[MenuItem("3D Menu Creator/Add 3DText Runtime Editable")]
 	static void AddInputControlRuntime () {
 		GameObject obj = AddInputControl();
-		if (obj !=null)
-			obj.AddComponent<RuntimeLabel>();
+		//if (obj !=null)
+			//obj.AddComponent<RuntimeLabel>();
 	}
 	
-	RuntimeLabel label;
+	//RuntimeLabel label;
 	
 	public void OnEnable()
 	{
 		
 		script = (Real3DFont) target;
-		label = script.GetComponent<RuntimeLabel>();
+		//label = script.GetComponent<RuntimeLabel>();
 		updateFontList(script);
 		script.vectorFont.toDictionary();
 //		changeFont(script);
@@ -94,16 +94,10 @@ public class Real3DFontEditor : Editor {
 		if (!script.isSubUsed){
 			GUI.changed = false;
 			GUILayout.Space(5);
-			
-			if (label == null)
-			{
-				GUILayout.BeginHorizontal();
-				GUILayout.Space(25);
-				script.textToPrint = EditorGUILayout.TextField("Text",(script.textToPrint!=null?script.textToPrint:"\b"),GUILayout.Width(245));
-				GUILayout.EndHorizontal();
-			}else{
-				EditorGUILayout.HelpBox("Use the Runtime Label words field to change the text!",MessageType.Info);
-			}
+			GUILayout.BeginHorizontal();
+			GUILayout.Space(25);
+			script.textToPrint = EditorGUILayout.TextField("Text",(script.textToPrint!=null?script.textToPrint:"\b"),GUILayout.Width(245));
+			GUILayout.EndHorizontal();
 			if (GUI.changed)
 			{
 				process(script);
