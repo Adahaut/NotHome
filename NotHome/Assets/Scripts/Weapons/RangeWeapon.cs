@@ -111,8 +111,6 @@ public class RangeWeapon : NetworkBehaviour
 
     private void UpdateMuzzulePosition()
     {
-        print(_weaponLevel);
-        print(_muzzlePositionByLevel[_weaponLevel]);
         _muzzle.localPosition = new Vector3(_muzzlePositionByLevel[_weaponLevel], _muzzle.localPosition.y, _muzzle.localPosition.z);
     }
 

@@ -32,13 +32,13 @@ public class EnemiesSpawner : NetworkBehaviour
 
         for (int i = 0; i < _selectedZone._numberOfEnemiesToSpawn; i++)
         {
-            GameObject _prefabToSpawn = _selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)];
+            //GameObject _prefabToSpawn = ;
             Vector3 _spawnPosition = GetRandomPointInPolygon(_selectedZone._points);
 
             // Adjust the spawn position to be on the ground
             _spawnPosition = GetGroundPosition(_spawnPosition);
 
-            GameObject go = Instantiate(_prefabToSpawn, _spawnPosition, Quaternion.identity);
+            GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity);
             NetworkServer.Spawn(go);
         }
     }
