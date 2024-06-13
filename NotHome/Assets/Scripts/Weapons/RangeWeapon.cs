@@ -2,15 +2,6 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-
-public struct SoundPositionNotification : NetworkMessage
-{
-    public float x;
-    public float y;
-    public float z;
-}
-
 public class RangeWeapon : NetworkBehaviour
 {
     [SerializeField] public WeaponData _weaponData;
@@ -87,12 +78,6 @@ public class RangeWeapon : NetworkBehaviour
         _recoil = GetComponent<ProceduralRecoil>();
         _playerController = GetComponentInParent<PlayerController>();
         UpdateWeaponVisualAtLaunch();
-    }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        NetworkClient.RegisterHandler<SoundPositionNotification>(OnClientReceiveMessage);
     }
 
     public void NextWeapon()
@@ -202,7 +187,7 @@ public class RangeWeapon : NetworkBehaviour
 
                 if(isOwned)
                 {
-                    SendSoundToAllPLayers(transform.position);
+                    CmdPlaySound(transform.position);
                     CmdPlayMuzzleFlash();
                 }
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
@@ -224,21 +209,15 @@ public class RangeWeapon : NetworkBehaviour
     }
 
     [Command]
-    void SendSoundToAllPLayers(Vector3 position)
+    void CmdPlaySound(Vector3 position)
     {
-        SoundPositionNotification msg = new SoundPositionNotification
-        {
-            x = position.x,
-            y = position.y,
-            z = position.z
-        };
-        NetworkServer.SendToAll(msg);
+        RpcPlayShootSound(position);
     }
 
-    void OnClientReceiveMessage(SoundPositionNotification msg)
+    [ClientRpc]
+    void RpcPlayShootSound(Vector3 pos)
     {
-        Vector3 spawn = new Vector3(msg.x, msg.y, msg.z);
-        AudioSource.PlayClipAtPoint(_riffleAudioClip, spawn);
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, pos);
     }
 
     public void KillEnemy(GameObject e)
