@@ -7,6 +7,7 @@ public class Enemies : MonoBehaviour
     [SerializeField] private float _timeBetweenAttacks;
     [SerializeField] private float _sightRange;
     [SerializeField] private float _attackRange;
+    [SerializeField] private AudioSource[] _audioSources;
 
     private NavMeshAgent _agent;
     private Vector3 _initialPosition;
@@ -18,6 +19,8 @@ public class Enemies : MonoBehaviour
     private float _distanceToPlayer;
     private Collider _playerDetectionCollider;
     private Animator _animator;
+
+
     private void Start()
     {
         _transform = transform;
@@ -154,9 +157,11 @@ public class Enemies : MonoBehaviour
         }
     }
 
+    //active collider in animation to attack
     public void ActiveCollider()
     {
         _playerDetectionCollider.enabled = true;
+        _audioSources[2].Play();
     }
 
     public void DesactiveCollider()

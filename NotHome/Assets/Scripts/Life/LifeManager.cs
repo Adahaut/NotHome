@@ -10,6 +10,9 @@ public class LifeManager : MonoBehaviour
 
     [SerializeField] private Slider _helthSlider;
 
+    [SerializeField] private AudioClip[] _hitAudioClip;
+    private AudioSource[] _audioSource;
+
     public void SetHealthBar()
     {
         _helthSlider.value = _currentLife;
@@ -24,9 +27,10 @@ public class LifeManager : MonoBehaviour
 
     void Start()
     {
+        _audioSource = GetComponents<AudioSource>();
         _currentLife = _maxLife;
 
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
             _playerDeathAndRespawnManager = GetComponent<PlayerDeathAndRespawn>();
             SetMaxHealth();
@@ -41,26 +45,30 @@ public class LifeManager : MonoBehaviour
     {
         _currentLife -= damage;
 
+        AudioClip randomClip = _hitAudioClip[Random.Range(0, _hitAudioClip.Length)];
+        _audioSource[1].clip = randomClip;
+        _audioSource[1].Play();
+
         if (gameObject.tag == "Player" && _helthSlider != null)
         {
             SetHealthBar();
-        }            
+        }
         else
         {
             _animator.SetBool("Hit", true);
-        }            
+        }
 
         if (_currentLife <= 0)
         {
-            if(gameObject.tag == "Enemy")
+            if (gameObject.tag == "Enemy")
             {
                 EnemyDeath();
                 player.GetComponentInChildren<RangeWeapon>().KillEnemy(gameObject);
             }
-            else if(gameObject.tag == "Player")
+            else if (gameObject.tag == "Player")
             {
                 PlayerDeath();
-            }            
+            }
         }
     }
 
