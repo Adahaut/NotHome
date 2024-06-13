@@ -3105,8 +3105,8 @@ MonoBehaviour:
     - {fileID: 1369597513}
     - {fileID: 1718927483}
     _spawnablePrefabs:
-    - {fileID: 6819054300009229802, guid: d16aeb5dcc2ba0b49bf1567d95bbf77c, type: 3}
-    - {fileID: 4488835967635791090, guid: da4f4223f3037a042a84302a830e01d6, type: 3}
+    - {fileID: 455017122214462984, guid: da4f4223f3037a042a84302a830e01d6, type: 3}
+    - {fileID: 2688555801328580682, guid: d16aeb5dcc2ba0b49bf1567d95bbf77c, type: 3}
     _numberOfEnemiesToSpawn: 15
   - _points:
     - {fileID: 1014003579}
@@ -3119,7 +3119,9 @@ MonoBehaviour:
     - {fileID: 445709647}
     - {fileID: 1916179628}
     - {fileID: 1678936797}
-    _spawnablePrefabs: []
+    _spawnablePrefabs:
+    - {fileID: 6853585656894584853, guid: afdc90534109a63448383ec379022abf, type: 3}
+    - {fileID: 2688555801328580682, guid: d16aeb5dcc2ba0b49bf1567d95bbf77c, type: 3}
     _numberOfEnemiesToSpawn: 15
   - _points:
     - {fileID: 150517552}
@@ -3132,7 +3134,8 @@ MonoBehaviour:
     - {fileID: 478195621}
     - {fileID: 933027142}
     - {fileID: 1157741541}
-    _spawnablePrefabs: []
+    _spawnablePrefabs:
+    - {fileID: 7609032578898743135, guid: 55f9562982952c84eb2c0b3a3d5a8b02, type: 3}
     _numberOfEnemiesToSpawn: 15
   _groundLayer:
     serializedVersion: 2
@@ -5978,9 +5981,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   buildings:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8847736872123657927}
   - {fileID: 1680890341}
   - {fileID: 2027897724}
   - {fileID: 593941248}
@@ -10509,6 +10510,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1519509900773998639, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+      propertyPath: sceneId
+      value: 815530853
+      objectReference: {fileID: 0}
     - target: {fileID: 2398041302467466108, guid: 209329a53b69a6d4893d43d628652812, type: 3}
       propertyPath: m_Name
       value: Base
@@ -10581,102 +10586,16 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3098673728
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5639129584807455406, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6507175039507341862, guid: 209329a53b69a6d4893d43d628652812, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8847736872123657929}
-    - targetCorrespondingSourceObject: {fileID: 1549013245404723069, guid: 209329a53b69a6d4893d43d628652812, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8847736872123657931}
-    - targetCorrespondingSourceObject: {fileID: 1549013245404723069, guid: 209329a53b69a6d4893d43d628652812, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8847736872123657930}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 209329a53b69a6d4893d43d628652812, type: 3}
---- !u!1 &8847736872123657926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6507175039507341862, guid: 209329a53b69a6d4893d43d628652812, type: 3}
-  m_PrefabInstance: {fileID: 8847736872123657925}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8847736872123657927 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2398041302467466108, guid: 209329a53b69a6d4893d43d628652812, type: 3}
   m_PrefabInstance: {fileID: 8847736872123657925}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8847736872123657928 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1549013245404723069, guid: 209329a53b69a6d4893d43d628652812, type: 3}
-  m_PrefabInstance: {fileID: 8847736872123657925}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8847736872123657929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8847736872123657926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 815530853
-  _assetId: 1110198893
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
---- !u!114 &8847736872123657930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8847736872123657928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e66c8fe8cfdd0469fa1db421249546, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _inventoryPanel: {fileID: 0}
-  _inventorySlotPrefab: {fileID: 1832631408618658791, guid: 135d2e15a79a10941a6a9a600f762bb1, type: 3}
-  _inventorySlotStartNumber: 15
-  _slotList: []
-  _itemsPrefabs: []
-  _selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  _allItems:
-  - {fileID: 5809743472006700729, guid: 56e3281aeb4e48b479ece6d177aa9df1, type: 3}
-  - {fileID: 5809743472006700729, guid: 87a935f01d803074a94e9bcdaa10eb09, type: 3}
-  - {fileID: 5809743472006700729, guid: aa39736f4cf2ee54d9cc9af876840767, type: 3}
-  - {fileID: 5809743472006700729, guid: 398df881172e36745a2cbfc2e30a472e, type: 3}
-  - {fileID: 5809743472006700729, guid: 6a2774c3958a509408df85537004c6e9, type: 3}
-  - {fileID: 5809743472006700729, guid: 4133b51fc9b48cb4e94a0a1d0efa073c, type: 3}
-  - {fileID: 5809743472006700729, guid: b2bdd1b8f6e27a248bc79d84a794e6c0, type: 3}
-  - {fileID: 5809743472006700729, guid: 360f8c9ee7046ea48af23dc52fd9d2a6, type: 3}
-  - {fileID: 5809743472006700729, guid: 5f476bc06e4e5a64082d4046555bf1a1, type: 3}
-  _inventorySize: 0
---- !u!114 &8847736872123657931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8847736872123657928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 2297038355
-  _assetId: 1110198893
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
