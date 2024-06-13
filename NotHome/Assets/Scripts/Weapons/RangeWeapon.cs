@@ -168,6 +168,7 @@ public class RangeWeapon : NetworkBehaviour
         print("finish reload");
         _playerController.SetAnimation("Reload", false);
     }
+    GameObject sound = null;
 
     public void Shoot()
     {
@@ -180,7 +181,11 @@ public class RangeWeapon : NetworkBehaviour
 
                 if(isOwned)
                 {
-                    CmdPlayShootSound(transform.root.position);
+                    //CmdPlayShootSound(transform.position);
+                    sound = Instantiate(soundToInstanciate, transform.position, Quaternion.identity);
+                    sound.GetComponent<AudioSource>().clip = _riffleAudioClip;
+                    CmdInstantiateObject();
+
                     CmdPlayMuzzleFlash();
                 }
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
@@ -199,6 +204,13 @@ public class RangeWeapon : NetworkBehaviour
         {
             StartReload();
         }
+    }
+
+    [Command]
+    void CmdInstantiateObject()
+    {
+        NetworkServer.Spawn(sound);
+        sound.GetComponent<AudioSource>().Play();
     }
 
     [Command]
