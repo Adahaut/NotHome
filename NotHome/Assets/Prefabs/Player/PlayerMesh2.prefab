@@ -8405,7 +8405,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c988aa895e1019b4dbf19e0d86cadd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distRayCast: 0.25
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _distRayCast: 5
   _audioWalking:
   - {fileID: 8300000, guid: 9062c2f53bb6087478956a58eae1eb08, type: 3}
   - {fileID: 8300000, guid: b7dd751487da9f9498014110a66c50d6, type: 3}
@@ -8426,10 +8429,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.35
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
