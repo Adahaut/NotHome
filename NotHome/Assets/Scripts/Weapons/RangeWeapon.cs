@@ -191,11 +191,7 @@ public class RangeWeapon : NetworkBehaviour
 
                 if(isOwned)
                 {
-                    //CmdPlayShootSound(transform.position);
-                    //sound = Instantiate(soundToInstanciate, transform.position, Quaternion.identity);
-                    //sound.GetComponent<AudioSource>().clip = _riffleAudioClip;
-                    //CmdInstantiateObject();
-
+                    CmdPlayShootSound(transform.position);
                     CmdPlayMuzzleFlash();
                 }
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
@@ -214,13 +210,6 @@ public class RangeWeapon : NetworkBehaviour
         {
             StartReload();
         }
-    }
-
-    [Command]
-    void CmdInstantiateObject()
-    {
-        NetworkServer.Spawn(sound);
-        sound.GetComponent<AudioSource>().Play();
     }
 
     [Command]
