@@ -226,6 +226,7 @@ public class RangeWeapon : NetworkBehaviour
     [Command]
     void SendSoundToAllPLayers(Vector3 position)
     {
+        Debug.Log($"Server received sound position: {position}");
         SoundPositionNotification msg = new SoundPositionNotification
         {
             x = position.x,
