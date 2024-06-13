@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
+public struct SoundPositionNotification : NetworkMessage
+{
+    public float x;
+    public float y;
+    public float z;
+}
+
 public class RangeWeapon : NetworkBehaviour
 {
     [SerializeField] public WeaponData _weaponData;
@@ -50,8 +57,6 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private List<WeaponData> _weaponLvl = new();
     [SerializeField] private List<float> _muzzlePositionByLevel = new();
 
-    public GameObject soundToInstanciate;
-
     public static RangeWeapon Instance;
 
     private void Awake()
@@ -82,6 +87,12 @@ public class RangeWeapon : NetworkBehaviour
         _recoil = GetComponent<ProceduralRecoil>();
         _playerController = GetComponentInParent<PlayerController>();
         UpdateWeaponVisualAtLaunch();
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        NetworkClient.RegisterHandler<SoundPositionNotification>(OnClientReceiveMessage);
     }
     public void NextWeapon()
     {
@@ -192,7 +203,13 @@ public class RangeWeapon : NetworkBehaviour
                 if(isOwned)
                 {
                     //CmdPlayShootSound(transform.position);
-                    AudioSource.PlayClipAtPoint(_riffleAudioClip, transform.position);
+                    SoundPositionNotification msg = new SoundPositionNotification
+                    {
+                        x = transform.position.x,
+                        y = transform.position.y,
+                        z = transform.position.z
+                    };
+                    NetworkServer.SendToAll(msg);
 
                     CmdPlayMuzzleFlash();
                 }
@@ -214,17 +231,24 @@ public class RangeWeapon : NetworkBehaviour
         }
     }
 
-    [Command]
-    void CmdPlayShootSound(Vector3 shootPosition)
+    void OnClientReceiveMessage(SoundPositionNotification msg)
     {
-        RpcPlayShootSound(shootPosition);
+        print("test");
+        Vector3 spawn = new Vector3(msg.x, msg.y, msg.z);
+        AudioSource.PlayClipAtPoint(_riffleAudioClip, spawn);
     }
 
-    [ClientRpc]
-    void RpcPlayShootSound(Vector3 shootPosition)
-    { 
-        //AudioSource.PlayClipAtPoint(_riffleAudioClip, shootPosition);
-    }
+    //[Command]
+    //void CmdPlayShootSound(Vector3 shootPosition)
+    //{
+    //    RpcPlayShootSound(shootPosition);
+    //}
+
+    //[ClientRpc]
+    //void RpcPlayShootSound(Vector3 shootPosition)
+    //{
+    //    AudioSource.PlayClipAtPoint(_riffleAudioClip, shootPosition);
+    //}
 
     public void KillEnemy(GameObject e)
     {
