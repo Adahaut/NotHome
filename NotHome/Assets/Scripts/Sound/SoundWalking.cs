@@ -34,12 +34,15 @@ public class SoundWalking : MonoBehaviour
                 switch (hit.collider.tag)
                 {
                     case "Forest":
+                        SoundZone.Instance.SetZone("Forest");
                         SetSound(0);
                         break;
                     case "Mountain":
+                        SoundZone.Instance.SetZone("Mountain");
                         SetSound(2);
                         break;
                     case "Desert":
+                        SoundZone.Instance.SetZone("Desert");
                         SetSound(4);
                         break;
                     default:
