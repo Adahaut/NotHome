@@ -50,6 +50,7 @@ public class SoundZone : MonoBehaviour
                 StartCoroutine(StartSound(_soundDesert));
                 break;
             default:
+                StopAllCoroutines();
                 Debug.Log("No zone");
                 break;
         }
