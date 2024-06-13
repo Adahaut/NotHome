@@ -7282,7 +7282,7 @@ GameObject:
   - component: {fileID: 8560312892606734211}
   - component: {fileID: 6782456894075962786}
   - component: {fileID: -1771404588244235772}
-  - component: {fileID: -6499860905611913568}
+  - component: {fileID: 6755889540051996593}
   m_Layer: 3
   m_Name: PlayerMesh2
   m_TagString: Player
@@ -7716,14 +7716,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &-6499860905611913568
+--- !u!81 &6755889540051996593
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5236232325511716344}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &5265460004480608263
 GameObject:
   m_ObjectHideFlags: 0
@@ -8405,7 +8405,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c988aa895e1019b4dbf19e0d86cadd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distRayCast: 0.25
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _distRayCast: 5
   _audioWalking:
   - {fileID: 8300000, guid: 9062c2f53bb6087478956a58eae1eb08, type: 3}
   - {fileID: 8300000, guid: b7dd751487da9f9498014110a66c50d6, type: 3}
@@ -8426,10 +8429,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.35
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -12576,7 +12579,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a125eca5b6d81a740b84bcb6d846c216, type: 2}
   - {fileID: 11400000, guid: 4fd9991a60cc3b74a9cc7eb27c59c0aa, type: 2}
   - {fileID: 11400000, guid: 0571b9572a4b99b438d9c11bcf0ac9e3, type: 2}
-  _muzzlePositionByLevel: []
+  _muzzlePositionByLevel:
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!114 &7867802849333091311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13032,6 +13039,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3930488411502155266, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3984381234062733896, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -13158,7 +13169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5483912871609835639, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5493350871236684616, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x

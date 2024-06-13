@@ -28,7 +28,7 @@ public class Enemies : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _players = GameObject.FindGameObjectsWithTag("Player");
         //_playerDetectionCollider = GetComponentInChildren<BoxCollider>();
-        _playerDetectionCollider.enabled = false;
+        //_playerDetectionCollider.enabled = false;
         _animator = GetComponent<Animator>();
     }
 

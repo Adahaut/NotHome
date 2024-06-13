@@ -108,6 +108,7 @@ public class PlayerController : NetworkBehaviour
         if(isOwned)
         {
             playerUiCanvas.SetActive(true);
+            GetComponent<AudioListener>().enabled = true;
         }
     }
 

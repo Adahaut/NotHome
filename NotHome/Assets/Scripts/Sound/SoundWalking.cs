@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class SoundWalking : MonoBehaviour
+public class SoundWalking : NetworkBehaviour
 {
     private AudioSource _audioSource;
     [SerializeField] private float _distRayCast;
@@ -11,7 +12,7 @@ public class SoundWalking : MonoBehaviour
     [HideInInspector] public bool _isMoving;
     private int _indexSound = -1;
     [HideInInspector] public bool _isRunning;
-    
+
     public static SoundWalking Instance;
 
     private void Awake()
@@ -19,70 +20,120 @@ public class SoundWalking : MonoBehaviour
         if (Instance == null)
             Instance = this;
     }
+
     void Start()
     {
         _characterController = GetComponentInParent<CharacterController>();
         _transform = GetComponent<Transform>();
         _audioSource = GetComponent<AudioSource>();
     }
+
     void Update()
     {
+        if (!isOwned)
+            return;
+
+        _isMoving = _characterController.velocity.magnitude > 0.1f; // Threshold for movement
+        _isRunning = _isMoving && Input.GetKey(KeyCode.LeftShift); // Running if moving and holding Shift
+
         if (_characterController.isGrounded && _isMoving)
         {
             if (Physics.Raycast(_transform.position, _transform.TransformDirection(Vector3.down), out RaycastHit hit, _distRayCast))
             {
-                switch (hit.collider.tag)
+                Terrain terrain = hit.collider.GetComponent<Terrain>();
+
+                if (terrain != null)
                 {
-                    case "Forest":
-                        SoundZone.Instance.SetZone("Forest");
-                        SetSound(0);
-                        break;
-                    case "Mountain":
-                        SoundZone.Instance.SetZone("Mountain");
-                        SetSound(2);
-                        break;
-                    case "Desert":
-                        SoundZone.Instance.SetZone("Desert");
-                        SetSound(4);
-                        break;
-                    default:
-                        Debug.Log("No tag");
-                        break;
+                    TerrainData terrainData = terrain.terrainData;
+                    Vector3 terrainPos = terrain.transform.position;
+                    Vector3 hitPos = hit.point;
+
+                    int mapX = Mathf.RoundToInt((hitPos.x - terrainPos.x) / terrainData.size.x * terrainData.alphamapWidth);
+                    int mapZ = Mathf.RoundToInt((hitPos.z - terrainPos.z) / terrainData.size.z * terrainData.alphamapHeight);
+                    float[,,] alphaMap = terrainData.GetAlphamaps(mapX, mapZ, 1, 1);
+
+                    for (int i = 0; i < terrainData.alphamapLayers; i++)
+                    {
+                        if (alphaMap[0, 0, i] > 0.5f) // threshold to determine dominant texture
+                        {
+                            SetTerrainSound(i);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not a terrain");
                 }
             }
         }
         else
         {
-            StopSound();
+            CmdStopSound();
         }
     }
 
-    private void SetSound(int index)
+    private void SetTerrainSound(int textureIndex)
     {
-        if (_isRunning)
+        // Assuming your terrain textures are in the same order as the sounds in _audioWalking
+        switch (textureIndex)
         {
-            if (_audioSource.clip != _audioWalking[index + 1])
-            {
-                _indexSound = index + 1;
-                _audioSource.clip = _audioWalking[index + 1];
-                StartSound();
-            }
-        }
-        else
-        {
-            if (_audioSource.clip != _audioWalking[index])
-            {
-                _indexSound = index;
-                _audioSource.clip = _audioWalking[index];
-                StartSound();
-            }
+            case 0: // Forest texture
+                CmdSetSound(0);
+                break;
+            case 1: // Mountain texture
+                CmdSetSound(4);
+                break;
+            case 2: // Desert texture
+                CmdSetSound(2);
+                break;
+            default:
+                Debug.Log("Texture index not recognized");
+                break;
         }
     }
+
+    [Command]
+    private void CmdSetSound(int index)
+    {
+        RpcSetSound(index, _isRunning);
+    }
+
+    [ClientRpc]
+    private void RpcSetSound(int index, bool isRunning)
+    {
+        SetSound(index, isRunning);
+    }
+
+    [Command]
+    public void CmdStopSound()
+    {
+        RpcStopSound();
+    }
+
+    [ClientRpc]
+    public void RpcStopSound()
+    {
+        StopSound();
+    }
+
+    private void SetSound(int index, bool isRunning)
+    {
+        int soundIndex = isRunning ? index + 1 : index; // If running, use next sound in list
+        if (_audioSource.clip != _audioWalking[soundIndex])
+        {
+            _indexSound = soundIndex;
+            _audioSource.clip = _audioWalking[soundIndex];
+            StartSound();
+        }
+    }
+
     public void StartSound()
     {
         if (!_audioSource.isPlaying && _characterController.isGrounded)
             _audioSource.Play();
     }
+
     public void StopSound()
     {
         if (_audioSource.isPlaying)
