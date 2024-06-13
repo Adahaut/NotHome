@@ -151,6 +151,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7669127832066487428}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8968661297865159755}
   m_SourcePrefab: {fileID: 100100000, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
 --- !u!4 &7121148120562537957 stripped
 Transform:
@@ -223,6 +226,37 @@ MonoBehaviour:
   _hitAudioClip:
   - {fileID: 8300000, guid: 615884579ae15394fab2962d4d3dabd9, type: 3}
   - {fileID: 8300000, guid: 1d6daaa2f6867554e8080e506a2d0a70, type: 3}
+  _damageGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  _damageIndicator: {fileID: 0}
 --- !u!114 &6817495267012137918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,3 +566,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &-8968661297865159755
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609032578898743135}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 72d73634f2231e14da472b5068a7b6af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
