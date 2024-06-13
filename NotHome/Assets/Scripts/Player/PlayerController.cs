@@ -87,6 +87,8 @@ public class PlayerController : NetworkBehaviour
 
     public Vector2 Rotation { get { return _rotation2; } set { _rotation2 = value; } }
 
+    public GameObject playerMesh;
+
     bool _canJump;
 
     public override void OnStartAuthority()
@@ -109,6 +111,8 @@ public class PlayerController : NetworkBehaviour
         {
             playerUiCanvas.SetActive(true);
             GetComponent<AudioListener>().enabled = true;
+
+            playerMesh.SetActive(false);
         }
     }
 

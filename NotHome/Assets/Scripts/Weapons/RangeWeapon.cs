@@ -190,7 +190,7 @@ public class RangeWeapon : NetworkBehaviour
                 if(isOwned)
                 {
                     CmdPlaySound(transform.position);
-                    CmdPlayMuzzleFlash();
+                    CmdPlayMuzzleFlash(_muzzle.position);
                 }
                 if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {                    
@@ -251,15 +251,15 @@ public class RangeWeapon : NetworkBehaviour
     }
 
     [Command]
-    private void CmdPlayMuzzleFlash()
+    private void CmdPlayMuzzleFlash(Vector3 pos)
     {
-        RpcPlayMuzzleFlash();
+        RpcPlayMuzzleFlash(pos);
     }
 
     [ClientRpc]
-    private void RpcPlayMuzzleFlash()
+    private void RpcPlayMuzzleFlash(Vector3 position)
     {
-        GameObject _muzzleFlash = Instantiate(_muzzuleFlashEffect, _muzzle.position, _muzzle.rotation, _muzzle);
+        GameObject _muzzleFlash = Instantiate(_muzzuleFlashEffect, position, _muzzle.rotation);
         _muzzleFlash.transform.position = _muzzle.position + (_muzzleFlash.transform.right * 0.1f);
         _muzzleFlash.GetComponent<ParticleSystem>().Play();
         Destroy(_muzzleFlash, 0.2f);
