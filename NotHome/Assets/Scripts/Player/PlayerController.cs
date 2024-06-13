@@ -87,7 +87,7 @@ public class PlayerController : NetworkBehaviour
 
     public Vector2 Rotation { get { return _rotation2; } set { _rotation2 = value; } }
 
-    public LayerMask newMask;
+    public GameObject playerMesh;
 
     bool _canJump;
 
@@ -112,7 +112,7 @@ public class PlayerController : NetworkBehaviour
             playerUiCanvas.SetActive(true);
             GetComponent<AudioListener>().enabled = true;
 
-           _camera.GetComponent<Camera>().cullingMask = newMask;
+            playerMesh.SetActive(false);
         }
     }
 
