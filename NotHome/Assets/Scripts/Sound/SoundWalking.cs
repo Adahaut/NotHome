@@ -13,14 +13,6 @@ public class SoundWalking : NetworkBehaviour
     private int _indexSound = -1;
     [HideInInspector] public bool _isRunning;
 
-    public static SoundWalking Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-    }
-
     void Start()
     {
         _characterController = GetComponentInParent<CharacterController>();

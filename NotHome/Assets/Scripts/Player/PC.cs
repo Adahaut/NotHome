@@ -211,7 +211,7 @@ public class PC : MonoBehaviour
         _isRunning = true;
         if (context.performed)
         {
-            SoundWalking.Instance._isRunning = true;
+            //SoundWalking.Instance._isRunning = true;
         }
         if (_moveDir != Vector2.zero)
             _animator.SetBool("Run", true);
@@ -219,7 +219,7 @@ public class PC : MonoBehaviour
         {
             _isRunning = false;
             _animator.SetBool("Run", false);
-            SoundWalking.Instance._isRunning = false;
+            //SoundWalking.Instance._isRunning = false;
         }
     }
     
