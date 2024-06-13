@@ -238,6 +238,7 @@ public class RangeWeapon : NetworkBehaviour
     void OnClientReceiveMessage(SoundPositionNotification msg)
     {
         Vector3 spawn = new Vector3(msg.x, msg.y, msg.z);
+        Debug.Log($"Client received sound position: {spawn}");
         AudioSource.PlayClipAtPoint(_riffleAudioClip, spawn);
     }
 
