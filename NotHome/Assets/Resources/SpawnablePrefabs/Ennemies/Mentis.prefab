@@ -142,6 +142,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6817495267012137918}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5471827333342726440}
   m_SourcePrefab: {fileID: 100100000, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
 --- !u!4 &7121148120562537957 stripped
 Transform:
@@ -211,6 +214,37 @@ MonoBehaviour:
   _maxLife: 0
   _currentLife: 0
   _helthSlider: {fileID: 0}
+  _damageGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  _damageIndicator: {fileID: 0}
 --- !u!114 &6817495267012137918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,3 +261,21 @@ MonoBehaviour:
   _timeBetweenAttacks: 3
   _sightRange: 10
   _attackRange: 2
+  _players: []
+--- !u!114 &5471827333342726440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609032578898743135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1107141226
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

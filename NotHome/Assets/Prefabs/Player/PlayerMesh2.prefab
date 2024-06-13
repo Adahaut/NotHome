@@ -7418,6 +7418,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a4d3888093414429d6a51c798ce24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _enemyDetectionCollider: {fileID: 6134492554753304191}
   _damages: 10
   _isAimingFinished: 0
@@ -12422,6 +12425,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4fd9991a60cc3b74a9cc7eb27c59c0aa, type: 2}
   - {fileID: 11400000, guid: 0571b9572a4b99b438d9c11bcf0ac9e3, type: 2}
   _muzzlePositionByLevel: []
+  soundToInstanciate: {fileID: 606561840325195739, guid: 207921df07e1e484fb8e1774af7b5040, type: 3}
 --- !u!114 &7867802849333091311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13003,7 +13007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5483912871609835639, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5493350871236684616, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x

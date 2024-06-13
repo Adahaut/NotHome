@@ -746,6 +746,7 @@ GameObject:
   - component: {fileID: 8631893460774339298}
   - component: {fileID: 4884307892998830534}
   - component: {fileID: 2708453619607528885}
+  - component: {fileID: -428963035433453729}
   m_Layer: 0
   m_Name: SlenderMan
   m_TagString: Enemy
@@ -829,6 +830,23 @@ MonoBehaviour:
   _checkRadius: 5
   _killingDistance: 3
   _animator: {fileID: 0}
+--- !u!114 &-428963035433453729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6853585656894584853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1979509611
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &6947132371398158386
 GameObject:
   m_ObjectHideFlags: 0
