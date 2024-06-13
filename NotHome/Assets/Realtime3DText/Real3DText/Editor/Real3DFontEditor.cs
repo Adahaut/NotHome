@@ -1,10 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using Real3DText.Fonts.VectorizedFont;
 using Real3DText.Fonts;
 
@@ -70,23 +66,13 @@ public class Real3DFontEditor : Editor {
 		return inputObject;
     }
 	[MenuItem("3D Menu Creator/Add 3DText Runtime Editable")]
-	static void AddInputControlRuntime () {
-		GameObject obj = AddInputControl();
-		//if (obj !=null)
-			//obj.AddComponent<RuntimeLabel>();
-	}
-	
-	//RuntimeLabel label;
 	
 	public void OnEnable()
 	{
 		
 		script = (Real3DFont) target;
-		//label = script.GetComponent<RuntimeLabel>();
 		updateFontList(script);
 		script.vectorFont.toDictionary();
-//		changeFont(script);
-//		process(script);
 	} 
 	
 	public override void OnInspectorGUI ()
@@ -540,74 +526,6 @@ public class Real3DFontEditor : Editor {
 			} 
 		}
 	}
-
-//	void OnSceneGUI()
-//	{
-//		int counter = 0;
-//		Color defaultC = Handles.color;
-//		MeshFilter[] tempChilds = script.gameObject.GetComponentsInChildren<MeshFilter>();
-//		Vector3 normal1 = Vector3.one;
-//		Vector3 normal2= Vector3.one;
-//		foreach(MeshFilter mFilter in tempChilds)
-//		{
-//			if (script.text.SubMeshCount == 3)
-//			{
-//				int[] pointsIndex = mFilter.sharedMesh.GetTriangles(2);
-//				int[] pointsIndex1 = mFilter.sharedMesh.GetTriangles(0);
-//				int[] pointsIndex2 = mFilter.sharedMesh.GetTriangles(1);
-//				Vector3[] points = new Vector3[3];
-//				int triIndex = 0;
-//				for (int i = 0; i < pointsIndex.Length;i++)
-//				{
-//
-//
-//
-//
-////					for (int y = 0; y < pointsIndex1.Length;y++)
-////					{
-////						if (pointsIndex[i] == pointsIndex1[y])
-////							Handles.color = Color.red;
-////						else Handles.color = defaultC;
-////					}
-//					if (i < 5 || (i >pointsIndex.Length-4 ))
-//					{
-//					points[triIndex] = mFilter.sharedMesh.vertices[pointsIndex[i]];
-//					Handles.Label(points[triIndex],i.ToString());
-//					if (triIndex>=2){
-//						if (counter <2){
-//							Handles.color = Color.red;
-//							normal1 = Vector3.Cross(points[1]-points[0],points[2]-points[0]);
-//						}
-//						else{ 
-//							Handles.color = defaultC;
-//							normal2 = Vector3.Cross(points[1]-points[0],points[2]-points[0]);
-////							Debug.Log (Vector3.Angle(normal1,normal2));
-//						}
-//						counter++;
-//						if (counter > 3)
-//							counter = 0;
-//
-//						Handles.DrawAAConvexPolygon(points);
-//					}
-//					triIndex++;
-//					if (triIndex >2)triIndex = 0;
-//					}
-//				}
-//
-//			}
-//		}
-//
-////		int fontCharacterIndex = 0;
-////		if(script.vectorFont.CharacterMap.TryGetValue('d', out fontCharacterIndex)) {
-//////			Debug.Log (script.vectorFont.characters[fontCharacterIndex].Vertices.Count);
-////			for (int i = 0;i< script.vectorFont.characters[fontCharacterIndex].Vertices.Count;i++)
-////			{
-////				Handles.Label(script.vectorFont.characters[fontCharacterIndex].Vertices[i],i.ToString());
-////			}
-////		}
-//	}
-
-
 }
 
 
