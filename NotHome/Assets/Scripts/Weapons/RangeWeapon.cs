@@ -94,6 +94,13 @@ public class RangeWeapon : NetworkBehaviour
         base.OnStartClient();
         NetworkClient.RegisterHandler<SoundPositionNotification>(OnClientReceiveMessage);
     }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        NetworkServer.RegisterHandler<SoundPositionNotification>(OnReceiveMessage);
+    }
+
     public void NextWeapon()
     {
         if (_weaponData._nextWeapon != null)
@@ -189,7 +196,6 @@ public class RangeWeapon : NetworkBehaviour
         print("finish reload");
         _playerController.SetAnimation("Reload", false);
     }
-    GameObject sound = null;
 
     public void Shoot()
     {
@@ -209,7 +215,7 @@ public class RangeWeapon : NetworkBehaviour
                         y = transform.position.y,
                         z = transform.position.z
                     };
-                    NetworkServer.SendToAll(msg);
+                    NetworkClient.Send(msg);
 
                     CmdPlayMuzzleFlash();
                 }
@@ -233,9 +239,13 @@ public class RangeWeapon : NetworkBehaviour
 
     void OnClientReceiveMessage(SoundPositionNotification msg)
     {
-        print("test");
         Vector3 spawn = new Vector3(msg.x, msg.y, msg.z);
         AudioSource.PlayClipAtPoint(_riffleAudioClip, spawn);
+    }
+
+    private void OnReceiveMessage(NetworkConnection conn, SoundPositionNotification msg)
+    {
+        NetworkServer.SendToAll(msg);
     }
 
     //[Command]
