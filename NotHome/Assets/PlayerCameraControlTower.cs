@@ -14,12 +14,12 @@ public class PlayerCameraControlTower : NetworkBehaviour
     {
         //en afficher que 3
         //Afficher no signal sur les autres
-        StartCoroutine(SetupScreens());
+       // StartCoroutine(SetupScreens());
     }
 
     public override void OnStartServer()
     {
-        StartCoroutine(SetupScreens());
+        //StartCoroutine(SetupScreens());
         base.OnStartServer();
     }
 

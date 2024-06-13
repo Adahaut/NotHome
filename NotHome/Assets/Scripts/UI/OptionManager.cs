@@ -12,8 +12,10 @@ public class OptionManager : MonoBehaviour
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private TMP_Dropdown _dropdownResolution;
     private Resolution[] _resolutions;
+    private Transform _transform;
     private void Start()
     {
+        _transform = transform;
         _toggleFullScreen.isOn = Screen.fullScreen;
         GetResolution();
     }
@@ -52,5 +54,10 @@ public class OptionManager : MonoBehaviour
     {
         Resolution resolution = _resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+    public void SetSensitivity(float sensitivity)
+    {
+        GetComponentInParent<PlayerController>()._sensitivity = sensitivity;
+        print(sensitivity);
     }
 }

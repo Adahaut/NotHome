@@ -1,10 +1,12 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : NetworkBehaviour
 {
     [SerializeField] private Collider _enemyDetectionCollider;
     [SerializeField] private int _damages;
@@ -59,7 +61,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(_playerController != null && _playerController._canAttack)
+        if(isOwned && _playerController != null && _playerController._canAttack)
         {
             if (_playerController._isInBook)
                 return;
@@ -86,16 +88,20 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Aim(InputAction.CallbackContext context)
     {
-        if (_playerController._isInBook || !_isRangeWeaponEqupiped || _rangeWeapon._weaponLevel < 3 || !_playerController._canAttack)
-            return;
-        if (context.started)
+        if(isOwned)
         {
-            StartAiming();
+            if (_playerController._isInBook || !_isRangeWeaponEqupiped || _rangeWeapon._weaponLevel < 3 || !_playerController._canAttack)
+                return;
+            if (context.started)
+            {
+                StartAiming();
+            }
+            else if (context.canceled && _isAiming)
+            {
+                StopAiming();
+            }
         }
-        else if (context.canceled && _isAiming)
-        {
-            StopAiming();
-        }
+        
     }
 
     public void StartAiming()
@@ -112,9 +118,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void Reload(InputAction.CallbackContext context)
     {
-        if (_playerController._isInBook)
-            return;
-        _reloading?.Invoke();
+        if(isOwned)
+        {
+            if (_playerController._isInBook)
+                return;
+            _reloading?.Invoke();
+        }
+        
     }
 
     public void OnTriggerEnter(Collider other)
