@@ -56,7 +56,7 @@ public class SoundWalking : NetworkBehaviour
                     {
                         if (alphaMap[0, 0, i] > 0.5f) // threshold to determine dominant texture
                         {
-                            SetTerrainSound(i);
+                            CmdSetSound(i);
                             break;
                         }
                     }
@@ -73,30 +73,10 @@ public class SoundWalking : NetworkBehaviour
         }
     }
 
-    private void SetTerrainSound(int textureIndex)
-    {
-        // Assuming your terrain textures are in the same order as the sounds in _audioWalking
-        switch (textureIndex)
-        {
-            case 0: // Forest texture
-                CmdSetSound(0);
-                break;
-            case 1: // Mountain texture
-                CmdSetSound(4);
-                break;
-            case 2: // Desert texture
-                CmdSetSound(2);
-                break;
-            default:
-                Debug.Log("Texture index not recognized");
-                break;
-        }
-    }
-
     [Command]
-    private void CmdSetSound(int index)
+    private void CmdSetSound(int textureIndex)
     {
-        RpcSetSound(index, _isRunning);
+        RpcSetSound(textureIndex, _isRunning);
     }
 
     [ClientRpc]
