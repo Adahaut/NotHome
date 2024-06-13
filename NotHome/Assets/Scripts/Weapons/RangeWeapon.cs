@@ -226,7 +226,6 @@ public class RangeWeapon : NetworkBehaviour
     [Command]
     void SendSoundToAllPLayers(Vector3 position)
     {
-        Debug.Log($"Server received sound position: {position}");
         SoundPositionNotification msg = new SoundPositionNotification
         {
             x = position.x,
@@ -239,7 +238,6 @@ public class RangeWeapon : NetworkBehaviour
     void OnClientReceiveMessage(SoundPositionNotification msg)
     {
         Vector3 spawn = new Vector3(msg.x, msg.y, msg.z);
-        Debug.Log($"Client received sound position: {spawn}");
         AudioSource.PlayClipAtPoint(_riffleAudioClip, spawn);
     }
 
