@@ -91,6 +91,8 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
         _animCam.GetComponent<Animator>().speed = _speedAnimCam;
         _weapon.GetComponent<Animator>().speed = _speedAnimWeapon;
         _animator = GetComponentInChildren<Animator>();
