@@ -164,6 +164,15 @@ public class PlayerController : NetworkBehaviour
         _inventory.SetActive(_active);
     }
 
+    public void OpenCloseInventoryInBase(bool _openning)
+    {
+        print("a");
+        SetInventoryActive(_openning);
+        if (_openning)
+            _inventory.transform.position = _inventoryBasePosition;
+        else
+            _inventory.transform.position = _inventoryInitialPosition;
+    }
 
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {

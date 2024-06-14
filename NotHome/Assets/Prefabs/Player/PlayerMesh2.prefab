@@ -7536,6 +7536,7 @@ MonoBehaviour:
   _inventory: {fileID: 1824544363156659149}
   _itemTag: Item
   _itemPickRange: 2
+  _inventoryBasePosition: {x: -528, y: 24, z: 0}
   _hotBar: {fileID: 6624764434397376134}
   _playerManager: {fileID: 7216602018743013806}
   _staminaTimer: 3
@@ -13018,14 +13019,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -745.15
       objectReference: {fileID: 0}
-    - target: {fileID: 2266722331387570479, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6111432323842770088}
-    - target: {fileID: 2266722331387570479, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenUi
-      objectReference: {fileID: 0}
     - target: {fileID: 2287286898956099699, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -13050,6 +13043,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -325.15002
       objectReference: {fileID: 0}
+    - target: {fileID: 2485449725157730572, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 957.5269
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485449725157730572, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2530436733709822384, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: _playerCamera
       value: 
@@ -13073,6 +13074,10 @@ PrefabInstance:
     - target: {fileID: 3043541671207677401, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053294465420608533, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3199722267435644777, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
@@ -13222,6 +13227,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -380
       objectReference: {fileID: 0}
+    - target: {fileID: 4079745937879700126, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 430
+      objectReference: {fileID: 0}
     - target: {fileID: 4174018934291862445, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -13324,7 +13333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5483912871609835639, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5493350871236684616, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -13357,14 +13366,6 @@ PrefabInstance:
     - target: {fileID: 5627891773869480849, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -325.15002
-      objectReference: {fileID: 0}
-    - target: {fileID: 5647083292536828126, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6111432323842770088}
-    - target: {fileID: 5647083292536828126, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenUi
       objectReference: {fileID: 0}
     - target: {fileID: 5659604857842946504, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
@@ -13630,14 +13631,6 @@ PrefabInstance:
       propertyPath: _inventoryBase
       value: 
       objectReference: {fileID: 1494109134185865936}
-    - target: {fileID: 7917600650778112028, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6111432323842770088}
-    - target: {fileID: 7917600650778112028, guid: c65c6ee038096654983d801be093112f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenUi
-      objectReference: {fileID: 0}
     - target: {fileID: 8043341053840667464, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_Layer
       value: 2
