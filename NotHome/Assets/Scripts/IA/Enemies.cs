@@ -141,6 +141,7 @@ public class Enemies : NetworkBehaviour
         if (!_alreadyAttacked)
         {
             _animator.SetBool("IsAttacking", true);
+            print("bool attack true");
             _alreadyAttacked = true;
             _playerDetectionCollider.enabled = true;
             _animator.SetBool("IsAttacking", false);
@@ -171,6 +172,7 @@ public class Enemies : NetworkBehaviour
     //active collider in animation to attack
     public void ActiveCollider()
     {
+        print("activateCollider");
         _playerDetectionCollider.enabled = true;
         _audioSources[2].Play();
     }
