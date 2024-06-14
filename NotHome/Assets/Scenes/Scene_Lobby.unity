@@ -1246,6 +1246,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1611417681957726309, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+      propertyPath: m_Name
+      value: Host
+      objectReference: {fileID: 0}
     - target: {fileID: 1675140422431294802, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_Name
       value: MainMenu
@@ -1285,6 +1289,10 @@ PrefabInstance:
     - target: {fileID: 6185578866600889469, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 290
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652964063744056806, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+      propertyPath: m_Name
+      value: Join
       objectReference: {fileID: 0}
     - target: {fileID: 7244330143345149525, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1351,32 +1359,10 @@ PrefabInstance:
     - {fileID: 2958903465314671617, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1675140422431294802, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 930734149}
     - targetCorrespondingSourceObject: {fileID: 6892625539760897466, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2015386819}
   m_SourcePrefab: {fileID: 100100000, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
---- !u!1 &930734147 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1675140422431294802, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-  m_PrefabInstance: {fileID: 930734146}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &930734149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930734147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f9050f211cf7e428f10180e8f81dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkManager: {fileID: 1807726074}
-  landingPagePanel: {fileID: 0}
 --- !u!1 &950222259 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8408612212861286637, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
