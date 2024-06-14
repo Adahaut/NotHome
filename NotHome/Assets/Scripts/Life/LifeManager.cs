@@ -1,13 +1,14 @@
+using Mirror;
 using System.Collections;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class LifeManager : MonoBehaviour
+public class LifeManager : NetworkBehaviour
 {
     [SerializeField] private int _maxLife;
-    public int _currentLife;
+    [SyncVar] public int _currentLife;
     private PlayerDeathAndRespawn _playerDeathAndRespawnManager;
     private Animator _animator;
 

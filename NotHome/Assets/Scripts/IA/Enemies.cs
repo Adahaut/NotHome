@@ -53,7 +53,7 @@ public class Enemies : NetworkBehaviour
         }
 
         // Sync position with clients
-        RpcSyncPosition(transform.position);
+        RpcSyncPositionAndRotation(transform.position, transform.rotation);
     }
 
     private void Patrol()
@@ -161,10 +161,11 @@ public class Enemies : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcSyncPosition(Vector3 position)
+    private void RpcSyncPositionAndRotation(Vector3 position, Quaternion rotation)
     {
         if (isServer) return; // Server doesn't need to sync position to itself
         transform.position = position;
+        transform.rotation = rotation;
     }
 
     //active collider in animation to attack
