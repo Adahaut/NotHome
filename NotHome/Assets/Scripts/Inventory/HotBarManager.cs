@@ -16,6 +16,7 @@ public class HotBarManager : MonoBehaviour
 
     [SerializeField] private Color _hotBarSlotSelectedColor;
     [SerializeField] private Color _hotBarSlotUnselectedColor = Color.white;
+    private ProximityVoiceChat _poximityVoiceChat;
 
     private PlayerAttack _playerAttack;
 
@@ -32,6 +33,7 @@ public class HotBarManager : MonoBehaviour
         _playerAttack = GetComponentInParent<PlayerAttack>();
         _animator = GetComponentInParent<Animator>();
         SetWeaponActive();
+        _poximityVoiceChat = GetComponentInParent<ProximityVoiceChat>();
     }
 
     private void InitializeHotBar()
@@ -46,6 +48,11 @@ public class HotBarManager : MonoBehaviour
     public void ResetTimer() { _timeToHide = 2f; }
 
     public bool IsOpen() {  return _isOpen; }
+
+    public void AddTalkieWalkie()
+    {
+        _hotBarItems[2].transform.GetChild(0).gameObject.SetActive(true);
+    }
 
     public void UpdateSelectedHotBarSlot()
     {
@@ -78,6 +85,7 @@ public class HotBarManager : MonoBehaviour
     {
         _playerAttack._isRangeWeaponEqupiped = false;
         _playerAttack._isMeleeWeaponEqupiped = false;
+        _poximityVoiceChat.ownTalkieWalkie = false;
         _animator.SetBool("RangeWeapon", false);
         _animator.SetBool("MeleeWeapon", false);
         if (_hotBarSlotIndex == 0)
@@ -89,6 +97,10 @@ public class HotBarManager : MonoBehaviour
         {
             _playerAttack._isMeleeWeaponEqupiped = true;
             _animator.SetBool("MeleeWeapon", true);
+        }
+        else if ( _hotBarSlotIndex == 2)
+        {
+            _poximityVoiceChat.ownTalkieWalkie = true;
         }
     }
 

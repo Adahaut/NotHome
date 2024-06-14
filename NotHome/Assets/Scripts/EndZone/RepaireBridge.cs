@@ -12,6 +12,9 @@ public class RepaireBridge : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
     [SerializeField] private TextMeshProUGUI _message;
 
+    private UpgradeHomeManager _hq;
+    private UpgradeHomeManager _ct;
+
     private InventoryManager _playerInventory;
 
     private void OnEnable()
@@ -25,9 +28,19 @@ public class RepaireBridge : MonoBehaviour
         }
     }
 
+    private bool CanUpgrade()
+    {
+        return _hq.GetLevel() == 4 && _ct.GetLevel() == 3;
+    }
+
     public void CreateBridge()
     {
         _message.text = "";
+        if (!CanUpgrade())
+        {
+            _message.text = "You must have upgrade all your base to repair the bridge";
+            return;
+        }
         for (int i = 0; i < _itemsNeeded.Count; i++)
         {
             if(_playerInventory.ContainItem(_itemsNeeded[i]))

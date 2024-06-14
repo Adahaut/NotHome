@@ -18,12 +18,9 @@ public class UpgradeHomeManager : MonoBehaviour
     [SerializeField] private GameObject _bridge;
     private bool _getAlarm;
     private GameObject _ship;
+    private FixSpaceship _fixSpaceship;
 
-    private GameObject[] _playersRef;
-    [SerializeField] private GameObject _spaceshipToFix;
-    [SerializeField] private GameObject _spaceshipFixed;
-    [SerializeField] private GameObject _camera;
-    [SerializeField] List<GameObject> _UpdgardesVisuals = new List<GameObject>();
+    [SerializeField] List<GameObject> _UpgradesVisuals = new List<GameObject>();
 
     private void Start()
     {
@@ -35,6 +32,8 @@ public class UpgradeHomeManager : MonoBehaviour
     {
         UpdateRessourcesText();
     }
+
+    public int GetLevel() { return _levelBuilding; }
 
     private void UpdateRessourcesText()
     {
@@ -69,16 +68,8 @@ public class UpgradeHomeManager : MonoBehaviour
     }
     public void EffectShip()
     {
-        _playersRef = GameObject.FindGameObjectsWithTag("Player");
-
-        for (int i = 0; i < _playersRef.Length; i++)
-        {
-            _playersRef[i].SetActive(false);
-        }
-
-        _spaceshipToFix.SetActive(false);
-        _spaceshipFixed.SetActive(true);
-        _camera.SetActive(true);
+        _fixSpaceship = GameObject.Find("SpaceshipPart").GetComponent<FixSpaceship>();
+        _fixSpaceship.FixSpaceShip();
     }
     public void EffectQG()
     {
@@ -124,15 +115,15 @@ public class UpgradeHomeManager : MonoBehaviour
         switch (_levelBuilding)
         {
             case 2:
-                _UpdgardesVisuals[0].SetActive(true);
+                _UpgradesVisuals[0].SetActive(true);
                 QuestManager.Instance.SetQuestUpLevel2();
                 break;
             case 3:
-                _UpdgardesVisuals[1].SetActive(true);
+                _UpgradesVisuals[1].SetActive(true);
                 QuestManager.Instance.SetQuestUpLevel3();
                 break;
             case 4:
-                _UpdgardesVisuals[2].SetActive(true);
+                _UpgradesVisuals[2].SetActive(true);
                 break;
             default:
                 break;
