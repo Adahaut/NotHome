@@ -90,6 +90,8 @@ public class PlayerController : NetworkBehaviour
     public Vector2 Rotation { get { return _rotation2; } set { _rotation2 = value; } }
 
     public GameObject playerMesh;
+    public GameObject gunMesh;
+    public GameObject machette;
 
     bool _canJump;
 
@@ -115,27 +117,28 @@ public class PlayerController : NetworkBehaviour
             GetComponent<AudioListener>().enabled = true;
 
             playerMesh.SetActive(false);
+            gunMesh.SetActive(false);
+            machette.SetActive(false);
         }
 
         _inventoryInitialPosition = _inventory.transform.localPosition;
     }
 
-    void CmdSendPositionToServer(Vector3 position)
+    void CmdSendPositionToServer(Vector3 position, Quaternion cameraRotation)
     {
-        // Mettre � jour la position du joueur sur le serveur
         transform.position = position;
+        _camera.rotation = cameraRotation;
 
-        // Envoyer la position mise � jour � tous les clients
-        RpcUpdatePositionOnClients(position);
+        RpcUpdatePositionOnClients(position, cameraRotation);
     }
 
     [ClientRpc]
-    void RpcUpdatePositionOnClients(Vector3 position)
+    void RpcUpdatePositionOnClients(Vector3 position, Quaternion cameraRotation)
     {
         if (!isOwned)
         {
-            // Mettre � jour la position du joueur sur les clients
             transform.position = position;
+            _camera.rotation = cameraRotation;
         }
     }
 
@@ -224,7 +227,7 @@ public class PlayerController : NetworkBehaviour
             RotateCamera();
             MovePlayer();
             Timer();
-            CmdSendPositionToServer(transform.position);
+            CmdSendPositionToServer(transform.position, _camera.rotation);
 
             if (!_staminaRegenStarted && CanRegenStamina())
             {
