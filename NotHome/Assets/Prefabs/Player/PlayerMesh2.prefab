@@ -2151,6 +2151,8 @@ MonoBehaviour:
   _speedAnimCam: 1
   yRotationLimit: 88
   playerMesh: {fileID: 9199943733419005488}
+  gunMesh: {fileID: 3645262663908923447}
+  machette: {fileID: 1078873549196695435}
 --- !u!114 &3709064287066778298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2999,6 +3001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8575331168385542697}
   - component: {fileID: 8588022621310418885}
+  - component: {fileID: 774403414245103935}
   m_Layer: 2
   m_Name: Torch
   m_TagString: Untagged
@@ -3083,6 +3086,22 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &774403414245103935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7137584592530221656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1f1c9292950764892bc6aded02e376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _mainCamera: {fileID: 6736726927068361524}
 --- !u!1 &7231512643856777528
 GameObject:
   m_ObjectHideFlags: 0
@@ -3556,6 +3575,11 @@ PrefabInstance:
 --- !u!4 &410739518574906673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
+  m_PrefabInstance: {fileID: 160304496157797082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1078873549196695435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
   m_PrefabInstance: {fileID: 160304496157797082}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1028574695196340431
@@ -4296,6 +4320,11 @@ PrefabInstance:
       addedObject: {fileID: 7043826092320641969}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b377a88375f81d242bf6d0176deec627, type: 3}
+--- !u!1 &3645262663908923447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b377a88375f81d242bf6d0176deec627, type: 3}
+  m_PrefabInstance: {fileID: 4492334880415556966}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4169563290956546701 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b377a88375f81d242bf6d0176deec627, type: 3}

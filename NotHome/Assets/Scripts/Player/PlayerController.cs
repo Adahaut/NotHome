@@ -90,6 +90,8 @@ public class PlayerController : NetworkBehaviour
     public Vector2 Rotation { get { return _rotation2; } set { _rotation2 = value; } }
 
     public GameObject playerMesh;
+    public GameObject gunMesh;
+    public GameObject machette;
 
     bool _canJump;
 
@@ -115,6 +117,8 @@ public class PlayerController : NetworkBehaviour
             GetComponent<AudioListener>().enabled = true;
 
             playerMesh.SetActive(false);
+            gunMesh.SetActive(false);
+            machette.SetActive(false);
         }
 
         _inventoryInitialPosition = _inventory.transform.localPosition;
