@@ -77,6 +77,8 @@ public class NetworkLobbyManager : NetworkManager
         else
         {
             var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
+            gamePlayerInstance.ChangeScene("Scene_Map_02");
+
             NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
 
             if(playerSpawnSystemInstance != null)

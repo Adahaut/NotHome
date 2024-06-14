@@ -1,5 +1,6 @@
 using Mirror;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEngine.SceneManagement;
 
 public class NetworkGamePlayerLobby : NetworkBehaviour
 {
@@ -35,6 +36,11 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
     public void SetDisplayName(string displayName)
     {
         this._displayName = displayName;
+    }
+
+    public void ChangeScene(string  sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
     
 }
