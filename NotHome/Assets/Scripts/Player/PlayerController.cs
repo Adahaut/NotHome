@@ -310,7 +310,7 @@ public class PlayerController : NetworkBehaviour
             _moveDir = ctx.ReadValue<Vector2>();
             if (_moveDir != Vector2.zero)
             {
-            _animCam.GetComponent<Animator>().enabled = true;
+                _animCam.GetComponent<Animator>().enabled = true;
                 if (!GetComponentInChildren<RangeWeapon>()._isAiming)
                     _weapon.GetComponent<Animator>().enabled = true;
             }
@@ -412,7 +412,7 @@ public class PlayerController : NetworkBehaviour
                 ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
                 
             }
-            _timer = 0.01f;
+            _timer = 0.05f;
         }
         
     }
@@ -447,16 +447,6 @@ public class PlayerController : NetworkBehaviour
         
     }
 
-    public void HotBarSelection4(InputAction.CallbackContext ctx)
-    {
-        if (isOwned)
-        {
-            CheckIfHotBarIsShowed();
-            ChangeToHotBarSlot(3);
-        }
-        
-    }
-
     private void CheckIfHotBarIsShowed()
     {
         if (!_hotBar.GetComponent<HotBarManager>().IsOpen())
@@ -474,13 +464,13 @@ public class PlayerController : NetworkBehaviour
 
     private int UpdateHotBarIndex(int _index, int _indexAddition)
     {
-        _index += _indexAddition;
+        _index -= _indexAddition;
 
         if (_index < 0)
         {
-            _index = 3;
+            _index = 2;
         }
-        else if (_index > 3)
+        else if (_index > 2)
         {
             _index = 0;
         }

@@ -32,8 +32,8 @@ public class HotBarManager : MonoBehaviour
         InitializeHotBar();
         _playerAttack = GetComponentInParent<PlayerAttack>();
         _animator = GetComponentInParent<Animator>();
-        SetWeaponActive();
         _poximityVoiceChat = GetComponentInParent<ProximityVoiceChat>();
+        SetWeaponActive();
     }
 
     private void InitializeHotBar()
@@ -85,6 +85,7 @@ public class HotBarManager : MonoBehaviour
     {
         _playerAttack._isRangeWeaponEqupiped = false;
         _playerAttack._isMeleeWeaponEqupiped = false;
+        print(_poximityVoiceChat);
         _poximityVoiceChat.ownTalkieWalkie = false;
         _animator.SetBool("RangeWeapon", false);
         _animator.SetBool("MeleeWeapon", false);
