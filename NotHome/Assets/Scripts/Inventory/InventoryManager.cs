@@ -14,6 +14,7 @@ public class InventoryManager : NetworkBehaviour
 
     [SerializeField] private List<GameObject> _itemsPrefabs = new List<GameObject>();
     [SerializeField] private Color _selectedColor = Color.yellow;
+    private HotBarManager _hotBarManager;
 
 
     public GameObject GetItemPrefab(string _name)
@@ -133,22 +134,28 @@ public class InventoryManager : NetworkBehaviour
 
     private void TryAddItem(string _ItemName, Sprite _itemSprite, bool _isAnEquipement, int _number)
     {
-
-        for (int i = 0; i < _slotList.Count; i++)
+        if(_isAnEquipement)
         {
-            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
-            {
-                _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() + _number);
-                return;
-            }
+            _hotBarManager.AddTalkieWalkie();
         }
-        for (int i = 0; i < _slotList.Count; i++)
+        else
         {
-            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
+            for (int i = 0; i < _slotList.Count; i++)
             {
-                _slotList[i].GetComponent<InventorySlot>().SetNumber(_number);
-                _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite, _isAnEquipement);
-                return;
+                if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
+                {
+                    _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() + _number);
+                    return;
+                }
+            }
+            for (int i = 0; i < _slotList.Count; i++)
+            {
+                if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
+                {
+                    _slotList[i].GetComponent<InventorySlot>().SetNumber(_number);
+                    _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite, _isAnEquipement);
+                    return;
+                }
             }
         }
     }
