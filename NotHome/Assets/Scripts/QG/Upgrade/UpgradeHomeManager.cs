@@ -8,8 +8,9 @@ public class UpgradeHomeManager : MonoBehaviour
 {
     private int _levelBuilding = 1;
     [SerializeField] private TextMeshProUGUI _textLevel;
+    [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
     public List<DictionnaryElement<string, List<DictionnaryElement<string, int>>>> _upgarde;
-    private InventoryManager _inventoryManager;
+    [SerializeField] private InventoryManager _inventoryManager;
     [SerializeField] private string _nameBuilding;
     [SerializeField] private ListSlotField _fieldManager;
     [SerializeField] private GameObject _alarm;
@@ -27,8 +28,24 @@ public class UpgradeHomeManager : MonoBehaviour
     private void Start()
     {
         //_textLevel.text = "Level " + _levelBuilding.ToString();
-        //_inventoryManager = PC.Instance.GetInventory();
+        //_inventoryManager = transform.parent.parent.GetComponentInChildren<InventoryManager>();
     }
+
+    private void OnEnable()
+    {
+        UpdateRessourcesText();
+    }
+
+    private void UpdateRessourcesText()
+    {
+        _ressourcesNeeded.text = "";
+
+        for (int i = 0; i < _upgarde[_levelBuilding - 1].Value.Count; i++)
+        {
+            _ressourcesNeeded.text += _upgarde[_levelBuilding - 1].Value[i].Value + " X " + _upgarde[_levelBuilding - 1].Value[i].Key + "\n\n";
+        }
+    }
+
     public void SetEffectBuilding()
     {
         switch (_nameBuilding)
