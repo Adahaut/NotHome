@@ -7510,13 +7510,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 0
-  m_Radius: 0
+  m_Height: 2
+  m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0
-  m_SkinWidth: 1
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.91, z: 0}
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!136 &1894164336023575211
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7626,7 +7626,6 @@ MonoBehaviour:
   nameTagInstance: {fileID: 0}
   mainCamera: {fileID: 6736726927068361524}
   playerUI: {fileID: 5944692255240726238}
-  playerBody: {fileID: 1713630651856521397}
   debugText: {fileID: 8854303416954128899}
 --- !u!114 &6111432323842770088
 MonoBehaviour:
