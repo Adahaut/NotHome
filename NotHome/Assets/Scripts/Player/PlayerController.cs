@@ -117,7 +117,7 @@ public class PlayerController : NetworkBehaviour
             playerMesh.SetActive(false);
         }
 
-        _inventoryInitialPosition = _inventory.transform.position;
+        _inventoryInitialPosition = _inventory.transform.localPosition;
     }
 
     void CmdSendPositionToServer(Vector3 position)
@@ -164,14 +164,12 @@ public class PlayerController : NetworkBehaviour
         _inventory.SetActive(_active);
     }
 
-    public void OpenCloseInventoryInBase(bool _openning)
+    public void SetInventoryPosition(bool _openning)
     {
-        print("a");
-        SetInventoryActive(_openning);
         if (_openning)
-            _inventory.transform.position = _inventoryBasePosition;
+            _inventory.transform.localPosition = _inventoryBasePosition;
         else
-            _inventory.transform.position = _inventoryInitialPosition;
+            _inventory.transform.localPosition = _inventoryInitialPosition;
     }
 
     public void OpenMenuPause(InputAction.CallbackContext ctx)
