@@ -261,8 +261,8 @@ public class PlayerController : NetworkBehaviour
                 _animator.SetBool("Run", true);
             if (context.canceled || _playerManager.Stamina <= 0)
             {
-            _weapon.GetComponent<Animator>().speed /= 2;
-            _animCam.GetComponent<Animator>().speed /= 2;
+            _weapon.GetComponent<Animator>().speed = 1f;
+            _animCam.GetComponent<Animator>().speed = 1f;
                 _isRunning = false;
                 _animator.SetBool("Run", false);
             }
