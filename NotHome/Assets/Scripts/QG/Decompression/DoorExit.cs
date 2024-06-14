@@ -53,20 +53,22 @@ public class DoorExit : MonoBehaviour
     }
     public void OpenDoor(Transform camera, float distRayCast)
     {
+        print("enter");
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
+            print("enter2");
             if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
             {
-                SetActiveObject();
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
             }
             else if (hit.collider.CompareTag("DecompressionMountain") && !_isDecompression) // && heure <= 20h
             {
-                SetActiveObject();
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
             }
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
-                _doorExit.SetActive(false);
-                _doorEnter.SetActive(true);
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
             }
         }
     }
