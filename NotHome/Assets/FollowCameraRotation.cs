@@ -1,12 +1,9 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCameraRotation : NetworkBehaviour
 {
     [SerializeField] private Camera _mainCamera;
-
 
     void Update()
     {
