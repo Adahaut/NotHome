@@ -25,6 +25,7 @@ public class PlayerStockageUI : NetworkBehaviour
     [SerializeField] private GameObject _inventoryBasePanel;
     [SerializeField] private GameObject _inventoryPanel;
     public List<GameObject> _slotList = new List<GameObject>();
+    private PlayerController _playerController;
 
     public int _baseInventorySlotCount = 10;
 
@@ -32,15 +33,16 @@ public class PlayerStockageUI : NetworkBehaviour
 
     private void OnEnable()
     {
+        if(_playerController == null)
+            _playerController = GetComponentInParent<PlayerController>();
         UpdateItemList();
         //UpdateStockageUI();
 
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
 
-        _inventoryPanel.gameObject.SetActive(true);
-
-
+        //_inventoryPanel.gameObject.SetActive(true);
+        _playerController.OpenCloseInventoryInBase(true);
     }
 
     private void Update()
@@ -150,8 +152,8 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         GetComponentInParent<PlayerController>().DisablePlayer(false);
         this.gameObject.SetActive(false);
-        _inventoryPanel.gameObject.SetActive(false);
-
+        //_inventoryPanel.gameObject.SetActive(false);
+        _playerController.OpenCloseInventoryInBase(false);
     }
 
 
