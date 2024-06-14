@@ -56,8 +56,6 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage, GameObject player = null)
     {
-        if (!isServer) return;
-
         _currentLife -= damage;
         print(_currentLife);
 
