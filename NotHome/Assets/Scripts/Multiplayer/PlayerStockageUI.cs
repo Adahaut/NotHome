@@ -41,8 +41,8 @@ public class PlayerStockageUI : NetworkBehaviour
         if (_eventSystem == null )
             _eventSystem = FindObjectOfType<EventSystem>();
 
-        //_inventoryPanel.gameObject.SetActive(true);
-        _playerController.OpenCloseInventoryInBase(true);
+        _inventoryPanel.gameObject.SetActive(true);
+        _playerController.SetInventoryPosition(true);
     }
 
     private void Update()
@@ -152,8 +152,8 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         GetComponentInParent<PlayerController>().DisablePlayer(false);
         this.gameObject.SetActive(false);
-        //_inventoryPanel.gameObject.SetActive(false);
-        _playerController.OpenCloseInventoryInBase(false);
+        _inventoryPanel.gameObject.SetActive(false);
+        _playerController.SetInventoryPosition(false);
     }
 
 
