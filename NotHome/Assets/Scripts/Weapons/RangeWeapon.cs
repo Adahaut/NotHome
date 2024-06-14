@@ -192,8 +192,8 @@ public class RangeWeapon : NetworkBehaviour
                     CmdPlaySound(transform.position);
                     CmdPlayMuzzleFlash(_muzzle.position);
                 }
-                if (Physics.Raycast(_muzzle.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
-                {                    
+                if (Physics.Raycast(_playerCamera.transform.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
+                {
                     if (_hitInfo.collider.GetComponent<LifeManager>() != null)
                     {
                         CreateBlood(_hitInfo.point);
