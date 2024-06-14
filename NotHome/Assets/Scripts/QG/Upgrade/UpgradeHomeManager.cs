@@ -29,7 +29,6 @@ public class UpgradeHomeManager : MonoBehaviour
 
     private void Start()
     {
-        _mapManager = transform.parent.parent.GetComponentInChildren<MapManager>();
         _playerInput = transform.parent.parent.parent.parent.parent.GetComponentInChildren<PlayerInput>();
         print(_playerInput);
         //_textLevel.text = "Level " + _levelBuilding.ToString();
@@ -152,42 +151,42 @@ public class UpgradeHomeManager : MonoBehaviour
     {
         if (_upgarde.Count >= _levelBuilding)
         {
-            //int number = 0;
-            //List<int> listIndex = new();
-            //List<int> listMat = new();
-            //for (int i = 0; i < _inventoryManager._slotList.Count; i++)
-            //{
-            //    if (_inventoryManager._slotList[i].GetComponent<InventorySlot>().ItemContained() != null)
-            //    {
-            //        for (int j = 0; j < _upgarde[_levelBuilding - 1].Value.Count; j++)
-            //        {
-            //            if (_inventoryManager._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _upgarde[_levelBuilding - 1].Value[j].Key)
-            //            {
-            //                number++;
-            //                if (_inventoryManager._slotList[i].GetComponent<InventorySlot>().Number() < _upgarde[_levelBuilding - 1].Value[j].Value)
-            //                {
-            //                    Debug.Log("Pas assez de materiaux");
-            //                    return;
-            //                }
-            //                else
-            //                {
-            //                    listIndex.Add(i);
-            //                    listMat.Add(_upgarde[_levelBuilding - 1].Value[j].Value);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //if (number == _upgarde[_levelBuilding - 1].Value.Count)
-            //{
+            int number = 0;
+            List<int> listIndex = new();
+            List<int> listMat = new();
+            for (int i = 0; i < _inventoryManager._slotList.Count; i++)
+            {
+                if (_inventoryManager._slotList[i].GetComponent<InventorySlot>().ItemContained() != null)
+                {
+                    for (int j = 0; j < _upgarde[_levelBuilding - 1].Value.Count; j++)
+                    {
+                        if (_inventoryManager._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _upgarde[_levelBuilding - 1].Value[j].Key)
+                        {
+                            number++;
+                            if (_inventoryManager._slotList[i].GetComponent<InventorySlot>().Number() < _upgarde[_levelBuilding - 1].Value[j].Value)
+                            {
+                                Debug.Log("Pas assez de materiaux");
+                                return;
+                            }
+                            else
+                            {
+                                listIndex.Add(i);
+                                listMat.Add(_upgarde[_levelBuilding - 1].Value[j].Value);
+                            }
+                        }
+                    }
+                }
+            }
+            if (number == _upgarde[_levelBuilding - 1].Value.Count)
+            {
                 _levelBuilding++;
                 SetEffectBuilding();
                 _textLevel.text = "Level " + _levelBuilding.ToString();
-                //for (int i = 0; i < listIndex.Count; i++)
-                //{
-                //    _inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().
-                //        SetNumber(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i]);
-                //}
+                for (int i = 0; i < listIndex.Count; i++)
+                {
+                    _inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().
+                        SetNumber(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i]);
+                }
                 _particleLevelUp.Play();
                 Cursor.lockState = CursorLockMode.Locked;
                 _playerInput.actions.actionMaps[0].Enable();
@@ -198,10 +197,10 @@ public class UpgradeHomeManager : MonoBehaviour
             {
                 Debug.Log("Pas assez de materiaux");
             }
-        //}
-        //else
-        //{
-        //    Debug.Log("Level max");
-        //}
+        }
+        else
+        {
+            Debug.Log("Level max");
+        }
     }
 }
