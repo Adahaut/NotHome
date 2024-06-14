@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 329338120500040795}
   - component: {fileID: 7507787648685412992}
   - component: {fileID: 7763466235942355169}
-  - component: {fileID: 3631082798703067766}
+  - component: {fileID: -6575452190355887639}
   m_Layer: 0
   m_Name: SlenderMan
   m_TagString: Enemy
@@ -1122,23 +1122,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3631082798703067766
-MonoBehaviour:
+--- !u!95 &-6575452190355887639
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6853585656894584853}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  _assetId: 1979509611
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c82bf1461d7bdc140a5d50f8fcf499f0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6947132371398158386
 GameObject:
   m_ObjectHideFlags: 0

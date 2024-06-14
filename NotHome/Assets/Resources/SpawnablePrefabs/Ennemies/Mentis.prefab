@@ -153,7 +153,7 @@ PrefabInstance:
       addedObject: {fileID: 7669127832066487428}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8475800561918285112}
+      addedObject: {fileID: -8968661297865159755}
   m_SourcePrefab: {fileID: 100100000, guid: ea9443cd6dc23144190d993ccc74c93f, type: 3}
 --- !u!4 &7121148120562537957 stripped
 Transform:
@@ -566,20 +566,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8475800561918285112
-MonoBehaviour:
+--- !u!95 &-8968661297865159755
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7609032578898743135}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  _assetId: 1107141226
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 72d73634f2231e14da472b5068a7b6af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
