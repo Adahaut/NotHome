@@ -555,6 +555,10 @@ public class PlayerController : NetworkBehaviour
 
             if(hit.collider.GetComponent<BuildInterractable>())
             {
+                if (hit.collider.GetComponentInChildren<ParticleSystem>() != null)
+                {
+                    _uiPlayer[hit.collider.GetComponent<BuildInterractable>()._index].GetComponent<UpgradeHomeManager>()._particleLevelUp = hit.collider.GetComponentInChildren<ParticleSystem>();
+                }
                 OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
                 hit.collider.GetComponent<BuildInterractable>()._isOpen = true;
                 return;
