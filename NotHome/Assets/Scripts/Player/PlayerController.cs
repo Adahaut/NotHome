@@ -37,6 +37,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private int _itemPickRange;
     private InventorySlot _slotSelected;
     private bool _isInInventory;
+    private Vector3 _inventoryInitialPosition;
+    [SerializeField] private Vector3 _inventoryBasePosition;
 
     [Header("HotBar")]
     [SerializeField] private GameObject _hotBar;
@@ -114,6 +116,8 @@ public class PlayerController : NetworkBehaviour
 
             playerMesh.SetActive(false);
         }
+
+        _inventoryInitialPosition = _inventory.transform.position;
     }
 
     void CmdSendPositionToServer(Vector3 position)
@@ -159,6 +163,8 @@ public class PlayerController : NetworkBehaviour
     {
         _inventory.SetActive(_active);
     }
+
+
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
