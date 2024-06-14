@@ -67,6 +67,16 @@ public class InventoryManager : NetworkBehaviour
         return _slotList[_index].GetComponent<InventorySlot>();
     } 
 
+    public int GetIndexOfSlotByName(string _name)
+    {
+        for(int i = 0; i<_slotList.Count; i++)
+        {
+            if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _name)
+                return i;
+        }
+        return -1;
+    }
+
     public int InventorySlotNumber() { return _inventorySlotStartNumber; }
 
     public void SetInventorySlotNumber(int number) { _inventorySlotStartNumber += number; }
