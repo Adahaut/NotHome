@@ -17,6 +17,15 @@ public class QuestPlayerUI : NetworkBehaviour
     
 
     QuestManager _questManager;
+    public static QuestPlayerUI Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void OnEnable()
     {
@@ -28,6 +37,10 @@ public class QuestPlayerUI : NetworkBehaviour
         //Change colors of buttons
         _questButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
         MapManager.Instance._mapButton.GetComponent<Image>().color = Color.white;
+    }
+    public void OpenQuest()
+    {
+        OnEnable();
     }
 
     private void Update()
