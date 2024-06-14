@@ -1,7 +1,8 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemies : MonoBehaviour
+public class Enemies : NetworkBehaviour
 {
     [SerializeField] private float _walkingRadius;
     [SerializeField] private float _timeBetweenAttacks;
@@ -20,20 +21,19 @@ public class Enemies : MonoBehaviour
     private Collider _playerDetectionCollider;
     private Animator _animator;
 
-
     private void Start()
     {
         _transform = transform;
         _initialPosition = _transform.position;
         _agent = GetComponent<NavMeshAgent>();
         _players = GameObject.FindGameObjectsWithTag("Player");
-        //_playerDetectionCollider = GetComponentInChildren<BoxCollider>();
-        //_playerDetectionCollider.enabled = false;
         _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if (!isServer) return; // Ensure that only the server controls enemy logic
+
         _closestPlayer = GetClosestPlayer();
 
         if (_hasSeenPlayer || PlayerInSightRange())
@@ -51,6 +51,9 @@ public class Enemies : MonoBehaviour
             _agent.ResetPath();
             Attack();
         }
+
+        // Sync position with clients
+        RpcSyncPositionAndRotation(transform.position, transform.rotation);
     }
 
     private void Patrol()
@@ -155,6 +158,14 @@ public class Enemies : MonoBehaviour
         {
             Attack();
         }
+    }
+
+    [ClientRpc]
+    private void RpcSyncPositionAndRotation(Vector3 position, Quaternion rotation)
+    {
+        if (isServer) return; // Server doesn't need to sync position to itself
+        transform.position = position;
+        transform.rotation = rotation;
     }
 
     //active collider in animation to attack

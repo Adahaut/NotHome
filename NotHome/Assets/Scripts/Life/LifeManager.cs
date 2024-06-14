@@ -1,13 +1,12 @@
+using Mirror;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class LifeManager : MonoBehaviour
+public class LifeManager : NetworkBehaviour
 {
     [SerializeField] private int _maxLife;
-    public int _currentLife;
+    [SyncVar] public int _currentLife;
     private PlayerDeathAndRespawn _playerDeathAndRespawnManager;
     private Animator _animator;
 
@@ -58,10 +57,10 @@ public class LifeManager : MonoBehaviour
     public void TakeDamage(int damage, GameObject player = null)
     {
         _currentLife -= damage;
+        print(_currentLife);
 
-        AudioClip randomClip = _hitAudioClip[Random.Range(0, _hitAudioClip.Length)];
-        _audioSource[1].clip = randomClip;
-        _audioSource[1].Play();
+
+        RpcPlayHitSound();
 
         if (gameObject.tag == "Player" && _helthSlider != null)
         {
@@ -84,6 +83,14 @@ public class LifeManager : MonoBehaviour
                 PlayerDeath();
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcPlayHitSound()
+    {
+        AudioClip randomClip = _hitAudioClip[Random.Range(0, _hitAudioClip.Length)];
+        _audioSource[1].clip = randomClip;
+        _audioSource[1].Play();
     }
 
     private void EnemyDeath()

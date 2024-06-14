@@ -181,7 +181,7 @@ public class PlayerController : NetworkBehaviour
     {
         if(isOwned)
         {
-            //DoorExit.Instance.OpenDoor(_camera, _distRayCast);
+            DoorExit.Instance.OpenDoor(_camera, _distRayCast);
             if (ctx.performed)
             {
                 StartUi();
