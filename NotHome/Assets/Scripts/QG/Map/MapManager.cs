@@ -10,6 +10,7 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
     [SerializeField] private Image _worldMap;
     [HideInInspector] public bool _canOpenUiMap;
+    private PlayerController _playerController;
     private void Awake()
     {
         if (Instance == null)
@@ -17,20 +18,24 @@ public class MapManager : MonoBehaviour
             Instance = this;
         }
     }
+    private void Start()
+    {
+        _playerController = GetComponentInParent<PlayerController>();
+    }
     public void OpenMap()
     {
-        if (_canOpenUiMap)
-        {
+        //if (_canOpenUiMap)
+        //{
             _uiMap.SetActive(true);
-            QuestManager.Instance._uiQuest.SetActive(false);
+            QuestPlayerUI.Instance._uiQuest.SetActive(false);
             _mapButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
-            QuestManager.Instance._questButton.GetComponent<Image>().color = Color.white;
-        }
+            QuestPlayerUI.Instance._questButton.GetComponent<Image>().color = Color.white;
+        //}
     }
     public void GetItem(Button button)
     {
         _itemGet = true;
-        PC.Instance.GetInventory().AddItem(_itemMap.ItemName(), _itemMap.ItemSprite(), false);
+        _playerController.GetInventory().AddItem(_itemMap.ItemName(), _itemMap.ItemSprite(), false);
         button.gameObject.SetActive(false);
     }
     public void ShowMap()
@@ -38,11 +43,11 @@ public class MapManager : MonoBehaviour
         if (_itemGet)
         {
             _worldMap.color = Color.red;
-            for (int i = 0; i < PC.Instance.GetInventory()._slotList.Count; i++)
+            for (int i = 0; i < _playerController.GetInventory()._slotList.Count; i++)
             {
-                if (PC.Instance.GetInventory()._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "ItemMap")
+                if (_playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "DesertKey")
                 {
-                    PC.Instance.GetInventory()._slotList[i].GetComponent<InventorySlot>().SetNumber(0);
+                    _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().SetNumber(0);
                 }
             }
         }
