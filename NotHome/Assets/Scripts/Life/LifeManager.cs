@@ -1,8 +1,6 @@
 using Mirror;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class LifeManager : NetworkBehaviour
@@ -58,11 +56,13 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage, GameObject player = null)
     {
-        _currentLife -= damage;
+        if (!isServer) return;
 
-        AudioClip randomClip = _hitAudioClip[Random.Range(0, _hitAudioClip.Length)];
-        _audioSource[1].clip = randomClip;
-        _audioSource[1].Play();
+        _currentLife -= damage;
+        print(_currentLife);
+
+
+        RpcPlayHitSound();
 
         if (gameObject.tag == "Player" && _helthSlider != null)
         {
@@ -85,6 +85,14 @@ public class LifeManager : NetworkBehaviour
                 PlayerDeath();
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcPlayHitSound()
+    {
+        AudioClip randomClip = _hitAudioClip[Random.Range(0, _hitAudioClip.Length)];
+        _audioSource[1].clip = randomClip;
+        _audioSource[1].Play();
     }
 
     private void EnemyDeath()
