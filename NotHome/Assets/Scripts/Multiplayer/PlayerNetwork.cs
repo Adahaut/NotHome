@@ -22,7 +22,6 @@ public class PlayerNetwork : NetworkBehaviour
     public Camera mainCamera;
 
     [SerializeField] private GameObject playerUI;
-    [SerializeField] private GameObject playerBody;
 
     private BuildingManager buildingManager;
 
@@ -30,12 +29,10 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Start()
     {
-        StartCoroutine(FindBuildingManager());
         if(isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
-            playerBody.SetActive(false);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
 
@@ -45,20 +42,6 @@ public class PlayerNetwork : NetworkBehaviour
 
         if(isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
-    }
-
-    private IEnumerator FindBuildingManager()
-    {
-        while (BuildingManager.instance == null)
-        {
-            yield return null;
-        }
-
-        buildingManager = BuildingManager.instance;
-        if(isOwned)
-        {
-            //CmdRequestAuthority();
-        }
     }
 
     private void OnDestroy()
@@ -82,16 +65,13 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if (nameTagInstance != null && !isOwned)
+        if (!isOwned)
         {
             foreach (var playerCamera in _playerCameras)
             {
-                if (playerCamera != null && playerCamera.gameObject != this.gameObject)
-                {
-                    nameTagInstance.transform.LookAt(playerCamera.transform);
-                    nameTagInstance.transform.Rotate(0, 180, 0);
-                    break;
-                }
+                nameTagInstance.transform.LookAt(playerCamera.transform);
+                nameTagInstance.transform.Rotate(0, 180, 0);
+                break;
             }
         }
     }
