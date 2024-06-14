@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ladder : MonoBehaviour
@@ -21,15 +19,13 @@ public class Ladder : MonoBehaviour
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast) && hit.collider.CompareTag("Ladder"))
         {
-            if (Vector3.Distance(camera.position + Vector3.down, _posHigh.position) > Vector3.Distance(camera.position + Vector3.down, _posDown.position))
+            if (Vector3.Distance(camera.position + Vector3.down, hit.collider.GetComponentInParent<Ladder>()._posHigh.position) > Vector3.Distance(camera.position + Vector3.down, hit.collider.GetComponentInParent<Ladder>()._posDown.position))
             {
-                print("enter");
-                StartCoroutine(CharacterMove(1, _posHigh, playerController.transform));
+                StartCoroutine(CharacterMove(1, hit.collider.GetComponentInParent<Ladder>()._posHigh, playerController.transform));
             } 
             else
             {
-                print("exit");
-                StartCoroutine(CharacterMove(1, _posDown, playerController.transform));
+                StartCoroutine(CharacterMove(1, hit.collider.GetComponentInParent<Ladder>()._posDown, playerController.transform));
             }
         }
     }
