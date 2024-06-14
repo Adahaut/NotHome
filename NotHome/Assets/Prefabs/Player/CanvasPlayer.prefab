@@ -1237,6 +1237,7 @@ MonoBehaviour:
       Value: 1
     - Key: Motor
       Value: 1
+  _inventoryManager: {fileID: 0}
   _nameBuilding: TDC
   _fieldManager: {fileID: 0}
   _alarm: {fileID: 0}
@@ -12865,6 +12866,7 @@ MonoBehaviour:
       Value: 2
     - Key: Reactor
       Value: 1
+  _inventoryManager: {fileID: 0}
   _nameBuilding: QG
   _fieldManager: {fileID: 0}
   _alarm: {fileID: 0}
@@ -16020,6 +16022,7 @@ GameObject:
   - component: {fileID: 6990308694720538743}
   - component: {fileID: 3598927609187207271}
   - component: {fileID: 4648217506345809542}
+  - component: {fileID: 3331618448049152666}
   m_Layer: 2
   m_Name: CanvasPlayer
   m_TagString: Untagged
@@ -16113,6 +16116,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3331618448049152666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483912871609835639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2493118609
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &5513915768763971510
 GameObject:
   m_ObjectHideFlags: 0
@@ -26815,6 +26835,7 @@ MonoBehaviour:
       Value: 1
     - Key: Screws
       Value: 1
+  _inventoryManager: {fileID: 0}
   _nameBuilding: Field
   _fieldManager: {fileID: 0}
   _alarm: {fileID: 0}
