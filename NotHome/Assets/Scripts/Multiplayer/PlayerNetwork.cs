@@ -29,9 +29,10 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Start()
     {
+        _displayName = "";
         if(isOwned)
         {
-            CmdSetPlayerName(connectionToClient.identity.gameObject.GetComponent<NetworkGamePlayerLobby>().GetDisplayName());
+            CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
@@ -65,6 +66,11 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
+        if(_displayName == "" && isOwned)
+        {
+            CmdSetPlayerName(SteamFriends.GetPersonaName());
+        }
+
         if (!isOwned)
         {
             foreach (var playerCamera in _playerCameras)
