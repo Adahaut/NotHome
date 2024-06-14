@@ -67,7 +67,7 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (!isOwned)
         {
-            CmdSetPlayerName(connectionToClient.identity.gameObject.GetComponent<NetworkGamePlayerLobby>().GetDisplayName());
+            //CmdSetPlayerName(connectionToClient.identity.gameObject.GetComponent<NetworkGamePlayerLobby>().GetDisplayName());
             foreach (var playerCamera in _playerCameras)
             {
                 nameTagInstance.transform.LookAt(playerCamera.transform);
