@@ -206,6 +206,10 @@ public class PlayerController : NetworkBehaviour
             {
                 StartCoroutine(AnimOneTime("StartJump"));
                 ChangeStamina(-10);
+                if (!_playerManager._stamParent.activeSelf)
+                {
+                    _playerManager.StartStamina(true, 1f);
+                }
                 _currentStaminaTime = _staminaTimer;
                 _canJump = true;
                 _isJump = true;
