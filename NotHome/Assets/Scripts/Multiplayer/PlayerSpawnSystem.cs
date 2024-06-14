@@ -43,7 +43,11 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
         playerCount++;
         _nextIndex++;
+    }
 
+    public void SpawnPlayerFromNewConnection(NetworkConnection conn)
+    {
+        SpawnPlayer(conn);
     }
 
 }

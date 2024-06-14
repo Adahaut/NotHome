@@ -27,6 +27,9 @@ public class NetworkLobbyManager : NetworkManager
     public List<NetworkGamePlayerLobby> _gamePlayers { get; } = new List<NetworkGamePlayerLobby>();
 
 
+    GameObject playerSpawnSystemInstance = null;
+
+
     #region UnityFunctions
 
     private void Update()
@@ -70,6 +73,17 @@ public class NetworkLobbyManager : NetworkManager
             NetworkRoomPlayerLobby roomPlayerInstance = Instantiate(roomPlayerPrefab);
             roomPlayerInstance.IsLeader = isLeader;
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
+        }
+        else
+        {
+            var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
+            NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
+
+            if(playerSpawnSystemInstance != null)
+            {
+                playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
+            }
+
         }
 
         CSteamID steamId = SteamMatchmaking.GetLobbyMemberByIndex(
@@ -128,7 +142,7 @@ public class NetworkLobbyManager : NetworkManager
     {
         if (sceneName.StartsWith("Scene_Map"))
         {
-            GameObject playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
+            playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
         }
     }
