@@ -57,6 +57,12 @@ public class NetworkLobbyManager : NetworkManager
             return;
         }
 
+        if (SceneManager.GetActiveScene().path != menuScene && SceneManager.GetActiveScene().name.StartsWith("Scene_Map"))
+        {
+            //Allow connection
+            return;
+        }
+
         if (SceneManager.GetActiveScene().path != menuScene)
         {
             conn.Disconnect();
@@ -77,14 +83,15 @@ public class NetworkLobbyManager : NetworkManager
         else
         {
             var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
-            gamePlayerInstance.ChangeScene("Scene_Map_02");
 
             NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
 
-            if(playerSpawnSystemInstance != null)
+            if (playerSpawnSystemInstance != null)
             {
                 playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
             }
+
+            _gamePlayers.Add(gamePlayerInstance);
 
         }
 
@@ -94,7 +101,6 @@ public class NetworkLobbyManager : NetworkManager
 
         var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
 
-
         playerInfosDisplay.SetSteamId(steamId.m_SteamID);
     }
 
@@ -103,8 +109,16 @@ public class NetworkLobbyManager : NetworkManager
         if (conn.identity != null)
         {
             var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+            if (player != null)
+            {
+                _roomPlayers.Remove(player);
+            }
 
-            _roomPlayers.Remove(player);
+            var gamePlayer = conn.identity.GetComponent<NetworkGamePlayerLobby>();
+            if (gamePlayer != null)
+            {
+                _gamePlayers.Remove(gamePlayer);
+            }
 
             NotifyPlayersOfReadyState();
         }
@@ -115,6 +129,7 @@ public class NetworkLobbyManager : NetworkManager
     public override void OnStopServer()
     {
         _roomPlayers.Clear();
+        _gamePlayers.Clear();
     }
 
     public override void ServerChangeScene(string newSceneName)
@@ -127,12 +142,8 @@ public class NetworkLobbyManager : NetworkManager
                 var conn = _roomPlayers[i].connectionToClient;
 
                 var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
-
-                //NetworkServer.Spawn(conn.identity.gameObject);
-
                 gamePlayerInstance.SetDisplayName(_roomPlayers[i]._displayName);
 
-                //NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }
         }
