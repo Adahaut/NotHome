@@ -513,7 +513,6 @@ public class PlayerController : NetworkBehaviour
         _staminaRegenStarted = true;
         while (CanRegenStamina())
         {
-            print("canregen");
             ChangeStamina(_playerManager.MaxStamina / 100);
             if (_playerManager.Stamina > _playerManager.MaxStamina)
             {

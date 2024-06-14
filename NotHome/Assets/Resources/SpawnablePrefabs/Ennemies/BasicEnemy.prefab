@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 3507422028317903374}
   - component: {fileID: 1440910567145004248}
   - component: {fileID: 2115665689800210339}
+  - component: {fileID: -525369302439047209}
   m_Layer: 0
   m_Name: BasicEnemy
   m_TagString: Enemy
@@ -233,5 +234,40 @@ MonoBehaviour:
   _timeBetweenAttacks: 3
   _sightRange: 10
   _attackRange: 2
+  _audioSources: []
   _players: []
-  _playerDetectionCollider: {fileID: 0}
+--- !u!114 &-525369302439047209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020646610629668561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 4091148456326643948}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  bufferResetMultiplier: 3
+  changedDetection: 1
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
