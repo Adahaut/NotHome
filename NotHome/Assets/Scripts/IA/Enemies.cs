@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +10,7 @@ public class Enemies : NetworkBehaviour
     [SerializeField] private float _sightRange;
     [SerializeField] private float _attackRange;
     [SerializeField] private AudioSource[] _audioSources;
+    [SerializeField] private Collider _playerDetectionCollider;
 
     private NavMeshAgent _agent;
     private Vector3 _initialPosition;
@@ -18,7 +20,6 @@ public class Enemies : NetworkBehaviour
     private bool _hasSeenPlayer;
     private bool _alreadyAttacked;
     private float _distanceToPlayer;
-    private Collider _playerDetectionCollider;
     private Animator _animator;
 
     private void Start()
@@ -35,6 +36,7 @@ public class Enemies : NetworkBehaviour
         if (!isServer) return; // Ensure that only the server controls enemy logic
 
         _closestPlayer = GetClosestPlayer();
+        Debug.Log(_closestPlayer.name);
 
         if (_hasSeenPlayer || PlayerInSightRange())
         {
@@ -91,15 +93,19 @@ public class Enemies : NetworkBehaviour
         _distanceToPlayer = Vector3.Distance(_transform.position, _closestPlayer.transform.position);
         if (_distanceToPlayer <= _sightRange)
         {
+            Debug.Log("player in sight range");
+            return true;
+
             // Check if there is a direct line of sight
-            Vector3 directionToTarget = _closestPlayer.transform.position - _transform.position;
-            if (Physics.Raycast(_transform.position, directionToTarget, out RaycastHit hit, _sightRange))
-            {
-                if (hit.transform.gameObject == _closestPlayer)
-                {
-                    return true;
-                }
-            }
+            //Vector3 directionToTarget = _transform.position - _closestPlayer.transform.position;
+            //if (Physics.Raycast(_transform.position, directionToTarget, out RaycastHit hit, _sightRange))
+            //{
+            //    if (hit.transform.gameObject == _closestPlayer)
+            //    {
+            //        Debug.Log("seePlayer");
+            //        return true;
+            //    }
+            //}
         }
 
         return false;
@@ -136,22 +142,22 @@ public class Enemies : NetworkBehaviour
         return _center;
     }
 
-    public void Attack()
+    private void Attack()
     {
         if (!_alreadyAttacked)
         {
-            _animator.SetBool("IsAttacking", true);
-            print("bool attack true");
             _alreadyAttacked = true;
-            _playerDetectionCollider.enabled = true;
-            _animator.SetBool("IsAttacking", false);
-            Invoke(nameof(ResetAttack), _timeBetweenAttacks);
+            _animator.SetBool("IsAttacking", true);
+            StartCoroutine(ResetAttackAfterAnimation());
         }
     }
 
-    private void ResetAttack()
+    private IEnumerator ResetAttackAfterAnimation()
     {
-        _playerDetectionCollider.enabled = false;
+        // Wait for the attack animation to finish
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorStateInfo(0).length);
+        _animator.SetBool("IsAttacking", false);
+        yield return new WaitForSeconds(_timeBetweenAttacks);
         _alreadyAttacked = false;
 
         // Reactivate attack if player is still in attack range
