@@ -79,6 +79,11 @@ public class LifeManager : NetworkBehaviour
         _currentLife -= damage;
         //RpcPlayHitSound();
 
+        if(gameObject.tag == "Player")
+        {
+            StartBlinking(true);
+        }
+
         if (_currentLife <= 0)
         {
             if (gameObject.tag == "Enemy")
