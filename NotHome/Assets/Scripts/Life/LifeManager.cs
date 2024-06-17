@@ -113,7 +113,6 @@ public class LifeManager : NetworkBehaviour
 
     private void PlayerDeath()
     {
-        Debug.Log("playerMort");
         _playerDeathAndRespawnManager.PlayerDeath();
     }
 
