@@ -2401,8 +2401,7 @@ MonoBehaviour:
   _stamParent: {fileID: 0}
   _BaseZone: {fileID: 0}
   _isInBase: 0
-  _staminaEndPoint: {fileID: 1249187714335762879}
-  _staminaBeginPoint: {fileID: 5729875814577526677}
+  _usingStam: 0
 --- !u!114 &1141932481867950140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2753,7 +2752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7439175284101633259}
   - component: {fileID: 2847346597955366512}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: PlayerMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4373,6 +4372,8 @@ MonoBehaviour:
   - -0.6832
   _hitMarker: {fileID: 1439410922822312935}
   _bloodEffect: {fileID: 7547619243636061098, guid: c0b9bc7d304eafa4f84618e03abe2ab6, type: 3}
+  _textAmmo: {fileID: 0}
+  _nbAmmo: 0
 --- !u!114 &7867802849333091311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5975,11 +5976,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4360687512360602111, guid: c65c6ee038096654983d801be093112f, type: 3}
   m_PrefabInstance: {fileID: 3774780991229609753}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1249187714335762879 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2680968701013962406, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 3774780991229609753}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1439410922822312935 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2853988951038321918, guid: c65c6ee038096654983d801be093112f, type: 3}
@@ -6073,11 +6069,6 @@ GameObject:
 --- !u!1 &5464378700927355171 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9203079681339756090, guid: c65c6ee038096654983d801be093112f, type: 3}
-  m_PrefabInstance: {fileID: 3774780991229609753}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5729875814577526677 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8927872781310070924, guid: c65c6ee038096654983d801be093112f, type: 3}
   m_PrefabInstance: {fileID: 3774780991229609753}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5944692255240726238 stripped
