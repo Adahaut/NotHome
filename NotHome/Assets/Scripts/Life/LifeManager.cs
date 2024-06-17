@@ -29,8 +29,8 @@ public class LifeManager : NetworkBehaviour
     public void SetMaxHealth()
     {
         _currentLife = _maxLife;
-        _helthSlider.maxValue = _currentLife;
-        _helthSlider.value = _currentLife;
+        //_helthSlider.maxValue = _currentLife;
+        //_helthSlider.value = _currentLife;
     }
 
     void Start()
@@ -47,7 +47,7 @@ public class LifeManager : NetworkBehaviour
         if (gameObject.tag == "Player")
         {
             _playerDeathAndRespawnManager = GetComponent<PlayerDeathAndRespawn>();
-            SetMaxHealth();
+            //SetMaxHealth();
         }
         else
         {
