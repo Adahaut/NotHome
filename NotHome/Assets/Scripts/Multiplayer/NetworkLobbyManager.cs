@@ -72,7 +72,6 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        print("add player");
         if (SceneManager.GetActiveScene().path == menuScene)
         {
             bool isLeader = _roomPlayers.Count == 0;
@@ -84,25 +83,33 @@ public class NetworkLobbyManager : NetworkManager
         else
         {
             var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
-
+            NetworkServer.Spawn(gamePlayerInstance.gameObject);
             NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
 
             if (playerSpawnSystemInstance != null)
             {
+                print("caca");
                 playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
             }
 
             _gamePlayers.Add(gamePlayerInstance);
-
         }
 
         CSteamID steamId = SteamMatchmaking.GetLobbyMemberByIndex(
             SteamLobby._lobbyId,
             numPlayers - 1);
 
-        var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
-
-        playerInfosDisplay.SetSteamId(steamId.m_SteamID);
+        if(conn.identity.GetComponent<NetworkRoomPlayerLobby>())
+        {
+            var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+            playerInfosDisplay.SetSteamId(steamId.m_SteamID);
+        }
+        if(conn.identity.GetComponent<NetworkGamePlayerLobby>())
+        {
+            var playerInfosDisplay = conn.identity.GetComponent<NetworkGamePlayerLobby>();
+            playerInfosDisplay.SetSteamId(steamId.m_SteamID);
+        }
+        
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
