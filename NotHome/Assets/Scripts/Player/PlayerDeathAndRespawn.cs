@@ -18,7 +18,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     [SerializeField] private Transform cameraTransform;
 
-
+    private Transform cameraSpawnTransform;
     private Transform _playerRespawnPoint;
     private float _timeToRespawn;
     private bool _canRespawn;
@@ -27,6 +27,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     {
         _playerTransform = transform;
         _playerRespawnPoint = transform;
+        cameraSpawnTransform = cameraTransform;
         _playerController = GetComponent<PlayerController>();
         _playerLifeManager = GetComponent<LifeManager>();
     }
@@ -49,6 +50,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = false;
         transform.position = _playerRespawnPoint.position;
         transform.rotation = Quaternion.identity;
+        cameraTransform = cameraSpawnTransform;
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
 
