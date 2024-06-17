@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -53,6 +54,7 @@ public class RangeWeapon : NetworkBehaviour
     [SerializeField] private GameObject _hitMarker;
     [SerializeField] private GameObject _bloodEffect;
     [SerializeField] private TextMeshProUGUI _textAmmo;
+    public int _nbAmmo;
 
     private void Awake()
     {
@@ -75,14 +77,15 @@ public class RangeWeapon : NetworkBehaviour
         PlayerAttack._aimAction += StartAiming;
         PlayerAttack._stopAimAction += StopAiming;
         _riffleAudioSource = transform.parent.GetChild(0).GetComponent<AudioSource>();
-        _currentAmmo = _weaponData._magSize;
+        _nbAmmo = _weaponData._magSize;
+        _currentAmmo = _nbAmmo;
         _startWeaponHolder = _weaponHolder.localPosition;
         _playerAttack = GetComponentInParent<PlayerAttack>();
         _originalPosition = _transform.localPosition;
         _recoil = GetComponent<ProceduralRecoil>();
         _playerController = GetComponentInParent<PlayerController>();
         UpdateWeaponVisualAtLaunch();
-        _textAmmo.text = _currentAmmo.ToString() + "/" + _weaponData._magSize;
+        _textAmmo.text = _currentAmmo + "/" + _nbAmmo;
     }
 
     public void NextWeapon()
@@ -161,7 +164,7 @@ public class RangeWeapon : NetworkBehaviour
 
     public void StartReload()
     {
-        if(!_isReloading ) 
+        if(!_isReloading && _nbAmmo > 0) 
         {
             StartCoroutine(Reloading());
         }
@@ -176,8 +179,26 @@ public class RangeWeapon : NetworkBehaviour
         yield return new WaitForSeconds(_weaponData._reloadSpeed);
 
         _isReloading = false;
-        _currentAmmo = _weaponData._magSize;
-        _textAmmo.text = _currentAmmo.ToString() + "/" + _weaponData._magSize;
+        if (_nbAmmo > 10)
+        {
+            _nbAmmo -= 10 - _currentAmmo;
+            _currentAmmo += 10 - _currentAmmo;
+            
+        }
+        else
+        {
+            if (10 - _currentAmmo > _nbAmmo)
+            {
+                _currentAmmo += _nbAmmo;
+                _nbAmmo = 0;
+            }
+            else
+            {
+                _nbAmmo -= 10 - _currentAmmo;
+                _currentAmmo += 10 - _currentAmmo;
+            }
+        }
+        _textAmmo.text = _currentAmmo.ToString() + "/" + _nbAmmo;
         print("finish reload");
         _playerController.SetAnimation("Reload", false);
     }
@@ -210,7 +231,7 @@ public class RangeWeapon : NetworkBehaviour
                     }
                 }
                 _currentAmmo--;
-                _textAmmo.text = _currentAmmo.ToString() + "/" + _weaponData._magSize;
+                _textAmmo.text = _currentAmmo.ToString() + "/" + _nbAmmo;
                 _timeSinceLastShot = 0;
             }
         }
