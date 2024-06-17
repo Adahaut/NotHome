@@ -29,20 +29,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Start()
     {
-        _displayName = "";
-        if(isOwned)
-        {
-            CmdSetPlayerName(SteamFriends.GetPersonaName());
-            playerUI.SetActive(true);
-            if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
-        }
-
-        nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
-        nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
-
-
-        if(isOwned) nameTagInstance.SetActive(false);
-        else nameTagInstance.SetActive(true);
+        SetPlayerName();
     }
 
     private void OnDestroy()
@@ -80,6 +67,24 @@ public class PlayerNetwork : NetworkBehaviour
                 break;
             }
         }
+    }
+
+    public void SetPlayerName()
+    {
+        _displayName = "";
+        if (isOwned)
+        {
+            CmdSetPlayerName(SteamFriends.GetPersonaName());
+            playerUI.SetActive(true);
+            if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
+        }
+
+        nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
+        nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+
+
+        if (isOwned) nameTagInstance.SetActive(false);
+        else nameTagInstance.SetActive(true);
     }
 
 }
