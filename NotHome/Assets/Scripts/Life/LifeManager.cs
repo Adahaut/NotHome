@@ -60,15 +60,6 @@ public class LifeManager : NetworkBehaviour
 
         RpcPlayHitSound();
 
-        //if (gameObject.tag == "Player" && _helthSlider != null)
-        //{
-        //    SetHealthBar();
-        //}
-        //else
-        //{
-        ////    _animator.SetBool("Hit", true);
-        //}
-
         if (_currentLife <= 0)
         {
             if (gameObject.tag == "Enemy")
@@ -113,7 +104,12 @@ public class LifeManager : NetworkBehaviour
 
     private void PlayerDeath()
     {
-        _playerDeathAndRespawnManager.PlayerDeath();
+        print("player mort !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        if(_playerDeathAndRespawnManager != null)
+        {
+            _playerDeathAndRespawnManager.PlayerDeath();
+        }
+        
     }
 
     private IEnumerator UIBlinking(int _steps, float _force, bool _takingDamage)
