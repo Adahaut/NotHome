@@ -198,7 +198,7 @@ public class RangeWeapon : NetworkBehaviour
                     {
                         CreateBlood(_hitInfo.point);
                         StartCoroutine(HitMarker());
-                        _hitInfo.collider.GetComponent<LifeManager>().CmdTakeDamage(_weaponData._damages);
+                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages);
                     }
                     else
                     {

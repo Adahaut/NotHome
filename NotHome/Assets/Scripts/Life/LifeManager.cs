@@ -1,4 +1,5 @@
 using Mirror;
+using Org.BouncyCastle.Pqc.Crypto.Cmce;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -73,6 +74,11 @@ public class LifeManager : NetworkBehaviour
                 RpcPlayerDeath();
             }
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        CmdTakeDamage(damage);
     }
 
     [Command]
