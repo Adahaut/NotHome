@@ -24096,7 +24096,7 @@ GameObject:
   - component: {fileID: 1680890345}
   - component: {fileID: 1680890342}
   - component: {fileID: 1680890344}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TempControlTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32277,6 +32277,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1243724376649843113, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1302420343609187056, guid: 209329a53b69a6d4893d43d628652812, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.1
@@ -32401,6 +32405,14 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2554123156
       objectReference: {fileID: 0}
+    - target: {fileID: 6700850753042612135, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+      propertyPath: m_Size.x
+      value: 10.073936
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700850753042612135, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+      propertyPath: m_Center.x
+      value: 0.03696823
+      objectReference: {fileID: 0}
     - target: {fileID: 7044172444193162826, guid: 209329a53b69a6d4893d43d628652812, type: 3}
       propertyPath: sceneId
       value: 2081361839
@@ -32416,6 +32428,14 @@ PrefabInstance:
     - target: {fileID: 7233834550514174087, guid: 209329a53b69a6d4893d43d628652812, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802565438029816110, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802565438029816110, guid: 209329a53b69a6d4893d43d628652812, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.6
       objectReference: {fileID: 0}
     - target: {fileID: 9134614685601804146, guid: 209329a53b69a6d4893d43d628652812, type: 3}
       propertyPath: sceneId

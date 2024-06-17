@@ -237,13 +237,11 @@ public class PlayerController : NetworkBehaviour
             if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
-                print("enter");
                 _textPress.text = "Press E for interact";
                 _canOpen = true;
             }
             else
             {
-                print("exit");
                 _canOpen = false;
                 _textPress.text = "";
             }
@@ -376,7 +374,8 @@ public class PlayerController : NetworkBehaviour
                 _isJump = false;
             }
         }
-        _characterController.Move(_moveDirection * Time.deltaTime);
+        if (_canMove)
+            _characterController.Move(_moveDirection * Time.deltaTime);
     }
 
     public IEnumerator AnimOneTime(string name)
