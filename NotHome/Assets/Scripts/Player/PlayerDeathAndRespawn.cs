@@ -1,6 +1,5 @@
 using Mirror;
 using System.Collections;
-using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,7 +47,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _noSignal.SetActive(false);
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
-        _playerTransform = _playerRespawnPoint;
+        transform.position = _playerRespawnPoint.position;
+        transform.rotation = Quaternion.identity;
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
 
@@ -121,11 +121,11 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     {
         if(isOwned)
         {
-            if (_timeToRespawn < 0 && _playerController.IsDead && _canRespawn)
+            if (_timeToRespawn <= 0 && _playerController.IsDead && _canRespawn)
             {
                 _canRespawn = false;
                 Respawn();
-
+                print("respanw");
             }
             else if (_playerController.IsDead)
             {
