@@ -17,6 +17,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     private LifeManager _playerLifeManager;
     private bool _hasStartedRespawn;
 
+    [SerializeField] private Animator cameraAnimator;
+
 
     private Transform _playerRespawnPoint;
     private float _timeToRespawn;
@@ -37,6 +39,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerTransform.rotation = Quaternion.Euler(0, 0, 90);
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
+        cameraAnimator.SetBool("Death", true);
         StartCoroutine(DisableCamera());
     }
 
@@ -46,6 +49,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
         _playerTransform = _playerRespawnPoint;
+        cameraAnimator.SetBooll("Death", false);    
         StartCoroutine(RespawnAnimation());
 
     }
@@ -58,7 +62,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
                 yield break;
 
             _hasStartedRespawn = true;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
             _noSignal.SetActive(true);
             _timeToRespawn = 10;
             _canRespawn = true;
