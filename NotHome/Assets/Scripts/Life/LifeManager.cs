@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class LifeManager : NetworkBehaviour
 {
     [SerializeField] private int _maxLife;
-    [SyncVar] public int _currentLife;
+
+    [SyncVar(hook = nameof(OnLifeChanged))] public int _currentLife;
+
     private PlayerDeathAndRespawn _playerDeathAndRespawnManager;
     private Animator _animator;
 
@@ -14,6 +16,7 @@ public class LifeManager : NetworkBehaviour
 
     [SerializeField] private AudioClip[] _hitAudioClip;
     private AudioSource[] _audioSource;
+
     [Header("Only for the player")]
     [SerializeField] private Gradient _damageGradient;
     [SerializeField] private Image _damageIndicator;
@@ -41,8 +44,10 @@ public class LifeManager : NetworkBehaviour
             _damageIndicator.color = new Color(0, 0, 0, 0);
         }
 
-        //_currentLife = _maxLife;
-        UpdateCurrentLife(_maxLife);
+        if (isServer)
+        {
+            _currentLife = _maxLife;
+        }
 
         if (gameObject.tag == "Player")
         {
@@ -55,31 +60,43 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    public void TakeDamage(int damage, GameObject player = null)
+    void OnLifeChanged(int oldLife, int newLife)
     {
-        UpdateCurrentLife(_currentLife - damage);
-        print(_currentLife);
-        //RpcPlayHitSound();
-
-        if (_currentLife <= 0)
+        if (newLife <= 0)
         {
             if (gameObject.tag == "Enemy")
             {
-                EnemyDeath();
-                player.GetComponentInChildren<RangeWeapon>().KillEnemy(gameObject);
+                RpcEnemyDeath();
             }
             else if (gameObject.tag == "Player")
             {
-                PlayerDeath();
+                RpcPlayerDeath();
             }
         }
     }
 
     [Command]
-    void UpdateCurrentLife(int newLife)
+    public void CmdTakeDamage(int damage)
     {
-        _currentLife = newLife;
+        print("take damages");
+        if (_currentLife <= 0) return;
+
+        _currentLife -= damage;
+        RpcPlayHitSound();
+
+        if (_currentLife <= 0)
+        {
+            if (gameObject.tag == "Enemy")
+            {
+                RpcEnemyDeath();
+            }
+            else if (gameObject.tag == "Player")
+            {
+                RpcPlayerDeath();
+            }
+        }
     }
+
 
     [ClientRpc]
     private void RpcPlayHitSound()
@@ -89,28 +106,31 @@ public class LifeManager : NetworkBehaviour
         _audioSource[1].Play();
     }
 
-    private void EnemyDeath()
+    [ClientRpc]
+    private void RpcEnemyDeath()
     {
-        if (gameObject.name == "Spider")
+        if (isServer)
         {
-            QuestManager.Instance.SetQuestSpider();
-        }
-        else if (gameObject.name == "X")
-        {
-            QuestManager.Instance.SetQuestX();
-        }
+            if (gameObject.name == "Spider")
+            {
+                QuestManager.Instance.SetQuestSpider();
+            }
+            else if (gameObject.name == "X")
+            {
+                QuestManager.Instance.SetQuestX();
+            }
 
-        Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
+        }
     }
 
-    private void PlayerDeath()
+    [ClientRpc]
+    private void RpcPlayerDeath()
     {
-        print("player mort !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        if(_playerDeathAndRespawnManager != null)
+        if (_playerDeathAndRespawnManager != null)
         {
             _playerDeathAndRespawnManager.PlayerDeath();
         }
-        
     }
 
     private IEnumerator UIBlinking(int _steps, float _force, bool _takingDamage)

@@ -131,7 +131,7 @@ public class PlayerAttack : NetworkBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.GetComponent<LifeManager>().TakeDamage(_damages);
+            other.GetComponent<LifeManager>().CmdTakeDamage(_damages);
         }
     }
 
