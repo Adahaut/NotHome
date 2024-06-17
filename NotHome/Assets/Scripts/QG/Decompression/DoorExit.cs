@@ -74,11 +74,11 @@ public class DoorExit : MonoBehaviour
     }
     private void SetActiveObject()
     {
-        if (_doorEnter.activeSelf && _doorExit.activeSelf)
+        if (_doorEnter.activeSelf && _doorExit.activeSelf && !_isDecompression)
         {
             _doorEnter.SetActive(false);
         }
-        else if (_nbPlayer >= 1)
+        else if (_nbPlayer >= 1 && !_isDecompression)
         {
             bool door = false;
             _light.SetActive(true);
