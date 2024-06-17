@@ -69,6 +69,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             {
                 time += Time.deltaTime;
                 cameraTransform.position = Vector3.Lerp(_initCamPos, _initCamPos + new Vector3(2, -1.5f, 2), time / totalTime * 3f);
+                cameraTransform.rotation = Quaternion.Euler(cameraTransform.rotation.x, cameraTransform.rotation.y + (360*time/totalTime),cameraTransform.rotation.z) ;
                 yield return new WaitForEndOfFrame();
             }
 
