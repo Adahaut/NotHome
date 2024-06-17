@@ -122,7 +122,6 @@ public class LifeManager : NetworkBehaviour
     [ClientRpc]
     private void RpcPlayerDeath()
     {
-        print("payer death");
         if (_playerDeathAndRespawnManager != null)
         {
             _playerDeathAndRespawnManager.PlayerDeath();
