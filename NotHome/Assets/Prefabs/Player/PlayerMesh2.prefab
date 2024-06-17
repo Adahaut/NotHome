@@ -1234,7 +1234,19 @@ MonoBehaviour:
     m_ActionId: 88769daf-3740-4fc9-a78f-f0642c594619
     m_ActionName: Minimap/Zoom[/Mouse/scroll]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6111432323842770088}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: DropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 28b10401-40a1-48c7-9b92-123901be163b
     m_ActionName: Player/Drop[/Keyboard/g]
   - m_PersistentCalls:
@@ -4059,6 +4071,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: 56e3281aeb4e48b479ece6d177aa9df1, type: 3}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: 87a935f01d803074a94e9bcdaa10eb09, type: 3}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: aa39736f4cf2ee54d9cc9af876840767, type: 3}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: 398df881172e36745a2cbfc2e30a472e, type: 3}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: 6a2774c3958a509408df85537004c6e9, type: 3}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: 4133b51fc9b48cb4e94a0a1d0efa073c, type: 3}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: b2bdd1b8f6e27a248bc79d84a794e6c0, type: 3}
+    - target: {fileID: 1046624429527680871, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _itemsPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 3264141781379779818, guid: 360f8c9ee7046ea48af23dc52fd9d2a6, type: 3}
     - target: {fileID: 1102195895234559751, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
