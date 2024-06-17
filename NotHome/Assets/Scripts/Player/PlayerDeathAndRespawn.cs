@@ -58,7 +58,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         cameraTransform.rotation = cameraSpawnRotation;
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
-        print("test");
     }
 
     private IEnumerator DisableCamera(float totalTime)
@@ -110,6 +109,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             }
             _playerInputs.SetActive(true);
             _hasStartedRespawn = false;
+            transform.position = _playerRespawnPoint.position;
         }
     }
 
