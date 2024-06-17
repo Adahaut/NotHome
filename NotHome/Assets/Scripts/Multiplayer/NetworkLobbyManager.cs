@@ -102,11 +102,6 @@ public class NetworkLobbyManager : NetworkManager
 
         if (playerInfosDisplay != null) 
             playerInfosDisplay.SetSteamId(steamId.m_SteamID);
-
-        var playerGameInfo = conn.identity.GetComponent<NetworkGamePlayerLobby>();
-
-        if (playerGameInfo != null)
-            playerGameInfo.SetSteamId(steamId.m_SteamID);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
