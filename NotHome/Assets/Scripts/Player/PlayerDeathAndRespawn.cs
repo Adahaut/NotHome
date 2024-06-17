@@ -40,7 +40,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         //cameraAnimator.SetBool("Death", true);
-        StartCoroutine(DisableCamera(1.5f));
+        StartCoroutine(DisableCamera(0.5f));
     }
 
     public void Respawn()
@@ -68,7 +68,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             while(time / totalTime < 1)
             {
                 time += Time.deltaTime;
-                cameraTransform.position = Vector3.Lerp(_initCamPos, _initCamPos + new Vector3(2, -1.5f, 2), time / totalTime * 3f);
+                cameraTransform.position = Vector3.Lerp(_initCamPos, _initCamPos + new Vector3(2, -1.5f, 2), time / totalTime);
                 cameraTransform.rotation = Quaternion.Euler(cameraTransform.rotation.x, cameraTransform.rotation.y + (360*time/totalTime),cameraTransform.rotation.z) ;
                 yield return new WaitForEndOfFrame();
             }
@@ -114,7 +114,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         if(isOwned)
         {
             _playerUI.SetActive(true);
-            Respawn();
         }
     }
 
@@ -125,6 +124,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             if (_timeToRespawn < 0 && _playerController.IsDead && _canRespawn)
             {
                 _canRespawn = false;
+                Respawn();
+
             }
             else if (_playerController.IsDead)
             {
