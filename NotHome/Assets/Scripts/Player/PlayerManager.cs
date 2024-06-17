@@ -26,8 +26,6 @@ public class PlayerManager : MonoBehaviour
     private bool _oxygeneRegainBegin;
     private bool _oxygeneFallBegin;
 
-    [SerializeField] private Transform _staminaEndPoint;
-    [SerializeField] private Transform _staminaBeginPoint;
 
     public float Stamina { get { return _stamina; } set { _stamina = value; } }
     public int Hunger { get { return _hunger; } set { _hunger = value; } }
@@ -39,13 +37,9 @@ public class PlayerManager : MonoBehaviour
     public int MaxThirst { get { return _maxThirst; } set { _maxThirst = value; } }
     public float MaxOxygene { get { return _maxOxygene; } set { _maxOxygene = value; } }
 
-    float _initScale;
     private void Start()
     {
-        _stamParent = _staminaSlider.transform.parent.gameObject;
-        _stamParent.transform.position = _staminaEndPoint.position;
         _stamParent.SetActive(false);
-        _initScale = _stamParent.transform.localScale.x;
         SetMaxStamina(_maxStamina);
         SetMaxHunger();
         SetMaxThirst();
@@ -58,7 +52,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetStaminaBar()
     {
-        _staminaSlider.fillAmount = _stamina / MaxStamina;
+        _staminaSlider.fillAmount = _stamina / MaxStamina - 0.1f;
     }
 
     public void SetHungerBar()
@@ -80,7 +74,7 @@ public class PlayerManager : MonoBehaviour
     {
         _stamina = maxStamina;
         _maxStamina = maxStamina;
-        _staminaSlider.fillAmount = _maxStamina;
+        _staminaSlider.fillAmount = _maxStamina - 0.1f;
         if (_stamParent.active)
             StartStamina(false, 1f);
     }
@@ -174,12 +168,9 @@ public class PlayerManager : MonoBehaviour
             {
                 time += Time.deltaTime;
                 Color color = _stamParent.GetComponent<Image>().color;
-                color.a = 1 - time / totalTime;
+                color.a = 1 - (time / totalTime);
                 _stamParent.GetComponent<Image>().color = color;
                 _staminaSlider.GetComponent<Image>().color = color;
-                _stamParent.transform.position = Vector3.Lerp(_staminaBeginPoint.position, _staminaEndPoint.position, time / totalTime);
-                _stamParent.transform.localScale = new Vector3(_initScale * (1 - (time / totalTime)), _initScale * (1 - (time / totalTime)),
-                    _initScale * (1 - (time / totalTime)));
                 yield return new WaitForEndOfFrame();
             }
             _stamParent.SetActive(false);
@@ -195,9 +186,6 @@ public class PlayerManager : MonoBehaviour
                 color.a = time / totalTime;
                 _stamParent.GetComponent<Image>().color = color;
                 _staminaSlider.GetComponent<Image>().color = color;
-                _stamParent.transform.position = Vector3.Lerp(_staminaEndPoint.position, _staminaBeginPoint.position, time / totalTime);
-                _stamParent.transform.localScale = new Vector3(_initScale * (time / totalTime), _initScale * (time / totalTime),
-                    _initScale * (time / totalTime));
                 yield return new WaitForEndOfFrame();
             }
         }
