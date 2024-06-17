@@ -48,6 +48,14 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
+    public void SetMaxHealth()
+    {
+        if(isServer)
+        {
+            _currentLife = _maxLife;
+        }
+    }
+
     void OnLifeChanged(int oldLife, int newLife)
     {
         if (newLife <= 0)
