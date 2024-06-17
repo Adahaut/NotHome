@@ -12,24 +12,31 @@ public class RepaireBridge : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
     [SerializeField] private TextMeshProUGUI _message;
 
-    private UpgradeHomeManager _hq;
-    private UpgradeHomeManager _ct;
+    [SerializeField] private UpgradeHomeManager _hq;
+    [SerializeField] private UpgradeHomeManager _ct;
 
-    private InventoryManager _playerInventory;
+    [SerializeField] private InventoryManager _playerInventory;
 
     private void OnEnable()
     {
-        if (_playerInventory == null)
-            _playerInventory = transform.parent.GetComponentInChildren<InventoryManager>();
-
-        for (int i = 0; i < _itemsNeeded.Count; i++)
+        if(_bridge == null)
         {
-            _ressourcesNeeded.text = _ressourcesNeeded.text + _itemsNeeded[i] + "\n";
+            _bridge = GameObject.Find("Bridge");
+        }
+
+
+        if(_ressourcesNeeded.text == null)
+        {
+            for (int i = 0; i < _itemsNeeded.Count; i++)
+            {
+                _ressourcesNeeded.text = _ressourcesNeeded.text + _itemsNeeded[i] + "\n";
+            }
         }
     }
 
     private bool CanUpgrade()
     {
+        print("HQ " + _hq.GetLevel() + " CT " + _ct.GetLevel());
         return _hq.GetLevel() == 4 && _ct.GetLevel() == 3;
     }
 
@@ -63,7 +70,8 @@ public class RepaireBridge : MonoBehaviour
         }
         if(_message.text == "")
         {
-            _bridge.SetActive(true);
+            _bridge.GetComponent<BoxCollider>().enabled = true;
+            _bridge.GetComponent<MeshRenderer>().enabled = true;
             _message.text = "Bridge Reparation Done!";
         }
     }

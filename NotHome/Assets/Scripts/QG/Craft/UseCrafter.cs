@@ -78,6 +78,12 @@ public class UseCrafter : MonoBehaviour
 
     public void CraftObject()
     {
+        if (!_playerInventory.HasRemainingPlace(_currentCraft._resultName))
+        {
+            print("plus de place");
+            return;
+        }
+
         bool _canCraft = CheckInplayerInventoryAndBase();
 
 
@@ -97,6 +103,8 @@ public class UseCrafter : MonoBehaviour
         for (int i = 0; i < _materialsNameForCraft.Count; i++)
             RemoveItemsForCraft(_materialsNameForCraft[i]);
         _playerInventory.AddItem(_currentCraft._resultName, _currentCraft._resultSprite, _currentCraft._isAnEquipement);
+        if (_currentCraft._resultName == "Ammo")
+            GetComponentInParent<PlayerController>().GetComponentInChildren<RangeWeapon>().AddAmmo(1);
         QuestManager.Instance.QuestComplete(5);
     }
 
