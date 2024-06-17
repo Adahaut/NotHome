@@ -57,7 +57,15 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage, GameObject player = null)
     {
-        UpdateCurrentLife(_currentLife - damage);
+        if(isOwned)
+        {
+            UpdateCurrentLife(_currentLife - damage);
+        }
+        else
+        {
+            _currentLife -= damage;
+        }
+        
 
         RpcPlayHitSound();
 
@@ -70,7 +78,7 @@ public class LifeManager : NetworkBehaviour
             }
             else if (gameObject.tag == "Player")
             {
-                //PlayerDeath();
+                PlayerDeath();
             }
         }
     }
