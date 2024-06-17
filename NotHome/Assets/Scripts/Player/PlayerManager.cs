@@ -37,6 +37,7 @@ public class PlayerManager : MonoBehaviour
     public int MaxThirst { get { return _maxThirst; } set { _maxThirst = value; } }
     public float MaxOxygene { get { return _maxOxygene; } set { _maxOxygene = value; } }
 
+    public bool _usingStam = false;
     private void Start()
     {
         _stamParent.SetActive(false);
@@ -52,7 +53,17 @@ public class PlayerManager : MonoBehaviour
 
     public void SetStaminaBar()
     {
-        _staminaSlider.fillAmount = _stamina / MaxStamina - 0.1f;
+        if (_usingStam == false && _stamina < _maxStamina)
+        {
+            StartStamina(true, 1f);
+            _usingStam = true;
+        }
+        else if (_usingStam == true && _stamina >= _maxStamina)
+        {
+            StartStamina(false, 1f);
+            _usingStam = false;
+        }
+        _staminaSlider.fillAmount = Mathf.Lerp(0.3f, 0.9f, _stamina / MaxStamina);
     }
 
     public void SetHungerBar()
@@ -74,7 +85,7 @@ public class PlayerManager : MonoBehaviour
     {
         _stamina = maxStamina;
         _maxStamina = maxStamina;
-        _staminaSlider.fillAmount = _maxStamina - 0.1f;
+        _staminaSlider.fillAmount = Mathf.Lerp(0.3f, 0.9f, _stamina / MaxStamina);
         if (_stamParent.active)
             StartStamina(false, 1f);
     }
@@ -162,15 +173,16 @@ public class PlayerManager : MonoBehaviour
         
         if (!Reverse)
         {
-            yield return new WaitForSeconds(1f);
+            //yield return new WaitForSeconds(1f);
             float time = 0f;
-            while(time/totalTime < 1) 
+            while(time / totalTime < 1) 
             {
                 time += Time.deltaTime;
                 Color color = _stamParent.GetComponent<Image>().color;
                 color.a = 1 - (time / totalTime);
                 _stamParent.GetComponent<Image>().color = color;
                 _staminaSlider.GetComponent<Image>().color = color;
+                print("notttttt goood");
                 yield return new WaitForEndOfFrame();
             }
             _stamParent.SetActive(false);
