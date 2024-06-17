@@ -72,6 +72,7 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
+        print("add player");
         if (SceneManager.GetActiveScene().path == menuScene)
         {
             bool isLeader = _roomPlayers.Count == 0;

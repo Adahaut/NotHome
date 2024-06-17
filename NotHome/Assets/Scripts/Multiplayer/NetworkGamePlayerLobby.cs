@@ -37,10 +37,4 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
     {
         this._displayName = displayName;
     }
-
-    public void ChangeScene(string  sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-    
 }
