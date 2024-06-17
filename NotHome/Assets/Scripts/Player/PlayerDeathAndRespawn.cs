@@ -68,7 +68,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             while(time / totalTime < 1)
             {
                 time += Time.deltaTime;
-                cameraTransform.position = Vector3.Lerp(_initCamPos, _initCamPos + new Vector3(2, -1.5f, 2), time / totalTime * 2f);
+                cameraTransform.position = Vector3.Lerp(_initCamPos, _initCamPos + new Vector3(2, -1.5f, 2), time / totalTime * 3f);
                 yield return new WaitForEndOfFrame();
             }
 
