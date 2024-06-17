@@ -166,7 +166,7 @@ public class LifeManager : NetworkBehaviour
     {
         if(gameObject.tag == "Player")
         {
-            if(!_isBlinking && _currentLife < _maxLife && !_isTackingDamage)
+            if(!_isBlinking && _currentLife < _maxLife && !_isTackingDamage && !GetComponent<PlayerController>().IsDead)
             {
                 StartBlinking();
             }
