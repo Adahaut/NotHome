@@ -53,7 +53,6 @@ public class DoorExit : MonoBehaviour
     }
     public void OpenDoor(Transform camera, float distRayCast)
     {
-        print("enter");
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
             print("enter2");
