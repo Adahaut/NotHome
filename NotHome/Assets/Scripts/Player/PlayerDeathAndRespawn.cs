@@ -17,6 +17,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     private bool _hasStartedRespawn;
 
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private GameObject[] playerMesh;
 
     private Vector3 cameraSpawnTransform;
     private Quaternion cameraSpawnRotation;
@@ -43,6 +44,11 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerInputs.SetActive(false);
         //cameraAnimator.SetBool("Death", true);
         StartCoroutine(DisableCamera(0.5f));
+
+        foreach(var obj in playerMesh)
+        {
+            obj.SetActive(false);
+        }
     }
 
     public void Respawn()
@@ -55,6 +61,11 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         cameraTransform.rotation = cameraSpawnRotation;
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
+
+        foreach (var obj in playerMesh)
+        {
+            obj.SetActive(true);
+        }
 
     }
 
