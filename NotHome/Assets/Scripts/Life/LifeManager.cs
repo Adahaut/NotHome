@@ -56,20 +56,18 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage, GameObject player = null)
     {
-        _currentLife -= damage;
-        print(_currentLife);
-
+        UpdateCurrentLife(_currentLife - damage);
 
         RpcPlayHitSound();
 
-        if (gameObject.tag == "Player" && _helthSlider != null)
-        {
-            SetHealthBar();
-        }
-        else
-        {
-        //    _animator.SetBool("Hit", true);
-        }
+        //if (gameObject.tag == "Player" && _helthSlider != null)
+        //{
+        //    SetHealthBar();
+        //}
+        //else
+        //{
+        ////    _animator.SetBool("Hit", true);
+        //}
 
         if (_currentLife <= 0)
         {
@@ -83,6 +81,12 @@ public class LifeManager : NetworkBehaviour
                 PlayerDeath();
             }
         }
+    }
+
+    [Command]
+    void UpdateCurrentLife(int newLife)
+    {
+        _currentLife = newLife;
     }
 
     [ClientRpc]
