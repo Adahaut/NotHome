@@ -99,6 +99,7 @@ public class UpgradeHomeManager : MonoBehaviour
     {
         if (_levelBuilding == 2)
         {
+            print("a");
             QuestManager.Instance.SetQuestUpLevel2();
             _getAlarm = true;
         }
@@ -179,10 +180,10 @@ public class UpgradeHomeManager : MonoBehaviour
                         SetNumber(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i]);
                 }
                 _particleLevelUp.Play();
-                Cursor.lockState = CursorLockMode.Locked;
+                /*Cursor.lockState = CursorLockMode.Locked;
                 _playerInput.actions.actionMaps[0].Enable();
                 _playerInput.actions.actionMaps[2].Disable();
-                button.SetActive(false);
+                button.SetActive(false);*/
             }
             else
             {

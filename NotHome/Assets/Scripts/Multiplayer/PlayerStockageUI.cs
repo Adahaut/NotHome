@@ -87,6 +87,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 {
                     _draging = true;
                     ChangeChildParent(_itemImage.transform, _dragNDrop.transform);
+                    print(_itemImage.ItemContained().ItemName());
                 }
                 UpdateItemList();
             }
