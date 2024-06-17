@@ -78,6 +78,12 @@ public class UseCrafter : MonoBehaviour
 
     public void CraftObject()
     {
+        if (!_playerInventory.HasRemainingPlace(_currentCraft._resultName))
+        {
+            print("plus de place");
+            return;
+        }
+
         bool _canCraft = CheckInplayerInventoryAndBase();
 
 
