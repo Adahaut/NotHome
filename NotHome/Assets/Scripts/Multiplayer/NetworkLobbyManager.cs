@@ -99,7 +99,7 @@ public class NetworkLobbyManager : NetworkManager
             SteamLobby._lobbyId,
             numPlayers - 1);
 
-        if(conn.identity.GetComponent<NetworkRoomPlayerLobby>())
+        if(SceneManager.GetActiveScene().path == menuScene)
         {
             var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
             playerInfosDisplay.SetSteamId(steamId.m_SteamID);
