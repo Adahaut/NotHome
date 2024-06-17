@@ -67,19 +67,19 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            AttackPlayer(_playerRef.gameObject);
+            var playerLifeManager = other.GetComponent<LifeManager>();
+            if (playerLifeManager != null)
+            {
+                DealDamage(playerLifeManager);
+            }
         }
     }
 
     [Server]
-    private void AttackPlayer(GameObject player)
+    private void DealDamage(LifeManager playerLifeManager)
     {
-        var lifeManager = player.GetComponent<LifeManager>();
-        if (lifeManager != null)
-        {
-            lifeManager.ServTakeDamage(_damages);
-        }
+        playerLifeManager.TakeDamage(_damages);
     }
 }

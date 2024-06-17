@@ -25,18 +25,6 @@ public class LifeManager : NetworkBehaviour
     private bool _isTackingDamage;
     private Coroutine _blinking;
 
-    public void SetHealthBar()
-    {
-        _helthSlider.value = _currentLife;
-    }
-
-    public void SetMaxHealth()
-    {
-        _currentLife = _maxLife;
-        //_helthSlider.maxValue = _currentLife;
-        //_helthSlider.value = _currentLife;
-    }
-
     void Start()
     {
         _audioSource = GetComponents<AudioSource>();
@@ -53,7 +41,6 @@ public class LifeManager : NetworkBehaviour
         if (gameObject.tag == "Player")
         {
             _playerDeathAndRespawnManager = GetComponent<PlayerDeathAndRespawn>();
-            //SetMaxHealth();
         }
         else
         {
@@ -77,7 +64,7 @@ public class LifeManager : NetworkBehaviour
     }
 
     [Server]
-    public void ServTakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (_currentLife <= 0) return;
 
