@@ -56,6 +56,9 @@ public class Enemies : NetworkBehaviour
 
         // Sync position with clients
         RpcSyncPositionAndRotation(transform.position, transform.rotation);
+
+        // Update animator with walking status
+        _animator.SetFloat("IsWalking", _agent.velocity.magnitude);
     }
 
     private void Patrol()
