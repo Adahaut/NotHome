@@ -78,8 +78,10 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage)
     {
-        print("test");
-        CmdTakeDamage(damage);
+        if (isOwned)
+            CmdTakeDamage(damage);
+        else
+            print("not owned");
     }
 
     [Command]
