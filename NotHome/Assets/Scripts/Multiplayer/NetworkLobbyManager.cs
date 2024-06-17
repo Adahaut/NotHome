@@ -88,7 +88,6 @@ public class NetworkLobbyManager : NetworkManager
 
             if (playerSpawnSystemInstance != null)
             {
-                print("caca");
                 playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
             }
 
@@ -99,17 +98,15 @@ public class NetworkLobbyManager : NetworkManager
             SteamLobby._lobbyId,
             numPlayers - 1);
 
-        if(SceneManager.GetActiveScene().path == menuScene)
-        {
-            var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+        var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+
+        if (playerInfosDisplay != null) 
             playerInfosDisplay.SetSteamId(steamId.m_SteamID);
-        }
-        if(conn.identity.GetComponent<NetworkGamePlayerLobby>())
-        {
-            var playerInfosDisplay = conn.identity.GetComponent<NetworkGamePlayerLobby>();
-            playerInfosDisplay.SetSteamId(steamId.m_SteamID);
-        }
-        
+
+        var playerGameInfo = conn.identity.GetComponent<NetworkGamePlayerLobby>();
+
+        if (playerGameInfo != null)
+            playerGameInfo.SetSteamId(steamId.m_SteamID);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)

@@ -29,6 +29,7 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
         var cSteamId = new CSteamID(newSteamId);
 
         CmdSetDisplayName(SteamFriends.GetFriendPersonaName(cSteamId));
+
     }
 
     [Command]
