@@ -39,7 +39,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerTransform.rotation = Quaternion.Euler(0, 0, 90);
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
-        cameraAnimator.SetBool("Death", true);
+        //cameraAnimator.SetBool("Death", true);
         StartCoroutine(DisableCamera());
     }
 
@@ -49,7 +49,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
         _playerTransform = _playerRespawnPoint;
-        cameraAnimator.SetBool("Death", false);    
+        //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
 
     }
