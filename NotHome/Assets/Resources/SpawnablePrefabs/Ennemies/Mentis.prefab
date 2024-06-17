@@ -226,7 +226,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a708c51c1fcc04cbf2f5a30fb47b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLife: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _maxLife: 100
   _currentLife: 0
   _helthSlider: {fileID: 0}
   _hitAudioClip:
@@ -275,6 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e5ad7a9b41eab48ace96448af7e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _walkingRadius: 10
   _timeBetweenAttacks: 3
   _sightRange: 10
@@ -283,6 +289,7 @@ MonoBehaviour:
   - {fileID: 3400651745474440778}
   - {fileID: 5214579926515238120}
   - {fileID: 7669127832066487428}
+  _playerDetectionCollider: {fileID: 331134691480880031}
   _players: []
 --- !u!82 &3400651745474440778
 AudioSource:

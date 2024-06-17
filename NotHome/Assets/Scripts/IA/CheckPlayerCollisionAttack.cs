@@ -10,7 +10,8 @@ public class CheckPlayerCollisionAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<LifeManager>().TakeDamage(_damages);
+            print("collisionPlayer");
+            other.GetComponent<LifeManager>().TakeDamage(_damages, null);
         }
     }
 }

@@ -68,7 +68,7 @@ public class LifeManager : NetworkBehaviour
         }
         else
         {
-        //    _animator.SetBool("Hit", true);
+            StartCoroutine(HitAnim());
         }
 
         if (_currentLife <= 0)
@@ -83,6 +83,13 @@ public class LifeManager : NetworkBehaviour
                 PlayerDeath();
             }
         }
+    }
+
+    private IEnumerator HitAnim()
+    {
+        _animator.SetBool("Hit", true);
+        yield return new WaitForSeconds(0.2f);
+        _animator.SetBool("Hit", false);
     }
 
     [ClientRpc]
