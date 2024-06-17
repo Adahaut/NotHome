@@ -50,7 +50,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     public void Respawn()
     {
-        print("test");
         _noSignal.SetActive(false);
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
@@ -59,6 +58,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         cameraTransform.rotation = cameraSpawnRotation;
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
+        print("test");
     }
 
     private IEnumerator DisableCamera(float totalTime)
@@ -132,7 +132,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             {
                 _canRespawn = false;
                 Respawn();
-                print("respanw");
             }
             else if (_playerController.IsDead)
             {
