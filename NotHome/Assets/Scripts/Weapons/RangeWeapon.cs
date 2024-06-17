@@ -101,6 +101,11 @@ public class RangeWeapon : NetworkBehaviour
     {
         _laser.SetActive(true);
     }
+    public void AddAmmo(int number)
+    {
+        _nbAmmo += number;
+        _textAmmo.text = _currentAmmo + "/" + _nbAmmo;
+    }
 
     public void UpgradeWeaponVisual(List<GameObject> _meshList)
     {
