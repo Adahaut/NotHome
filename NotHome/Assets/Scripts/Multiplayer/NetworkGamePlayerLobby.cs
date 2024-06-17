@@ -33,7 +33,13 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
 
         Room._gamePlayers.Add(this);
-        SteamFriends.ClearRichPresence();
+        if(SteamManager.Initialized)
+        {
+            SteamFriends.SetRichPresence("status", "InLobby");
+            print("steam manager initialized");
+            SteamFriends.ClearRichPresence();
+        }
+        
     }
 
     public override void OnStopClient()
