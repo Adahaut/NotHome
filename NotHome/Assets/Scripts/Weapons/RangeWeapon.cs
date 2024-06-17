@@ -194,7 +194,7 @@ public class RangeWeapon : NetworkBehaviour
                 }
                 if (Physics.Raycast(_playerCamera.transform.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
-                    if (_hitInfo.collider.GetComponent<LifeManager>() != null)
+                    if (_hitInfo.collider.GetComponent<LifeManager>() != null && _hitInfo.collider.gameObject != transform.root.gameObject)
                     {
                         CreateBlood(_hitInfo.point);
                         StartCoroutine(HitMarker());
