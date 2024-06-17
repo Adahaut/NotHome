@@ -49,7 +49,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
         _playerTransform = _playerRespawnPoint;
-        cameraAnimator.SetBooll("Death", false);    
+        cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
 
     }
