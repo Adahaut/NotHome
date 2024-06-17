@@ -42,21 +42,15 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerTransform.rotation = Quaternion.Euler(0, 0, 90);
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
+        transform.position = Vector3.zero;
         //cameraAnimator.SetBool("Death", true);
         StartCoroutine(DisableCamera(0.5f));
-
-        if(!isOwned)
-        {
-            foreach (var obj in playerMesh)
-            {
-                obj.SetActive(false);
-            }
-        }
         
     }
 
     public void Respawn()
     {
+        print("test");
         _noSignal.SetActive(false);
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
@@ -65,13 +59,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         cameraTransform.rotation = cameraSpawnRotation;
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
-
-        foreach (var obj in playerMesh)
-        {
-            obj.SetActive(true);
-        }
-
-
     }
 
     private IEnumerator DisableCamera(float totalTime)
