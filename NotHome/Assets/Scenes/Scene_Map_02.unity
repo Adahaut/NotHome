@@ -1138,7 +1138,8 @@ GameObject:
   - component: {fileID: 67615188}
   - component: {fileID: 67615187}
   - component: {fileID: 67615189}
-  m_Layer: 0
+  - component: {fileID: 67615190}
+  m_Layer: 8
   m_Name: SpaceshipPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,20 +1187,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 67615186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 420cd5fad61b0c7478849165cfeebbcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b623a52fc0354243b81e05255ffce35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapManager: {fileID: 0}
-  _textLevel: {fileID: 0}
-  _ressourcesNeeded: {fileID: 0}
-  _upgarde: []
-  _inventoryManager: {fileID: 0}
-  _nameBuilding: 
-  _fieldManager: {fileID: 0}
-  _alarm: {fileID: 0}
-  _particleLevelUp: {fileID: 0}
-  _bridge: {fileID: 0}
-  _UpgradesVisuals: []
+  _index: 10
+  _isOpen: 0
+--- !u!65 &67615190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67615186}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.0468516, y: 2.1968288, z: 5.3301625}
+  m_Center: {x: -1.6471739, y: -0.5984144, z: -0.2984345}
 --- !u!1001 &75433245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5792,7 +5805,8 @@ GameObject:
   - component: {fileID: 285439314}
   - component: {fileID: 285439313}
   - component: {fileID: 285439312}
-  m_Layer: 0
+  - component: {fileID: 285439315}
+  m_Layer: 8
   m_Name: RepaireBridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5885,6 +5899,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285439310}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &285439315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285439310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b623a52fc0354243b81e05255ffce35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _index: 9
+  _isOpen: 0
 --- !u!1 &290603063 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5641380823278546910, guid: 209329a53b69a6d4893d43d628652812, type: 3}
@@ -15607,7 +15635,7 @@ GameObject:
   - component: {fileID: 1049148766}
   - component: {fileID: 1049148765}
   - component: {fileID: 1049148764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WingL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18564,7 +18592,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -18575,7 +18603,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279221209}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -23734,7 +23762,7 @@ GameObject:
   - component: {fileID: 1670538623}
   - component: {fileID: 1670538622}
   - component: {fileID: 1670538621}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
