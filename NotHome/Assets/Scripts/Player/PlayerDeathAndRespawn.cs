@@ -97,7 +97,10 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             _playerUI.SetActive(false);
         yield return new WaitForSeconds(_waitingTime);
         if(isOwned)
+        {
             _playerUI.SetActive(true);
+            Respawn();
+        }
     }
 
     private void Update()
@@ -106,7 +109,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         {
             if (_timeToRespawn < 0 && _playerController.IsDead && _canRespawn)
             {
-                Respawn();
                 _canRespawn = false;
             }
             else if (_playerController.IsDead)

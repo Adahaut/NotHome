@@ -2734,6 +2734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74d98ee38ab7194188798090aabc0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _noSignal: {fileID: 8165940555483878621}
   _timer: {fileID: 4571356178742698628}
   _playerInputs: {fileID: 3088817238947742997}
@@ -3174,7 +3177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1147394520036413594
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3215,8 +3218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
