@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -113,7 +114,17 @@ public class SlenderMan : MonoBehaviour
         _animator.SetBool("IsAttacking", true);
         _audioSources[2].Play();
         yield return new WaitForSeconds(1.15f);
-        closestPlayer.GetComponent<LifeManager>().TakeDamage(5000);
+        AttackPlayer(closestPlayer.gameObject);
+    }
+
+    [Server]
+    private void AttackPlayer(GameObject player)
+    {
+        var lifeManager = player.GetComponent<LifeManager>();
+        if (lifeManager != null)
+        {
+            lifeManager.ServTakeDamage(5000);
+        }
     }
 
 }

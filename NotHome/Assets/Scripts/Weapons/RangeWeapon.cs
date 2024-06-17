@@ -198,7 +198,7 @@ public class RangeWeapon : NetworkBehaviour
                     {
                         CreateBlood(_hitInfo.point);
                         StartCoroutine(HitMarker());
-                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages);
+                        AttackPlayer(_hitInfo.transform.gameObject);
                     }
                     else
                     {
@@ -212,6 +212,16 @@ public class RangeWeapon : NetworkBehaviour
         else
         {
             StartReload();
+        }
+    }
+
+    [Server]
+    void AttackPlayer(GameObject player)
+    {
+        var lifeManager = player.GetComponent<LifeManager>();
+        if (lifeManager != null)
+        {
+            lifeManager.ServTakeDamage(_weaponData._damages);
         }
     }
 

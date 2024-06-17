@@ -76,18 +76,9 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    [Server]
+    public void ServTakeDamage(int damage)
     {
-        if (isOwned)
-            CmdTakeDamage(damage);
-        else
-            print("not owned");
-    }
-
-    [Command]
-    public void CmdTakeDamage(int damage)
-    {
-        print("take damages");
         if (_currentLife <= 0) return;
 
         _currentLife -= damage;
@@ -136,6 +127,7 @@ public class LifeManager : NetworkBehaviour
     [ClientRpc]
     private void RpcPlayerDeath()
     {
+        print("payer death");
         if (_playerDeathAndRespawnManager != null)
         {
             _playerDeathAndRespawnManager.PlayerDeath();

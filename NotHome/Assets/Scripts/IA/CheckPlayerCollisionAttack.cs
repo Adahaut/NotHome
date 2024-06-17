@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPlayerCollisionAttack : MonoBehaviour
+public class CheckPlayerCollisionAttack : NetworkBehaviour
 {
     [SerializeField] private int _damages;
 
@@ -10,7 +11,17 @@ public class CheckPlayerCollisionAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<LifeManager>().TakeDamage(_damages);
+            AttackPlayer(other.gameObject);
+        }
+    }
+
+    [Server]
+    private void AttackPlayer(GameObject player)
+    {
+        var lifeManager = player.GetComponent<LifeManager>();
+        if (lifeManager != null)
+        {
+            lifeManager.ServTakeDamage(_damages);
         }
     }
 }
