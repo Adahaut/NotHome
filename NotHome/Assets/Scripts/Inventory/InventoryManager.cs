@@ -50,9 +50,10 @@ public class InventoryManager : NetworkBehaviour
 
     public InventorySlot SelectAt(int _index)
     {
+        print(_index);
         if (_index < 0) _index = _slotList.Count - 1;
         else if (_index > _slotList.Count - 1) _index = 0;
-
+        print(_index);
         UnSelectAll();
         _slotList[_index].GetComponent<Image>().color = _selectedColor;
         return _slotList[_index].GetComponent<InventorySlot>();

@@ -243,13 +243,11 @@ public class PlayerController : NetworkBehaviour
             if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
-                print("enter");
                 _textPress.text = "Press E for interact";
                 _canOpen = true;
             }
             else
             {
-                print("exit");
                 _canOpen = false;
                 _textPress.text = "";
             }
@@ -401,6 +399,8 @@ public class PlayerController : NetworkBehaviour
     {
         if(isOwned)
         {
+            if (_timer > 0)
+                return;
             _scrollDir = ctx.ReadValue<Vector2>();
             int _indexAddition = 0;
             if (_scrollDir.y > 0) _indexAddition = 1;
