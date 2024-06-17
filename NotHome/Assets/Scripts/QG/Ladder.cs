@@ -31,15 +31,9 @@ public class Ladder : MonoBehaviour
     }
     private IEnumerator CharacterMove(float total_time,Transform endPos, Transform player)
     {
-        float speed = 20;
-        float time = 0f;
-        Vector3 end_pos = endPos.position;
-        Vector3 start_pos = player.position;
-        while (time / total_time < 1)
-        {
-                time += Time.deltaTime * speed;
-                player.transform.position = Vector3.Lerp(start_pos, end_pos, time / total_time);
-                yield return null;
-        }
+        player.GetComponent<PlayerController>()._canMove = false;
+        player.position = endPos.position;
+        yield return null;
+        player.GetComponent<PlayerController>()._canMove = true;
     }
 }

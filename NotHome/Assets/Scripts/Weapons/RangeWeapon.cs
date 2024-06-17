@@ -169,7 +169,7 @@ public class RangeWeapon : NetworkBehaviour
 
     public void StartReload()
     {
-        if(!_isReloading && _nbAmmo > 0) 
+        if(!_isReloading && _nbAmmo > 0 && _currentAmmo < _weaponData._magSize) 
         {
             StartCoroutine(Reloading());
         }
@@ -184,23 +184,23 @@ public class RangeWeapon : NetworkBehaviour
         yield return new WaitForSeconds(_weaponData._reloadSpeed);
 
         _isReloading = false;
-        if (_nbAmmo > 10)
+        if (_nbAmmo > _weaponData._magSize)
         {
-            _nbAmmo -= 10 - _currentAmmo;
-            _currentAmmo += 10 - _currentAmmo;
+            _nbAmmo -= _weaponData._magSize - _currentAmmo;
+            _currentAmmo += _weaponData._magSize - _currentAmmo;
             
         }
         else
         {
-            if (10 - _currentAmmo > _nbAmmo)
+            if (_weaponData._magSize - _currentAmmo > _nbAmmo)
             {
                 _currentAmmo += _nbAmmo;
                 _nbAmmo = 0;
             }
             else
             {
-                _nbAmmo -= 10 - _currentAmmo;
-                _currentAmmo += 10 - _currentAmmo;
+                _nbAmmo -= _weaponData._magSize - _currentAmmo;
+                _currentAmmo += _weaponData._magSize - _currentAmmo;
             }
         }
         _textAmmo.text = _currentAmmo.ToString() + "/" + _nbAmmo;

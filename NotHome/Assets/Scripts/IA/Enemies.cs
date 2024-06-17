@@ -36,7 +36,6 @@ public class Enemies : NetworkBehaviour
         if (!isServer) return; // Ensure that only the server controls enemy logic
 
         _closestPlayer = GetClosestPlayer();
-        Debug.Log(_closestPlayer.name);
 
         if (_hasSeenPlayer || PlayerInSightRange())
         {
