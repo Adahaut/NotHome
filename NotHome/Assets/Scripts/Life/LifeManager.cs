@@ -78,6 +78,7 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage)
     {
+        print("test");
         CmdTakeDamage(damage);
     }
 
