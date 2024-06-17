@@ -485,6 +485,8 @@ public class PlayerController : NetworkBehaviour
             {
                 return;
             }
+            if (hit.collider.GetComponent<Item>().ItemName() == "Ammo")
+                GetComponentInChildren<RangeWeapon>().AddAmmo(1);
             _inventory.GetComponent<InventoryManager>().AddItem(hit.collider.GetComponent<Item>().ItemName(), hit.collider.GetComponent<Item>().ItemSprite(), false);
             CmdDestroyItem(hit.collider.gameObject);
         }
