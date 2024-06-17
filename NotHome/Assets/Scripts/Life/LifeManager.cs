@@ -58,7 +58,7 @@ public class LifeManager : NetworkBehaviour
     public void TakeDamage(int damage, GameObject player = null)
     {
         UpdateCurrentLife(_currentLife - damage);
-
+        print(_currentLife);
         //RpcPlayHitSound();
 
         if (_currentLife <= 0)
