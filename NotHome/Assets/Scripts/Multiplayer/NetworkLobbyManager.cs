@@ -153,7 +153,7 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        if (sceneName.StartsWith("Scene_Map"))
+        if (sceneName.StartsWith("Scene_Map") && !GameObject.FindAnyObjectByType<PlayerSpawnSystem>())
         {
             playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
