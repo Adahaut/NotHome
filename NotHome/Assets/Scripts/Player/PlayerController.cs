@@ -146,10 +146,16 @@ public class PlayerController : NetworkBehaviour
     {
         if(isOwned)
         {
-            if(ctx.started)
+            if (ctx.started)
+            {
                 _inventory.SetActive(true);
-            if(ctx.canceled)
+                _isInInventory = true;
+            }
+            if (ctx.canceled)
+            {
                 _inventory.SetActive(false);
+                _isInInventory = false;
+            }  
         }
     }
     public void SetIsInBaseInventory(bool _isIn)
@@ -314,7 +320,7 @@ public class PlayerController : NetworkBehaviour
             if (_moveDir != Vector2.zero)
             {
                 _animCam.GetComponent<Animator>().enabled = true;
-                if (!GetComponentInChildren<RangeWeapon>()._isAiming)
+                if (GetComponentInChildren<RangeWeapon>() && !GetComponentInChildren<RangeWeapon>()._isAiming)
                     _weapon.GetComponent<Animator>().enabled = true;
             }
             else
@@ -415,7 +421,7 @@ public class PlayerController : NetworkBehaviour
                 ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
                 
             }
-            _timer = 0.05f;
+            _timer = 0.1f;
         }
         
     }
