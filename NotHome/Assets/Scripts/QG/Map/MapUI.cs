@@ -30,20 +30,20 @@ public class MapUI : MonoBehaviour
 
     private void Awake()
     {
-        _playerInventory = GetComponentInParent<PC>()._inventory.GetComponent<InventoryManager>();
+        _playerInventory = GetComponentInParent<PlayerController>()._inventory.GetComponent<InventoryManager>();
     }
 
     private void OnEnable()
     {
         DesactiveAllMaps();
         SetActiveButtons();
-        GetComponentInParent<PC>().gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[3].Enable();
+        GetComponentInParent<PlayerController>().gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[3].Enable();
         _currentMapIndex = _minimapsRenderSprite.IndexOf((RenderTexture)_mapImage.texture);
     }
 
     private void OnDisable()
     {
-        GetComponentInParent<PC>().gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[3].Disable();
+        GetComponentInParent<PlayerController>().gameObject.GetComponentInChildren<PlayerInput>().actions.actionMaps[3].Disable();
         ResetCamera();
     }
 

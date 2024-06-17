@@ -32,15 +32,22 @@ public class MinimapSwaper : MonoBehaviour
 
     private void OnEnable()
     {
+        if(_minimapGameObject == null)
+        {
+            _minimapGameObject = GameObject.Find("Minimap");
+        }
+
         if(_playerController == null)
             _playerController = GetComponentInParent<PlayerController>();
 
         _playerController.SetInventoryActive(true);
+        _playerController.SetInventoryPosition(true);
     }
 
     private void OnDisable()
     {
         _playerController.SetInventoryActive(false);
+        _playerController.SetInventoryPosition(false);
     }
 
     private void Update()
@@ -103,6 +110,7 @@ public class MinimapSwaper : MonoBehaviour
     private void EnableMap(string mapName)
     {
         int _index = _usbKeysName.IndexOf(mapName);
+        print(_index);
         _minimapGameObject.GetComponent<MeshRenderer>().material = _miniMapsMaterials[_index];
         _miniMapUI.texture = _miniMapsSprites[_index];
     }
