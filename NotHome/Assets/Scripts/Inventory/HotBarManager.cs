@@ -1,9 +1,10 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HotBarManager : MonoBehaviour
+public class HotBarManager : NetworkBehaviour
 {
     [SerializeField] private GameObject _hotBarSlot;
     [SerializeField] private GameObject _hotBar;
@@ -11,6 +12,7 @@ public class HotBarManager : MonoBehaviour
     [SerializeField] private int _hotBarNumber;
 
     [SerializeField] List<GameObject> _hotBarItems = new List<GameObject>();
+    [SerializeField] List<GameObject> _hotBarMesh = new List<GameObject>();
 
     [SerializeField] private List<GameObject> _hotBarSlotList = new List<GameObject>();
 
@@ -78,6 +80,8 @@ public class HotBarManager : MonoBehaviour
 
         UnActiveAll();
         _hotBarItems[_hotBarSlotIndex].SetActive(true);
+        if (!isOwned)
+            _hotBarMesh[_hotBarSlotIndex].SetActive(true);
         SetWeaponActive();
     }
 
@@ -110,6 +114,7 @@ public class HotBarManager : MonoBehaviour
         for(int i = 0; i < _hotBarSlotList.Count; i++)
         {
             _hotBarItems[i].SetActive(false);
+            _hotBarMesh[i].SetActive(false);
         }
     }
 

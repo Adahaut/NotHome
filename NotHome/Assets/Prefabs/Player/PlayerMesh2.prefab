@@ -2104,6 +2104,7 @@ MonoBehaviour:
   _stamParent: {fileID: 6909651887236451224}
   _BaseZone: {fileID: 0}
   _isInBase: 0
+  _usingStam: 0
 --- !u!114 &1141932481867950140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2603,6 +2604,7 @@ Transform:
   - {fileID: 7831502457114730237}
   - {fileID: 4169563290956546701}
   - {fileID: 410739518574906673}
+  - {fileID: 8004501703940730802}
   m_Father: {fileID: 3891763574499953623}
   m_LocalEulerAnglesHint: {x: -66.63, y: -129.083, z: 267.046}
 --- !u!1 &5915307021661290270
@@ -3542,6 +3544,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8515012592303675759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8970553805827815537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8004501703940730802}
+  - component: {fileID: 5328883683199180934}
+  - component: {fileID: 2899856918536699594}
+  m_Layer: 2
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8004501703940730802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970553805827815537}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.07724955, y: 0.6687136, z: 0.18087915, w: 0.71703374}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.09999998, y: 0.49999988, z: 0.1999999}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9170860955986426977}
+  m_LocalEulerAnglesHint: {x: -7.535, y: 84.576, z: 21.461}
+--- !u!33 &5328883683199180934
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970553805827815537}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2899856918536699594
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970553805827815537}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &9088309166651471683
 GameObject:
   m_ObjectHideFlags: 0
@@ -3701,31 +3786,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.71703374
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.07724955
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: 0.6687136
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.18087915
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -7.535
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: 84.576
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 21.461
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0ff2a62bcc01bdb4fb119801e402072d, type: 3}
       propertyPath: m_Name
@@ -4270,9 +4355,25 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _hotBarMesh.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: _hotBarItems.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _hotBarMesh.Array.data[0]
+      value: 
+      objectReference: {fileID: 3645262663908923447}
+    - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _hotBarMesh.Array.data[1]
+      value: 
+      objectReference: {fileID: 1078873549196695435}
+    - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _hotBarMesh.Array.data[2]
+      value: 
+      objectReference: {fileID: 8970553805827815537}
     - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: _hotBarItems.Array.data[0]
       value: 

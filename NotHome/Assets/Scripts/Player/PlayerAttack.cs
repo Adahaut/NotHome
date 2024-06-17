@@ -61,7 +61,10 @@ public class PlayerAttack : NetworkBehaviour
     public void Attack(InputAction.CallbackContext context)
     {
         if (isOwned && _isMeleeWeaponEqupiped && _playerController != null && context.performed)
+        {
             StartCoroutine(GetComponentInChildren<SetAnimationMachet>().StartAnimMachet());
+            StartCoroutine(_playerController.AnimOneTime("HitMachet"));
+        }
         if (isOwned && _playerController != null && _playerController._canAttack)
         {
             if (_playerController._isInBook)

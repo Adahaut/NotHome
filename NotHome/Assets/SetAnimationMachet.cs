@@ -12,6 +12,7 @@ public class SetAnimationMachet : MonoBehaviour
 
     public IEnumerator StartAnimMachet()
     {
+        print("enter");
         int number = Random.Range(1, 3);
         _animator.SetInteger("Attack", number);
         yield return new WaitForEndOfFrame();

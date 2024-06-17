@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
