@@ -54,6 +54,7 @@ public class LifeManager : NetworkBehaviour
         {
             _currentLife = _maxLife;
         }
+            StartBlinking(false);
     }
 
     void OnLifeChanged(int oldLife, int newLife)

@@ -66,14 +66,11 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
 
-        if(!isOwned)
+        foreach (var obj in playerMesh)
         {
-            foreach (var obj in playerMesh)
-            {
-                obj.SetActive(true);
-            }
+            obj.SetActive(true);
         }
-        
+
 
     }
 
