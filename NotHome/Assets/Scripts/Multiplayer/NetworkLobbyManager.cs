@@ -80,19 +80,19 @@ public class NetworkLobbyManager : NetworkManager
             roomPlayerInstance.IsLeader = isLeader;
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
         }
-        else
-        {
-            var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
-            NetworkServer.Spawn(gamePlayerInstance.gameObject);
-            NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
+        //else
+        //{
+        //    var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
+        //    NetworkServer.Spawn(gamePlayerInstance.gameObject);
+        //    NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
 
-            if (playerSpawnSystemInstance != null)
-            {
-                playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
-            }
+        //    if (playerSpawnSystemInstance != null)
+        //    {
+        //        playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
+        //    }
 
-            _gamePlayers.Add(gamePlayerInstance);
-        }
+        //    _gamePlayers.Add(gamePlayerInstance);
+        //}
 
         CSteamID steamId = SteamMatchmaking.GetLobbyMemberByIndex(
             SteamLobby._lobbyId,
@@ -143,6 +143,7 @@ public class NetworkLobbyManager : NetworkManager
 
                 var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
                 gamePlayerInstance.SetDisplayName(_roomPlayers[i]._displayName);
+                
 
                 NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }

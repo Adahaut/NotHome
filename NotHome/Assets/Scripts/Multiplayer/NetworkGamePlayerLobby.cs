@@ -33,6 +33,7 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
 
         Room._gamePlayers.Add(this);
+        SteamFriends.ClearRichPresence();
     }
 
     public override void OnStopClient()
