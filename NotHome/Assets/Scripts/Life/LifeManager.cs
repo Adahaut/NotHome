@@ -57,7 +57,7 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage, GameObject player = null)
     {
-        //UpdateCurrentLife(_currentLife - damage);
+        UpdateCurrentLife(_currentLife - damage);
         
         
 
