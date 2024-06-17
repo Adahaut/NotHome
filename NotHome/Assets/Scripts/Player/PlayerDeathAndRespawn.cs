@@ -109,7 +109,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             }
             _playerInputs.SetActive(true);
             _hasStartedRespawn = false;
-            transform.position = _playerRespawnPoint.position;
         }
     }
 
@@ -121,6 +120,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         if(isOwned)
         {
             _playerUI.SetActive(true);
+            print(_playerRespawnPoint.position);
+            transform.position = _playerRespawnPoint.position;
         }
     }
 
