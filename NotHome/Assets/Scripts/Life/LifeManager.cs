@@ -41,7 +41,8 @@ public class LifeManager : NetworkBehaviour
             _damageIndicator.color = new Color(0, 0, 0, 0);
         }
 
-        _currentLife = _maxLife;
+        //_currentLife = _maxLife;
+        UpdateCurrentLife(_maxLife);
 
         if (gameObject.tag == "Player")
         {
@@ -69,7 +70,7 @@ public class LifeManager : NetworkBehaviour
             }
             else if (gameObject.tag == "Player")
             {
-                PlayerDeath();
+                //PlayerDeath();
             }
         }
     }
