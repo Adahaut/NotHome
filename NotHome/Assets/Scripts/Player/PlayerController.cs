@@ -234,13 +234,16 @@ public class PlayerController : NetworkBehaviour
                 StartCoroutine(RegenStamina());
             }
 
-            if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.gameObject.layer == 8)
+            if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
+                || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
+                print("enter");
                 _textPress.text = "Press E for interact";
                 _canOpen = true;
             }
             else
             {
+                print("exit");
                 _canOpen = false;
                 _textPress.text = "";
             }
