@@ -45,7 +45,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         transform.position = Vector3.zero;
         //cameraAnimator.SetBool("Death", true);
         StartCoroutine(DisableCamera(0.5f));
-        print("death");
         
     }
 
@@ -59,7 +58,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         cameraTransform.rotation = cameraSpawnRotation;
         //cameraAnimator.SetBool("Death", false);    
         StartCoroutine(RespawnAnimation());
-        print("respawn");
     }
 
     private IEnumerator DisableCamera(float totalTime)
@@ -128,7 +126,11 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     private void Update()
     {
-        if(isOwned)
+        if (_canRespawn)
+            transform.position = _playerRespawnPoint.position;
+
+
+        if (isOwned)
         {
             if (_timeToRespawn <= 0 && _playerController.IsDead && _canRespawn)
             {
