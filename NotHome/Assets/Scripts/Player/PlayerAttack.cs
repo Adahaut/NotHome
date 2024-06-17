@@ -2,7 +2,6 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -61,7 +60,9 @@ public class PlayerAttack : NetworkBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(isOwned && _playerController != null && _playerController._canAttack)
+        if (isOwned && _isMeleeWeaponEqupiped && _playerController != null && context.performed)
+            StartCoroutine(GetComponentInChildren<SetAnimationMachet>().StartAnimMachet());
+        if (isOwned && _playerController != null && _playerController._canAttack)
         {
             if (_playerController._isInBook)
                 return;
@@ -71,6 +72,7 @@ public class PlayerAttack : NetworkBehaviour
             }
             else if (_cadenceTimer >= _cadence && _isMeleeWeaponEqupiped)
             {
+                GetComponentInChildren<SetAnimationMachet>().StartAnimMachet();
                 _cadenceTimer = 0;
                 StartCoroutine(ActiveDesactiveCollider());
             }
