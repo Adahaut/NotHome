@@ -93,6 +93,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject gunMesh;
     public GameObject machette;
 
+    public bool IsDead;
     bool _canJump;
 
     public override void OnStartAuthority()

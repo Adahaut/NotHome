@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerDeathAndRespawn : MonoBehaviour
 {
     private Transform _playerTransform;
-    private PC _playerController;
+    private PlayerController _playerController;
     [SerializeField] private GameObject _noSignal;
     [SerializeField] private TextMeshProUGUI _timer;
     [SerializeField] private GameObject _playerInputs;
@@ -24,7 +24,7 @@ public class PlayerDeathAndRespawn : MonoBehaviour
     {
         _playerTransform = transform;
         _playerRespawnPoint = transform;
-        _playerController = GetComponent<PC>();
+        _playerController = GetComponent<PlayerController>();
         _playerLifeManager = GetComponent<LifeManager>();
     }
 
