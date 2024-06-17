@@ -57,30 +57,24 @@ public class LifeManager : NetworkBehaviour
 
     public void TakeDamage(int damage, GameObject player = null)
     {
-        if(isOwned)
-        {
-            UpdateCurrentLife(_currentLife - damage);
-        }
-        else
-        {
-            _currentLife -= damage;
-        }
+        //UpdateCurrentLife(_currentLife - damage);
+        
         
 
-        RpcPlayHitSound();
+        //RpcPlayHitSound();
 
-        if (_currentLife <= 0)
-        {
-            if (gameObject.tag == "Enemy")
-            {
-                EnemyDeath();
-                player.GetComponentInChildren<RangeWeapon>().KillEnemy(gameObject);
-            }
-            else if (gameObject.tag == "Player")
-            {
-                PlayerDeath();
-            }
-        }
+        //if (_currentLife <= 0)
+        //{
+        //    if (gameObject.tag == "Enemy")
+        //    {
+        //        EnemyDeath();
+        //        player.GetComponentInChildren<RangeWeapon>().KillEnemy(gameObject);
+        //    }
+        //    else if (gameObject.tag == "Player")
+        //    {
+        //        PlayerDeath();
+        //    }
+        //}
     }
 
     [Command]
