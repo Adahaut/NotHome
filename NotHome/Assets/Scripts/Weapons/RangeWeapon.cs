@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 public class RangeWeapon : NetworkBehaviour
 {
@@ -51,6 +52,7 @@ public class RangeWeapon : NetworkBehaviour
     public static RangeWeapon Instance;
     [SerializeField] private GameObject _hitMarker;
     [SerializeField] private GameObject _bloodEffect;
+    [SerializeField] private TextMeshProUGUI _textAmmo;
 
     private void Awake()
     {
@@ -80,6 +82,7 @@ public class RangeWeapon : NetworkBehaviour
         _recoil = GetComponent<ProceduralRecoil>();
         _playerController = GetComponentInParent<PlayerController>();
         UpdateWeaponVisualAtLaunch();
+        _textAmmo.text = _currentAmmo.ToString() + "/" + _weaponData._magSize;
     }
 
     public void NextWeapon()
@@ -174,6 +177,7 @@ public class RangeWeapon : NetworkBehaviour
 
         _isReloading = false;
         _currentAmmo = _weaponData._magSize;
+        _textAmmo.text = _currentAmmo.ToString() + "/" + _weaponData._magSize;
         print("finish reload");
         _playerController.SetAnimation("Reload", false);
     }
@@ -206,6 +210,7 @@ public class RangeWeapon : NetworkBehaviour
                     }
                 }
                 _currentAmmo--;
+                _textAmmo.text = _currentAmmo.ToString() + "/" + _weaponData._magSize;
                 _timeSinceLastShot = 0;
             }
         }
