@@ -21,14 +21,14 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     private Vector3 cameraSpawnTransform;
     private Quaternion cameraSpawnRotation;
-    private Transform _playerRespawnPoint;
+    private Vector3 _playerRespawnPoint;
     private float _timeToRespawn;
     private bool _canRespawn;
 
     private void Start()
     {
         _playerTransform = transform;
-        _playerRespawnPoint = transform;
+        _playerRespawnPoint = transform.position;
         cameraSpawnTransform = cameraTransform.position;
         cameraSpawnRotation = cameraTransform.rotation;
         _playerController = GetComponent<PlayerController>();
@@ -43,7 +43,9 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         transform.position = Vector3.zero;
-        //cameraAnimator.SetBool("Death", true);
+        
+
+
         StartCoroutine(DisableCamera(0.5f));
         
     }
@@ -53,10 +55,11 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _noSignal.SetActive(false);
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
-        transform.position = _playerRespawnPoint.position;
+        transform.position = _playerRespawnPoint;
         cameraTransform.position = cameraSpawnTransform;
         cameraTransform.rotation = cameraSpawnRotation;
-        //cameraAnimator.SetBool("Death", false);    
+        GetComponent<PlayerController>().SetRespawnPosition(_playerRespawnPoint);
+
         StartCoroutine(RespawnAnimation());
     }
 
@@ -120,16 +123,12 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         if(isOwned)
         {
             _playerUI.SetActive(true);
-            transform.position = _playerRespawnPoint.position;
+            transform.position = _playerRespawnPoint;
         }
     }
 
     private void Update()
     {
-        if (_canRespawn)
-            transform.position = _playerRespawnPoint.position;
-
-
         if (isOwned)
         {
             if (_timeToRespawn <= 0 && _playerController.IsDead && _canRespawn)

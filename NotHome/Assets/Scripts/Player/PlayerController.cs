@@ -250,6 +250,16 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
+
+    public void SetRespawnPosition(Vector3 position)
+    {
+        transform.position = position;
+        if(isOwned)
+        {
+            CmdSendPositionToServer(position, Quaternion.identity);
+        }
+    }
+
     public void SprintPlayer(InputAction.CallbackContext context)
     {
         if(isOwned)
