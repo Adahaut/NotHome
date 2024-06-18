@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,30 +16,40 @@ public class Farts : NetworkBehaviour
     public void PlayRandomFartSound()
     {
         int _randomFartIndex = Random.Range(0, _fartsSound.Count);
-        //_fartOrigine.clip = _fartsSound[_randomFartIndex];
         if(isOwned)
         {
             CmdPlayFartSound(_randomFartIndex);
         }
-        
+
         //_fartOrigine.Play();
-        //GameObject _newFartParticles = Instantiate(_fartParticle);
-        //_newFartParticles.transform.position = transform.position;
-        //_newFartParticles.transform.rotation = Quaternion.Inverse(transform.rotation) ;
-        //_newFartParticles.transform.SetParent(null);
-        //_newFartParticles.GetComponent<ParticleSystem>().Play();
-        //Destroy(_newFartParticles, 2);
+        
     }
 
     [Command]
     void CmdPlayFartSound(int clipindex)
     {
         RpcPlayFartSound(clipindex);
+
+        GameObject _newFartParticles = Instantiate(_fartParticle);
+        NetworkServer.Spawn(_newFartParticles);
+        _newFartParticles.transform.position = transform.position;
+        _newFartParticles.transform.rotation = Quaternion.Inverse(transform.rotation);
+        _newFartParticles.transform.SetParent(null);
+        _newFartParticles.GetComponent<ParticleSystem>().Play();
+        
+        StartCoroutine(DestroyObjectOnServer(_newFartParticles));
     }
 
     [ClientRpc]
     void RpcPlayFartSound(int clipIndex)
     {
         AudioSource.PlayClipAtPoint(_fartsSound[clipIndex], this.transform.position, 0.5f);
+    }
+
+    IEnumerator DestroyObjectOnServer(GameObject obj)
+    {
+        yield return new WaitForSeconds(2f);
+        NetworkServer.Destroy(obj); 
+        Destroy(obj);
     }
 }
