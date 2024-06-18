@@ -95,6 +95,14 @@ public class PlayerController : NetworkBehaviour
     public bool IsDead;
     bool _canJump;
 
+    [SerializeField] private GameObject _interactionGo;
+    private ChangeControl _changeControl;
+
+    private void Start()
+    {
+        _changeControl = _interactionGo.GetComponent<ChangeControl>();
+    }
+
     public override void OnStartAuthority()
     {
         QualitySettings.vSyncCount = 0;
@@ -239,7 +247,8 @@ public class PlayerController : NetworkBehaviour
             if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
-                _textPress.text = "Press E for interact";
+                
+                _textPress.text = "Press " + _changeControl._control.ToUpper() + " for interact";
                 _canOpen = true;
             }
             else
