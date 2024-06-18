@@ -96,6 +96,13 @@ public class DoorExit : NetworkBehaviour
     [Server]
     void Test123465()
     {
+        _doorEnter.SetActive(false);
+        Testsgrek();
+    }
+
+    [ClientRpc]
+    void Testsgrek()
+    {
         print("tesnfjopgjbdvfds");
         _doorEnter.SetActive(false);
     }
