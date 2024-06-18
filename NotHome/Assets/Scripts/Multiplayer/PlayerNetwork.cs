@@ -37,7 +37,9 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
-        nameTagText.text = _displayName;
+        
+        if(isOwned) 
+            nameTagText.text = _displayName;
 
         print("OnStartAUthority");
 
