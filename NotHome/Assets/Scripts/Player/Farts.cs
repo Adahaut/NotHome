@@ -23,23 +23,17 @@ public class Farts : NetworkBehaviour
     void CmdPlayFartSound(int clipindex, Transform playerTransform, Transform spawn)
     {
         RpcPlayFartSound(clipindex);
-        RpcPlayFartParticles(playerTransform, spawn);
-        
+
+        GameObject _newFartParticles = Instantiate(_fartParticle, spawn.position, spawn.rotation);
+        NetworkServer.Spawn(_newFartParticles);
+        _newFartParticles.GetComponent<ParticleSystem>().Play();
+
     }
 
     [ClientRpc]
     void RpcPlayFartSound(int clipIndex)
     {
         AudioSource.PlayClipAtPoint(_fartsSound[clipIndex], this.transform.position, 0.5f);
-    }
-
-    [ClientRpc]
-    void RpcPlayFartParticles(Transform playerTransform, Transform spawn)
-    {
-        GameObject _newFartParticles = Instantiate(_fartParticle, spawn.position, spawn.rotation);
-        _newFartParticles.GetComponent<ParticleSystem>().Play();
-
-        StartCoroutine(DestroyObjectOnServer(_newFartParticles));
     }
 
     IEnumerator DestroyObjectOnServer(GameObject obj)
