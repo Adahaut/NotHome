@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class ChangeControl : MonoBehaviour
 {
