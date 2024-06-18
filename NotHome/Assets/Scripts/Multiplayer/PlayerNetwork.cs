@@ -51,7 +51,8 @@ public class PlayerNetwork : NetworkBehaviour
     public void CmdSetPlayerName(string name)
     {
         _displayName = name;
-        nameTagText.text = name;
+        if(nameTagText != null) 
+            nameTagText.text = name;
     }
 
     private void OnNameChanged(string oldName, string newName)
