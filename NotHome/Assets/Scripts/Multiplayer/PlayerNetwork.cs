@@ -37,19 +37,9 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
-        
-        if(isOwned) 
-            nameTagText.text = _displayName;
-
-        print("OnStartAUthority");
 
         if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void OnDestroy()
@@ -61,6 +51,7 @@ public class PlayerNetwork : NetworkBehaviour
     public void CmdSetPlayerName(string name)
     {
         _displayName = name;
+        nameTagText.text = name;
     }
 
     private void OnNameChanged(string oldName, string newName)
