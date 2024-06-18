@@ -76,7 +76,14 @@ public class DoorExit : NetworkBehaviour
         }
     }
 
+    [Command(requiresAuthority = false)]
     private void SetActiveObject()
+    {
+        ActiveObejts();
+    }
+
+    [ClientRpc]
+    void ActiveObejts()
     {
         if (!enterDoorAnimator.GetBool("Open") && _doorExit.activeSelf && !_isDecompression)
         {
