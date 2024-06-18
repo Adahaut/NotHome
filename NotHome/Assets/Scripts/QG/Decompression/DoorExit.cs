@@ -1,7 +1,8 @@
+using Mirror;
 using System.Collections;
 using UnityEngine;
 
-public class DoorExit : MonoBehaviour
+public class DoorExit : NetworkBehaviour
 {
     [SerializeField] private GameObject _doorEnter;
     [SerializeField] private GameObject _doorExit;
@@ -20,6 +21,13 @@ public class DoorExit : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        NetworkServer.Spawn(_doorEnter);
+        NetworkServer.Spawn(_doorExit);
     }
 
 
@@ -55,7 +63,6 @@ public class DoorExit : MonoBehaviour
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
-            print("enter2");
             if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
             {
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
