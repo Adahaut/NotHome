@@ -26,13 +26,18 @@ public class Farts : NetworkBehaviour
         RpcPlayFartSound(clipindex);
 
         GameObject particleInstance = Instantiate(_fartParticle, spawnPosition, Quaternion.identity);
+        SetFartPosition(particleInstance, spawnPosition);
 
-        //GameObject _newFartParticles = Instantiate(_fartParticle, spawn.position, spawn.rotation);
         NetworkServer.Spawn(particleInstance);
-        //_newFartParticles.GetComponent<ParticleSystem>().Play();
 
         Destroy(particleInstance, 2f);
 
+    }
+
+    [ClientRpc]
+    void SetFartPosition(GameObject obj, Vector3 pos)
+    {
+        obj.transform.position = pos;
     }
 
     [ClientRpc]
