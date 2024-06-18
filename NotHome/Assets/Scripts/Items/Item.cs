@@ -23,10 +23,8 @@ public class Item : NetworkBehaviour
 
     private void OnEnable()
     {
-        print("here");
         if (_isMetalicPart)
         {
-            print("metalic");
             int _index = Random.Range(0, _metalicMeshs.Count - 1);
             transform.GetChild(0).GetComponent<MeshFilter>().mesh = _metalicMeshs[_index];
             transform.GetChild(0).GetComponent<MeshRenderer>().material = _metalicMaterials;

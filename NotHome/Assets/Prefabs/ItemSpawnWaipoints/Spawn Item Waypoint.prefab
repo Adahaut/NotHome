@@ -44,8 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f787fbe1fc6c54589a4cdafb81a161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _priority: 1
-  _spawnRange: 50
   _items:
   - {fileID: 3264141781379779818, guid: 5f476bc06e4e5a64082d4046555bf1a1, type: 3}
-  _minimumItem: 2
+  _spawnChance: 1
+  _distanceBetweenCheck: 0.5
+  _heightOfCheck: 10
+  _rangeOfCheck: 30
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  _positivePosition: {x: 50, y: 50}
+  _negativePosition: {x: -50, y: -50}
