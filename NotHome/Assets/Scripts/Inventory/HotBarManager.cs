@@ -89,7 +89,6 @@ public class HotBarManager : NetworkBehaviour
     {
         _playerAttack._isRangeWeaponEqupiped = false;
         _playerAttack._isMeleeWeaponEqupiped = false;
-        print(_poximityVoiceChat);
         _poximityVoiceChat.ownTalkieWalkie = false;
         _animator.SetBool("RangeWeapon", false);
         _animator.SetBool("MeleeWeapon", false);
