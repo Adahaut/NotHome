@@ -51,6 +51,13 @@ public class PlayerNetwork : NetworkBehaviour
     public void CmdSetPlayerName(string name)
     {
         _displayName = name;
+        RpcModifyName(this, name);
+    }
+
+    [ClientRpc]
+    void RpcModifyName(PlayerNetwork player, string name)
+    {
+        player._displayName = name;
     }
 
     private void OnNameChanged(string oldName, string newName)
