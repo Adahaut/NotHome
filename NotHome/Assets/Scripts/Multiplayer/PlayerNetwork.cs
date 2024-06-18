@@ -25,13 +25,9 @@ public class PlayerNetwork : NetworkBehaviour
 
     public TMP_Text debugText;
 
-    private void Start()
+    public override void OnStartClient()
     {
         _displayName = "";
-
-        nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
-        nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
-
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
@@ -39,8 +35,16 @@ public class PlayerNetwork : NetworkBehaviour
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
 
+        nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
+        nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+
         if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void OnDestroy()
