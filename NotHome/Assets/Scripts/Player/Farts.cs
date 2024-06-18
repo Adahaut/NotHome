@@ -15,34 +15,36 @@ public class Farts : NetworkBehaviour
         int _randomFartIndex = Random.Range(0, _fartsSound.Count);
         if(isOwned)
         {
-            CmdPlayFartSound(_randomFartIndex);
+            CmdPlayFartSound(_randomFartIndex, transform, spawnPoint);
         }
     }
 
     [Command]
-    void CmdPlayFartSound(int clipindex)
+    void CmdPlayFartSound(int clipindex, Transform playerTransform, Transform spawn)
     {
-        RpcPlayFartSound(clipindex, transform, spawnPoint);
+        RpcPlayFartSound(clipindex);
+        RpcPlayFartParticles(playerTransform, spawn);
+        
+    }
 
-        GameObject _newFartParticles = Instantiate(_fartParticle);
-        NetworkServer.Spawn(_newFartParticles);
-        _newFartParticles.transform.position = spawnPoint.position;
-        _newFartParticles.transform.rotation = transform.rotation;
+    [ClientRpc]
+    void RpcPlayFartSound(int clipIndex)
+    {
+        AudioSource.PlayClipAtPoint(_fartsSound[clipIndex], this.transform.position, 0.5f);
+    }
+
+    [ClientRpc]
+    void RpcPlayFartParticles(Transform playerTransform, Transform spawn)
+    {
+        GameObject _newFartParticles = Instantiate(_fartParticle, spawn.position, spawn.rotation);
         _newFartParticles.GetComponent<ParticleSystem>().Play();
 
         StartCoroutine(DestroyObjectOnServer(_newFartParticles));
     }
 
-    [ClientRpc]
-    void RpcPlayFartSound(int clipIndex, Transform playerTransform, Transform spawn)
-    {
-        AudioSource.PlayClipAtPoint(_fartsSound[clipIndex], this.transform.position, 0.5f);
-    }
-
     IEnumerator DestroyObjectOnServer(GameObject obj)
     {
         yield return new WaitForSeconds(2f);
-        NetworkServer.Destroy(obj); 
         Destroy(obj);
     }
 }
