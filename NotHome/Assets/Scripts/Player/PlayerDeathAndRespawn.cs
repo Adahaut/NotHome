@@ -58,7 +58,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         transform.position = _playerRespawnPoint;
         cameraTransform.position = cameraSpawnTransform;
         cameraTransform.rotation = cameraSpawnRotation;
-        GetComponent<PlayerController>().SetRespawnPosition(cameraTransform, _playerRespawnPoint, cameraSpawnRotation, cameraSpawnTransform);
+        //GetComponent<PlayerController>().SetRespawnPosition(cameraTransform, _playerRespawnPoint, cameraSpawnRotation, cameraSpawnTransform);
 
         StartCoroutine(RespawnAnimation());
     }
