@@ -15,6 +15,9 @@ public class DoorExit : NetworkBehaviour
     [SerializeField] private GameObject _alarmSAS;
     [SerializeField] private GameObject _light;
     [SerializeField] private AudioSource _soundDecompression;
+
+    [SerializeField] private Animator enterDoorAnimator;
+
     private void Awake()
     {
         if (Instance == null)
@@ -68,7 +71,8 @@ public class DoorExit : NetworkBehaviour
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
-                hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
+                //hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
             }
         }
     }
@@ -77,7 +81,7 @@ public class DoorExit : NetworkBehaviour
     {
         if (_doorEnter.activeSelf && _doorExit.activeSelf && !_isDecompression)
         {
-            Test123465();
+            enterDoorAnimator.SetBool("Open", true);
         }
         else if (_nbPlayer >= 1 && !_isDecompression)
         {
@@ -87,24 +91,11 @@ public class DoorExit : NetworkBehaviour
             _isDecompression = true;
             if (_doorExit.activeSelf)
                 door = true;
-            _doorEnter.SetActive(true);
+            enterDoorAnimator.SetBool("Open", false);
+            //_doorEnter.SetActive(true);
             _doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
         }
-    }
-
-    [Server]
-    void Test123465()
-    {
-        _doorEnter.SetActive(false);
-        Testsgrek();
-    }
-
-    [ClientRpc]
-    void Testsgrek()
-    {
-        print("tesnfjopgjbdvfds");
-        _doorEnter.SetActive(false);
     }
 
     private IEnumerator StartParticle(float second, bool door)
