@@ -37,7 +37,8 @@ public class Farts : NetworkBehaviour
     [ClientRpc]
     void SetFartPosition(GameObject obj, Vector3 pos)
     {
-        obj.transform.position = pos;
+        if(!isOwned)
+            obj.transform.position = pos;
     }
 
     [ClientRpc]
