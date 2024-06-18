@@ -28,15 +28,16 @@ public class PlayerNetwork : NetworkBehaviour
     private void Start()
     {
         _displayName = "";
+
+        nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
+        nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
-
-        nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
-        nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
         if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
@@ -51,13 +52,6 @@ public class PlayerNetwork : NetworkBehaviour
     public void CmdSetPlayerName(string name)
     {
         _displayName = name;
-        RpcModifyName(this, name);
-    }
-
-    [ClientRpc]
-    void RpcModifyName(PlayerNetwork player, string name)
-    {
-        player._displayName = name;
     }
 
     private void OnNameChanged(string oldName, string newName)
