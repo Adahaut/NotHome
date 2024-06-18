@@ -55,7 +55,6 @@ public class DoorExit : MonoBehaviour
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
-            print("enter2");
             if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
             {
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();

@@ -248,7 +248,7 @@ public class PlayerController : NetworkBehaviour
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
                 
-                _textPress.text = "Press " + _changeControl._control.ToUpper() + " for interact";
+                _textPress.text = "Press " + "E" + " for interact";
                 _canOpen = true;
             }
             else
