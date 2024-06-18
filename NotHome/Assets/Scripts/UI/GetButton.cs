@@ -6,9 +6,26 @@ using UnityEngine.InputSystem.Utilities;
 public class GetButton : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _listButton;
-    [SerializeField] private UnityEngine.InputSystem.PlayerInput _playerInput;
+    public PlayerInput _playerInput;
+    public List<string> _listControl = new();
+    [SerializeField] private List<ChangeControl> _changeControls = new();
     private int _indexButton;
     public static string _text = "99";
+    private void Start()
+    {
+        for (int i = 0; i < _changeControls.Count; i++)
+        {
+            _listControl.Add("");
+        }
+        SetListControl();
+    }
+    public void SetListControl()
+    {
+        for (int i = 0; i < _changeControls.Count; i++)
+        {
+            _listControl[i] = _playerInput.actions.actionMaps[0].actions[_changeControls[i]._indexAction].bindings[_changeControls[i]._indexBinding].path.ToString();
+        }
+    }
 
     private void OnEnable()
     {
