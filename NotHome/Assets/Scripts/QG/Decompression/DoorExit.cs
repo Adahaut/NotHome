@@ -23,13 +23,6 @@ public class DoorExit : NetworkBehaviour
         }
     }
 
-    private void Start()
-    {
-        print("Start");
-        NetworkServer.Spawn(_doorEnter);
-        NetworkServer.Spawn(_doorExit);
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -74,16 +67,10 @@ public class DoorExit : NetworkBehaviour
             }
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
-                Test(hit);
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
             }
         }
-    }
-
-    [ClientRpc]
-    void Test(RaycastHit hit)
-    {
-        hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
-        hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
     }
 
     private void SetActiveObject()
@@ -105,6 +92,7 @@ public class DoorExit : NetworkBehaviour
             StartCoroutine(StartParticle(1, door));
         }
     }
+
     private IEnumerator StartParticle(float second, bool door)
     {
         yield return new WaitForSeconds(second);
