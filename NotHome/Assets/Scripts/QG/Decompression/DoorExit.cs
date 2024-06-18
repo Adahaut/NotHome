@@ -93,7 +93,7 @@ public class DoorExit : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
+    [Server]
     void Test123465()
     {
         print("tesnfjopgjbdvfds");
