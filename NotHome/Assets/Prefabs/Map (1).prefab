@@ -4929,6 +4929,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7259879230482636960, guid: f2fa86941335bb34fa8209f3cf5e6f07, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4730794959478998334}
+    - targetCorrespondingSourceObject: {fileID: 2214058441223034148, guid: f2fa86941335bb34fa8209f3cf5e6f07, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5694119908055923831}
     - targetCorrespondingSourceObject: {fileID: 8783791978324782326, guid: f2fa86941335bb34fa8209f3cf5e6f07, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8693862451534037283}
@@ -4986,8 +4989,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.038076155, y: 0.020918773, z: 0.0071577765}
-  m_Center: {x: -0.009038079, y: 0.00017863106, z: 0.0033788877}
+  m_Size: {x: 0.038076155, y: 0.02045677, z: 0.0059767007}
+  m_Center: {x: -0.0090380795, y: -0.00005237067, z: 0.0039694263}
 --- !u!114 &6919882502096988525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5185,6 +5188,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _index: 3
   _isOpen: 0
+--- !u!1 &5203525101925911123 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2214058441223034148, guid: f2fa86941335bb34fa8209f3cf5e6f07, type: 3}
+  m_PrefabInstance: {fileID: 6237284175386419063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5694119908055923831
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5203525101925911123}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.019999996, z: 0.019999996}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5598241126764642327 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7259879230482636960, guid: f2fa86941335bb34fa8209f3cf5e6f07, type: 3}
@@ -5256,8 +5285,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.019927261, y: 0.019999996, z: 0.020528268}
-  m_Center: {x: 0.000020271302, y: -5.835198e-10, z: 0.000210163}
+  m_Size: {x: 0.019927261, y: 0.019576563, z: 0.020528268}
+  m_Center: {x: 0.000020271302, y: -0.00021171717, z: 0.0002101636}
 --- !u!114 &660579792009432835
 MonoBehaviour:
   m_ObjectHideFlags: 0

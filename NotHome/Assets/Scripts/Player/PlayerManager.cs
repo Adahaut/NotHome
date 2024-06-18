@@ -40,13 +40,10 @@ public class PlayerManager : MonoBehaviour
     public bool _usingStam = false;
     private void Start()
     {
-        print("a");
         //_stamParent.SetActive(false);
         SetMaxStamina(_maxStamina);
         SetMaxHunger();
         SetMaxThirst();
-        print("b");
-        print(_maxOxygene);
         SetMaxOxygene(_maxOxygene);
 
         //StartCoroutine(HungerBarFall());
