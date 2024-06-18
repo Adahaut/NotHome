@@ -71,7 +71,6 @@ public class DoorExit : NetworkBehaviour
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
-                //hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
             }
         }
@@ -79,7 +78,7 @@ public class DoorExit : NetworkBehaviour
 
     private void SetActiveObject()
     {
-        if (_doorEnter.activeSelf && _doorExit.activeSelf && !_isDecompression)
+        if (!enterDoorAnimator.GetBool("Open") && _doorExit.activeSelf && !_isDecompression)
         {
             enterDoorAnimator.SetBool("Open", true);
         }
@@ -89,10 +88,10 @@ public class DoorExit : NetworkBehaviour
             _light.SetActive(true);
             _alarmSAS.SetActive(true);
             _isDecompression = true;
-            if (_doorExit.activeSelf)
+            if (!enterDoorAnimator.GetBool("Open"))
                 door = true;
             enterDoorAnimator.SetBool("Open", false);
-            //_doorEnter.SetActive(true);
+
             _doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
         }
