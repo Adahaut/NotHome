@@ -18,10 +18,12 @@ public class PlayerAttack : NetworkBehaviour
     public bool _isAiming;
     public bool _isRangeWeaponEqupiped;
     public bool _isMeleeWeaponEqupiped;
+    public bool _canUseTalkie;
     private PlayerController _playerController;
     public List<GameObject> _machetteUpgrades = new List<GameObject>();
     private RangeWeapon _rangeWeapon;
     private Animator _animator;
+    private ProximityVoiceChat _proximityVoiceChat;
 
 
     [SerializeField] private float _cadence;
@@ -42,6 +44,7 @@ public class PlayerAttack : NetworkBehaviour
     private void Start()
     {
         _rangeWeapon = GetComponentInChildren<RangeWeapon>();
+        _proximityVoiceChat = GetComponent<ProximityVoiceChat>();
     }
 
     private void Update()
@@ -60,12 +63,12 @@ public class PlayerAttack : NetworkBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (isOwned && _isMeleeWeaponEqupiped && _playerController != null && context.performed)
+        if (isOwned && _isMeleeWeaponEqupiped && _playerController != null && context.started)
         {
             StartCoroutine(GetComponentInChildren<SetAnimationMachet>().StartAnimMachet());
             StartCoroutine(_playerController.AnimOneTime("HitMachet"));
         }
-        if (isOwned && _playerController != null && _playerController._canAttack)
+        if (isOwned && _playerController != null && _playerController._canAttack && context.started)
         {
             if (_playerController._isInBook)
                 return;
@@ -80,8 +83,12 @@ public class PlayerAttack : NetworkBehaviour
                 StartCoroutine(ActiveDesactiveCollider());
             }
         }
-        
-        
+        else if (isOwned && _canUseTalkie)
+        {
+            _proximityVoiceChat.OnTalkieWalkieActive(context);
+        }
+
+
     }
     public void SetCadence(float number)
     {

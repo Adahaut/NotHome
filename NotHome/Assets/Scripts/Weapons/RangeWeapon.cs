@@ -235,9 +235,10 @@ public class RangeWeapon : NetworkBehaviour
                         CreateSmoke(_hitInfo.point);
                     }
                 }
+                _timeSinceLastShot = 0;
                 _currentAmmo--;
                 _textAmmo.text = _currentAmmo.ToString() + "/" + _nbAmmo;
-                _timeSinceLastShot = 0;
+                
             }
         }
         else

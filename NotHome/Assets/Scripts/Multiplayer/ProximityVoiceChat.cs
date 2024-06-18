@@ -25,7 +25,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Start()
     {
-        ownTalkieWalkie = true;
+        ownTalkieWalkie = false;
 
         if (isOwned)
         {
@@ -46,10 +46,9 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     public void OnTalkieWalkieActive(InputAction.CallbackContext context)
     {
-        if (context.started && isOwned && ownTalkieWalkie)
+        if (context.performed && isOwned && ownTalkieWalkie)
         {
             buttonPressed = true;
-
         }
 
         if (context.canceled && isOwned && ownTalkieWalkie)
