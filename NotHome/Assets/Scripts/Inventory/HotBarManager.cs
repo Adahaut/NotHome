@@ -105,6 +105,7 @@ public class HotBarManager : NetworkBehaviour
         }
         else if ( _hotBarSlotIndex == 2)
         {
+            _playerAttack._canUseTalkie = true;
             _poximityVoiceChat.ownTalkieWalkie = true;
         }
     }
