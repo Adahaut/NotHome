@@ -332,6 +332,8 @@ public class RangeWeapon : NetworkBehaviour
     private void Update()
     {
         _timeSinceLastShot += Time.deltaTime;
+        print("time since laste shot : " + _timeSinceLastShot + " > " + 1f / (_weaponData._fireRate / 60f) + " ?");
+        print((_timeSinceLastShot > 1f / (_weaponData._fireRate / 60f)));
     }
 
     private IEnumerator HitMarker()
