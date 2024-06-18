@@ -343,8 +343,11 @@ public class PlayerController : NetworkBehaviour
             if (_moveDir != Vector2.zero)
             {
                 _animCam.GetComponent<Animator>().enabled = true;
-                if (GetComponentInChildren<RangeWeapon>() && !GetComponentInChildren<RangeWeapon>()._isAiming)
-                    _weapon.GetComponent<Animator>().enabled = true;
+                _weapon.GetComponent<Animator>().enabled = true;
+                if (GetComponentInChildren<RangeWeapon>() != null)
+                    if (GetComponentInChildren<RangeWeapon>()._isAiming)
+                        _weapon.GetComponent<Animator>().enabled = false;
+
             }
             else
             {
