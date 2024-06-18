@@ -23,10 +23,9 @@ public class DoorExit : NetworkBehaviour
         }
     }
 
-    public override void OnStartServer()
+    private void Start()
     {
-        base.OnStartServer();
-        print("onStartServer");
+        print("Start");
         NetworkServer.Spawn(_doorEnter);
         NetworkServer.Spawn(_doorExit);
     }
