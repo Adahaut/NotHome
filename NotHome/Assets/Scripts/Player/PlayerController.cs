@@ -593,7 +593,7 @@ public class PlayerController : NetworkBehaviour
 
             if(hit.collider.GetComponent<BuildInterractable>())
             {
-                if (hit.collider.GetComponentInChildren<ParticleSystem>() != null)
+                if (hit.collider.GetComponentInChildren<ParticleSystem>() != null && hit.collider.GetComponent<BuildInterractable>()._index < 9)
                 {
                     _uiPlayer[hit.collider.GetComponent<BuildInterractable>()._index].GetComponent<UpgradeHomeManager>()._particleLevelUp = hit.collider.GetComponentInChildren<ParticleSystem>();
                 }
