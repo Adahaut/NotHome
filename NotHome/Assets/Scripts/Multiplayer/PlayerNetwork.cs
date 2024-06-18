@@ -64,8 +64,6 @@ public class PlayerNetwork : NetworkBehaviour
     private void Update()
     {
         if(isOwned)
-            print(SteamFriends.GetPersonaName());
-        if(_displayName == "" && isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
         }
