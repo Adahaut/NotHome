@@ -2,16 +2,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ChangeControl : MonoBehaviour
 {
     private string _control = "";
-    [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private int _indexAction;
-    [SerializeField] private int _indexBinding;
+    private PlayerInput _playerInput;
+    public int _indexAction;
+    public int _indexBinding;
     private void Start()
     {
+        _playerInput = GetComponentInParent<GetButton>()._playerInput;
         _control = _playerInput.actions.actionMaps[0].actions[_indexAction].bindings[_indexBinding].path.ToString();
         _control = _control[11..];
         ChangeQwerty();
@@ -22,9 +23,16 @@ public class ChangeControl : MonoBehaviour
         _control = GetButton._text;
         if (EventSystem.current.currentSelectedGameObject == gameObject)
         {
+            List<string> list = GetComponentInParent<GetButton>()._listControl;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == "<Keyboard>/" + _control) 
+                    return;
+            }
             _playerInput.actions.actionMaps[0].actions[_indexAction].ChangeBinding(_indexBinding).WithPath("<Keyboard>/" + _control);
             ChangeQwerty();
             GetComponentInChildren<TextMeshProUGUI>().text = _control.ToUpper();
+            GetComponentInParent<GetButton>().SetListControl();
         }
     }
     private void ChangeQwerty()
