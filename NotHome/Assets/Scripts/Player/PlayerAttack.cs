@@ -136,8 +136,19 @@ public class PlayerAttack : NetworkBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.GetComponent<LifeManager>().TakeDamage(_damages);
+            var enemyLifeManager = other.GetComponent<LifeManager>();
+            if (enemyLifeManager != null)
+            {
+                // Appeler une méthode serveur pour infliger des dégâts au joueur
+                DealDamage(enemyLifeManager);
+            }
         }
+    }
+
+    [Server]
+    private void DealDamage(LifeManager enemyLifeManager)
+    {
+        enemyLifeManager.TakeDamage(_damages);
     }
 
     public IEnumerator ActiveDesactiveCollider()

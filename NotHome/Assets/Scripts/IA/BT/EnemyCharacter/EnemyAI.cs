@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -66,9 +67,19 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            _playerRef.GetComponent<LifeManager>().TakeDamage(_damages);
+            var playerLifeManager = other.GetComponent<LifeManager>();
+            if (playerLifeManager != null)
+            {
+                DealDamage(playerLifeManager);
+            }
         }
+    }
+
+    [Server]
+    private void DealDamage(LifeManager playerLifeManager)
+    {
+        playerLifeManager.TakeDamage(_damages);
     }
 }

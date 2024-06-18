@@ -80,20 +80,19 @@ public class NetworkLobbyManager : NetworkManager
             roomPlayerInstance.IsLeader = isLeader;
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
         }
-        else
-        {
-            var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
+        //else
+        //{
+        //    var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
+        //    NetworkServer.Spawn(gamePlayerInstance.gameObject);
+        //    NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
 
-            NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
+        //    if (playerSpawnSystemInstance != null)
+        //    {
+        //        playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
+        //    }
 
-            if (playerSpawnSystemInstance != null)
-            {
-                playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().SpawnPlayerFromNewConnection(conn);
-            }
-
-            _gamePlayers.Add(gamePlayerInstance);
-
-        }
+        //    _gamePlayers.Add(gamePlayerInstance);
+        //}
 
         CSteamID steamId = SteamMatchmaking.GetLobbyMemberByIndex(
             SteamLobby._lobbyId,
@@ -101,7 +100,8 @@ public class NetworkLobbyManager : NetworkManager
 
         var playerInfosDisplay = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
 
-        playerInfosDisplay.SetSteamId(steamId.m_SteamID);
+        if (playerInfosDisplay != null) 
+            playerInfosDisplay.SetSteamId(steamId.m_SteamID);
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
@@ -143,6 +143,7 @@ public class NetworkLobbyManager : NetworkManager
 
                 var gamePlayerInstance = Instantiate(_gamePlayerPrefab);
                 gamePlayerInstance.SetDisplayName(_roomPlayers[i]._displayName);
+                
 
                 NetworkServer.ReplacePlayerForConnection(conn, gamePlayerInstance.gameObject);
             }
@@ -153,7 +154,7 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        if (sceneName.StartsWith("Scene_Map"))
+        if (sceneName.StartsWith("Scene_Map") && !GameObject.FindAnyObjectByType<PlayerSpawnSystem>())
         {
             playerSpawnSystemInstance = Instantiate(_playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);

@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 
@@ -20,11 +21,19 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
 
     public string GetDisplayName() { return _displayName; }
 
+
+    [Command]
+    private void CmdSetDisplayName(string displayName)
+    {
+        _displayName = displayName;
+    }
+
     public override void OnStartClient()
     {
         DontDestroyOnLoad(gameObject);
 
         Room._gamePlayers.Add(this);
+        
     }
 
     public override void OnStopClient()
@@ -37,10 +46,4 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
     {
         this._displayName = displayName;
     }
-
-    public void ChangeScene(string  sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-    
 }

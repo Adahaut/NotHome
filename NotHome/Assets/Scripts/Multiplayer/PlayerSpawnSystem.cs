@@ -39,6 +39,13 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
         GameObject playerInstance = Instantiate(_playerPrefab, _spawnPoints[_nextIndex].position, _spawnPoints[_nextIndex].rotation);
         playerInstance.GetComponent<PlayerCameraManager>().screenIndex = _nextIndex;
+
+        //GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //foreach(GameObject player in players)
+        //{
+        //    player.GetComponent<PlayerNetwork>().SetPlayerName();
+        //}
+
         NetworkServer.Spawn(playerInstance, conn);
 
         playerCount++;

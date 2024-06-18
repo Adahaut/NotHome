@@ -30,7 +30,7 @@ public class PlayerNetwork : NetworkBehaviour
     private void Start()
     {
         _displayName = "";
-        if(isOwned)
+        if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             playerUI.SetActive(true);
@@ -41,7 +41,7 @@ public class PlayerNetwork : NetworkBehaviour
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
 
-        if(isOwned) nameTagInstance.SetActive(false);
+        if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
     }
 
