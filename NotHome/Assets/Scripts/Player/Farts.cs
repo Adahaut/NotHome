@@ -27,7 +27,7 @@ public class Farts : NetworkBehaviour
         GameObject _newFartParticles = Instantiate(_fartParticle);
         NetworkServer.Spawn(_newFartParticles);
         _newFartParticles.transform.position = spawnPoint.position;
-        _newFartParticles.transform.rotation = Quaternion.Inverse(transform.rotation);
+        _newFartParticles.transform.rotation = transform.rotation;
         _newFartParticles.GetComponent<ParticleSystem>().Play();
 
         StartCoroutine(DestroyObjectOnServer(_newFartParticles));
