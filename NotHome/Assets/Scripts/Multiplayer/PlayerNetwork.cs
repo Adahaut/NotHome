@@ -1,9 +1,7 @@
 using Mirror;
 using Steamworks;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -40,7 +38,6 @@ public class PlayerNetwork : NetworkBehaviour
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
-
         if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
     }
@@ -66,7 +63,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(nameTagText.text == "-" && isOwned)
+        if(_displayName == "" && isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
         }

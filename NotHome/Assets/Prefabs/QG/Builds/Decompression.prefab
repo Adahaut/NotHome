@@ -66,6 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3671396e71f1d4293cd6ca32efb1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _doorEnter: {fileID: 5883866857600271382}
   _doorExit: {fileID: 2691330659341663956}
   _nameZone: 
@@ -73,6 +76,8 @@ MonoBehaviour:
   _alarmSAS: {fileID: 4921681907844705429}
   _light: {fileID: 3154333032861452394}
   _soundDecompression: {fileID: 3711533965839431942}
+  enterDoorAnimator: {fileID: 8467357458761822562}
+  exitDoorAnimator: {fileID: 3777705100180257904}
 --- !u!1 &1430722330527581139
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 501268733309897463}
+  - component: {fileID: 3777705100180257904}
   m_Layer: 0
   m_Name: ExitDoor
   m_TagString: Untagged
@@ -384,6 +390,27 @@ Transform:
   - {fileID: 6103342387799054173}
   m_Father: {fileID: 6569098241210526894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3777705100180257904
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2691330659341663956}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a3674e527d7273498f5086a3bff4f41, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3154333032861452394
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +672,7 @@ Transform:
   m_GameObject: {fileID: 3849697355889846202}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000081460335, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.58756125, y: 1.2, z: -2.75}
+  m_LocalPosition: {x: -0.55, y: 1.2, z: -2.75}
   m_LocalScale: {x: 0.5, y: 1, z: 0.075}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1124,7 +1151,7 @@ Transform:
   m_GameObject: {fileID: 5867154799524059520}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000081460335, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5625796, y: 1.2000002, z: -2.7434378}
+  m_LocalPosition: {x: 0.55, y: 1.2, z: -2.743438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1211,6 +1238,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2738483364015578670}
+  - component: {fileID: 8467357458761822562}
+  - component: {fileID: 8815130237570677309}
   m_Layer: 0
   m_Name: EnterDoor
   m_TagString: Untagged
@@ -1235,6 +1264,44 @@ Transform:
   - {fileID: 7450321963538703924}
   m_Father: {fileID: 6569098241210526894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8467357458761822562
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5883866857600271382}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ed2dd6a1ee67b3640872d1baea2d554b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8815130237570677309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5883866857600271382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 1
+  animator: {fileID: 8467357458761822562}
 --- !u!1 &5981435246625338102
 GameObject:
   m_ObjectHideFlags: 0
@@ -6320,6 +6387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3318934057936853941}
+  - component: {fileID: 4208164420249200989}
   m_Layer: 0
   m_Name: Decompression
   m_TagString: Untagged
@@ -6343,6 +6411,23 @@ Transform:
   - {fileID: 6569098241210526894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4208164420249200989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914423730264336545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2525238889
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &6957267499962456767
 GameObject:
   m_ObjectHideFlags: 0
@@ -11641,7 +11726,7 @@ Transform:
   m_GameObject: {fileID: 8109689829329049852}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000081460335, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.61728036, y: 1.2000002, z: 2.7434292}
+  m_LocalPosition: {x: 0.55, y: 1.2, z: 2.743429}
   m_LocalScale: {x: 0.5, y: 1, z: 0.075}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11747,7 +11832,7 @@ Transform:
   m_GameObject: {fileID: 8749487327995319555}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000081460335, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53285515, y: 1.2, z: -2.75}
+  m_LocalPosition: {x: -0.55, y: 1.2, z: -2.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
