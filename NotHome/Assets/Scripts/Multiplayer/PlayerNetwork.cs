@@ -25,7 +25,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     public TMP_Text debugText;
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
         _displayName = "";
         if (isOwned)
@@ -37,6 +37,9 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+        nameTagText.text = _displayName;
+
+        print("OnStartAUthority");
 
         if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
