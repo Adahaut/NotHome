@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class ChangeControl : MonoBehaviour
 {
-    private string _control = "";
+    public string _control = "";
     private PlayerInput _playerInput;
     public int _indexAction;
     public int _indexBinding;
