@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DoorExit : NetworkBehaviour
 {
-    [SerializeField] private GameObject _doorEnter;
-    [SerializeField] private GameObject _doorExit;
+    //[SerializeField] private GameObject _doorEnter;
+    //[SerializeField] private GameObject _doorExit;
     private int _nbPlayer;
     public static DoorExit Instance;
     private bool _qgIsLevel3;
@@ -17,6 +17,7 @@ public class DoorExit : NetworkBehaviour
     [SerializeField] private AudioSource _soundDecompression;
 
     [SerializeField] private Animator enterDoorAnimator;
+    [SerializeField] private Animator exitDoorAnimator;
 
     private void Awake()
     {
@@ -39,16 +40,16 @@ public class DoorExit : NetworkBehaviour
         if (other.CompareTag("Player") && !_qgIsLevel3)
         {
             _nbPlayer -= 1;
-            if (!_doorExit.activeSelf)
+            if(exitDoorAnimator.GetBool("Open"))
             {
                 QuestManager.Instance.QuestComplete(0);
                 QuestManager.Instance.SetZoneQuest(_nameZone);
             }
             _smokeParticle.SetActive(false);
-            _doorExit.SetActive(true);
+            exitDoorAnimator.SetBool("Open", false);
             _isDecompression = false;
             if (_nbPlayer <= 0)
-                _doorEnter.SetActive(true);
+                enterDoorAnimator.SetBool("Open", false);
         }
     }
     public void QGLevel3()
@@ -70,7 +71,7 @@ public class DoorExit : NetworkBehaviour
             }
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
-                hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
+                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
             }
         }
@@ -85,7 +86,7 @@ public class DoorExit : NetworkBehaviour
     [ClientRpc]
     void ActiveObejts()
     {
-        if (!enterDoorAnimator.GetBool("Open") && _doorExit.activeSelf && !_isDecompression)
+        if (!enterDoorAnimator.GetBool("Open") && !exitDoorAnimator.GetBool("Open") && !_isDecompression)
         {
             enterDoorAnimator.SetBool("Open", true);
         }
@@ -98,8 +99,8 @@ public class DoorExit : NetworkBehaviour
             if (!enterDoorAnimator.GetBool("Open"))
                 door = true;
             enterDoorAnimator.SetBool("Open", false);
-
-            _doorExit.SetActive(true);
+            exitDoorAnimator.SetBool("Open", false);
+            //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
         }
     }
@@ -110,8 +111,11 @@ public class DoorExit : NetworkBehaviour
         _soundDecompression.Play();
         _smokeParticle.SetActive(true);
         yield return new WaitForSeconds(_soundDecompression.clip.length - 1);
-        _doorExit.SetActive(!door);
-        _doorEnter.SetActive(door);
+        exitDoorAnimator.SetBool("Open", door);
+        //_doorExit.SetActive(!door);
+        enterDoorAnimator.SetBool("Open", !door);
+        
+        //_doorEnter.SetActive(door);
         _alarmSAS.SetActive(false);
         _light.SetActive(false);
     }
