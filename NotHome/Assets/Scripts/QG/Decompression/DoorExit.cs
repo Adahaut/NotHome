@@ -96,6 +96,7 @@ public class DoorExit : NetworkBehaviour
     [ClientRpc]
     void Test123465()
     {
+        print("tesnfjopgjbdvfds");
         _doorEnter.SetActive(false);
     }
 
