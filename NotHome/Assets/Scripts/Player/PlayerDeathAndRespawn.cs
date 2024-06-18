@@ -39,7 +39,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     {
         if (_playerController.IsDead) return;
         _canRespawn = false;
-        _playerTransform.rotation = Quaternion.Euler(0, 0, 90);
+        //_playerTransform.rotation = Quaternion.Euler(0, 0, 90);
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         transform.position = Vector3.zero;
