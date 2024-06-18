@@ -60,7 +60,6 @@ public class DoorExit : NetworkBehaviour
         _qgIsLevel3 = true;
     }
 
-    [Server]
     public void OpenDoor(Transform camera, float distRayCast)
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
@@ -75,13 +74,13 @@ public class DoorExit : NetworkBehaviour
             }
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
-                EnableDisableDoors(hit);
+                Test(hit);
             }
         }
     }
 
     [ClientRpc]
-    void EnableDisableDoors(RaycastHit hit)
+    void Test(RaycastHit hit)
     {
         hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
         hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
