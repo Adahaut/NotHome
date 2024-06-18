@@ -77,7 +77,7 @@ public class DoorExit : NetworkBehaviour
     {
         if (_doorEnter.activeSelf && _doorExit.activeSelf && !_isDecompression)
         {
-            _doorEnter.SetActive(false);
+            Test123465();
         }
         else if (_nbPlayer >= 1 && !_isDecompression)
         {
@@ -91,6 +91,12 @@ public class DoorExit : NetworkBehaviour
             _doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
         }
+    }
+
+    [ClientRpc]
+    void Test123465()
+    {
+        _doorEnter.SetActive(false);
     }
 
     private IEnumerator StartParticle(float second, bool door)
