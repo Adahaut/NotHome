@@ -40,10 +40,13 @@ public class PlayerManager : MonoBehaviour
     public bool _usingStam = false;
     private void Start()
     {
-        _stamParent.SetActive(false);
+        print("a");
+        //_stamParent.SetActive(false);
         SetMaxStamina(_maxStamina);
         SetMaxHunger();
         SetMaxThirst();
+        print("b");
+        print(_maxOxygene);
         SetMaxOxygene(_maxOxygene);
 
         //StartCoroutine(HungerBarFall());
@@ -86,8 +89,8 @@ public class PlayerManager : MonoBehaviour
         _stamina = maxStamina;
         _maxStamina = maxStamina;
         _staminaSlider.fillAmount = Mathf.Lerp(0.3f, 0.9f, _stamina / MaxStamina);
-        if (_stamParent.active)
-            StartStamina(false, 1f);
+        //if (_stamParent.active)
+        //    StartStamina(false, 1f);
     }
     public void SetMaxHunger()
     {
