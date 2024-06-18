@@ -145,20 +145,20 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
 
 
-            if (Room._roomPlayers[i] == this && isOwned)
-            {
-                _leaveKickButtons[i].gameObject.SetActive(true);
-                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
-            }
+            //if (Room._roomPlayers[i] == this && isOwned)
+            //{
+            //    _leaveKickButtons[i].gameObject.SetActive(true);
+            //    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
+            //}
 
-            if (_isLeader)
-            {
-                if (Room._roomPlayers[i] != this && isOwned)
-                {
-                    _leaveKickButtons[i].gameObject.SetActive(true);
-                    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
-                }
-            }
+            //if (_isLeader)
+            //{
+            //    if (Room._roomPlayers[i] != this && isOwned)
+            //    {
+            //        _leaveKickButtons[i].gameObject.SetActive(true);
+            //        _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
+            //    }
+            //}
 
         }
 

@@ -224,11 +224,11 @@ public class RangeWeapon : NetworkBehaviour
                 }
                 if (Physics.Raycast(_playerCamera.transform.position, _transform.right * -1, out RaycastHit _hitInfo, _weaponData._maxDistance))
                 {
-                    if (_hitInfo.collider.GetComponent<LifeManager>() != null)
+                    if (_hitInfo.collider.GetComponent<LifeManager>() != null && _hitInfo.collider.gameObject != transform.root.gameObject)
                     {
                         CreateBlood(_hitInfo.point);
                         StartCoroutine(HitMarker());
-                        _hitInfo.collider.GetComponent<LifeManager>().TakeDamage(_weaponData._damages, this.transform.root.gameObject);
+                        CmdAttackPlayer(_hitInfo.transform.gameObject, _weaponData._damages);
                     }
                     else
                     {
@@ -243,6 +243,16 @@ public class RangeWeapon : NetworkBehaviour
         else
         {
             StartReload();
+        }
+    }
+
+    [Command]
+    void CmdAttackPlayer(GameObject player, int damage)
+    {
+        var lifeManager = player.GetComponent<LifeManager>();
+        if (lifeManager != null)
+        {
+            lifeManager.TakeDamage(damage);
         }
     }
 

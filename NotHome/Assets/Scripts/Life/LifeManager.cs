@@ -1,4 +1,5 @@
 using Mirror;
+using Org.BouncyCastle.Pqc.Crypto.Cmce;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +7,9 @@ using UnityEngine.UI;
 public class LifeManager : NetworkBehaviour
 {
     [SerializeField] private int _maxLife;
-    [SyncVar] public int _currentLife;
+
+    [SyncVar(hook = nameof(OnLifeChanged))] public int _currentLife;
+
     private PlayerDeathAndRespawn _playerDeathAndRespawnManager;
     private Animator _animator;
 
@@ -14,24 +17,13 @@ public class LifeManager : NetworkBehaviour
 
     [SerializeField] private AudioClip[] _hitAudioClip;
     private AudioSource[] _audioSource;
+
     [Header("Only for the player")]
     [SerializeField] private Gradient _damageGradient;
     [SerializeField] private Image _damageIndicator;
     private bool _isBlinking;
     private bool _isTackingDamage;
     private Coroutine _blinking;
-
-    public void SetHealthBar()
-    {
-        _helthSlider.value = _currentLife;
-    }
-
-    public void SetMaxHealth()
-    {
-        _currentLife = _maxLife;
-        _helthSlider.maxValue = _currentLife;
-        _helthSlider.value = _currentLife;
-    }
 
     void Start()
     {
@@ -41,12 +33,14 @@ public class LifeManager : NetworkBehaviour
             _damageIndicator.color = new Color(0, 0, 0, 0);
         }
 
-        _currentLife = _maxLife;
+        if (isServer)
+        {
+            _currentLife = _maxLife;
+        }
 
         if (gameObject.tag == "Player")
         {
             _playerDeathAndRespawnManager = GetComponent<PlayerDeathAndRespawn>();
-            SetMaxHealth();
         }
         else
         {
@@ -54,43 +48,56 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    public void TakeDamage(int damage, GameObject player = null)
+    public void SetMaxHealth()
     {
-        _currentLife -= damage;
-        print(_currentLife);
-
-
-        RpcPlayHitSound();
-
-        if (gameObject.tag == "Player" && _helthSlider != null)
+        if(isServer)
         {
-            SetHealthBar();
+            _currentLife = _maxLife;
         }
-        else
+            StartBlinking(false);
+    }
+
+    void OnLifeChanged(int oldLife, int newLife)
+    {
+        if (newLife <= 0)
         {
-            StartCoroutine(HitAnim());
+            if (gameObject.tag == "Enemy")
+            {
+                RpcEnemyDeath();
+            }
+            else if (gameObject.tag == "Player")
+            {
+                RpcPlayerDeath();
+            }
+        }
+    }
+
+    [Server]
+    public void TakeDamage(int damage)
+    {
+        if (_currentLife <= 0) return;
+
+        _currentLife -= damage;
+        //RpcPlayHitSound();
+
+        if(gameObject.tag == "Player")
+        {
+            StartBlinking(true);
         }
 
         if (_currentLife <= 0)
         {
             if (gameObject.tag == "Enemy")
             {
-                EnemyDeath();
-                player.GetComponentInChildren<RangeWeapon>().KillEnemy(gameObject);
+                RpcEnemyDeath();
             }
             else if (gameObject.tag == "Player")
             {
-                PlayerDeath();
+                RpcPlayerDeath();
             }
         }
     }
 
-    private IEnumerator HitAnim()
-    {
-        _animator.SetBool("Hit", true);
-        yield return new WaitForSeconds(0.2f);
-        _animator.SetBool("Hit", false);
-    }
 
     [ClientRpc]
     private void RpcPlayHitSound()
@@ -100,24 +107,31 @@ public class LifeManager : NetworkBehaviour
         _audioSource[1].Play();
     }
 
-    private void EnemyDeath()
+    [ClientRpc]
+    private void RpcEnemyDeath()
     {
-        if (gameObject.name == "Spider")
+        if (isServer)
         {
-            QuestManager.Instance.SetQuestSpider();
-        }
-        else if (gameObject.name == "X")
-        {
-            QuestManager.Instance.SetQuestX();
-        }
+            if (gameObject.name == "Spider")
+            {
+                QuestManager.Instance.SetQuestSpider();
+            }
+            else if (gameObject.name == "X")
+            {
+                QuestManager.Instance.SetQuestX();
+            }
 
-        Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
+        }
     }
 
-    private void PlayerDeath()
+    [ClientRpc]
+    private void RpcPlayerDeath()
     {
-        Debug.Log("playerMort");
-        _playerDeathAndRespawnManager.PlayerDeath();
+        if (_playerDeathAndRespawnManager != null)
+        {
+            _playerDeathAndRespawnManager.PlayerDeath();
+        }
     }
 
     private IEnumerator UIBlinking(int _steps, float _force, bool _takingDamage)
@@ -153,7 +167,7 @@ public class LifeManager : NetworkBehaviour
     {
         if(gameObject.tag == "Player")
         {
-            if(!_isBlinking && _currentLife < _maxLife && !_isTackingDamage)
+            if(!_isBlinking && _currentLife < _maxLife && !_isTackingDamage && !GetComponent<PlayerController>().IsDead)
             {
                 StartBlinking();
             }

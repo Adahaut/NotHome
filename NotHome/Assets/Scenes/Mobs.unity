@@ -325,6 +325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a708c51c1fcc04cbf2f5a30fb47b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _maxLife: 50
   _currentLife: 0
   _helthSlider: {fileID: 0}
@@ -1213,6 +1216,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 84.870834
       objectReference: {fileID: 0}
+    - target: {fileID: 3843375602284500440, guid: d16aeb5dcc2ba0b49bf1567d95bbf77c, type: 3}
+      propertyPath: sceneId
+      value: 1647512253
+      objectReference: {fileID: 0}
     - target: {fileID: 4826585358342069409, guid: d16aeb5dcc2ba0b49bf1567d95bbf77c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 3.8859699
@@ -1346,6 +1353,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8016068668726751431, guid: 55f9562982952c84eb2c0b3a3d5a8b02, type: 3}
+      propertyPath: sceneId
+      value: 2746125419
+      objectReference: {fileID: 0}
     - target: {fileID: 7121148120562537957, guid: 55f9562982952c84eb2c0b3a3d5a8b02, type: 3}
       propertyPath: m_LocalPosition.x
       value: 514.9753
@@ -1424,6 +1435,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &1790520080 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7669127832066487428, guid: 55f9562982952c84eb2c0b3a3d5a8b02, type: 3}
+  m_PrefabInstance: {fileID: 1790520076}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1790520081 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5214579926515238120, guid: 55f9562982952c84eb2c0b3a3d5a8b02, type: 3}
+  m_PrefabInstance: {fileID: 1790520076}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1790520082 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3400651745474440778, guid: 55f9562982952c84eb2c0b3a3d5a8b02, type: 3}
+  m_PrefabInstance: {fileID: 1790520076}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1884510057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1955,6 +1981,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7551586542130590298, guid: afdc90534109a63448383ec379022abf, type: 3}
+      propertyPath: sceneId
+      value: 3999952572
+      objectReference: {fileID: 0}
     - target: {fileID: 6853585656894584853, guid: afdc90534109a63448383ec379022abf, type: 3}
       propertyPath: m_Name
       value: SlenderMan
@@ -2056,6 +2086,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider
       objectReference: {fileID: 0}
+    - target: {fileID: 5887647935963537114, guid: e96c73b67e9db394db2df7dbe509f4a4, type: 3}
+      propertyPath: sceneId
+      value: 2109873690
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2126,6 +2160,79 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7457b9ffae6b9794c96c8d7b17484399, type: 3}
+--- !u!1001 &7187094289901132808
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 526.35144
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 358.55676
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599071286700233188, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412058617335974750, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: m_Name
+      value: dog
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959148704413358304, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: sceneId
+      value: 2792055031
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819031907208984502, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: _audioSources.Array.data[0]
+      value: 
+      objectReference: {fileID: 1790520082}
+    - target: {fileID: 8819031907208984502, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: _audioSources.Array.data[1]
+      value: 
+      objectReference: {fileID: 1790520081}
+    - target: {fileID: 8819031907208984502, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
+      propertyPath: _audioSources.Array.data[2]
+      value: 
+      objectReference: {fileID: 1790520080}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 47e0ec87bab722c49bc029046051b01c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2141,5 +2248,6 @@ SceneRoots:
   - {fileID: 1206844252}
   - {fileID: 1569440474}
   - {fileID: 1591260184}
-  - {fileID: 3402808496983507329}
   - {fileID: 1790520076}
+  - {fileID: 3402808496983507329}
+  - {fileID: 7187094289901132808}
