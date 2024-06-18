@@ -111,9 +111,9 @@ public class DoorExit : NetworkBehaviour
         _soundDecompression.Play();
         _smokeParticle.SetActive(true);
         yield return new WaitForSeconds(_soundDecompression.clip.length - 1);
-        exitDoorAnimator.SetBool("Open", door);
+        exitDoorAnimator.SetBool("Open", !door);
         //_doorExit.SetActive(!door);
-        enterDoorAnimator.SetBool("Open", !door);
+        enterDoorAnimator.SetBool("Open", door);
         
         //_doorEnter.SetActive(door);
         _alarmSAS.SetActive(false);
