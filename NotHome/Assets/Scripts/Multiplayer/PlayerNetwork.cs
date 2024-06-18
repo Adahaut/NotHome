@@ -58,7 +58,15 @@ public class PlayerNetwork : NetworkBehaviour
         if(nameTagText != null)
         {
             nameTagText.text = newName;
+            if(isOwned)
+                ModifyNametagTextUI(newName);
         }
+    }
+
+    [Command] 
+    void ModifyNametagTextUI(string newName)
+    {
+        nameTagText.text = newName;
     }
 
     private void Update()
