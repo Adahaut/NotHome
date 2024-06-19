@@ -16,6 +16,7 @@ public class DoorExit : NetworkBehaviour
     [SerializeField] private GameObject _light;
     [SerializeField] private AudioSource _soundDecompression;
 
+    [SerializeField] private ItemSpawnerManager _spawnerManager;
     [SerializeField] private Animator enterDoorAnimator;
     [SerializeField] private Animator exitDoorAnimator;
 
@@ -25,6 +26,12 @@ public class DoorExit : NetworkBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        if(_spawnerManager == null)
+            _spawnerManager = GameObject.Find("ItemsWaypoints").GetComponent<ItemSpawnerManager>();
     }
 
 
@@ -71,6 +78,7 @@ public class DoorExit : NetworkBehaviour
             }
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
+                _spawnerManager.DestroyAllItems();
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
             }
@@ -102,6 +110,7 @@ public class DoorExit : NetworkBehaviour
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
+            _spawnerManager.DestroyAndSpawnItems();
         }
     }
 

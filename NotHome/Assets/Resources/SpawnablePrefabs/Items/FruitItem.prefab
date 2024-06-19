@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -7042758997846793017}
   - component: {fileID: 8032611369986322549}
   - component: {fileID: 5809743472006700729}
-  - component: {fileID: 47300159896297090}
   m_Layer: 6
   m_Name: FruitItem
   m_TagString: Item
@@ -160,27 +159,9 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 13ba34da9011744c884f459ce4699444, type: 3}
   _radius: 5
   _isOnAnotherGameObject: 0
---- !u!65 &47300159896297090
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3264141781379779818}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.51, y: 0.38214338, z: 0.47}
-  m_Center: {x: 0, y: -0.2597633, z: 0}
+  _isMetalicPart: 0
+  _metalicMeshs: []
+  _metalicMaterials: {fileID: 0}
 --- !u!1 &8540657752528337046
 GameObject:
   m_ObjectHideFlags: 0
