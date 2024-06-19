@@ -10,6 +10,7 @@ public class DoorExit : NetworkBehaviour
     public static DoorExit Instance;
     private bool _qgIsLevel3;
     private bool _isDecompression;
+    private bool _isGoingOut = true;
     [SerializeField] private string _nameZone;
     [SerializeField] private GameObject _smokeParticle;
     [SerializeField] private GameObject _alarmSAS;
@@ -79,6 +80,7 @@ public class DoorExit : NetworkBehaviour
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
                 _spawnerManager.DestroyAllItems();
+                _isGoingOut = false;
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
             }
@@ -110,7 +112,9 @@ public class DoorExit : NetworkBehaviour
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
-            _spawnerManager.DestroyAndSpawnItems();
+            if(_isGoingOut == true)
+                _spawnerManager.DestroyAndSpawnItems();
+            _isGoingOut = true;
         }
     }
 

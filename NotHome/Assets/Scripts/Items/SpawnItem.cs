@@ -1,7 +1,8 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnItem : MonoBehaviour
+public class SpawnItem : NetworkBehaviour
 {
     [Header("Spawn Options")]
     public List<GameObject> _items = new List<GameObject>();
@@ -34,7 +35,8 @@ public class SpawnItem : MonoBehaviour
                 {
                     if (_spawnChance > Random.Range(0f, _maxChanceFactor))
                     {
-                        Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), transform);
+                        GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), transform);
+                        NetworkServer.Spawn(_newItem);
                     }
                 }
             }
@@ -48,7 +50,7 @@ public class SpawnItem : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject);
+            NetworkServer.Destroy(child.gameObject);
         }
     }
 
