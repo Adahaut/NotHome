@@ -33,6 +33,8 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+        NetworkServer.Spawn(nameTagInstance);
+
 
         if (isOwned) nameTagInstance.SetActive(false);
     }
@@ -58,12 +60,6 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(!isOwned && nameTagInstance == null)
-        {
-            print("error");
-        }
-
-
         if (!isOwned && nameTagInstance != null)
         {
             foreach (var playerCamera in _playerCameras)
