@@ -23,9 +23,9 @@ public class SpawnItem : MonoBehaviour
     private void Start()
     {
         _position = transform.position;
-        ItemSpawn();
+        //ItemSpawn();
     }
-    public void ItemSpawn()
+    private void ItemSpawn()
     {
         for (float x = _negativePosition.x; x < _positivePosition.x; x += _distanceBetweenCheck)
         {
@@ -46,9 +46,18 @@ public class SpawnItem : MonoBehaviour
 
     public void DeleteResources()
     {
+        if (transform.childCount == 0)
+            return;
+
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void DestroyAndSpawn()
+    {
+        DeleteResources();
+        ItemSpawn();
     }
 }

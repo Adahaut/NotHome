@@ -14,12 +14,21 @@ public class DoorExit : MonoBehaviour
     [SerializeField] private GameObject _alarmSAS;
     [SerializeField] private GameObject _light;
     [SerializeField] private AudioSource _soundDecompression;
+
+    [SerializeField] private ItemSpawnerManager _spawnerManager;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        if(_spawnerManager == null)
+            _spawnerManager = GameObject.Find("ItemsWaypoints").GetComponent<ItemSpawnerManager>();
     }
 
 
@@ -55,7 +64,6 @@ public class DoorExit : MonoBehaviour
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
-            print("enter2");
             if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
             {
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
@@ -68,6 +76,7 @@ public class DoorExit : MonoBehaviour
             {
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorExit.SetActive(false);
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._doorEnter.SetActive(true);
+                _spawnerManager.DestroyAllItems();
             }
         }
     }
@@ -88,6 +97,7 @@ public class DoorExit : MonoBehaviour
             _doorEnter.SetActive(true);
             _doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
+            _spawnerManager.DestroyAndSpawnItems();
         }
     }
     private IEnumerator StartParticle(float second, bool door)
