@@ -22,10 +22,6 @@ public class PlayerNetwork : NetworkBehaviour
 
     [SerializeField] private GameObject playerUI;
 
-    private BuildingManager buildingManager;
-
-    public TMP_Text debugText;
-
     public override void OnStartAuthority()
     {
         if (isOwned)
@@ -37,7 +33,6 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
-        NetworkServer.Spawn(nameTagInstance);
 
         if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
@@ -51,12 +46,14 @@ public class PlayerNetwork : NetworkBehaviour
     [Command]
     public void CmdSetPlayerName(string name)
     {
+        Debug.Log("CmdSetPlayerName called with name: " + name);
         _displayName = name;
     }
 
     private void OnNameChanged(string oldName, string newName)
     {
-        if(nameTagText != null)
+        Debug.Log("OnNameChanged called. New name: " + newName);
+        if (nameTagText != null)
         {
             nameTagText.text = newName;
         }
@@ -64,12 +61,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(isOwned && nameTagText != null && nameTagText.text != SteamFriends.GetPersonaName())
-        {
-            CmdSetPlayerName(SteamFriends.GetPersonaName());
-        }
-
-        if (!isOwned && nameTagInstance != null)
+        if (nameTagInstance != null && !isOwned)
         {
             foreach (var playerCamera in _playerCameras)
             {
