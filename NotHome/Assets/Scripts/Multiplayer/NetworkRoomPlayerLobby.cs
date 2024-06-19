@@ -31,7 +31,6 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
     public GameObject loading;
 
-
     private bool _isLeader;
     public bool IsLeader
     {
@@ -178,6 +177,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             playerReadyTexts[j].text = string.Empty;
             _playerImages[j].texture = null;
         }
+
     }
 
     public void OnActionButtonClick(int index)

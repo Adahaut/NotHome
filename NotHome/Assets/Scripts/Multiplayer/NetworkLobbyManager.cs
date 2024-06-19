@@ -23,7 +23,7 @@ public class NetworkLobbyManager : NetworkManager
     public static event Action OnClientDisconnected;
     public static event Action<NetworkConnection> OnServerReadied;
 
-    public List<NetworkRoomPlayerLobby> _roomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
+    public List<NetworkRoomPlayerLobby> _roomPlayers { get; set; } = new List<NetworkRoomPlayerLobby>();
     public List<NetworkGamePlayerLobby> _gamePlayers { get; } = new List<NetworkGamePlayerLobby>();
 
 
