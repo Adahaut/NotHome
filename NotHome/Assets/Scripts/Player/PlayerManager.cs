@@ -144,6 +144,15 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private IEnumerator DamagesOnOxygeneDown()
+    {
+        while (!_isInBase && _oxygene <= 0)
+        {
+            _lifeManager.TakeDamage(1);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     private IEnumerator OxygeneAndHealthBarRegain()
     {
         while ((_oxygene < _maxOxygene || _lifeManager._currentLife < _lifeManager.MaxLife()) && _isInBase)
