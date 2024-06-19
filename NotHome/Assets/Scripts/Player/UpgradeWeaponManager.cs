@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UpgradeWeaponManager : MonoBehaviour
+public class UpgradeWeaponManager : NetworkBehaviour
 {
     private int _levelWeapon = 1;
     public List<DictionnaryElement<string, List<DictionnaryElement<string, int>>>> _upgarde;
@@ -13,6 +14,7 @@ public class UpgradeWeaponManager : MonoBehaviour
     [SerializeField] private string _nameWeapon;
     [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
     [SerializeField] private TextMeshProUGUI _textLevel;
+    [SerializeField] private GameObject _gunLevel3;
     private void OnEnable()
     {
         UpdateRessourcesText();
@@ -66,6 +68,8 @@ public class UpgradeWeaponManager : MonoBehaviour
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level2Weapon);
                         break;
                     case 3:
+                        if (isOwned)
+                            ActiveGun();
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level3Weapon);
                         break;
                     case 4:
@@ -81,6 +85,13 @@ public class UpgradeWeaponManager : MonoBehaviour
         }
         
     }
+
+    [Command]
+    void ActiveGun()
+    {
+        _gunLevel3.SetActive(true);
+    }
+
     public void UpdateBuilding()
     {
         if (_upgarde.Count >= _levelWeapon)
