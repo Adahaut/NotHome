@@ -141,29 +141,33 @@ public class LifeManager : NetworkBehaviour
     private IEnumerator UIBlinking(int _steps, float _force, bool _takingDamage)
     {
         _isBlinking = true;
-        if(_takingDamage)
+        if(_currentLife != _maxLife)
         {
-            _damageIndicator.color = _damageGradient.Evaluate(100f);
-            yield return new WaitForEndOfFrame();
-            for (float i = _steps + 1; i > 1; i--)
+            if (_takingDamage)
             {
-                _damageIndicator.color = _damageGradient.Evaluate(i / ((float)_steps + 1f) * _force);
+                _damageIndicator.color = _damageGradient.Evaluate(100f);
                 yield return new WaitForEndOfFrame();
+                for (float i = _steps + 1; i > 1; i--)
+                {
+                    _damageIndicator.color = _damageGradient.Evaluate(i / ((float)_steps + 1f) * _force);
+                    yield return new WaitForEndOfFrame();
+                }
+            }
+            else
+            {
+                for (float i = 1; i < _steps + 1; i++)
+                {
+                    _damageIndicator.color = _damageGradient.Evaluate(i / ((float)_steps + 1f) * _force);
+                    yield return new WaitForEndOfFrame();
+                }
+                for (float i = _steps + 1; i > 1; i--)
+                {
+                    _damageIndicator.color = _damageGradient.Evaluate(i / ((float)_steps + 1f) * _force);
+                    yield return new WaitForEndOfFrame();
+                }
             }
         }
-        else
-        {
-            for (float i = 1; i < _steps + 1; i++)
-            {
-                _damageIndicator.color = _damageGradient.Evaluate(i / ((float)_steps + 1f) * _force);
-                yield return new WaitForEndOfFrame();
-            }
-            for (float i = _steps + 1; i > 1; i--)
-            {
-                _damageIndicator.color = _damageGradient.Evaluate(i / ((float)_steps + 1f) * _force);
-                yield return new WaitForEndOfFrame();
-            }
-        }
+        
         _isBlinking = false;
     }
 
@@ -180,9 +184,7 @@ public class LifeManager : NetworkBehaviour
 
     private void StartBlinking(bool _takingDamage = false)
     {
-        print(_takingDamage);
         float _force = _takingDamage == true ? 1f : (float)(_maxLife - _currentLife) / (float)_maxLife * 0.2f;
-        print(_force);
         _blinking = StartCoroutine(UIBlinking(50, _force, _takingDamage));
     }
 

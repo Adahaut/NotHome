@@ -43,8 +43,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerInputs.SetActive(false);
         transform.position = Vector3.zero;
         
-
-
         StartCoroutine(DisableCamera(0.5f));
         
     }
@@ -58,7 +56,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         transform.rotation = cameraSpawnRotation;
         cameraTransform.position = cameraSpawnTransform;
         cameraTransform.rotation = cameraSpawnRotation;
-        //GetComponent<PlayerController>().SetRespawnPosition(cameraTransform, _playerRespawnPoint, cameraSpawnRotation, cameraSpawnTransform);
 
         StartCoroutine(RespawnAnimation());
     }
