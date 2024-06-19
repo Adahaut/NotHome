@@ -13,7 +13,7 @@ public class LifeManager : NetworkBehaviour
     private PlayerDeathAndRespawn _playerDeathAndRespawnManager;
     private Animator _animator;
 
-    [SerializeField] private Slider _helthSlider;
+    [SerializeField] private Slider _healthSlider;
 
     [SerializeField] private AudioClip[] _hitAudioClip;
     private AudioSource[] _audioSource;
@@ -47,6 +47,9 @@ public class LifeManager : NetworkBehaviour
             _animator = GetComponent<Animator>();
         }
     }
+
+
+    public int MaxLife() { return _maxLife; }
 
     public void SetMaxHealth()
     {

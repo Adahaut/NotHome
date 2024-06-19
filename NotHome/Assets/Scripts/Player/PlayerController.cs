@@ -260,6 +260,7 @@ public class PlayerController : NetworkBehaviour
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
                 _textPress.text = "Press " + _changeControl._control.ToUpper() + " to interact";
+
                 _canOpen = true;
             }
             else
@@ -604,7 +605,7 @@ public class PlayerController : NetworkBehaviour
 
             if(hit.collider.GetComponent<BuildInterractable>())
             {
-                if (hit.collider.GetComponentInChildren<ParticleSystem>() != null && hit.collider.GetComponent<BuildInterractable>()._index < 9)
+                if (hit.collider.GetComponentInChildren<ParticleSystem>() != null)
                 {
                     _uiPlayer[hit.collider.GetComponent<BuildInterractable>()._index].GetComponent<UpgradeHomeManager>()._particleLevelUp = hit.collider.GetComponentInChildren<ParticleSystem>();
                 }

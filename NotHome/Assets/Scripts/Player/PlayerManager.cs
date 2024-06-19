@@ -38,6 +38,9 @@ public class PlayerManager : MonoBehaviour
     public float MaxOxygene { get { return _maxOxygene; } set { _maxOxygene = value; } }
 
     public bool _usingStam = false;
+
+    private LifeManager _lifeManager;
+
     private void Start()
     {
         //_stamParent.SetActive(false);
@@ -49,6 +52,7 @@ public class PlayerManager : MonoBehaviour
         //StartCoroutine(HungerBarFall());
         //StartCoroutine(ThirstBarFall());
         StartCoroutine(OxygeneBarFall());
+        _lifeManager = GetComponent<LifeManager>();
     }
 
     public void SetStaminaBar()
@@ -136,13 +140,20 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private IEnumerator OxygeneBarRegain()
+    private IEnumerator OxygeneAndHealthBarRegain()
     {
-        while (_oxygene < _maxOxygene && _isInBase)
+        while ((_oxygene < _maxOxygene || _lifeManager._currentLife < _lifeManager.MaxLife()) && _isInBase)
         {
-            _oxygene++;
-            SetOxygeneBar();
-            yield return new WaitForSeconds(1f);
+            if(_oxygene < _maxOxygene)
+            {
+                _oxygene++;
+                SetOxygeneBar();
+            }
+            if(_lifeManager._currentLife < _lifeManager.MaxLife())
+            {
+                _lifeManager._currentLife++;
+            }
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
@@ -153,7 +164,7 @@ public class PlayerManager : MonoBehaviour
             _oxygeneFallBegin = false;
             _oxygeneRegainBegin = true;
             _isInBase = true;
-            StartCoroutine(OxygeneBarRegain());
+            StartCoroutine(OxygeneAndHealthBarRegain());
         }
     }
 

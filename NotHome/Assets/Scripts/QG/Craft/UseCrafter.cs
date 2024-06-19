@@ -37,7 +37,7 @@ public class UseCrafter : MonoBehaviour
             index = int.Parse(button.name[6].ToString()) - 1;
 
         _spriteCraft.gameObject.SetActive(true);
-        _spriteCraft.color = _listButton[index].GetComponent<Image>().color;
+        _spriteCraft.sprite = _listButton[index].GetComponent<Image>().sprite;
 
         SetMaterialsCraft(index);
     }
@@ -176,7 +176,7 @@ public class UseCrafter : MonoBehaviour
         ClearTexts();
         for (int i = 0; i < _listCraft[_index]._materialName.Count; i++)
         {
-            AddText(_listCraft[_index]._materialName[i], _listCraft[_index]._materialNumber[i]);
+            AddText(_listCraft[_index]._materialName[i], _listCraft[_index]._materialNumber[i], _listCraft[_index]._materialSprite[i]);
             _currentCraft = _listCraft[_index];
         }
     }
@@ -191,7 +191,7 @@ public class UseCrafter : MonoBehaviour
             _materialsText[i].SetActive(false);
         }
     }
-    private void AddText(string _materialName, int _materialNumber)
+    private void AddText(string _materialName, int _materialNumber, Sprite _materialSprite)
     {
         for(int i = 0; i < _materialsText.Count; i++)
         {
@@ -199,6 +199,7 @@ public class UseCrafter : MonoBehaviour
             {
                 _materialsText[i].SetActive(true);
                 _materialsText[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _materialNumber.ToString() + " " + _materialName;
+                _materialsText[i].transform.GetChild(1).GetComponent<Image>().sprite = _materialSprite;
                 _materialsNameForCraft.Add(_materialName);
                 _materialsNumberForCraft.Add(_materialNumber);
                 break;

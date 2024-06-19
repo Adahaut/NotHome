@@ -1,37 +1,18 @@
-using Mirror;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class UpgradeWeaponManager : NetworkBehaviour
+public class UpgradeWeaponManager : MonoBehaviour
 {
     private int _levelWeapon = 1;
     public List<DictionnaryElement<string, List<DictionnaryElement<string, int>>>> _upgarde;
-    [SerializeField] private InventoryManager _inventoryManager;
+    private InventoryManager _inventoryManager;
     private PlayerManager _playerManager;
-    [SerializeField] private RangeWeapon _rangeWeapon;
-    [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private string _nameWeapon;
-    [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
-    [SerializeField] private TextMeshProUGUI _textLevel;
-    [SerializeField] private GameObject _gunLevel3;
-    private void OnEnable()
-    {
-        UpdateRessourcesText();
-    }
 
     private void Start()
     {
+        _inventoryManager = PC.Instance.GetInventory();
         _playerManager = GetComponent<PlayerManager>();
-    }
-    private void UpdateRessourcesText()
-    {
-        _ressourcesNeeded.text = "";
-
-        for (int i = 0; i < _upgarde[_levelWeapon - 1].Value.Count; i++)
-        {
-            _ressourcesNeeded.text += _upgarde[_levelWeapon - 1].Value[i].Value + " X " + _upgarde[_levelWeapon - 1].Value[i].Key + "\n\n";
-        }
     }
     public void SetEffectLevelWeapon()
     {
@@ -41,39 +22,39 @@ public class UpgradeWeaponManager : NetworkBehaviour
                 switch (_levelWeapon)
                 {
                     case 2:
-                        _playerAttack.UpgradeMachetteVisual(0);
-                        _playerAttack.SetAttack(20);
-                        _playerAttack.SetCadence(1.5f);
+                        PlayerAttack.Instance.UpgradeMachetteVisual(0);
+                        PlayerAttack.Instance.SetAttack(20);
+                        PlayerAttack.Instance.SetCadence(1.5f);
                         break;
                     case 3:
-                        _playerAttack.UpgradeMachetteVisual(1);
-                        _playerAttack.SetAttack(25);
-                        _playerAttack.SetCadence(1f);
+                        PlayerAttack.Instance.UpgradeMachetteVisual(1);
+                        PlayerAttack.Instance.SetAttack(25);
+                        PlayerAttack.Instance.SetCadence(1f);
                         break;
                     case 4:
-                        _playerAttack.UpgradeMachetteVisual(2);
-                        _playerAttack.SetAttack(35);
-                        _playerAttack.SetCadence(0.5f);
+                        PlayerAttack.Instance.UpgradeMachetteVisual(2);
+                        PlayerAttack.Instance.SetAttack(35);
+                        PlayerAttack.Instance.SetCadence(0.5f);
                         break;
                     default:
                         break;
                 }
                 break;
             case "Distance":
-                _rangeWeapon._weaponLevel++;
-                _rangeWeapon.NextWeapon();
+                RangeWeapon.Instance.NextWeapon(); 
+                RangeWeapon.Instance._weaponLevel++;
                 switch (_levelWeapon)
                 {
                     case 2:
-                        _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level2Weapon);
+                        RangeWeapon.Instance.UpgradeWeaponVisual(RangeWeapon.Instance._level2Weapon);
                         break;
                     case 3:
-                        if (isOwned)
-                            ActiveGun();
-                        _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level3Weapon);
+                        RangeWeapon.Instance.UpgradeWeaponVisual(RangeWeapon.Instance._level3Weapon);
+                        RangeWeapon.Instance.AciveRedDot();
                         break;
                     case 4:
-                        _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level4Weapon);
+                        RangeWeapon.Instance.UpgradeWeaponVisual(RangeWeapon.Instance._level4Weapon);
+                        RangeWeapon.Instance.ActiveLaser();
                         break;
                     default:
                         break;
@@ -85,13 +66,6 @@ public class UpgradeWeaponManager : NetworkBehaviour
         }
         
     }
-
-    [Command]
-    void ActiveGun()
-    {
-        _gunLevel3.SetActive(true);
-    }
-
     public void UpdateBuilding()
     {
         if (_upgarde.Count >= _levelWeapon)
@@ -125,7 +99,6 @@ public class UpgradeWeaponManager : NetworkBehaviour
             if (number == _upgarde[_levelWeapon - 1].Value.Count)
             {
                 _levelWeapon++;
-                _textLevel.text = "Level " + _levelWeapon;
                 SetEffectLevelWeapon();
                 for (int i = 0; i < listIndex.Count; i++)
                 {
