@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SteamLobby : MonoBehaviour
 {
-    [SerializeField] private GameObject _landingPagePanel = null;
+    public GameObject _landingPagePanel = null;
 
     protected Callback<LobbyCreated_t> _lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> _gameLobbyJoinRequested;
@@ -32,6 +32,8 @@ public class SteamLobby : MonoBehaviour
 
     public void HostLobby()
     {
+        print("host");
+
         _landingPagePanel?.SetActive(false);
 
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, _networkManager.maxConnections);

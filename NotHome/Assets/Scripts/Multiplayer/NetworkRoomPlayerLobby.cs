@@ -40,6 +40,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             _isLeader = value;
             startGameButton.gameObject.SetActive(value);
         }
+        get
+        {
+            return _isLeader;
+        }
     }
 
     private NetworkLobbyManager room;
@@ -52,7 +56,13 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         }
     }
 
-    
+    private SteamLobby steamLobby;
+
+    private void Start()
+    {
+        steamLobby = FindObjectOfType<SteamLobby>();
+    }
+
     public override void OnStartAuthority()
     {
         readyButton.gameObject.SetActive(true);
@@ -159,6 +169,19 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             //        _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
             //    }
             //}
+            _leaveKickButtons[i].gameObject.SetActive(true);
+            if (Room._roomPlayers[i] == this)
+            {
+                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
+            }
+            else if (_isLeader)
+            {
+                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
+            }
+            else
+            {
+                _leaveKickButtons[i].gameObject.SetActive(false);
+            }
 
         }
 
@@ -170,8 +193,21 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         }
     }
 
+    public void OnActionButtonClick(int index)
+    {
+        if (_isLeader)
+        {
+            CmdKickPlayer(Room._roomPlayers[index]);
+        }
+        else
+        {
+            CmdLeaveLobby();
+        }
+    }
+
+
     [Command]
-    public void LeaveLobby()
+    public void CmdLeaveLobby()
     {
         if (Room._roomPlayers[0] == this && Room._roomPlayers.Count > 1)
         {
@@ -183,11 +219,30 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         if (Room._roomPlayers.Count == 0)
         {
             Room.StopHost();
+
+            if (steamLobby != null)
+            {
+                steamLobby._landingPagePanel.SetActive(true);
+            }
         }
 
         NetworkServer.Destroy(gameObject);
 
         Room.NotifyPlayersOfReadyState();
+    }
+
+    [Command]
+    public void CmdKickPlayer(NetworkRoomPlayerLobby playerToKick)
+    {
+        if (_isLeader)
+        {
+            Room.RemovePlayer(playerToKick);
+
+            if (steamLobby != null)
+            {
+                steamLobby._landingPagePanel.SetActive(true);
+            }
+        }
     }
 
     public void HandleReadyToStart(bool readyToStart)

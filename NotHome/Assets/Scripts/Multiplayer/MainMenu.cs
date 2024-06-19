@@ -18,11 +18,6 @@ public class MainMenu : MonoBehaviour
         Screen.fullScreen = true;
     }
 
-    public void Hostlobby()
-    {
-        landingPagePanel.SetActive(false);
-    }
-
     public void OpenSteamOverlay()
     {
         if (SteamManager.Initialized)

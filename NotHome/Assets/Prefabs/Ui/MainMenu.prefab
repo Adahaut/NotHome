@@ -171,7 +171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -345, y: -150}
+  m_AnchoredPosition: {x: -345, y: -300}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7765347382611165099
@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play
+  m_text: Host
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1798,9 +1798,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8009404808445812270}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 1345449338924673642}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: Hostlobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1840,6 +1840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 592488320341751113}
+  - component: {fileID: 1942678084851805597}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1863,6 +1864,20 @@ Transform:
   - {fileID: 3551198196790081945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1942678084851805597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675140422431294802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f9050f211cf7e428f10180e8f81dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkManager: {fileID: 0}
+  landingPagePanel: {fileID: 0}
 --- !u!1 &1710417642613172071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,7 +2850,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 3
@@ -2859,7 +2874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef27c029c7e1e1438426e876efd8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2411738651539802695}
+  _control: 
   _indexAction: 1
   _indexBinding: 4
 --- !u!1 &2887331573966811304
@@ -2899,81 +2914,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &2958903465314671617
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 128905759338794915}
-  - component: {fileID: 4774952405852026231}
-  - component: {fileID: 6668600746547098665}
-  m_Layer: 5
-  m_Name: BackGround
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &128905759338794915
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2958903465314671617}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3551198196790081945}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4774952405852026231
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2958903465314671617}
-  m_CullTransparentMesh: 1
---- !u!114 &6668600746547098665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2958903465314671617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.7132075, g: 0.7132075, b: 0.7132075, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3465171098875096472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3365,7 +3305,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 3
@@ -3389,7 +3329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef27c029c7e1e1438426e876efd8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2411738651539802695}
+  _control: 
   _indexAction: 2
   _indexBinding: 0
 --- !u!1 &3569196452381789039
@@ -4631,7 +4571,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2350905917189762507}
   - component: {fileID: 5477445182811476409}
-  - component: {fileID: 6837781263211583542}
   m_Layer: 0
   m_Name: UiOption
   m_TagString: Untagged
@@ -4679,27 +4618,6 @@ MonoBehaviour:
   _toggleFullScreen: {fileID: 3740102049185702704}
   _audioMixer: {fileID: 24100000, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
   _dropdownResolution: {fileID: 164505907180391245}
---- !u!114 &6837781263211583542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5110039405699784099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c54b716ff6cc31149820c9c28d010b39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _listButton:
-  - {fileID: 8707488708208328077}
-  - {fileID: 2785344932165306727}
-  - {fileID: 6830543243563986510}
-  - {fileID: 8303340527735237135}
-  - {fileID: 3537276193716193933}
-  - {fileID: 7991680976474803966}
-  - {fileID: 5474775458774771401}
-  _playerInput: {fileID: 2411738651539802695}
 --- !u!1 &5144604126891477760
 GameObject:
   m_ObjectHideFlags: 0
@@ -4712,7 +4630,7 @@ GameObject:
   - component: {fileID: 8090662917940896269}
   - component: {fileID: 7624694572667462800}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: NotHome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5091,7 +5009,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 3
@@ -5115,7 +5033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef27c029c7e1e1438426e876efd8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2411738651539802695}
+  _control: 
   _indexAction: 0
   _indexBinding: 0
 --- !u!1 &5645200596597583756
@@ -5525,7 +5443,7 @@ MonoBehaviour:
     m_ActionName: Player/Drop[/Keyboard/g]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: Any
         m_Mode: 0
@@ -5984,7 +5902,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -345, y: -300}
+  m_AnchoredPosition: {x: -345, y: -150}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2151739076058080634
@@ -6069,9 +5987,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8009404808445812270}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: Credit
+      - m_Target: {fileID: 1345449338924673642}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: OpenSteamOverlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6375,7 +6293,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 3
@@ -6399,7 +6317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef27c029c7e1e1438426e876efd8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2411738651539802695}
+  _control: 
   _indexAction: 1
   _indexBinding: 6
 --- !u!1 &6892625539760897466
@@ -6414,6 +6332,7 @@ GameObject:
   - component: {fileID: 385471058812198046}
   - component: {fileID: 5301994544171187624}
   - component: {fileID: 1209629783808871498}
+  - component: {fileID: 1345449338924673642}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6435,7 +6354,6 @@ RectTransform:
   m_Children:
   - {fileID: 4979000255149140463}
   - {fileID: 2970876167726617968}
-  - {fileID: 128905759338794915}
   - {fileID: 4655000263633399637}
   - {fileID: 2350905917189762507}
   - {fileID: 1733125353958638285}
@@ -6509,6 +6427,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1345449338924673642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892625539760897466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f9050f211cf7e428f10180e8f81dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkManager: {fileID: 0}
+  landingPagePanel: {fileID: 8408612212861286637}
 --- !u!1 &7043821633863563421
 GameObject:
   m_ObjectHideFlags: 0
@@ -7116,6 +7048,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5234835160861023999}
+  - component: {fileID: 2421196201209887606}
   m_Layer: 0
   m_Name: Control
   m_TagString: Untagged
@@ -7149,6 +7082,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2421196201209887606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597500633218593365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54b716ff6cc31149820c9c28d010b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _listButton:
+  - {fileID: 8707488708208328077}
+  - {fileID: 2785344932165306727}
+  - {fileID: 6830543243563986510}
+  - {fileID: 8303340527735237135}
+  - {fileID: 3537276193716193933}
+  - {fileID: 7991680976474803966}
+  - {fileID: 5474775458774771401}
+  _playerInput: {fileID: 2411738651539802695}
+  _listControl: []
+  _changeControls:
+  - {fileID: 5405071699832629444}
+  - {fileID: 8346737937822449510}
+  - {fileID: 7755070695870244116}
+  - {fileID: 2307145881427957504}
+  - {fileID: 1067244619445526132}
+  - {fileID: 5801362336431984207}
+  - {fileID: 5057454567880007907}
 --- !u!1 &7620605722164021281
 GameObject:
   m_ObjectHideFlags: 0
@@ -7214,7 +7177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Credits
+  m_text: Join
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7509,7 +7472,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 3
@@ -7533,7 +7496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef27c029c7e1e1438426e876efd8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2411738651539802695}
+  _control: 
   _indexAction: 4
   _indexBinding: 0
 --- !u!1 &8083171637624838688
@@ -7734,7 +7697,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 3
@@ -7758,7 +7721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef27c029c7e1e1438426e876efd8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2411738651539802695}
+  _control: 
   _indexAction: 1
   _indexBinding: 8
 --- !u!1 &8408612212861286637
@@ -7924,7 +7887,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6837781263211583542}
+      - m_Target: {fileID: 2421196201209887606}
         m_TargetAssemblyTypeName: GetButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 3
@@ -7948,7 +7911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef27c029c7e1e1438426e876efd8889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2411738651539802695}
+  _control: 
   _indexAction: 1
   _indexBinding: 2
 --- !u!1 &8853407043366016287

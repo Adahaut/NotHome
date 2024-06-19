@@ -229,5 +229,25 @@ public class NetworkLobbyManager : NetworkManager
         }
     }
 
-    
+    public void RemovePlayer(NetworkRoomPlayerLobby player)
+    {
+        if (_roomPlayers.Contains(player))
+        {
+            _roomPlayers.Remove(player);
+            if (player.IsLeader && _roomPlayers.Count > 0)
+            {
+                _roomPlayers[0].IsLeader = true;
+            }
+
+            if (_roomPlayers.Count == 0)
+            {
+                StopHost();
+            }
+
+            NetworkServer.Destroy(player.gameObject);
+            
+            NotifyPlayersOfReadyState();
+        }
+    }
+
 }
