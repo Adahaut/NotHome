@@ -52,21 +52,15 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void OnNameChanged(string oldName, string newName)
     {
-        Debug.Log("OnNameChanged called. New name: " + newName);
         if (nameTagText != null)
         {
             nameTagText.text = newName;
-            Debug.Log("Name tag text updated to: " + newName);
-        }
-        else
-        {
-            Debug.LogWarning("nameTagText is null when trying to update text.");
         }
     }
 
     private void Update()
     {
-        if (nameTagInstance != null && !isOwned)
+        if (!isOwned && nameTagInstance != null)
         {
             foreach (var playerCamera in _playerCameras)
             {
