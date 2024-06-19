@@ -2,6 +2,7 @@ using Mirror;
 using Steamworks;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -27,7 +28,6 @@ public class PlayerNetwork : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        _displayName = "";
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
@@ -51,8 +51,6 @@ public class PlayerNetwork : NetworkBehaviour
     public void CmdSetPlayerName(string name)
     {
         _displayName = name;
-        if(nameTagText != null) 
-            nameTagText.text = name;
     }
 
     private void OnNameChanged(string oldName, string newName)
@@ -65,7 +63,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(isOwned)
+        if(isOwned && nameTagText.text != SteamFriends.GetPersonaName())
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
         }
