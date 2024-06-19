@@ -37,6 +37,7 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+        NetworkServer.Spawn(nameTagInstance);
 
         if (isOwned) nameTagInstance.SetActive(false);
         else nameTagInstance.SetActive(true);
@@ -63,12 +64,12 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(isOwned && nameTagText.text != SteamFriends.GetPersonaName())
+        if(isOwned && nameTagText != null && nameTagText.text != SteamFriends.GetPersonaName())
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
         }
 
-        if (!isOwned)
+        if (!isOwned && nameTagInstance != null)
         {
             foreach (var playerCamera in _playerCameras)
             {
