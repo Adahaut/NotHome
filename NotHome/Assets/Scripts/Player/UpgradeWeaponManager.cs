@@ -68,8 +68,11 @@ public class UpgradeWeaponManager : NetworkBehaviour
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level2Weapon);
                         break;
                     case 3:
-                        if (!isOwned)
-                            _gunLevel3.SetActive(true);
+                        //if (!isOwned)
+                        //    _gunLevel3.SetActive(true);
+                        _gunLevel3.SetActive(true);
+                        if (isOwned)
+                            _gunLevel3.SetActive(false);
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level3Weapon);
                         break;
                     case 4:
