@@ -59,12 +59,18 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
+        if(!isOwned && nameTagInstance == null)
+        {
+            print("error");
+        }
+
+
         if (!isOwned && nameTagInstance != null)
         {
             foreach (var playerCamera in _playerCameras)
             {
                 nameTagInstance.transform.LookAt(playerCamera.transform);
-                //nameTagInstance.transform.Rotate(0, 180, 0);
+                nameTagInstance.transform.Rotate(0, 180, 0);
                 break;
             }
         }
