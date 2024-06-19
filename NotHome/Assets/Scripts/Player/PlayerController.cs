@@ -10,6 +10,7 @@ public class PlayerController : NetworkBehaviour
 {
     [Header("Transform" + "\n")]
     [SerializeField] private Transform _camera;
+    [SerializeField] private Transform _startPointRaycast;
 
     [Header("Value" + "\n")]
     public float _sensitivity;
@@ -95,14 +96,25 @@ public class PlayerController : NetworkBehaviour
     public bool IsDead;
     bool _canJump;
 
-    [SerializeField] private GameObject _interactionGo;
-    private ChangeControl _changeControl;
+    [SerializeField] private ChangeControl _changeControl;
+    [SerializeField] private GameObject[] _setActiveFalse;
+    public PauseManager _pauseManager;
 
     private void Start()
     {
-        _changeControl = _interactionGo.GetComponent<ChangeControl>();
+        StartCoroutine(DisableControlPanelOnStart());
     }
 
+    private IEnumerator DisableControlPanelOnStart()
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        for (int i = 0; i < _setActiveFalse.Length; i++)
+        {
+            _setActiveFalse[i].SetActive(false);
+        }
+        _pauseManager.Resume();
+    }
     public override void OnStartAuthority()
     {
         QualitySettings.vSyncCount = 0;
@@ -198,12 +210,12 @@ public class PlayerController : NetworkBehaviour
     {
         if(isOwned)
         {
-            DoorExit.Instance.OpenDoor(_camera, _distRayCast);
+            DoorExit.Instance.OpenDoor(_startPointRaycast, _distRayCast);
             if (ctx.performed)
             {
                 StartUi();
                 if (Ladder.Instance != null)
-                    Ladder.Instance.TpLadder(_camera, _distRayCast, this);
+                    Ladder.Instance.TpLadder(_startPointRaycast, _distRayCast, this);
             }
             //OfficeManager.Instance.MouvToChair();
             if (_timer <= 0)
@@ -244,11 +256,11 @@ public class PlayerController : NetworkBehaviour
                 StartCoroutine(RegenStamina());
             }
 
-            if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
+            if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
-                
-                _textPress.text = "Press " + _changeControl._control.ToUpper() + " for interact";
+                _textPress.text = "Press " + _changeControl._control.ToUpper() + " to interact";
+
                 _canOpen = true;
             }
             else
@@ -526,7 +538,7 @@ public class PlayerController : NetworkBehaviour
 
     private void CmdPickUpObject()
     {
-        if(Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
+        if(Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
         {
             if (!_inventory.GetComponent<InventoryManager>().HasRemainingPlace(hit.collider.GetComponent<Item>().ItemName()))
             {
@@ -588,7 +600,7 @@ public class PlayerController : NetworkBehaviour
     // Ui Player
     public void StartUi()
     {
-        if (_canOpen && Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast))
+        if (_canOpen && Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast))
         {
 
             if(hit.collider.GetComponent<BuildInterractable>())
