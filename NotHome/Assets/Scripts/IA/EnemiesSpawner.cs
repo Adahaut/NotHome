@@ -15,14 +15,16 @@ public class EnemiesSpawner : NetworkBehaviour
 {
     public List<SpawnZone> _spawnZones;
     public LayerMask _groundLayer;
+    public Transform _enemiesParent;
 
     private void Start()
     {
-        SpawnEnemies(0);
+        //SpawnEnemies(0);
     }
 
     public void SpawnEnemies(int _zoneIndex)
     {
+        print("spawn " +  _zoneIndex);
         if (_zoneIndex < 0 || _zoneIndex >= _spawnZones.Count)
         {
             Debug.LogError("Invalid spawn zone index.");
@@ -40,9 +42,20 @@ public class EnemiesSpawner : NetworkBehaviour
 
             if (_spawnPosition != Vector3.zero)
             {
-                GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity);
+                GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity, _enemiesParent);
                 NetworkServer.Spawn(go);
             }
+        }
+    }
+
+    public void DestroyAllEnemies()
+    {
+        if (_enemiesParent.childCount == 0)
+            return;
+
+        foreach (Transform child in _enemiesParent)
+        {
+            NetworkServer.Destroy(child.gameObject);
         }
     }
 
