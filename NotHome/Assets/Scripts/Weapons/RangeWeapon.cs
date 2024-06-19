@@ -36,9 +36,6 @@ public class RangeWeapon : NetworkBehaviour
 
     private bool _isReloading;
 
-    [SerializeField] private GameObject _redDot;
-    [SerializeField] private GameObject _laser;
-
 
     [SerializeField] private NetworkIdentity identity;
 
@@ -92,14 +89,6 @@ public class RangeWeapon : NetworkBehaviour
     {
         if (_weaponData._nextWeapon != null)
             _weaponData = _weaponData._nextWeapon;
-    }
-    public void AciveRedDot()
-    {
-        _redDot.SetActive(true);
-    }
-    public void ActiveLaser()
-    {
-        _laser.SetActive(true);
     }
     public void AddAmmo(int number)
     {
