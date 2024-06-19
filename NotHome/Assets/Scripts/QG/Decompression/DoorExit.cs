@@ -18,6 +18,7 @@ public class DoorExit : NetworkBehaviour
     [SerializeField] private AudioSource _soundDecompression;
 
     [SerializeField] private ItemSpawnerManager _spawnerManager;
+    private EnemiesSpawner _enemiesSpawner;
     [SerializeField] private Animator enterDoorAnimator;
     [SerializeField] private Animator exitDoorAnimator;
 
@@ -33,6 +34,8 @@ public class DoorExit : NetworkBehaviour
     {
         if(_spawnerManager == null)
             _spawnerManager = GameObject.Find("ItemsWaypoints").GetComponent<ItemSpawnerManager>();
+        if(_enemiesSpawner == null)
+            _enemiesSpawner = GameObject.Find("EnemiesSpawner").GetComponent<EnemiesSpawner>();
     }
 
 
@@ -79,8 +82,6 @@ public class DoorExit : NetworkBehaviour
             }
             else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
             {
-                _spawnerManager.DestroyAllItems();
-                _isGoingOut = false;
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
                 hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
             }
@@ -112,9 +113,11 @@ public class DoorExit : NetworkBehaviour
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
-            if(_isGoingOut == true)
-                _spawnerManager.DestroyAndSpawnItems();
-            _isGoingOut = true;
+            _spawnerManager.DestroyAndSpawnItems();
+            for (int i = 0; i < 3; i++)
+            {
+                _enemiesSpawner.SpawnEnemies(i);
+            }
         }
     }
 
