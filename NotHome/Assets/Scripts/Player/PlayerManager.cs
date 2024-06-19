@@ -68,6 +68,10 @@ public class PlayerManager : MonoBehaviour
             _usingStam = false;
         }
         _staminaSlider.fillAmount = Mathf.Lerp(0.3f, 0.9f, _stamina / MaxStamina);
+        if (_staminaSlider.fillAmount >= 0.9f)
+            _staminaSlider.transform.parent.gameObject.SetActive(false);
+        else
+            _staminaSlider.transform.parent.gameObject.SetActive(true);
     }
 
     public void SetHungerBar()
