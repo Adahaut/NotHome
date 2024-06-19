@@ -71,12 +71,8 @@ public class UpgradeWeaponManager : NetworkBehaviour
                         GameObject[] _players = GameObject.FindGameObjectsWithTag("Player");
                         for (int i = 0; i < _players.Length; ++i)
                         {
-                            _players[i].GetComponentInChildren<UpgradeWeaponManager>()._gunLevel3.SetActive(true);
-                            if (_players[i] == this.transform.root.gameObject)
-                            {
-                                print("this");
-                                _gunLevel3.SetActive(false);
-                            }
+                            if(!isOwned)
+                                _gunLevel3.SetActive(true);
                         }
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level3Weapon);
                         break;
