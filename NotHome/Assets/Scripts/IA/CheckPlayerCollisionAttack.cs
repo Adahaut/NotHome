@@ -11,10 +11,22 @@ public class CheckPlayerCollisionAttack : NetworkBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var playerLifeManager = other.GetComponent<LifeManager>();
-            if (playerLifeManager != null)
+            if (other.gameObject != transform.root.gameObject)
             {
-                DealDamage(playerLifeManager);
+                var playerLifeManager = other.GetComponent<LifeManager>();
+                if (playerLifeManager != null)
+                {
+                    DealDamage(playerLifeManager);
+                }
+            }
+        }
+
+        if (other.CompareTag("Enemy"))
+        {
+            var enemyLifeManager = other.GetComponent<LifeManager>();
+            if (enemyLifeManager != null)
+            {
+                DealDamage(enemyLifeManager);
             }
         }
     }
