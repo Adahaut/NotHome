@@ -95,14 +95,25 @@ public class PlayerController : NetworkBehaviour
     public bool IsDead;
     bool _canJump;
 
-    [SerializeField] private GameObject _interactionGo;
-    private ChangeControl _changeControl;
+    [SerializeField] private ChangeControl _changeControl;
+    [SerializeField] private GameObject[] _setActiveFalse;
+    public PauseManager _pauseManager;
 
     private void Start()
     {
-        _changeControl = _interactionGo.GetComponent<ChangeControl>();
+        StartCoroutine(DisableControlPanelOnStart());
     }
 
+    private IEnumerator DisableControlPanelOnStart()
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        for (int i = 0; i < _setActiveFalse.Length; i++)
+        {
+            _setActiveFalse[i].SetActive(false);
+        }
+        _pauseManager.Resume();
+    }
     public override void OnStartAuthority()
     {
         QualitySettings.vSyncCount = 0;
@@ -247,8 +258,8 @@ public class PlayerController : NetworkBehaviour
             if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
             {
-                
-                _textPress.text = "Press " + _changeControl._control.ToUpper() + " for interact";
+                _textPress.text = "Press " + _changeControl._control.ToUpper() + " to interact";
+
                 _canOpen = true;
             }
             else
