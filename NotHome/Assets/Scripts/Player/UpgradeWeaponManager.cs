@@ -68,12 +68,8 @@ public class UpgradeWeaponManager : NetworkBehaviour
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level2Weapon);
                         break;
                     case 3:
-                        GameObject[] _players = GameObject.FindGameObjectsWithTag("Player");
-                        for (int i = 0; i < _players.Length; ++i)
-                        {
-                            if (!isOwned)
-                                _players[i].GetComponentInChildren<UpgradeWeaponManager>()._gunLevel3.SetActive(true);
-                        }
+                        if (isOwned)
+                            ActiveGun();
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level3Weapon);
                         break;
                     case 4:
@@ -89,6 +85,13 @@ public class UpgradeWeaponManager : NetworkBehaviour
         }
         
     }
+
+    [Command]
+    void ActiveGun()
+    {
+        _gunLevel3.SetActive(true);
+    }
+
     public void UpdateBuilding()
     {
         if (_upgarde.Count >= _levelWeapon)
