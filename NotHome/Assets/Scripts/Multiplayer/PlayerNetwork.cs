@@ -34,8 +34,8 @@ public class PlayerNetwork : NetworkBehaviour
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
-        if (isOwned) nameTagInstance.SetActive(false);
-        else nameTagInstance.SetActive(true);
+        //if (isOwned) nameTagInstance.SetActive(false);
+        //else nameTagInstance.SetActive(true);
     }
 
     private void OnDestroy()
@@ -56,6 +56,11 @@ public class PlayerNetwork : NetworkBehaviour
         if (nameTagText != null)
         {
             nameTagText.text = newName;
+            Debug.Log("Name tag text updated to: " + newName);
+        }
+        else
+        {
+            Debug.LogWarning("nameTagText is null when trying to update text.");
         }
     }
 
