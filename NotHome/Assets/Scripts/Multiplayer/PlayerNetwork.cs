@@ -64,7 +64,6 @@ public class PlayerNetwork : NetworkBehaviour
             {
                 if(nameTagText.text == "-")
                 {
-                    print("here error");
                     nameTagText.text = playerCamera.transform.root.GetComponent<PlayerNetwork>()._displayName;
                 }
 
