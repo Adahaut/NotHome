@@ -1,44 +1,41 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Farts : NetworkBehaviour
 {
     [SerializeField] private List<AudioClip> _fartsSound = new List<AudioClip>();
     [SerializeField] private GameObject _fartParticle;
 
-    private void Awake()
-    {
-        //_fartOrigine = transform.GetChild(6).GetComponent<AudioSource>();
-    }
+    [SerializeField] private Transform spawnPoint;
 
     public void PlayRandomFartSound()
     {
         int _randomFartIndex = Random.Range(0, _fartsSound.Count);
-        //_fartOrigine.clip = _fartsSound[_randomFartIndex];
         if(isOwned)
         {
-            CmdPlayFartSound(_randomFartIndex);
+            CmdPlayFart(_randomFartIndex, spawnPoint.position);
         }
-        
-        //_fartOrigine.Play();
-        //GameObject _newFartParticles = Instantiate(_fartParticle);
-        //_newFartParticles.transform.position = transform.position;
-        //_newFartParticles.transform.rotation = Quaternion.Inverse(transform.rotation) ;
-        //_newFartParticles.transform.SetParent(null);
-        //_newFartParticles.GetComponent<ParticleSystem>().Play();
-        //Destroy(_newFartParticles, 2);
     }
 
     [Command]
-    void CmdPlayFartSound(int clipindex)
+    void CmdPlayFart(int clipindex, Vector3 spawnPosition)
     {
         RpcPlayFartSound(clipindex);
+
+        GameObject particleInstance = Instantiate(_fartParticle, spawnPosition, Quaternion.identity);
+
+        NetworkServer.Spawn(particleInstance);
+
+        Destroy(particleInstance, 2f);
+
     }
 
     [ClientRpc]
     void RpcPlayFartSound(int clipIndex)
     {
-        AudioSource.PlayClipAtPoint(_fartsSound[clipIndex], this.transform.position, 0.5f);
+        AudioSource.PlayClipAtPoint(_fartsSound[clipIndex], this.transform.position, 0.25f);
     }
 }

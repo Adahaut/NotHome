@@ -14,8 +14,6 @@ public class Item : NetworkBehaviour
 
     [Header("For Metalic Parts")]
     [SerializeField] private bool _isMetalicPart;
-    [SerializeField] private List<Mesh> _metalicMeshs = new();
-    [SerializeField] private Material _metalicMaterials;
     
     public string ItemName() { return _name; }
 
@@ -23,13 +21,10 @@ public class Item : NetworkBehaviour
 
     private void OnEnable()
     {
-        print("here");
         if (_isMetalicPart)
         {
-            print("metalic");
-            int _index = Random.Range(0, _metalicMeshs.Count - 1);
-            transform.GetChild(0).GetComponent<MeshFilter>().mesh = _metalicMeshs[_index];
-            transform.GetChild(0).GetComponent<MeshRenderer>().material = _metalicMaterials;
+            int _index = Random.Range(0, transform.childCount - 2);
+            transform.GetChild(_index).gameObject.SetActive(true);
         }
 
         _isOnAnotherGameObject = false;
