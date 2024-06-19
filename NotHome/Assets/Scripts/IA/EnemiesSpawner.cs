@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [System.Serializable]
 public class SpawnZone
@@ -13,9 +14,9 @@ public class SpawnZone
 public class EnemiesSpawner : NetworkBehaviour
 {
     public List<SpawnZone> _spawnZones;
-    public LayerMask _groundLayer; 
+    public LayerMask _groundLayer;
 
-    void Start()
+    private void Start()
     {
         SpawnEnemies(0);
     }
@@ -32,14 +33,16 @@ public class EnemiesSpawner : NetworkBehaviour
 
         for (int i = 0; i < _selectedZone._numberOfEnemiesToSpawn; i++)
         {
-            //GameObject _prefabToSpawn = ;
             Vector3 _spawnPosition = GetRandomPointInPolygon(_selectedZone._points);
 
             // Adjust the spawn position to be on the ground
             _spawnPosition = GetGroundPosition(_spawnPosition);
 
-            GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity);
-            NetworkServer.Spawn(go);
+            if (_spawnPosition != Vector3.zero)
+            {
+                GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity);
+                NetworkServer.Spawn(go);
+            }
         }
     }
 
@@ -75,10 +78,16 @@ public class EnemiesSpawner : NetworkBehaviour
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(_position.x, 100, _position.z), Vector3.down, out hit, Mathf.Infinity, _groundLayer))
         {
-            return hit.point;
+            Vector3 groundPosition = hit.point;
+            NavMeshHit navMeshHit;
+
+            if (NavMesh.SamplePosition(groundPosition, out navMeshHit, 1.0f, NavMesh.AllAreas))
+            {
+                return navMeshHit.position;
+            }
         }
 
-        return _position;
+        return Vector3.zero;
     }
 
     bool IsPointInPolygon(Vector3 _point, List<Transform> _polygon)

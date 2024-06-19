@@ -1,6 +1,5 @@
 using Mirror;
 using Steamworks;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -23,13 +22,8 @@ public class PlayerNetwork : NetworkBehaviour
 
     [SerializeField] private GameObject playerUI;
 
-    private BuildingManager buildingManager;
-
-    public TMP_Text debugText;
-
     private void Start()
     {
-        _displayName = "";
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
@@ -40,9 +34,7 @@ public class PlayerNetwork : NetworkBehaviour
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
-
         if (isOwned) nameTagInstance.SetActive(false);
-        else nameTagInstance.SetActive(true);
     }
 
     private void OnDestroy()
@@ -58,7 +50,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void OnNameChanged(string oldName, string newName)
     {
-        if(nameTagText != null)
+        if (nameTagText != null)
         {
             nameTagText.text = newName;
         }
@@ -66,15 +58,15 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Update()
     {
-        if(nameTagText.text == "-" && isOwned)
-        {
-            CmdSetPlayerName(SteamFriends.GetPersonaName());
-        }
-
-        if (!isOwned)
+        if (!isOwned && nameTagInstance != null)
         {
             foreach (var playerCamera in _playerCameras)
             {
+                if(nameTagText.text == "-")
+                {
+                    nameTagText.text = playerCamera.transform.root.GetComponent<PlayerNetwork>()._displayName;
+                }
+
                 nameTagInstance.transform.LookAt(playerCamera.transform);
                 nameTagInstance.transform.Rotate(0, 180, 0);
                 break;

@@ -58,6 +58,5 @@ public class OptionManager : MonoBehaviour
     public void SetSensitivity(float sensitivity)
     {
         GetComponentInParent<PlayerController>()._sensitivity = sensitivity;
-        print(sensitivity);
     }
 }

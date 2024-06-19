@@ -112,7 +112,8 @@ public class LifeManager : NetworkBehaviour
     {
         if (isServer)
         {
-            if (gameObject.name == "Spider")
+            print(gameObject);
+            if (gameObject.name == "Spider(Clone)")
             {
                 QuestManager.Instance.SetQuestSpider();
             }
