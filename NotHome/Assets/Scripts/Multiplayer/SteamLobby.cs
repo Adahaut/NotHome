@@ -32,8 +32,6 @@ public class SteamLobby : MonoBehaviour
 
     public void HostLobby()
     {
-        print("host");
-
         _landingPagePanel?.SetActive(false);
 
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, _networkManager.maxConnections);

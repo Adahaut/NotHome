@@ -155,32 +155,19 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             _playerImages[i].texture = Room._roomPlayers[i]._displayImage;
 
 
-            //if (Room._roomPlayers[i] == this && isOwned)
-            //{
-            //    _leaveKickButtons[i].gameObject.SetActive(true);
-            //    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
-            //}
-
-            //if (_isLeader)
-            //{
-            //    if (Room._roomPlayers[i] != this && isOwned)
-            //    {
-            //        _leaveKickButtons[i].gameObject.SetActive(true);
-            //        _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
-            //    }
-            //}
-            _leaveKickButtons[i].gameObject.SetActive(true);
-            if (Room._roomPlayers[i] == this)
+            if (Room._roomPlayers[i] == this && isOwned)
             {
+                _leaveKickButtons[i].gameObject.SetActive(true);
                 _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Leave";
             }
-            else if (_isLeader)
+
+            if (_isLeader)
             {
-                _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
-            }
-            else
-            {
-                _leaveKickButtons[i].gameObject.SetActive(false);
+                if (Room._roomPlayers[i] != this && isOwned)
+                {
+                    _leaveKickButtons[i].gameObject.SetActive(true);
+                    _leaveKickButtons[i].GetComponentInChildren<TMP_Text>().text = "Kick";
+                }
             }
 
         }
@@ -219,11 +206,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         if (Room._roomPlayers.Count == 0)
         {
             Room.StopHost();
+        }
 
-            if (steamLobby != null)
-            {
-                steamLobby._landingPagePanel.SetActive(true);
-            }
+        if (steamLobby != null)
+        {
+            steamLobby._landingPagePanel.SetActive(true);
         }
 
         NetworkServer.Destroy(gameObject);
