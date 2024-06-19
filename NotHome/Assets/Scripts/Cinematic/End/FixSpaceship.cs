@@ -14,14 +14,6 @@ public class FixSpaceship : MonoBehaviour
         _playersRef = GameObject.FindGameObjectsWithTag("Player");
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            FixSpaceShip();
-        }
-    }
-
     public void FixSpaceShip()
     {
         for (int i = 0; i < _playersRef.Length; i++)
