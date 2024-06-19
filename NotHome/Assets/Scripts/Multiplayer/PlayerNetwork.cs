@@ -46,7 +46,6 @@ public class PlayerNetwork : NetworkBehaviour
     [Command]
     public void CmdSetPlayerName(string name)
     {
-        Debug.Log("CmdSetPlayerName called with name: " + name);
         _displayName = name;
     }
 
@@ -65,7 +64,7 @@ public class PlayerNetwork : NetworkBehaviour
             foreach (var playerCamera in _playerCameras)
             {
                 nameTagInstance.transform.LookAt(playerCamera.transform);
-                nameTagInstance.transform.Rotate(0, 180, 0);
+                //nameTagInstance.transform.Rotate(0, 180, 0);
                 break;
             }
         }
