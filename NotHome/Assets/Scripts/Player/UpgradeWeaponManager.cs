@@ -68,12 +68,14 @@ public class UpgradeWeaponManager : NetworkBehaviour
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level2Weapon);
                         break;
                     case 3:
-                        GameObject[] _players = GameObject.FindGameObjectsWithTag("Player");
-                        for (int i = 0; i < _players.Length; ++i)
-                        {
-                            if(!isOwned)
-                                _gunLevel3.SetActive(true);
-                        }
+                        //GameObject[] _players = GameObject.FindGameObjectsWithTag("Player");
+                        //for (int i = 0; i < _players.Length; ++i)
+                        //{
+                        //    if(!isOwned)
+                        //        _gunLevel3.SetActive(true);
+                        //}
+                        if (isOwned)
+                            Test();
                         _rangeWeapon.UpgradeWeaponVisual(_rangeWeapon._level3Weapon);
                         break;
                     case 4:
@@ -89,6 +91,19 @@ public class UpgradeWeaponManager : NetworkBehaviour
         }
         
     }
+
+    [Command]
+    void Test()
+    {
+        _gunLevel3.SetActive(true);
+    }
+
+    [ClientRpc]
+    void RpcTest(UpgradeWeaponManager to)
+    {
+        to._gunLevel3.SetActive(true);
+    }
+
     public void UpdateBuilding()
     {
         if (_upgarde.Count >= _levelWeapon)
