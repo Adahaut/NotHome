@@ -22,7 +22,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     [SerializeField] private GameObject playerUI;
 
-    public override void OnStartAuthority()
+    private void Start()
     {
         if (isOwned)
         {
@@ -34,8 +34,7 @@ public class PlayerNetwork : NetworkBehaviour
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
 
-        //if (isOwned) nameTagInstance.SetActive(false);
-        //else nameTagInstance.SetActive(true);
+        if (isOwned) nameTagInstance.SetActive(false);
     }
 
     private void OnDestroy()
