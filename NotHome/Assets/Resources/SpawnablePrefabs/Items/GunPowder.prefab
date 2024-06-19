@@ -160,6 +160,9 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: 13ba34da9011744c884f459ce4699444, type: 3}
   _radius: 5
   _isOnAnotherGameObject: 0
+  _isMetalicPart: 0
+  _metalicMeshs: []
+  _metalicMaterials: {fileID: 0}
 --- !u!65 &8848645830000981782
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -291,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36af2ed52d3f9a84a947a8f0ab69a1bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.28999996
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36af2ed52d3f9a84a947a8f0ab69a1bc, type: 3}
       propertyPath: m_LocalPosition.z
