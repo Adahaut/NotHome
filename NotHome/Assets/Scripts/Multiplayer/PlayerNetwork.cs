@@ -33,8 +33,6 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
-        NetworkServer.Spawn(nameTagInstance);
-
 
         if (isOwned) nameTagInstance.SetActive(false);
     }
@@ -64,6 +62,12 @@ public class PlayerNetwork : NetworkBehaviour
         {
             foreach (var playerCamera in _playerCameras)
             {
+                if(nameTagText.text == "-")
+                {
+                    print("here error");
+                    nameTagText.text = playerCamera.transform.root.GetComponent<PlayerNetwork>()._displayName;
+                }
+
                 nameTagInstance.transform.LookAt(playerCamera.transform);
                 nameTagInstance.transform.Rotate(0, 180, 0);
                 break;
