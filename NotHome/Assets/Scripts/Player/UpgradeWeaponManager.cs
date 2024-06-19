@@ -12,6 +12,7 @@ public class UpgradeWeaponManager : MonoBehaviour
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private string _nameWeapon;
     [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
+    [SerializeField] private TextMeshProUGUI _textLevel;
     private void OnEnable()
     {
         UpdateRessourcesText();
@@ -59,7 +60,6 @@ public class UpgradeWeaponManager : MonoBehaviour
             case "Distance":
                 _rangeWeapon._weaponLevel++;
                 _rangeWeapon.NextWeapon();
-                _levelWeapon++;
                 switch (_levelWeapon)
                 {
                     case 2:
@@ -114,6 +114,7 @@ public class UpgradeWeaponManager : MonoBehaviour
             if (number == _upgarde[_levelWeapon - 1].Value.Count)
             {
                 _levelWeapon++;
+                _textLevel.text = "Level " + _levelWeapon;
                 SetEffectLevelWeapon();
                 for (int i = 0; i < listIndex.Count; i++)
                 {
