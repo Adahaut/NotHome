@@ -35,8 +35,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8229825172787355392}
   - {fileID: 778424801440407520}
+  - {fileID: 8229825172787355392}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2659068407993954442
@@ -161,8 +161,6 @@ MonoBehaviour:
   _radius: 5
   _isOnAnotherGameObject: 0
   _isMetalicPart: 0
-  _metalicMeshs: []
-  _metalicMaterials: {fileID: 0}
 --- !u!65 &8848645830000981782
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -278,19 +276,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d646ca618483670408b6299fd60478e8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d646ca618483670408b6299fd60478e8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.11932655
+      value: 0.15910205
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d646ca618483670408b6299fd60478e8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1491957
+      value: 0.1989276
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d646ca618483670408b6299fd60478e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d646ca618483670408b6299fd60478e8, type: 3}
       propertyPath: m_LocalPosition.y
