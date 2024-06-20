@@ -12,7 +12,7 @@ public class FollowCamera : MonoBehaviour
     {
         linkedCam.transform.position = cam.transform.position;
 
-        newRotation = new Vector3(cam.transform.rotation.x, transform.root.rotation.y, cam.transform.rotation.z);
+        newRotation = new Vector3(cam.transform.rotation.x, transform.root.rotation.y, 0);
 
         linkedCam.transform.rotation = Quaternion.Euler(newRotation);
     }
