@@ -2423,7 +2423,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _enemyDetectionCollider: {fileID: 6134492554753304191}
   _damages: 10
   _isAimingFinished: 0
   _isRecoilFinished: 0
@@ -6088,6 +6087,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
+      propertyPath: _textAmmo
+      value: 
+      objectReference: {fileID: 9152089992955287624}
+    - target: {fileID: 6616002918462673773, guid: c65c6ee038096654983d801be093112f, type: 3}
       propertyPath: _hotBarNumber
       value: 3
       objectReference: {fileID: 0}
@@ -6883,7 +6886,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1698955941988512481, guid: c65c6ee038096654983d801be093112f, type: 3}
   m_PrefabInstance: {fileID: 3774780991229609753}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 9152089992955287624}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -7106,6 +7109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc62477291e9b845b1c0f61a21319f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &9152089992955287624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5431470978907676497, guid: c65c6ee038096654983d801be093112f, type: 3}
+  m_PrefabInstance: {fileID: 3774780991229609753}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4492334880415556966
 PrefabInstance:
   m_ObjectHideFlags: 0
