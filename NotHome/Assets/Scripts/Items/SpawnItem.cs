@@ -40,13 +40,21 @@ public class SpawnItem : NetworkBehaviour
                     if (_spawnChance > Random.Range(0f, _maxChanceFactor))
                     {
                         GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
-                        _newItem.transform.SetParent(transform); // Set parent after instantiation
                         NetworkServer.Spawn(_newItem);
+                        RpcSetupItem(_newItem, transform.position, transform.rotation, transform);
                         _spawnedItems.Add(_newItem);
                     }
                 }
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcSetupItem(GameObject item, Vector3 position, Quaternion rotation, Transform parent)
+    {
+        item.transform.SetParent(parent);
+        item.transform.position = position;
+        item.transform.rotation = rotation;
     }
 
     public override void OnStartClient()
@@ -56,7 +64,7 @@ public class SpawnItem : NetworkBehaviour
         {
             foreach (GameObject item in _spawnedItems)
             {
-                item.transform.SetParent(transform); // Ensure the parent is set on client
+                item.transform.SetParent(transform);
             }
         }
     }
