@@ -554,6 +554,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdDestroyItem(GameObject item)
     {
+        print("destroy " +  item.name);
         NetworkServer.Destroy(item);
     }
 
