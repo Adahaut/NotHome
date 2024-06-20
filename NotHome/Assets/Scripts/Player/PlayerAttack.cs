@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : NetworkBehaviour
 {
-    [SerializeField] private Collider _enemyDetectionCollider;
+    //[SerializeField] private Collider _enemyDetectionCollider;
     [SerializeField] private int _damages;
     public static Action _shootAction;
     public static Action _reloading;
