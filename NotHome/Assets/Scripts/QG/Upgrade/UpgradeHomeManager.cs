@@ -33,10 +33,12 @@ public class UpgradeHomeManager : MonoBehaviour
     private void UpdateRessourcesText()
     {
         _ressourcesNeeded.text = "";
-
-        for (int i = 0; i < _upgarde[_levelBuilding - 1].Value.Count; i++)
+        if (_levelBuilding - 1 < _upgarde.Count)
         {
-            _ressourcesNeeded.text += _upgarde[_levelBuilding - 1].Value[i].Value + " X " + _upgarde[_levelBuilding - 1].Value[i].Key + "\n\n";
+            for (int i = 0; i < _upgarde[_levelBuilding - 1].Value.Count; i++)
+            {
+                _ressourcesNeeded.text += _upgarde[_levelBuilding - 1].Value[i].Value + " X " + _upgarde[_levelBuilding - 1].Value[i].Key + "\n\n";
+            }
         }
     }
 
@@ -151,6 +153,7 @@ public class UpgradeHomeManager : MonoBehaviour
             {
                 _levelBuilding++;
                 SetEffectBuilding();
+                UpdateRessourcesText();
                 _textLevel.text = "Level " + _levelBuilding.ToString();
                 for (int i = 0; i < listIndex.Count; i++)
                 {

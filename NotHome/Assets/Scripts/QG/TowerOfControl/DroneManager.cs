@@ -57,7 +57,6 @@ public class DroneManager : NetworkBehaviour
 
     public void Start()
     {
-        _canUseDrone = true;
         _transform = transform;
         _initPos = _transform.position;
         _syncedPosition = _initPos;

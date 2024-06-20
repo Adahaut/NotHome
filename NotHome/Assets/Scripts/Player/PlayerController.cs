@@ -615,7 +615,7 @@ public class PlayerController : NetworkBehaviour
                 return;
             }
             
-            if(hit.collider.GetComponent<DroneManager>())
+            if(hit.collider.GetComponent<DroneManager>() && DroneManager._canUseDrone)
             {
                 SetAuthorityToDrone(hit.collider.gameObject);
                 DroneManager drone = hit.collider.GetComponent<DroneManager>();
