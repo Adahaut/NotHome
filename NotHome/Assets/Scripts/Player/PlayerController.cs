@@ -536,6 +536,7 @@ public class PlayerController : NetworkBehaviour
         return _index;
     }
 
+    [Command]
     private void CmdPickUpObject()
     {
         if(Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
