@@ -43,7 +43,8 @@ public class EnemiesSpawner : NetworkBehaviour
             if (_spawnPosition != Vector3.zero)
             {
                 GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity, _enemiesParent);
-                CmdSpawnObject(go);
+                //CmdSpawnObject(go);
+                NetworkServer.Spawn(go);
                 //NetworkServer.Spawn(go);
             }
         }
@@ -52,7 +53,7 @@ public class EnemiesSpawner : NetworkBehaviour
     [Command(requiresAuthority = false)]
     void CmdSpawnObject(GameObject obj)
     {
-        NetworkServer.Spawn(obj);
+        
     }
 
     public void DestroyAllEnemies()
