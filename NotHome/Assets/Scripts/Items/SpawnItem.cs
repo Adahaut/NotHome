@@ -18,6 +18,8 @@ public class SpawnItem : NetworkBehaviour
     public Vector2 _negativePosition;
     private Vector3 _position;
 
+    private List<GameObject> _spawnedItems = new List<GameObject>();
+
     private void Start()
     {
         _position = transform.position;
@@ -27,13 +29,6 @@ public class SpawnItem : NetworkBehaviour
     [Server]
     private void ItemSpawn()
     {
-
-        if (!isServer)
-        {
-            print("pas le serveur");
-            return;
-        }
-
         for (float x = _negativePosition.x; x < _positivePosition.x; x += _distanceBetweenCheck)
         {
             for (float z = _negativePosition.y; z < _positivePosition.y; z += _distanceBetweenCheck)
@@ -44,10 +39,24 @@ public class SpawnItem : NetworkBehaviour
                 {
                     if (_spawnChance > Random.Range(0f, _maxChanceFactor))
                     {
-                        GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), transform);
+                        GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
+                        _newItem.transform.SetParent(transform); // Set parent after instantiation
                         NetworkServer.Spawn(_newItem);
+                        _spawnedItems.Add(_newItem);
                     }
                 }
+            }
+        }
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (isClient && !isServer)
+        {
+            foreach (GameObject item in _spawnedItems)
+            {
+                item.transform.SetParent(transform); // Ensure the parent is set on client
             }
         }
     }
