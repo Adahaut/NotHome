@@ -540,6 +540,7 @@ public class PlayerController : NetworkBehaviour
     {
         if(Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
         {
+            print("recup");
             if (!_inventory.GetComponent<InventoryManager>().HasRemainingPlace(hit.collider.GetComponent<Item>().ItemName()))
             {
                 return;
