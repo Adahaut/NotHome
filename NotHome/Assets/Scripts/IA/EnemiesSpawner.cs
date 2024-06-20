@@ -40,7 +40,7 @@ public class EnemiesSpawner : NetworkBehaviour
             // Adjust the spawn position to be on the ground
             _spawnPosition = GetGroundPosition(_spawnPosition);
 
-            if (_spawnPosition != Vector3.zero)
+            if (_spawnPosition != Vector3.zero && isServer)
             {
                 GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity, _enemiesParent);
                 //CmdSpawnObject(go);
