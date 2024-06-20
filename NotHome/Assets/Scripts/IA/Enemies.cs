@@ -58,7 +58,23 @@ public class Enemies : NetworkBehaviour
 
         // Update animator with walking status
         _animator.SetFloat("IsWalking", _agent.velocity.magnitude);
+
+        if (_agent.velocity.magnitude > 0.3f)
+        {
+            if (!_audioSources[0].isPlaying)
+            {
+                _audioSources[0].Play();
+            }
+        }
+        else
+        {
+            if (_audioSources[0].isPlaying)
+            {
+                _audioSources[0].Stop();
+            }
+        }
     }
+
 
     private void Patrol()
     {
