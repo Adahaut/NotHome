@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40e91907f74d364799544ecff4b246b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   linkedCam: {fileID: 5571988994038543630}
   cam: {fileID: 6736726927068361524}
 --- !u!1 &506647514477210105
@@ -886,6 +889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2730862532896514347}
   - component: {fileID: 8212414170379131316}
+  - component: {fileID: 1334116514835795284}
   - component: {fileID: 4867149558243495206}
   m_Layer: 7
   m_Name: PlayerMesh2
@@ -941,6 +945,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1334116514835795284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2774726298824535549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b94c45e646c2148874872443da5808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyDetectionCollider: {fileID: 6134492554753304191}
 --- !u!114 &4867149558243495206
 MonoBehaviour:
   m_ObjectHideFlags: 0
