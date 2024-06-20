@@ -36,11 +36,18 @@ public class SpawnItem : NetworkBehaviour
                     if (_spawnChance > Random.Range(0f, _maxChanceFactor))
                     {
                         GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), transform);
-                        NetworkServer.Spawn(_newItem);
+                        CmdSpawnItem(_newItem);
+                        //NetworkServer.Spawn(_newItem);
                     }
                 }
             }
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdSpawnItem(GameObject obj)
+    {
+        NetworkServer.Spawn(obj);
     }
 
     public void DeleteResources()
