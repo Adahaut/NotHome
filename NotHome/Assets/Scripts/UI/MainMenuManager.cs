@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -9,10 +8,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject _camera;
 
     private float _camY = 0;
-    public void PlayGame()
-    {
-        SceneManager.LoadScene("FixGame");
-    }
     public void Option()
     {
         _uiOption.SetActive(!_uiOption.activeSelf);

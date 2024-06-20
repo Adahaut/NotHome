@@ -66,6 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed7860bc2db58f4d8ee429e2ab5dfd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _damages: 5
 --- !u!1001 &761638819515431769
 PrefabInstance:
@@ -221,9 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a708c51c1fcc04cbf2f5a30fb47b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _maxLife: 100
   _currentLife: 0
-  _helthSlider: {fileID: 0}
+  _healthSlider: {fileID: 0}
   _hitAudioClip:
   - {fileID: 8300000, guid: 615884579ae15394fab2962d4d3dabd9, type: 3}
   - {fileID: 8300000, guid: 1d6daaa2f6867554e8080e506a2d0a70, type: 3}
@@ -270,6 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e5ad7a9b41eab48ace96448af7e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _walkingRadius: 10
   _timeBetweenAttacks: 3
   _sightRange: 10
@@ -278,6 +287,7 @@ MonoBehaviour:
   - {fileID: 5265441873842633443}
   - {fileID: 5801278291117847641}
   - {fileID: 7492038890848328439}
+  _playerDetectionCollider: {fileID: 0}
   _players: []
 --- !u!82 &5265441873842633443
 AudioSource:
@@ -288,7 +298,7 @@ AudioSource:
   m_GameObject: {fileID: 455017122214462984}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5556835567951023702, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
   m_audioClip: {fileID: 8300000, guid: 0cd1916fadaec3d4295a219fd63d62ba, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
