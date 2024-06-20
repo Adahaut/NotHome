@@ -1,6 +1,4 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCamera : NetworkBehaviour
@@ -12,13 +10,14 @@ public class FollowCamera : NetworkBehaviour
 
     private void Update()
     {
-        if(cam.gameObject.activeSelf && isOwned)
+        if (cam.gameObject.activeSelf && isOwned)
         {
             linkedCam.transform.position = cam.transform.position;
             linkedCam.transform.rotation = cam.transform.rotation;
+
             CmdModifyPositionRotation();
         }
-        
+
     }
 
     [Command]
@@ -26,5 +25,13 @@ public class FollowCamera : NetworkBehaviour
     {
         linkedCam.transform.position = cam.transform.position;
         linkedCam.transform.rotation = cam.transform.rotation;
+        RpcModify(cam, cam.transform.position, cam.transform.rotation);
+    }
+
+    [ClientRpc]
+    void RpcModify(Camera cam, Vector3 position, Quaternion rotation)
+    {
+        cam.transform.position = position;
+        cam.transform.rotation = rotation;
     }
 }
