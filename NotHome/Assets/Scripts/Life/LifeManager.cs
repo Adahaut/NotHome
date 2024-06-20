@@ -1,5 +1,4 @@
 using Mirror;
-using Org.BouncyCastle.Pqc.Crypto.Cmce;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -175,7 +174,7 @@ public class LifeManager : NetworkBehaviour
     {
         if(gameObject.tag == "Player")
         {
-            if(!_isBlinking && _currentLife < _maxLife && !_isTackingDamage && !GetComponent<PlayerController>().IsDead)
+            if(!_isBlinking && _currentLife < 20 && !_isTackingDamage && !GetComponent<PlayerController>().IsDead)
             {
                 StartBlinking();
             }
