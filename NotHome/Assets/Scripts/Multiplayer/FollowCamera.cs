@@ -7,31 +7,37 @@ public class FollowCamera : NetworkBehaviour
 
     public Camera cam;
 
+    [SyncVar(hook = nameof(OnPositionChanged))]
+    private Vector3 syncPosition;
+
+    [SyncVar(hook = nameof(OnRotationChanged))]
+    private Quaternion syncRotation;
 
     private void Update()
     {
-        if (cam.gameObject.activeSelf && isOwned)
+        if (isOwned && cam.gameObject.activeSelf)
         {
             linkedCam.transform.position = cam.transform.position;
             linkedCam.transform.rotation = cam.transform.rotation;
 
-            CmdModifyPositionRotation();
+            CmdModifyPositionRotation(cam.transform.position, cam.transform.rotation);
         }
-
     }
 
     [Command]
-    void CmdModifyPositionRotation()
+    void CmdModifyPositionRotation(Vector3 position, Quaternion rotation)
     {
-        linkedCam.transform.position = cam.transform.position;
-        linkedCam.transform.rotation = cam.transform.rotation;
-        RpcModify(cam.transform, cam.transform.position, cam.transform.rotation);
+        syncPosition = position;
+        syncRotation = rotation;
     }
 
-    [ClientRpc]
-    void RpcModify(Transform cam, Vector3 position, Quaternion rotation)
+    private void OnPositionChanged(Vector3 oldPosition, Vector3 newPosition)
     {
-        cam.transform.position = position;
-        cam.transform.rotation = rotation;
+        linkedCam.transform.position = newPosition;
+    }
+
+    private void OnRotationChanged(Quaternion oldRotation, Quaternion newRotation)
+    {
+        linkedCam.transform.rotation = newRotation;
     }
 }
