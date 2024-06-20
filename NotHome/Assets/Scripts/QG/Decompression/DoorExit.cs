@@ -113,7 +113,7 @@ public class DoorExit : NetworkBehaviour
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
-            if(_spawnerManager._canSpawn)
+            if(_spawnerManager._canSpawn && isServer)
                 _spawnerManager.DestroyAndSpawnItems();
 
             for (int i = 0; i < 3; i++)
