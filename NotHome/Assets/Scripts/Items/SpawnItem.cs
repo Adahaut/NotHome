@@ -25,6 +25,13 @@ public class SpawnItem : NetworkBehaviour
     }
     private void ItemSpawn()
     {
+
+        if (!isServer)
+        {
+            print("pas le serveur");
+            return;
+        }
+
         for (float x = _negativePosition.x; x < _positivePosition.x; x += _distanceBetweenCheck)
         {
             for (float z = _negativePosition.y; z < _positivePosition.y; z += _distanceBetweenCheck)
@@ -36,7 +43,6 @@ public class SpawnItem : NetworkBehaviour
                     if (_spawnChance > Random.Range(0f, _maxChanceFactor))
                     {
                         GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), transform);
-                        //CmdSpawnItem(_newItem);
                         NetworkServer.Spawn(_newItem);
                     }
                 }
