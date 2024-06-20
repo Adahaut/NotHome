@@ -208,8 +208,10 @@ public class PlayerController : NetworkBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
+        print("interact");
         if(isOwned)
         {
+            print("owned");
             DoorExit.Instance.OpenDoor(_startPointRaycast, _distRayCast);
             if (ctx.performed)
             {
@@ -220,6 +222,7 @@ public class PlayerController : NetworkBehaviour
             //OfficeManager.Instance.MouvToChair();
             if (_timer <= 0)
             {
+                print("avant command");
                 CmdPickUpObject();
                 _timer = 0.05f;
             }
@@ -539,6 +542,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdPickUpObject()
     {
+        print("cmd");
         if(Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
         {
             print("recup");
