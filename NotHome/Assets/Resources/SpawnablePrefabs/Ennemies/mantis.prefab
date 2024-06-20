@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4908899390245470911}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.581, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2757545627719293519}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1119815577019656801
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -449,8 +449,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.8233032, y: 1.8772466, z: 1.5239868}
-  m_Center: {x: -0.34207153, y: 1.0169432, z: 0.05331421}
+  m_Size: {x: 1.5844116, y: 3.731477, z: 4.031555}
+  m_Center: {x: -0.0043640137, y: 1.9440583, z: -0.028503418}
 --- !u!195 &466239262209019501
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -490,7 +490,7 @@ MonoBehaviour:
   syncInterval: 0
   _maxLife: 100
   _currentLife: 0
-  _helthSlider: {fileID: 0}
+  _healthSlider: {fileID: 0}
   _hitAudioClip:
   - {fileID: 8300000, guid: 615884579ae15394fab2962d4d3dabd9, type: 3}
   - {fileID: 8300000, guid: 1d6daaa2f6867554e8080e506a2d0a70, type: 3}
