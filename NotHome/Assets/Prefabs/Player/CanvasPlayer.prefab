@@ -6476,59 +6476,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &1497785862499514382
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7195268746819061732}
-  - component: {fileID: 5199681048051718558}
-  m_Layer: 0
-  m_Name: PauseManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7195268746819061732
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497785862499514382}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 362101922496769447}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5199681048051718558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497785862499514382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfb2b4de1cd2fd244b6ec6182c610287, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiPause: {fileID: 0}
-  _uiButton: {fileID: 0}
-  _uiOption: {fileID: 0}
-  _uiControl: {fileID: 0}
-  _playerInput: {fileID: 0}
 --- !u!1 &1532521426184901276
 GameObject:
   m_ObjectHideFlags: 0
@@ -16912,6 +16859,8 @@ MonoBehaviour:
   _toggleFullScreen: {fileID: 3620247208965053988}
   _audioMixer: {fileID: 24100000, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
   _dropdownResolution: {fileID: 2187563926422534893}
+  _sliderSFX: {fileID: 2965956916411290569}
+  _sliderMusic: {fileID: 3673316758162732685}
 --- !u!1 &4942831080703237533
 GameObject:
   m_ObjectHideFlags: 0
@@ -26050,7 +25999,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9059169864230980289}
-  - {fileID: 7195268746819061732}
   - {fileID: 6829436843739252626}
   - {fileID: 323663012768373469}
   - {fileID: 7724981528364464650}

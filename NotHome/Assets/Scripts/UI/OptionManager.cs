@@ -13,11 +13,18 @@ public class OptionManager : MonoBehaviour
     [SerializeField] private TMP_Dropdown _dropdownResolution;
     private Resolution[] _resolutions;
     private Transform _transform;
+    [SerializeField] private Slider _sliderSFX;
+    [SerializeField] private Slider _sliderMusic;
     private void Start()
     {
         _transform = transform;
         _toggleFullScreen.isOn = Screen.fullScreen;
         GetResolution();
+        if (PlayerPrefs.HasKey("SFX"))
+            _sliderSFX.value = PlayerPrefs.GetFloat("SFX");
+        if (PlayerPrefs.HasKey("Music"))
+            _sliderMusic.value = PlayerPrefs.GetFloat("Music");
+
     }
     public void SetFullScreen(bool isFullScreen)
     {
@@ -26,10 +33,12 @@ public class OptionManager : MonoBehaviour
     public void SetVolumeSound(float volume)
     {
         _audioMixer.SetFloat("SFX", volume);
+        PlayerPrefs.SetFloat("SFX", volume);
     }
     public void SetVolumeMusic(float volume)
     {
         _audioMixer.SetFloat("Music", volume);
+        PlayerPrefs.SetFloat("Music", volume);
     }
     private void GetResolution()
     {
