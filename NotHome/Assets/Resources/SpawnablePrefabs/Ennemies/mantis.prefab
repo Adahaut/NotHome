@@ -254,6 +254,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mantis
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1256e7e750b8f2044a79e536df945874, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1977751228258540602, guid: 1256e7e750b8f2044a79e536df945874, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -16.297707
@@ -445,8 +449,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.001892, y: 1.5166698, z: 1.5239868}
-  m_Center: {x: 0.06863403, y: 0.8366548, z: 0.05331421}
+  m_Size: {x: 3.8233032, y: 1.8772466, z: 1.5239868}
+  m_Center: {x: -0.34207153, y: 1.0169432, z: 0.05331421}
 --- !u!195 &466239262209019501
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -847,7 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 2733595338
+  _assetId: 2338245902
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
