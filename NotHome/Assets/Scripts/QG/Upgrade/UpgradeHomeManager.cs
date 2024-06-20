@@ -8,28 +8,19 @@ public class UpgradeHomeManager : MonoBehaviour
 {
     private int _levelBuilding = 1;
     [SerializeField] private MapManager _mapManager;
-    private PlayerInput _playerInput;
     [SerializeField] private TextMeshProUGUI _textLevel;
     [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
     public List<DictionnaryElement<string, List<DictionnaryElement<string, int>>>> _upgarde;
     [SerializeField] private InventoryManager _inventoryManager;
     [SerializeField] private string _nameBuilding;
-    [SerializeField] private ListSlotField _fieldManager;
-    [SerializeField] private GameObject _alarm;
-    public ParticleSystem _particleLevelUp;
-    [SerializeField] private GameObject _bridge;
-    private bool _getAlarm;
-    private GameObject _ship;
+    [HideInInspector] public ParticleSystem _particleLevelUp;
     private FixSpaceship _fixSpaceship;
 
     [SerializeField] List<GameObject> _UpgradesVisuals = new List<GameObject>();
 
     private void Start()
     {
-        _playerInput = transform.parent.parent.parent.parent.parent.GetComponentInChildren<PlayerInput>();
-        print(_playerInput);
-        //_textLevel.text = "Level " + _levelBuilding.ToString();
-        //_inventoryManager = transform.parent.parent.GetComponentInChildren<InventoryManager>();
+        _textLevel.text = "Level " + _levelBuilding.ToString();
     }
 
     private void OnEnable()
@@ -91,7 +82,7 @@ public class UpgradeHomeManager : MonoBehaviour
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 4:
-                _bridge.SetActive(true);
+                //_bridge.SetActive(true);
                 break;
         }
     }
@@ -99,21 +90,13 @@ public class UpgradeHomeManager : MonoBehaviour
     {
         if (_levelBuilding == 2)
         {
-            print("a");
             QuestManager.Instance.SetQuestUpLevel2();
-            _getAlarm = true;
         }
         else if (_levelBuilding >= 3)
         {
-            //DroneManager._canUseDrone = true;
+            DroneManager._canUseDrone = true;
             QuestManager.Instance.SetQuestUpLevel3();
         }  
-    }
-    private IEnumerator StopAlarm(float second)
-    {
-        _alarm.SetActive(true);
-        yield return new WaitForSeconds(second);
-        _alarm.SetActive(false);
     }
     public void EffectField()
     {
@@ -133,11 +116,6 @@ public class UpgradeHomeManager : MonoBehaviour
             default:
                 break;
         }
-        for (int i = 0; i < _fieldManager._listSeed.Count; i++)
-        {
-            //_fieldManager._listSeed[i].GetComponent<UseField>()._seedTime *= 0.80f;
-        }
-        //ListSlotField.Instance._listPosSlot[ListSlotField.Instance._listPosSlot.Count - _upgarde.Count - 1 + _levelBuilding - 1].gameObject.SetActive(true);
     }
     public void UpdateBuilding(GameObject button)
     {
@@ -180,10 +158,6 @@ public class UpgradeHomeManager : MonoBehaviour
                         SetNumber(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i]);
                 }
                 _particleLevelUp.Play();
-                /*Cursor.lockState = CursorLockMode.Locked;
-                _playerInput.actions.actionMaps[0].Enable();
-                _playerInput.actions.actionMaps[2].Disable();
-                button.SetActive(false);*/
             }
             else
             {
