@@ -22,20 +22,18 @@ public class PlayerCameraManager : NetworkBehaviour
     {
         if (isOwned)
         {
-            GameObject.FindAnyObjectByType<PlayerCameraControlTower>().AddScreen(screenIndex);
             StartCoroutine(LoadCameras());
         }
     }
 
     IEnumerator LoadCameras()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<PlayerCameraManager>().playerRenderCamera.targetTexture = renderTextures[i];
-            //players[i].GetComponent<PlayerCameraManager>().screenIndex = i;
             screens[i].transform.GetChild(0).gameObject.SetActive(false);
         }
     }
