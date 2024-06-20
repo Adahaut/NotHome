@@ -16,6 +16,7 @@ public class DoorExit : NetworkBehaviour
     [SerializeField] private GameObject _alarmSAS;
     [SerializeField] private GameObject _light;
     [SerializeField] private AudioSource _soundDecompression;
+    public AudioClip sasClip;
 
     [SerializeField] private ItemSpawnerManager _spawnerManager;
     private EnemiesSpawner _enemiesSpawner;
@@ -126,7 +127,8 @@ public class DoorExit : NetworkBehaviour
     private IEnumerator StartParticle(float second, bool door)
     {
         yield return new WaitForSeconds(second);
-        _soundDecompression.Play();
+        //_soundDecompression.Play();
+        CmdPlaySound(transform.position);
         _smokeParticle.SetActive(true);
         yield return new WaitForSeconds(_soundDecompression.clip.length - 1);
         exitDoorAnimator.SetBool("Open", !door);
@@ -136,5 +138,11 @@ public class DoorExit : NetworkBehaviour
         //_doorEnter.SetActive(door);
         _alarmSAS.SetActive(false);
         _light.SetActive(false);
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdPlaySound(Vector3 position)
+    {
+        AudioSource.PlayClipAtPoint(sasClip, position, 0.7f);
     }
 }

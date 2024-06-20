@@ -74,6 +74,7 @@ MonoBehaviour:
   _alarmSAS: {fileID: 4921681907844705429}
   _light: {fileID: 3154333032861452394}
   _soundDecompression: {fileID: 3711533965839431942}
+  sasClip: {fileID: 8300000, guid: a92e2b56cd106d048a9a281d962443dd, type: 3}
   _spawnerManager: {fileID: 0}
   enterDoorAnimator: {fileID: 8467357458761822562}
   exitDoorAnimator: {fileID: 3777705100180257904}
@@ -165,7 +166,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
