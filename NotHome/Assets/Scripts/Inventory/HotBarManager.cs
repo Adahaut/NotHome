@@ -13,6 +13,7 @@ public class HotBarManager : NetworkBehaviour
 
     [SerializeField] List<GameObject> _hotBarItems = new List<GameObject>();
     [SerializeField] List<GameObject> _hotBarMesh = new List<GameObject>();
+    public List<Sprite> _hotBarSprites = new List<Sprite>();
 
     [SerializeField] private List<GameObject> _hotBarSlotList = new List<GameObject>();
 
@@ -42,7 +43,7 @@ public class HotBarManager : NetworkBehaviour
     {
         for (int i = 0; i < _hotBarNumber; i++)
         {
-            AddHotBarSlot();
+            AddHotBarSlot(i);
         }
         ChangeSlotsAlpha(0);
     }
@@ -123,10 +124,11 @@ public class HotBarManager : NetworkBehaviour
         _hotBarSlotList[_hotBarSlotIndex].GetComponent<Image>().color = _hotBarSlotSelectedColor;
     }
 
-    private void AddHotBarSlot()
+    private void AddHotBarSlot(int _index)
     {
         GameObject _newHotBarSlot = Instantiate(_hotBarSlot);
         _newHotBarSlot.transform.SetParent(_hotBar.transform);
+        _newHotBarSlot.transform.GetChild(0).GetComponent<Image>().sprite = _hotBarSprites[_index];
         _hotBarSlotList.Add(_newHotBarSlot);
     }
 

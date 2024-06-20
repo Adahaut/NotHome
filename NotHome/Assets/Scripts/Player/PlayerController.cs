@@ -92,6 +92,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject playerMesh;
     public GameObject gunMesh;
     public GameObject machette;
+    public GameObject cameraGunMesh;
 
     public bool IsDead;
     bool _canJump;
@@ -270,34 +271,6 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
-
-    //public void SetRespawnPosition(Transform cam, Vector3 position, Quaternion rotation, Vector3 cameraSpawnPosition)
-    //{
-    //    transform.position = position;
-    //    if(isOwned)
-    //    {
-    //        CmdSendPositionToServer(position, Quaternion.identity);
-    //        ResetCameraRotationAndPosition(cam, cameraSpawnPosition, rotation);
-    //    }
-    //}
-
-    //void ResetCameraRotationAndPosition(Transform cam, Vector3 position,  Quaternion rotation)
-    //{
-    //    cam.position = position;
-    //    cam.rotation = rotation;
-
-    //    RpcResetCameraRotationAndPosition(cam, position, rotation);
-    //}
-
-    //[ClientRpc]
-    //void RpcResetCameraRotationAndPosition(Transform cam, Vector3 position, Quaternion rotation)
-    //{
-    //    if(!isOwned)
-    //    {
-    //        cam.position = position;
-    //        cam.rotation = rotation;
-    //    }
-    //}
 
     public void SprintPlayer(InputAction.CallbackContext context)
     {
@@ -624,6 +597,8 @@ public class PlayerController : NetworkBehaviour
                 {
                     playerUiCanvas.SetActive(false);
                     droneUI.SetActive(true);
+                    playerMesh.SetActive(true);
+                    cameraGunMesh.SetActive(false);
                 }
             }
         }
@@ -635,6 +610,8 @@ public class PlayerController : NetworkBehaviour
         {
             playerUiCanvas.SetActive(true);
             droneUI.SetActive(false);
+            playerMesh.SetActive(false);
+            cameraGunMesh.SetActive(true);
         }
     }
 
