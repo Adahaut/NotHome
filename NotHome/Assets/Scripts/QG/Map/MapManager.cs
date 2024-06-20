@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Image _worldMap;
     [HideInInspector] public bool _canOpenUiMap;
     private PlayerController _playerController;
+    [SerializeField] private TextMeshProUGUI _textUSB;
     private void Awake()
     {
         if (Instance == null)
@@ -26,17 +28,16 @@ public class MapManager : MonoBehaviour
     {
         //if (_canOpenUiMap)
         //{
-            _uiMap.SetActive(true);
-            QuestPlayerUI.Instance._uiQuest.SetActive(false);
-            _mapButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
-            QuestPlayerUI.Instance._questButton.GetComponent<Image>().color = Color.white;
+        _uiMap.SetActive(true);
+        QuestPlayerUI.Instance._uiQuest.SetActive(false);
+        _mapButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
+        QuestPlayerUI.Instance._questButton.GetComponent<Image>().color = Color.white;
         //}
     }
-    public void GetItem(Button button)
+    public void GetItem(Item usb)
     {
         _itemGet = true;
-        _playerController.GetInventory().AddItem(_itemMap.ItemName(), _itemMap.ItemSprite(), false);
-        button.gameObject.SetActive(false);
+        _playerController.GetInventory().AddItem(usb.ItemName(), usb.ItemSprite(), false);
     }
     public void ShowMap()
     {
