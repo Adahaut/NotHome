@@ -26,13 +26,13 @@ public class MapManager : MonoBehaviour
     }
     public void OpenMap()
     {
-        //if (_canOpenUiMap)
-        //{
-        _uiMap.SetActive(true);
-        QuestPlayerUI.Instance._uiQuest.SetActive(false);
-        _mapButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
-        QuestPlayerUI.Instance._questButton.GetComponent<Image>().color = Color.white;
-        //}
+        if (_canOpenUiMap)
+        {
+            _uiMap.SetActive(true);
+            QuestPlayerUI.Instance._uiQuest.SetActive(false);
+            _mapButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
+            QuestPlayerUI.Instance._questButton.GetComponent<Image>().color = Color.white;
+        }
     }
     public void GetItem(Item usb)
     {
