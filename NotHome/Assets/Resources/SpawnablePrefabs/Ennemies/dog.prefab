@@ -259,11 +259,11 @@ MonoBehaviour:
   _walkingRadius: 10
   _timeBetweenAttacks: 3
   _sightRange: 10
-  _attackRange: 2
+  _attackRange: 3
   _audioSources:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4654372956079084392}
+  - {fileID: 210677935092587296}
+  - {fileID: 5071765882320936837}
   _playerDetectionCollider: {fileID: 5791752727920495370}
   _players: []
 --- !u!114 &771354518941274186
@@ -285,7 +285,7 @@ MonoBehaviour:
   _currentLife: 0
   _helthSlider: {fileID: 0}
   _hitAudioClip:
-  - {fileID: 8300000, guid: 03b4ebcbe9076044789b2a488b318e47, type: 3}
+  - {fileID: 8300000, guid: 8b8999e30feba8b49beae657eb053cb4, type: 3}
   _damageGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -327,9 +327,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ad0c37cb34275204dbe1ddbb50213d64, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 51a40d40adf07424a84c342ed40fd778, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.47
   m_Pitch: 1
   Loop: 1
   Mute: 0
