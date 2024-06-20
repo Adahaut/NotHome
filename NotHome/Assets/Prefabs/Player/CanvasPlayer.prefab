@@ -124,10 +124,10 @@ MonoBehaviour:
       - m_Target: {fileID: 5566893557211871493}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: GetItem
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 5809743472006700729, guid: fab86ccb6f3734a4a92a6335732f87aa, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Item, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7858,11 +7858,11 @@ MonoBehaviour:
       - m_Target: {fileID: 5566893557211871493}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: GetItem
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 5809743472006700729, guid: 4867bb5aaa0af674ea52e7bbea5a43a7, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Item, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9330,11 +9330,11 @@ MonoBehaviour:
       - m_Target: {fileID: 5566893557211871493}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: GetItem
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 5809743472006700729, guid: 437a376492668a04b862f26da0f4100a, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Item, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -13821,6 +13821,18 @@ MonoBehaviour:
   _worldMap: {fileID: 0}
   _canOpenUiMap: 0
   _textUSB: {fileID: 0}
+  _listUSB:
+  - {fileID: 5809743472006700729, guid: fab86ccb6f3734a4a92a6335732f87aa, type: 3}
+  - {fileID: 5809743472006700729, guid: 316cf29ababe3134897464bb2a95efba, type: 3}
+  - {fileID: 5809743472006700729, guid: 5370da351c11b80429823524ea11b829, type: 3}
+  - {fileID: 5809743472006700729, guid: 437a376492668a04b862f26da0f4100a, type: 3}
+  - {fileID: 5809743472006700729, guid: 4867bb5aaa0af674ea52e7bbea5a43a7, type: 3}
+  _listText:
+  - {fileID: 541601076864253971}
+  - {fileID: 7420026809981643035}
+  - {fileID: 7135925669617927562}
+  - {fileID: 8400583242091413661}
+  - {fileID: 6625168841823945685}
 --- !u!114 &4940950087354035490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22059,11 +22071,11 @@ MonoBehaviour:
       - m_Target: {fileID: 5566893557211871493}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: GetItem
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 5809743472006700729, guid: 5370da351c11b80429823524ea11b829, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Item, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -27230,11 +27242,11 @@ MonoBehaviour:
       - m_Target: {fileID: 5566893557211871493}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: GetItem
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 5809743472006700729, guid: 316cf29ababe3134897464bb2a95efba, type: 3}
-          m_ObjectArgumentAssemblyTypeName: Item, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
