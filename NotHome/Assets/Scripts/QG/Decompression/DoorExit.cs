@@ -144,5 +144,12 @@ public class DoorExit : NetworkBehaviour
     void CmdPlaySound(Vector3 position)
     {
         AudioSource.PlayClipAtPoint(sasClip, position, 0.7f);
+        RpcPlaySound(position);
+    }
+
+    [ClientRpc]
+    void RpcPlaySound(Vector3 position)
+    {
+        AudioSource.PlayClipAtPoint(sasClip, position, 0.7f);
     }
 }
