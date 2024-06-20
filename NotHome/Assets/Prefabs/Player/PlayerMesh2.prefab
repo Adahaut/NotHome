@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40e91907f74d364799544ecff4b246b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   linkedCam: {fileID: 5571988994038543630}
   cam: {fileID: 6736726927068361524}
 --- !u!1 &506647514477210105
@@ -2542,6 +2545,7 @@ MonoBehaviour:
   playerMesh: {fileID: 9199943733419005488}
   gunMesh: {fileID: 3645262663908923447}
   machette: {fileID: 1078873549196695435}
+  cameraGunMesh: {fileID: 182205490748394910}
   IsDead: 0
   _changeControl: {fileID: 2256249620388570072}
   _setActiveFalse:
