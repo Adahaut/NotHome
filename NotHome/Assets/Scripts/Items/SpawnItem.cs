@@ -23,6 +23,8 @@ public class SpawnItem : NetworkBehaviour
         _position = transform.position;
         //ItemSpawn();
     }
+
+    [Server]
     private void ItemSpawn()
     {
 
