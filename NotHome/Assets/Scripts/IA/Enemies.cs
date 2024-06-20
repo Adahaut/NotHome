@@ -1,5 +1,6 @@
 using Mirror;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,6 +22,8 @@ public class Enemies : NetworkBehaviour
     private bool _alreadyAttacked;
     private float _distanceToPlayer;
     private Animator _animator;
+    public float _timer;
+    public float _timerRate;
 
     private void Start()
     {
@@ -29,13 +32,19 @@ public class Enemies : NetworkBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _players = GameObject.FindGameObjectsWithTag("Player");
         _animator = GetComponent<Animator>();
+        _timerRate = 2f;
     }
 
     private void Update()
     {
+        _timer += Time.deltaTime;
+        if ( _timer > _timerRate )
+        {
+            _closestPlayer = GetClosestPlayer();
+            _timer = 0f;
+        }
         if (!isServer) return; // Ensure that only the server controls enemy logic
 
-        _closestPlayer = GetClosestPlayer();
 
         if (_hasSeenPlayer || PlayerInSightRange())
         {

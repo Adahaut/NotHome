@@ -745,7 +745,6 @@ GameObject:
   - component: {fileID: 8411427330071807292}
   - component: {fileID: 8631893460774339298}
   - component: {fileID: 4884307892998830534}
-  - component: {fileID: 2708453619607528885}
   - component: {fileID: 2532857024065000214}
   - component: {fileID: 329338120500040795}
   - component: {fileID: 7507787648685412992}
@@ -821,22 +820,6 @@ NavMeshAgent:
   m_BaseOffset: 2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2708453619607528885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6853585656894584853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb868fdec7e5fab42933ee06bf46c047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _checkRadius: 5
-  _killingDistance: 3
-  _animator: {fileID: 0}
-  _audioSources: []
 --- !u!114 &2532857024065000214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -854,7 +837,7 @@ MonoBehaviour:
   syncInterval: 0
   _maxLife: 100
   _currentLife: 0
-  _helthSlider: {fileID: 0}
+  _healthSlider: {fileID: 0}
   _hitAudioClip:
   - {fileID: 8300000, guid: e00b834e1cada2343b2aa793a2adc225, type: 3}
   - {fileID: 8300000, guid: afa08f2686950c945bb9db44fc652154, type: 3}
