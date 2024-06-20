@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ public class MapManager : MonoBehaviour
     [HideInInspector] public bool _canOpenUiMap;
     private PlayerController _playerController;
     [SerializeField] private TextMeshProUGUI _textUSB;
+    [SerializeField] private List<Item> _listUSB = new();
+    [SerializeField] private List<TextMeshProUGUI> _listText = new();
+    private List<bool> _listBoolUSB = new();
     private void Awake()
     {
         if (Instance == null)
@@ -23,6 +27,10 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         _playerController = GetComponentInParent<PlayerController>();
+        for (int i = 0; i < _listUSB.Count; i++)
+        {
+            _listBoolUSB.Add(false);
+        }
     }
     public void OpenMap()
     {
@@ -34,10 +42,27 @@ public class MapManager : MonoBehaviour
             QuestPlayerUI.Instance._questButton.GetComponent<Image>().color = Color.white;
         }
     }
-    public void GetItem(Item usb)
+    public void GetItem(int index)
     {
-        _itemGet = true;
-        _playerController.GetInventory().AddItem(usb.ItemName(), usb.ItemSprite(), false);
+        if (!_listBoolUSB[index] && _playerController.GetInventory().HasRemainingPlace())
+        {
+            _itemGet = true;
+            _playerController.GetInventory().AddItem(_listUSB[index].ItemName(), _listUSB[index].ItemSprite(), false);
+            _listBoolUSB[index] = true;
+            _listText[index].text = "Remove USB";
+        }
+        else
+        {
+            for (int i = 0; i < _playerController.GetInventory()._slotList.Count; i++)
+            {
+                if (_playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _listUSB[index].ItemName())
+                {
+                    _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().SetNumber(0);
+                    _listBoolUSB[index] = false;
+                    _listText[index].text = "Get USB";
+                }
+            }
+        }
     }
     public void ShowMap()
     {
