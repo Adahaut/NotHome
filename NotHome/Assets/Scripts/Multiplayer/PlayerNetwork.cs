@@ -44,7 +44,6 @@ public class PlayerNetwork : NetworkBehaviour
     [Command]
     public void CmdSetPlayerName(string name)
     {
-        print("call cmd");
         _displayName = name;
     }
 
