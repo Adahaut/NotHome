@@ -87,16 +87,17 @@ public class HotBarManager : NetworkBehaviour
         else
             _textAmmo.SetActive(false);
         SetWeaponActive();
-        ActiveGun();
+        Active();
     }
 
     [Command]
-    void ActiveGun()
+    void Active()
     {
         if (!isOwned)
         {
             print("enter");
             UnActiveAllMesh();
+            _hotBarMesh[_hotBarSlotIndex].SetActive(true);
         }
     }
 
@@ -107,7 +108,6 @@ public class HotBarManager : NetworkBehaviour
         {
             _hotBarMesh[i].SetActive(false);
         }
-        _hotBarMesh[_hotBarSlotIndex].SetActive(true);
     }
 
     private void SetWeaponActive()
