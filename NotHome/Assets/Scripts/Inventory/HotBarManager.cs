@@ -87,24 +87,25 @@ public class HotBarManager : NetworkBehaviour
         else
             _textAmmo.SetActive(false);
         SetWeaponActive();
-        Active();
+        if(isOwned)
+            Active();
     }
 
     [Command]
     void Active()
     {
-        UnActiveAllMesh(_hotBarSlotIndex);
+        UnActiveAllMesh(_hotBarMesh ,_hotBarSlotIndex);
         
     }
 
     [ClientRpc]
-    private void UnActiveAllMesh(int index)
+    private void UnActiveAllMesh(List<GameObject> obj ,int index)
     {
-        for (int i = 0; i < _hotBarMesh.Count; i++)
+        for (int i = 0; i < obj.Count; i++)
         {
-            _hotBarMesh[i].SetActive(false);
+            obj[i].SetActive(false);
         }
-        _hotBarMesh[index].SetActive(true);
+        obj[index].SetActive(true);
     }
 
     private void SetWeaponActive()
