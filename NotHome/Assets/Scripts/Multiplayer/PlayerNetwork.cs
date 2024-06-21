@@ -62,10 +62,10 @@ public class PlayerNetwork : NetworkBehaviour
         {
             foreach (var playerCamera in _playerCameras)
             {
-                if (playerCamera.transform.root.GetComponent<PlayerNetwork>().nameTagText.text == "-")
-                {
-                    playerCamera.transform.root.GetComponent<PlayerNetwork>().nameTagText.text = playerCamera.transform.root.GetComponent<PlayerNetwork>()._displayName;
-                }
+                //if (playerCamera.transform.root.GetComponent<PlayerNetwork>().nameTagText.text == "-")
+                //{
+                //    playerCamera.transform.root.GetComponent<PlayerNetwork>().nameTagText.text = playerCamera.transform.root.GetComponent<PlayerNetwork>()._displayName;
+                //}
 
                 nameTagInstance.transform.LookAt(playerCamera.transform);
                 nameTagInstance.transform.Rotate(0, 180, 0);
