@@ -93,12 +93,9 @@ public class HotBarManager : NetworkBehaviour
     [Command]
     void Active()
     {
-        if (!isOwned)
-        {
             print("enter");
             UnActiveAllMesh();
             _hotBarMesh[_hotBarSlotIndex].SetActive(true);
-        }
     }
 
     [ClientRpc]
