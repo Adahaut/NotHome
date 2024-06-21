@@ -258,7 +258,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
-                || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
+                || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder") || hit.collider.CompareTag("DecompressionExit")))
             {
                 _textPress.text = "Press " + _changeControl._control.ToUpper() + " to interact";
 
