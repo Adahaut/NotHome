@@ -44,31 +44,31 @@ public class RepaireBridge : NetworkBehaviour
     public void CreateBridge()
     {
         _message.text = "";
-        if (!CanUpgrade())
-        {
-            _message.text = "You must have upgrade all your base to repair the bridge";
-            return;
-        }
-        for (int i = 0; i < _itemsNeeded.Count; i++)
-        {
-            if(_playerInventory.ContainItem(_itemsNeeded[i]))
-            {
-                if (!(_playerInventory._slotList[_playerInventory.GetIndexOfSlotByName(_itemsNeeded[i])].GetComponent<InventorySlot>().Number() == _itemsNumberNeeded[i]))
-                {
-                    if (_message.text == "")
-                        _message.text += "missing ressources : ";
+        //if (!CanUpgrade())
+        //{
+        //    _message.text = "You must have upgrade all your base to repair the bridge";
+        //    return;
+        //}
+        //for (int i = 0; i < _itemsNeeded.Count; i++)
+        //{
+        //    if(_playerInventory.ContainItem(_itemsNeeded[i]))
+        //    {
+        //        if (!(_playerInventory._slotList[_playerInventory.GetIndexOfSlotByName(_itemsNeeded[i])].GetComponent<InventorySlot>().Number() == _itemsNumberNeeded[i]))
+        //        {
+        //            if (_message.text == "")
+        //                _message.text += "missing ressources : ";
 
-                    int _missingQuantity = _itemsNumberNeeded[i] - _playerInventory._slotList[_playerInventory.GetIndexOfSlotByName(_itemsNeeded[i])].GetComponent<InventorySlot>().Number();
-                    _message.text += _itemsNeeded[i] + " X " + _missingQuantity + "\n";
-                }
-            }
-            else
-            {
-                if (_message.text == "")
-                    _message.text += "missing ressources : ";
-                _message.text += _itemsNeeded[i] + "\n";
-            }
-        }
+        //            int _missingQuantity = _itemsNumberNeeded[i] - _playerInventory._slotList[_playerInventory.GetIndexOfSlotByName(_itemsNeeded[i])].GetComponent<InventorySlot>().Number();
+        //            _message.text += _itemsNeeded[i] + " X " + _missingQuantity + "\n";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (_message.text == "")
+        //            _message.text += "missing ressources : ";
+        //        _message.text += _itemsNeeded[i] + "\n";
+        //    }
+        //}
         if(_message.text == "" && isOwned)
         {
             CmdRepairBridgeVisual();
