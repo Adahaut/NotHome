@@ -539,7 +539,7 @@ public class PlayerController : NetworkBehaviour
         return _index;
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdPickUpObject()
     {
         print("cmd");
