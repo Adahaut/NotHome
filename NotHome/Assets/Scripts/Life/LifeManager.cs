@@ -177,7 +177,7 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    private void StartBlinking(bool _takingDamage = false)
+    public void StartBlinking(bool _takingDamage = false)
     {
         float _force = _takingDamage == true ? 1f : (float)(_maxLife - _currentLife) / (float)_maxLife * 0.2f;
         _blinking = StartCoroutine(UIBlinking(50, _force, _takingDamage));

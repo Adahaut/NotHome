@@ -50,7 +50,9 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     public void Respawn()
     {
         _noSignal.SetActive(false);
-        _playerLifeManager.SetMaxHealth();
+        //_playerLifeManager.SetMaxHealth();
+        _playerLifeManager._currentLife = _playerLifeManager.MaxLife();
+        _playerLifeManager.StartBlinking(false);
         _playerController.IsDead = false;
         transform.position = _playerRespawnPoint;
         transform.rotation = cameraSpawnRotation;
