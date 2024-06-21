@@ -221,7 +221,7 @@ public class PlayerController : NetworkBehaviour
             //OfficeManager.Instance.MouvToChair();
             if (_timer <= 0)
             {
-                CmdPickUpObject();
+                PickUpObject();
                 _timer = 0.05f;
             }
         }
@@ -509,26 +509,38 @@ public class PlayerController : NetworkBehaviour
         return _index;
     }
 
-    private void CmdPickUpObject()
+    private void PickUpObject()
     {
-        if(Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
+        if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag) && !hit.collider.GetComponent<Item>()._isPicked)
         {
-            if (!_inventory.GetComponent<InventoryManager>().HasRemainingPlace(hit.collider.GetComponent<Item>().ItemName()))
+            var item = hit.collider.GetComponent<Item>();
+            item._isPicked = true;
+            if (item != null && !_inventory.GetComponent<InventoryManager>().HasRemainingPlace(item.ItemName()))
             {
                 return;
             }
-            if (hit.collider.GetComponent<Item>().ItemName() == "Metal")
+
+            if (item.ItemName() == "Metal")
+            {
                 QuestManager.Instance.SetQuestMetal();
-            _inventory.GetComponent<InventoryManager>().AddItem(hit.collider.GetComponent<Item>().ItemName(), hit.collider.GetComponent<Item>().ItemSprite(), false);
+            }
+            _inventory.GetComponent<InventoryManager>().AddItem(item.ItemName(), item.ItemSprite(), false);
             CmdDestroyItem(hit.collider.gameObject);
         }
     }
 
+
     [Command]
     private void CmdDestroyItem(GameObject item)
     {
-        print("destroy " +  item.name);
-        NetworkServer.Destroy(item);
+        if (item != null)
+        {
+            NetworkServer.Destroy(item);
+        }
+        else
+        {
+            return;
+        }
     }
 
 

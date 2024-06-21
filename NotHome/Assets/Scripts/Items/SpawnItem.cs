@@ -18,11 +18,15 @@ public class SpawnItem : NetworkBehaviour
     public Vector2 _negativePosition;
     private Vector3 _position;
 
+    private List<GameObject> _spawnedItems = new List<GameObject>();
+
     private void Start()
     {
         _position = transform.position;
         //ItemSpawn();
     }
+
+    [Server]
     private void ItemSpawn()
     {
         for (float x = _negativePosition.x; x < _positivePosition.x; x += _distanceBetweenCheck)
@@ -35,12 +39,40 @@ public class SpawnItem : NetworkBehaviour
                 {
                     if (_spawnChance > Random.Range(0f, _maxChanceFactor))
                     {
-                        GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), transform);
+                        GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
                         NetworkServer.Spawn(_newItem);
+                        RpcSetupItem(_newItem, _newItem.transform.position, _newItem.transform.rotation, transform);
+                        _spawnedItems.Add(_newItem);
                     }
                 }
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcSetupItem(GameObject item, Vector3 position, Quaternion rotation, Transform parent)
+    {
+        item.transform.SetParent(parent);
+        item.transform.position = position;
+        item.transform.rotation = rotation;
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (isClient && !isServer)
+        {
+            foreach (GameObject item in _spawnedItems)
+            {
+                item.transform.SetParent(transform);
+            }
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdSpawnItem(GameObject obj)
+    {
+        NetworkServer.Spawn(obj);
     }
 
     public void DeleteResources()
