@@ -94,18 +94,18 @@ public class HotBarManager : NetworkBehaviour
     [Command]
     void Active()
     {
-        UnActiveAllMesh(_hotBarMesh ,_hotBarSlotIndex);
+        UnActiveAllMesh(_hotBarSlotIndex, this);
         
     }
 
     [ClientRpc]
-    private void UnActiveAllMesh(List<GameObject> obj ,int index)
+    private void UnActiveAllMesh(int index, HotBarManager p)
     {
-        for (int i = 0; i < obj.Count; i++)
+        for (int i = 0; i < p._hotBarMesh.Count; i++)
         {
-            obj[i].SetActive(false);
+            p._hotBarMesh[i].SetActive(false);
         }
-        obj[index].SetActive(true);
+        p._hotBarMesh[index].SetActive(true);
     }
 
     private void SetWeaponActive()
