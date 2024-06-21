@@ -65,7 +65,8 @@ public class EnemiesSpawner : NetworkBehaviour
         if (parent == null)
         {
             print("null");
-            return;
+            parent = _enemiesParent;
+            //return;
         }
         print("set parent -> " + parent.name);
         item.transform.SetParent(parent);
