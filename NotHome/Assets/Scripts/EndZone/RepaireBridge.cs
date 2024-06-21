@@ -79,7 +79,12 @@ public class RepaireBridge : NetworkBehaviour
     [Command]
     private void CmdRepairBridgeVisual()
     {
-        print("CmdBridgeRepair");
+        RpcRepairBridge();
+    }
+
+    [ClientRpc]
+    void RpcRepairBridge()
+    {
         _bridge.GetComponent<BoxCollider>().enabled = true;
         _bridge.GetComponent<MeshRenderer>().enabled = true;
     }
