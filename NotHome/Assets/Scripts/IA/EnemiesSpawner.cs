@@ -22,6 +22,7 @@ public class EnemiesSpawner : NetworkBehaviour
         //SpawnEnemies(0);
     }
 
+    [Server]
     public void SpawnEnemies(int _zoneIndex)
     {
         print("spawn " +  _zoneIndex);
@@ -43,9 +44,7 @@ public class EnemiesSpawner : NetworkBehaviour
             if (_spawnPosition != Vector3.zero && isServer)
             {
                 GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity, _enemiesParent);
-                //CmdSpawnObject(go);
                 NetworkServer.Spawn(go);
-                //NetworkServer.Spawn(go);
             }
         }
     }
