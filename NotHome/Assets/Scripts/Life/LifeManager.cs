@@ -52,11 +52,8 @@ public class LifeManager : NetworkBehaviour
 
     public void SetMaxHealth()
     {
-        if(isServer)
-        {
-            _currentLife = _maxLife;
-        }
-            StartBlinking(false);
+        _currentLife = _maxLife;
+        StartBlinking(false);
     }
 
     void OnLifeChanged(int oldLife, int newLife)
