@@ -223,7 +223,7 @@ public class PlayerController : NetworkBehaviour
             if (_timer <= 0)
             {
                 print("avant command");
-                CmdPickUpObject();
+                PickUpObject();
                 _timer = 0.05f;
             }
         }
@@ -539,8 +539,7 @@ public class PlayerController : NetworkBehaviour
         return _index;
     }
 
-    [Command(requiresAuthority = false)]
-    private void CmdPickUpObject()
+    private void PickUpObject()
     {
         Debug.Log("CmdPickUpObject called on server");
         if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
@@ -558,12 +557,13 @@ public class PlayerController : NetworkBehaviour
             }
 
             _inventory.GetComponent<InventoryManager>().AddItem(item.ItemName(), item.ItemSprite(), false);
-            RpcDestroyItem(hit.collider.gameObject);
+            CmdDestroyItem(hit.collider.gameObject);
         }
     }
 
-    [ClientRpc]
-    private void RpcDestroyItem(GameObject item)
+
+    [Command]
+    private void CmdDestroyItem(GameObject item)
     {
         print("destroy " +  item.name);
         NetworkServer.Destroy(item);
