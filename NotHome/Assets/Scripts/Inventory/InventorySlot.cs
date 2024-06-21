@@ -23,6 +23,7 @@ public class InventorySlot : MonoBehaviour
         _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
         ResetItem();
         _numberText.text = "";
+        _nameText.text = "";
     }
 
     public int Number() { return _number; }
@@ -94,6 +95,7 @@ public class InventorySlot : MonoBehaviour
         _itemContained.SetItem("None", null);
         _number = 0;
         _numberText.text = "";
+        _nameText.text = "";
         UpdateItemVisuel();
     }
 
