@@ -81,7 +81,7 @@ public class RangeWeapon : NetworkBehaviour
         _originalPosition = _transform.localPosition;
         _recoil = GetComponent<ProceduralRecoil>();
         _playerController = GetComponentInParent<PlayerController>();
-        UpdateWeaponVisualAtLaunch();
+        //UpdateWeaponVisualAtLaunch();
         _textAmmo.text = _currentAmmo + "/" + _nbAmmo;
     }
 
