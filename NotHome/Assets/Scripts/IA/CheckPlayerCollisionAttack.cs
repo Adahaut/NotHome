@@ -6,6 +6,7 @@ using UnityEngine;
 public class CheckPlayerCollisionAttack : NetworkBehaviour
 {
     [SerializeField] private int _damages;
+    public GameObject _bloodParticle;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,16 +18,26 @@ public class CheckPlayerCollisionAttack : NetworkBehaviour
                 if (playerLifeManager != null)
                 {
                     DealDamage(playerLifeManager);
+
+                    if(_bloodParticle != null)
+                    {
+                        CreateBlood(transform.position);
+                    }
                 }
             }
         }
-
+        
         if (other.CompareTag("Enemy"))
         {
             var enemyLifeManager = other.GetComponent<LifeManager>();
             if (enemyLifeManager != null)
             {
                 DealDamage(enemyLifeManager);
+
+                if (_bloodParticle != null)
+                {
+                    CreateBlood(transform.position);
+                }
             }
         }
     }
@@ -35,5 +46,11 @@ public class CheckPlayerCollisionAttack : NetworkBehaviour
     private void DealDamage(LifeManager playerLifeManager)
     {
         playerLifeManager.TakeDamage(_damages);
+    }
+
+    private void CreateBlood(Vector3 _position)
+    {
+        GameObject _blood = Instantiate(_bloodParticle, _position, Quaternion.identity);
+        Destroy(_blood, 1f);
     }
 }
