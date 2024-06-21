@@ -2328,9 +2328,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1080696595518963732}
-  - component: {fileID: 5410019355756648080}
-  - component: {fileID: 3668446087748417390}
-  - component: {fileID: 4317607460633444519}
   m_Layer: 7
   m_Name: Sabre
   m_TagString: Untagged
@@ -2357,57 +2354,6 @@ Transform:
   - {fileID: 7769192932164811469}
   m_Father: {fileID: 9170860955986426977}
   m_LocalEulerAnglesHint: {x: -7.535, y: 84.576, z: 21.461}
---- !u!114 &5410019355756648080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727928490117141670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07686944a7d20fd46b6c5cd5f78b64ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _listSword:
-  - {fileID: 7113555844416691917}
-  - {fileID: 7768452991390921579}
-  - {fileID: 8626091230161394767}
-  - {fileID: 6960989851295998071}
-  _listSwordMesh: []
---- !u!114 &3668446087748417390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727928490117141670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63536b05d089b814a89dcd6c16539f81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &4317607460633444519
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727928490117141670}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 75ce394b5da44b24db273f5afc6316d0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4820614791380847035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2638,7 +2584,7 @@ MonoBehaviour:
   _hungerSlider: {fileID: 0}
   _thirstSlider: {fileID: 0}
   _oxygeneSlider: {fileID: 7297749415429120866}
-  _stamParent: {fileID: 0}
+  _stamParent: {fileID: 6909651887236451224}
   _BaseZone: {fileID: 0}
   _isInBase: 0
   _usingStam: 0
@@ -7095,6 +7041,11 @@ GameObject:
 --- !u!1 &6824901558463219805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7697879374016974660, guid: c65c6ee038096654983d801be093112f, type: 3}
+  m_PrefabInstance: {fileID: 3774780991229609753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6909651887236451224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7748078703056604289, guid: c65c6ee038096654983d801be093112f, type: 3}
   m_PrefabInstance: {fileID: 3774780991229609753}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6979412388776026668 stripped
