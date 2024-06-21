@@ -70,6 +70,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _damages: 5
+  _bloodParticle: {fileID: 0}
 --- !u!1001 &2565777375964050959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,9 +284,8 @@ MonoBehaviour:
   syncInterval: 0
   _maxLife: 100
   _currentLife: 0
-  _helthSlider: {fileID: 0}
-  _hitAudioClip:
-  - {fileID: 8300000, guid: 8b8999e30feba8b49beae657eb053cb4, type: 3}
+  _healthSlider: {fileID: 0}
+  _hitAudioClip: {fileID: 8300000, guid: 8b8999e30feba8b49beae657eb053cb4, type: 3}
   _damageGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
