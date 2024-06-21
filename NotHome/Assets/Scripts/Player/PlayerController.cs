@@ -490,8 +490,15 @@ public class PlayerController : NetworkBehaviour
 
     private void ChangeToHotBarSlot(int _newIndex)
     {
-        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
+        //_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
+        SetNewIndex(_newIndex);
         _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
+    }
+
+    [Command]
+    void SetNewIndex(int i)
+    {
+        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = i;
     }
 
     private int UpdateHotBarIndex(int _index, int _indexAddition)
