@@ -14,6 +14,8 @@ public class Item : NetworkBehaviour
 
     [Header("For Metalic Parts")]
     [SerializeField] private bool _isMetalicPart;
+
+    public bool _isPicked = false;
     
     public string ItemName() { return _name; }
 

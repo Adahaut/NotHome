@@ -542,10 +542,11 @@ public class PlayerController : NetworkBehaviour
     private void PickUpObject()
     {
         Debug.Log("CmdPickUpObject called on server");
-        if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
+        if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag) && !hit.collider.GetComponent<Item>()._isPicked)
         {
             Debug.Log("Raycast hit an item on server");
             var item = hit.collider.GetComponent<Item>();
+            item._isPicked = true;
             print("assign item");
             if (item != null && !_inventory.GetComponent<InventoryManager>().HasRemainingPlace(item.ItemName()))
             {
@@ -569,8 +570,15 @@ public class PlayerController : NetworkBehaviour
     [Command]
     private void CmdDestroyItem(GameObject item)
     {
-        print("destroy " +  item.name);
-        NetworkServer.Destroy(item);
+        if (item != null)
+        {
+            print("destroy " + item.name);
+            NetworkServer.Destroy(item);
+        }
+        else
+        {
+            print("item is null");
+        }
     }
 
 
