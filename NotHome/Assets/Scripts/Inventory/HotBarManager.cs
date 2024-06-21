@@ -95,13 +95,14 @@ public class HotBarManager : NetworkBehaviour
     {
         if (!isOwned)
         {
+            print("enter");
             UnActiveAllMesh();
             _hotBarMesh[_hotBarSlotIndex].SetActive(true);
         }
     }
     private void UnActiveAllMesh()
     {
-        for (int i = 0; i < _hotBarSlotList.Count; i++)
+        for (int i = 0; i < _hotBarMesh.Count; i++)
         {
             _hotBarMesh[i].SetActive(false);
         }
