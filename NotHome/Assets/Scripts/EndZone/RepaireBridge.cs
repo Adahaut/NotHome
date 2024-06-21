@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class RepaireBridge : MonoBehaviour
+public class RepaireBridge : NetworkBehaviour
 {
     [SerializeField] private GameObject _bridge;
 
@@ -68,12 +69,19 @@ public class RepaireBridge : MonoBehaviour
                 _message.text += _itemsNeeded[i] + "\n";
             }
         }
-        if(_message.text == "")
+        if(_message.text == "" && isOwned)
         {
-            _bridge.GetComponent<BoxCollider>().enabled = true;
-            _bridge.GetComponent<MeshRenderer>().enabled = true;
+            CmdRepairBridgeVisual();
             _message.text = "Bridge Reparation Done!";
         }
+    }
+
+    [Command]
+    private void CmdRepairBridgeVisual()
+    {
+        print("CmdBridgeRepair");
+        _bridge.GetComponent<BoxCollider>().enabled = true;
+        _bridge.GetComponent<MeshRenderer>().enabled = true;
     }
 
 }
