@@ -127,7 +127,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = null;
             }
             _slotList[i].GetComponent<InventorySlot>().ItemContained().SetItem(InventoryBaseManager.instance._inventoryItems[i]._name, s);
-            _slotList[i].GetComponent<InventorySlot>().SetNumberInventorySlot(InventoryBaseManager.instance._inventoryItems[i]._number);
+            _slotList[i].GetComponent<InventorySlot>().SetNumberAndNameInventorySlot(InventoryBaseManager.instance._inventoryItems[i]._number, InventoryBaseManager.instance._inventoryItems[i]._name);
             //_slotList[i].GetComponent<InventorySlot>()._numberText.text = InventoryBaseManager.instance._inventoryItems[i]._number.ToString();
             //_slotList[i].GetComponent<InventorySlot>().UpdateNumber();
         }
@@ -172,7 +172,7 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         if (ListContain(_name))
         {
-            AddNumberItem(_name, _number);
+            AddNumberAndNameItem(_name, _number);
             UpdateOneItem(_slotIndex, _number);
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
@@ -211,7 +211,7 @@ public class PlayerStockageUI : NetworkBehaviour
             if(_inventorySlot.ItemContained().ItemName() == "None")
             {
                 _inventorySlot.ChangeItem(_name, _sprite, false);
-                _inventorySlot.SetNumber(_number);
+                _inventorySlot.SetNumberAndName(_number, _name);
 
                 _inventorySlot.UpdateItem(_number, _sprite, _name);
                 _inventorySlot._itemImage.sprite = _sprite;
@@ -304,10 +304,11 @@ public class PlayerStockageUI : NetworkBehaviour
 
     // a a unmber of item that is in inventory
     [Command]
-    private void AddNumberItem(string name, int number)
+    private void AddNumberAndNameItem(string name, int number)
     {
         int _index = GetIndexOf(name);
         int newNumber = InventoryBaseManager.instance._inventoryItems[_index]._number + number;
+        string newName = name;
 
         _itemSlot slot = new _itemSlot{
             _name = name,

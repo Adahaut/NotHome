@@ -9,7 +9,9 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] public ItemObject _itemContained;
     public Image _itemImage;
     [SerializeField] private int _number;
+    public string _name;
     public TextMeshProUGUI _numberText;
+    public TextMeshProUGUI _nameText;
     public bool _isSeleceted;
 
     private bool firstOpened;
@@ -21,31 +23,39 @@ public class InventorySlot : MonoBehaviour
         _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
         ResetItem();
         _numberText.text = "";
+        _nameText.text = "";
     }
 
     public int Number() { return _number; }
 
-    public void SetNumberInventorySlot(int n)
+    public void SetNumberAndNameInventorySlot(int n, string _newName)
     {
         _number = n;
         _numberText.text = _number.ToString();
+        _name = _newName;
+        if(_name != "None")
+            _nameText.text = _name;
     }
 
     public void AddNumber() 
     {  
         _number++;
-        UpdateNumber();
+        UpdateNumberAndName();
     }
 
-    public void SetNumber(int _newNumber)
+    public void SetNumberAndName(int _newNumber, string _newName)
     {
         _number = _newNumber;
+        _name = _newName;
         if (_number == 0)
         {
             ResetItem();
         }
         else
-            UpdateNumber();
+        {
+            UpdateNumberAndName();
+        }
+            
     }
 
     public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
@@ -57,15 +67,16 @@ public class InventorySlot : MonoBehaviour
 
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
-        UpdateNumber();
+        UpdateNumberAndName();
 
         
         _itemContained.SetItem(_name, _newSprite);
     }
 
-    public void UpdateNumber()
+    public void UpdateNumberAndName()
     {
         _numberText.text = _number.ToString();
+        _nameText.text = _name;
     }
 
     public ItemObject ItemContained() {  return _itemContained; }
@@ -75,7 +86,7 @@ public class InventorySlot : MonoBehaviour
         if (!_isAnEquipement)
         {
             _itemContained.SetItem(_ItemName, _itemSprite);
-            UpdateNumber();
+            UpdateNumberAndName();
             UpdateItemVisuel();
             _itemImage.sprite = _itemSprite;
         }
@@ -87,6 +98,7 @@ public class InventorySlot : MonoBehaviour
         _itemContained.SetItem("None", null);
         _number = 0;
         _numberText.text = "";
+        _nameText.text = "";
         UpdateItemVisuel();
     }
 
