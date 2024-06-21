@@ -93,19 +93,18 @@ public class HotBarManager : NetworkBehaviour
     [Command]
     void Active()
     {
-        UnActiveAllMesh();
+        UnActiveAllMesh(_hotBarSlotIndex);
         
     }
 
     [ClientRpc]
-    private void UnActiveAllMesh()
+    private void UnActiveAllMesh(int index)
     {
         for (int i = 0; i < _hotBarMesh.Count; i++)
         {
             _hotBarMesh[i].SetActive(false);
         }
-        print(_hotBarSlotIndex);
-        _hotBarMesh[_hotBarSlotIndex].SetActive(true);
+        _hotBarMesh[index].SetActive(true);
     }
 
     private void SetWeaponActive()
