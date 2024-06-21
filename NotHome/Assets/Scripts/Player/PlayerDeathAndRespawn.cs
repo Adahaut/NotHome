@@ -78,7 +78,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
                 cameraTransform.rotation = Quaternion.Euler(cameraTransform.rotation.x + (90 * time / totalTime), cameraTransform.rotation.y + (180*time/totalTime),cameraTransform.rotation.z) ;
                 yield return new WaitForEndOfFrame();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             _noSignal.SetActive(true);
             _timeToRespawn = 10;
             _canRespawn = true;
