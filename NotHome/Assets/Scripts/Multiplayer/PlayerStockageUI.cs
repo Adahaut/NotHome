@@ -211,7 +211,7 @@ public class PlayerStockageUI : NetworkBehaviour
             if(_inventorySlot.ItemContained().ItemName() == "None")
             {
                 _inventorySlot.ChangeItem(_name, _sprite, false);
-                _inventorySlot.SetNumber(_number);
+                _inventorySlot.SetNumberAndName(_number, _name);
 
                 _inventorySlot.UpdateItem(_number, _sprite, _name);
                 _inventorySlot._itemImage.sprite = _sprite;

@@ -10,6 +10,7 @@ public class UseCrafter : MonoBehaviour
     [SerializeField] private List<CraftScriptableObject> _listCraft = new();
     private CraftScriptableObject _currentCraft;
     [SerializeField] private Image _spriteCraft;
+    public TextMeshProUGUI _craftName;
     [SerializeField] private List<GameObject> _materialsText = new List<GameObject>();
     [SerializeField] private InventoryManager _playerInventory;
     [SerializeField] private PlayerStockageUI _inventoryBase;
@@ -21,6 +22,8 @@ public class UseCrafter : MonoBehaviour
     private void OnEnable()
     {
         ClearTexts();
+        _craftName.text = "";
+        _spriteCraft.color = new Color(255, 255, 255, 0);
     }
 
     private void Start()
@@ -38,8 +41,9 @@ public class UseCrafter : MonoBehaviour
 
         _spriteCraft.gameObject.SetActive(true);
         _spriteCraft.sprite = _listButton[index].GetComponent<Image>().sprite;
-
+        _spriteCraft.color = Color.white;
         SetMaterialsCraft(index);
+        _craftName.text = _currentCraft._resultName;
     }
     public void MoveButton(int direction)
     {

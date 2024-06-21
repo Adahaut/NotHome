@@ -57,7 +57,7 @@ public class MapManager : MonoBehaviour
             {
                 if (_playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _listUSB[index].ItemName())
                 {
-                    _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().SetNumber(0);
+                    _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().SetNumberAndName(0, _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName());
                     _listBoolUSB[index] = false;
                     _listText[index].text = "Get USB";
                 }
@@ -73,7 +73,8 @@ public class MapManager : MonoBehaviour
             {
                 if (_playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "DesertKey")
                 {
-                    _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().SetNumber(0);
+                    _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().SetNumberAndName(0, 
+                        _playerController.GetInventory()._slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName());
                 }
             }
         }

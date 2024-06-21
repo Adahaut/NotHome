@@ -132,7 +132,8 @@ public class UpgradeWeaponManager : NetworkBehaviour
                 for (int i = 0; i < listIndex.Count; i++)
                 {
                     _inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().
-                        SetNumber(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i]);
+                    SetNumberAndName(_inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>().Number() - listMat[i], 
+                    _inventoryManager._slotList[listIndex[i]].GetComponent<InventorySlot>()._name);
                 }
             }
             else
