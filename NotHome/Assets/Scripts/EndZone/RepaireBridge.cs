@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -51,7 +52,7 @@ public class RepaireBridge : NetworkBehaviour
         }
         for (int i = 0; i < _itemsNeeded.Count; i++)
         {
-            if(_playerInventory.ContainItem(_itemsNeeded[i]))
+            if (_playerInventory.ContainItem(_itemsNeeded[i]))
             {
                 if (!(_playerInventory._slotList[_playerInventory.GetIndexOfSlotByName(_itemsNeeded[i])].GetComponent<InventorySlot>().Number() == _itemsNumberNeeded[i]))
                 {
@@ -69,7 +70,7 @@ public class RepaireBridge : NetworkBehaviour
                 _message.text += _itemsNeeded[i] + "\n";
             }
         }
-        if(_message.text == "" && isOwned)
+        if (_message.text == "" && isOwned)
         {
             CmdRepairBridgeVisual();
             _message.text = "Bridge Reparation Done!";
@@ -79,7 +80,14 @@ public class RepaireBridge : NetworkBehaviour
     [Command]
     private void CmdRepairBridgeVisual()
     {
-        print("CmdBridgeRepair");
+        RpcRepairBridgeVisual();
+    }
+
+    [ClientRpc]
+    private void RpcRepairBridgeVisual()
+    {
+        if(_bridge == null)
+            _bridge = GameObject.Find("Bridge");
         _bridge.GetComponent<BoxCollider>().enabled = true;
         _bridge.GetComponent<MeshRenderer>().enabled = true;
     }
