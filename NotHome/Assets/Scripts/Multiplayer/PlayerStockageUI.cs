@@ -172,7 +172,7 @@ public class PlayerStockageUI : NetworkBehaviour
     {
         if (ListContain(_name))
         {
-            AddNumberItem(_name, _number);
+            AddNumberAndNameItem(_name, _number);
             UpdateOneItem(_slotIndex, _number);
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
@@ -304,10 +304,11 @@ public class PlayerStockageUI : NetworkBehaviour
 
     // a a unmber of item that is in inventory
     [Command]
-    private void AddNumberItem(string name, int number)
+    private void AddNumberAndNameItem(string name, int number)
     {
         int _index = GetIndexOf(name);
         int newNumber = InventoryBaseManager.instance._inventoryItems[_index]._number + number;
+        string newName = name;
 
         _itemSlot slot = new _itemSlot{
             _name = name,

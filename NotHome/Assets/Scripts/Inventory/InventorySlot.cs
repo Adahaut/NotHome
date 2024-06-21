@@ -32,8 +32,9 @@ public class InventorySlot : MonoBehaviour
     {
         _number = n;
         _numberText.text = _number.ToString();
-        _newName = _name;
-        _nameText.text = _name;
+        _name = _newName;
+        if(_name != "None")
+            _nameText.text = _name;
     }
 
     public void AddNumber() 
