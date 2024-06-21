@@ -2,7 +2,6 @@ using Mirror;
 using Steamworks;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
