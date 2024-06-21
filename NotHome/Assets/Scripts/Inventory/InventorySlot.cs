@@ -33,7 +33,9 @@ public class InventorySlot : MonoBehaviour
         _number = n;
         _numberText.text = _number.ToString();
         _name = _newName;
-        if(_name != "None")
+        if (_name == "None")
+            _nameText.text = "";
+        else
             _nameText.text = _name;
     }
 
