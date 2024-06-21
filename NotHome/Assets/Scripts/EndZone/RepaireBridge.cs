@@ -1,4 +1,5 @@
 using Mirror;
+using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -79,14 +80,16 @@ public class RepaireBridge : NetworkBehaviour
     [Command]
     private void CmdRepairBridgeVisual()
     {
-        _bridge.GetComponent<BoxCollider>().enabled = true;
-        _bridge.GetComponent<MeshRenderer>().enabled = true;
+        RpcRepairBridgeVisual();
     }
 
     [ClientRpc]
-    void RpcRepairBridge(GameObject go)
+    private void RpcRepairBridgeVisual()
     {
-        
+        if(_bridge == null)
+            _bridge = GameObject.Find("Bridge");
+        _bridge.GetComponent<BoxCollider>().enabled = true;
+        _bridge.GetComponent<MeshRenderer>().enabled = true;
     }
 
 }
