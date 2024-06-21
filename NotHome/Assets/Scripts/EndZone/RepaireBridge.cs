@@ -71,22 +71,22 @@ public class RepaireBridge : NetworkBehaviour
         //}
         if(_message.text == "" && isOwned)
         {
-            CmdRepairBridgeVisual(_bridge);
+            CmdRepairBridgeVisual();
             _message.text = "Bridge Reparation Done!";
         }
     }
 
     [Command]
-    private void CmdRepairBridgeVisual(GameObject go)
+    private void CmdRepairBridgeVisual()
     {
-        RpcRepairBridge(go);
+        _bridge.GetComponent<BoxCollider>().enabled = true;
+        _bridge.GetComponent<MeshRenderer>().enabled = true;
     }
 
     [ClientRpc]
     void RpcRepairBridge(GameObject go)
     {
-        go.GetComponent<BoxCollider>().enabled = true;
-        go.GetComponent<MeshRenderer>().enabled = true;
+        
     }
 
 }
