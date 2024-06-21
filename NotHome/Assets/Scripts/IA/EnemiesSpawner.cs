@@ -46,7 +46,7 @@ public class EnemiesSpawner : NetworkBehaviour
             {
                 GameObject _mob = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity, _enemiesParent);
                 NetworkServer.Spawn(_mob);
-                RpcSetupMob(_mob, _mob.transform.position, _mob.transform.rotation, _enemiesParent);
+                RpcSetupMob(_mob, _mob.transform.position, _mob.transform.rotation, transform.GetChild(transform.childCount - 1));
                 _spawnedMobs.Add(_mob);
             }
         }
