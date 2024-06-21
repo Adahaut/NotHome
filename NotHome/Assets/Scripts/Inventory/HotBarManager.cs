@@ -100,6 +100,8 @@ public class HotBarManager : NetworkBehaviour
             _hotBarMesh[_hotBarSlotIndex].SetActive(true);
         }
     }
+
+    [ClientRpc]
     private void UnActiveAllMesh()
     {
         for (int i = 0; i < _hotBarMesh.Count; i++)
