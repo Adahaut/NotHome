@@ -170,23 +170,19 @@ public class PlayerStockageUI : NetworkBehaviour
     //add item in base
     public void AddItemInBase(string _name, int _number, int _slotIndex, InventorySlot _playerInventorySlot)
     {
-        print("add");
         if (ListContain(_name))
         {
-            print("1");
             AddNumberAndNameItem(_name, _number);
             UpdateOneItem(_slotIndex, _number);
         }
         else if (InventoryBaseManager.instance._inventoryItems[_slotIndex]._name == "None")
         {
-            print("2");
             AddNewItem(_name, _number, _slotIndex);
             UpdateOneItem(_slotIndex, _number);
 
         }
         else
         {
-            print("3");
             AddNewItem(_name, _number, GetIndexOf("None"));
             UpdateOneItem(_slotIndex, _number);
         }
