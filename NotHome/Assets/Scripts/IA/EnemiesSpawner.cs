@@ -64,11 +64,8 @@ public class EnemiesSpawner : NetworkBehaviour
     {
         if (parent == null)
         {
-            print("null");
             parent = _enemiesParent;
-            //return;
         }
-        print("set parent -> " + parent.name);
         item.transform.SetParent(parent);
         item.transform.position = position;
         item.transform.rotation = rotation;
