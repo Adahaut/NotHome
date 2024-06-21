@@ -542,23 +542,28 @@ public class PlayerController : NetworkBehaviour
     [Command(requiresAuthority = false)]
     private void CmdPickUpObject()
     {
-        print("cmd");
-        if(Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
+        Debug.Log("CmdPickUpObject called on server");
+        if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
         {
-            print("recup");
-            if (!_inventory.GetComponent<InventoryManager>().HasRemainingPlace(hit.collider.GetComponent<Item>().ItemName()))
+            Debug.Log("Raycast hit an item on server");
+            var item = hit.collider.GetComponent<Item>();
+            if (item != null && !_inventory.GetComponent<InventoryManager>().HasRemainingPlace(item.ItemName()))
             {
                 return;
             }
-            if (hit.collider.GetComponent<Item>().ItemName() == "Metal")
+
+            if (item.ItemName() == "Metal")
+            {
                 QuestManager.Instance.SetQuestMetal();
-            _inventory.GetComponent<InventoryManager>().AddItem(hit.collider.GetComponent<Item>().ItemName(), hit.collider.GetComponent<Item>().ItemSprite(), false);
-            CmdDestroyItem(hit.collider.gameObject);
+            }
+
+            _inventory.GetComponent<InventoryManager>().AddItem(item.ItemName(), item.ItemSprite(), false);
+            RpcDestroyItem(hit.collider.gameObject);
         }
     }
 
-    [Command]
-    private void CmdDestroyItem(GameObject item)
+    [ClientRpc]
+    private void RpcDestroyItem(GameObject item)
     {
         print("destroy " +  item.name);
         NetworkServer.Destroy(item);
