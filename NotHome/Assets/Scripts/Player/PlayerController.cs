@@ -208,10 +208,8 @@ public class PlayerController : NetworkBehaviour
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
-        print("interact");
         if(isOwned)
         {
-            print("owned");
             DoorExit.Instance.OpenDoor(_startPointRaycast, _distRayCast);
             if (ctx.performed)
             {
@@ -222,7 +220,6 @@ public class PlayerController : NetworkBehaviour
             //OfficeManager.Instance.MouvToChair();
             if (_timer <= 0)
             {
-                print("avant command");
                 PickUpObject();
                 _timer = 0.05f;
             }
@@ -541,27 +538,20 @@ public class PlayerController : NetworkBehaviour
 
     private void PickUpObject()
     {
-        Debug.Log("CmdPickUpObject called on server");
         if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag) && !hit.collider.GetComponent<Item>()._isPicked)
         {
-            Debug.Log("Raycast hit an item on server");
             var item = hit.collider.GetComponent<Item>();
             item._isPicked = true;
-            print("assign item");
             if (item != null && !_inventory.GetComponent<InventoryManager>().HasRemainingPlace(item.ItemName()))
             {
-                print("plus de place");
                 return;
             }
 
             if (item.ItemName() == "Metal")
             {
-                print("metal");
                 QuestManager.Instance.SetQuestMetal();
             }
-            print("add in inventory");
             _inventory.GetComponent<InventoryManager>().AddItem(item.ItemName(), item.ItemSprite(), false);
-            print("destroy");
             CmdDestroyItem(hit.collider.gameObject);
         }
     }
@@ -572,12 +562,11 @@ public class PlayerController : NetworkBehaviour
     {
         if (item != null)
         {
-            print("destroy " + item.name);
             NetworkServer.Destroy(item);
         }
         else
         {
-            print("item is null");
+            return;
         }
     }
 
