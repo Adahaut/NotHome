@@ -127,7 +127,7 @@ public class PlayerStockageUI : NetworkBehaviour
                 _slotList[i].GetComponent<InventorySlot>()._itemImage.sprite = null;
             }
             _slotList[i].GetComponent<InventorySlot>().ItemContained().SetItem(InventoryBaseManager.instance._inventoryItems[i]._name, s);
-            _slotList[i].GetComponent<InventorySlot>().SetNumberInventorySlot(InventoryBaseManager.instance._inventoryItems[i]._number);
+            _slotList[i].GetComponent<InventorySlot>().SetNumberAndNameInventorySlot(InventoryBaseManager.instance._inventoryItems[i]._number, InventoryBaseManager.instance._inventoryItems[i]._name);
             //_slotList[i].GetComponent<InventorySlot>()._numberText.text = InventoryBaseManager.instance._inventoryItems[i]._number.ToString();
             //_slotList[i].GetComponent<InventorySlot>().UpdateNumber();
         }

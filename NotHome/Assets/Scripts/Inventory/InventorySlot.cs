@@ -28,10 +28,12 @@ public class InventorySlot : MonoBehaviour
 
     public int Number() { return _number; }
 
-    public void SetNumberInventorySlot(int n)
+    public void SetNumberAndNameInventorySlot(int n, string _newName)
     {
         _number = n;
         _numberText.text = _number.ToString();
+        _newName = _name;
+        _nameText.text = _name;
     }
 
     public void AddNumber() 
