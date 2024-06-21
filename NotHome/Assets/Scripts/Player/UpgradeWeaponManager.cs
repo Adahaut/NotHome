@@ -15,6 +15,7 @@ public class UpgradeWeaponManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
     [SerializeField] private TextMeshProUGUI _textLevel;
     [SerializeField] private GameObject _gunLevel3;
+    [SerializeField] private SwordVisual _swordVisual;
     private void OnEnable()
     {
         UpdateRessourcesText();
@@ -38,6 +39,8 @@ public class UpgradeWeaponManager : NetworkBehaviour
         switch (_nameWeapon)
         {
             case "Mele":
+                _swordVisual.NextSword(_levelWeapon - 1);
+                UpdateRessourcesText();
                 switch (_levelWeapon)
                 {
                     case 2:

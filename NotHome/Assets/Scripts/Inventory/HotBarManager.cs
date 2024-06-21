@@ -24,7 +24,7 @@ public class HotBarManager : NetworkBehaviour
 
     private PlayerAttack _playerAttack;
 
-    public int _hotBarSlotIndex;
+    [SyncVar] public int _hotBarSlotIndex;
     private float _timeToHide;
     private bool _isOpen;
     private bool _isCoroutineRunning;
@@ -82,13 +82,33 @@ public class HotBarManager : NetworkBehaviour
 
         UnActiveAll();
         _hotBarItems[_hotBarSlotIndex].SetActive(true);
+        print(_hotBarSlotIndex);
         if (_hotBarSlotIndex == 0)
             _textAmmo.SetActive(true);
         else
             _textAmmo.SetActive(false);
-        if (!isOwned)
-            _hotBarMesh[_hotBarSlotIndex].SetActive(true);
         SetWeaponActive();
+        if(isOwned)
+            Active();
+    }
+
+    [Command]
+    void Active()
+    {
+        UnActiveAllMesh(_hotBarSlotIndex, this);
+        
+    }
+
+    [ClientRpc]
+    private void UnActiveAllMesh(int index, HotBarManager p)
+    {
+        for (int i = 0; i < p._hotBarMesh.Count; i++)
+        {
+            p._hotBarMesh[i].SetActive(false);
+        }
+        p._hotBarMesh[index].SetActive(true);
+        if(isOwned)
+            p._hotBarMesh[index].SetActive(false);
     }
 
     private void SetWeaponActive()
@@ -120,7 +140,6 @@ public class HotBarManager : NetworkBehaviour
         for(int i = 0; i < _hotBarSlotList.Count; i++)
         {
             _hotBarItems[i].SetActive(false);
-            _hotBarMesh[i].SetActive(false);
         }
     }
 
