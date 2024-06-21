@@ -61,7 +61,12 @@ public class EnemiesSpawner : NetworkBehaviour
     [ClientRpc]
     private void RpcSetupMob(GameObject item, Vector3 position, Quaternion rotation, Transform parent)
     {
-        //print("set parent -> " + parent.name);
+        if (parent == null)
+        {
+            print("null");
+            return;
+        }
+        print("set parent -> " + parent.name);
         item.transform.SetParent(parent);
         item.transform.position = position;
         item.transform.rotation = rotation;
