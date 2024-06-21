@@ -86,16 +86,16 @@ public class HotBarManager : NetworkBehaviour
             _textAmmo.SetActive(true);
         else
             _textAmmo.SetActive(false);
-        ActiveGun(_hotBarMesh[_hotBarSlotIndex]);
+        ActiveGun();
         SetWeaponActive();
     }
 
     [Command]
-    void ActiveGun(GameObject weapon)
+    void ActiveGun()
     {
-        weapon.SetActive(true);
+        _hotBarMesh[_hotBarSlotIndex].SetActive(true);
         if (isOwned)
-            weapon.SetActive(false);
+            _hotBarMesh[_hotBarSlotIndex].SetActive(false);
     }
 
     private void SetWeaponActive()
@@ -127,7 +127,7 @@ public class HotBarManager : NetworkBehaviour
         for(int i = 0; i < _hotBarSlotList.Count; i++)
         {
             _hotBarItems[i].SetActive(false);
-            _hotBarMesh[i].SetActive(false);
+            //_hotBarMesh[i].SetActive(false);
         }
     }
 
