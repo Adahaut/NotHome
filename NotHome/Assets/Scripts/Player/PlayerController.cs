@@ -441,6 +441,7 @@ public class PlayerController : NetworkBehaviour
             else
             {
                 CheckIfHotBarIsShowed();
+                
                 ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
                 
             }
@@ -491,6 +492,7 @@ public class PlayerController : NetworkBehaviour
     private void ChangeToHotBarSlot(int _newIndex)
     {
         //_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
+        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
         SetNewIndex(_newIndex);
         _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
     }
@@ -514,14 +516,8 @@ public class PlayerController : NetworkBehaviour
             _index = 0;
         }
 
-        CmdModifyIndex(_index);
+        SetNewIndex(_index);
         return _index;
-    }
-
-    [Command]
-    void CmdModifyIndex(int newIndex)
-    {
-        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = newIndex;
     }
 
     private void CmdPickUpObject()
