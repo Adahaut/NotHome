@@ -8,10 +8,10 @@ public class PeopleInBaseChecker : MonoBehaviour
 
     private void Start()
     {
+        _lobbyManager = GameObject.Find("NetworkManager").GetComponent<NetworkLobbyManager>();
         _numberOfPlayers = _lobbyManager._gamePlayers.Count - 1;
         _numberOfPlayersInBase = 0;
 
-        _lobbyManager = GameObject.Find("NetworkManager").GetComponent<NetworkLobbyManager>();
     }
 
     private void OnTriggerEnter(Collider other)
