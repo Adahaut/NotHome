@@ -546,17 +546,21 @@ public class PlayerController : NetworkBehaviour
         {
             Debug.Log("Raycast hit an item on server");
             var item = hit.collider.GetComponent<Item>();
+            print("assign item");
             if (item != null && !_inventory.GetComponent<InventoryManager>().HasRemainingPlace(item.ItemName()))
             {
+                print("plus de place");
                 return;
             }
 
             if (item.ItemName() == "Metal")
             {
+                print("metal");
                 QuestManager.Instance.SetQuestMetal();
             }
-
+            print("add in inventory");
             _inventory.GetComponent<InventoryManager>().AddItem(item.ItemName(), item.ItemSprite(), false);
+            print("destroy");
             CmdDestroyItem(hit.collider.gameObject);
         }
     }
