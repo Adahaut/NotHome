@@ -760,10 +760,8 @@ MonoBehaviour:
   syncInterval: 0
   _maxLife: 100
   _currentLife: 0
-  _helthSlider: {fileID: 0}
-  _hitAudioClip:
-  - {fileID: 8300000, guid: e00b834e1cada2343b2aa793a2adc225, type: 3}
-  - {fileID: 8300000, guid: afa08f2686950c945bb9db44fc652154, type: 3}
+  _healthSlider: {fileID: 0}
+  _hitAudioClip: {fileID: 8300000, guid: afa08f2686950c945bb9db44fc652154, type: 3}
   _damageGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1104,6 +1102,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _damages: 3
+  _bloodParticle: {fileID: 0}
 --- !u!1 &3033219806600088206
 GameObject:
   m_ObjectHideFlags: 0

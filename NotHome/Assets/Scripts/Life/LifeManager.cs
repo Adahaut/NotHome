@@ -14,7 +14,7 @@ public class LifeManager : NetworkBehaviour
 
     [SerializeField] private Slider _healthSlider;
 
-    [SerializeField] private AudioClip[] _hitAudioClip;
+    [SerializeField] private AudioClip _hitAudioClip;
     private AudioSource[] _audioSource;
 
     [Header("Only for the player")]
@@ -77,7 +77,6 @@ public class LifeManager : NetworkBehaviour
         if (_currentLife <= 0) return;
 
         _currentLife -= damage;
-        //RpcPlayHitSound();
 
         if(gameObject.tag == "Player")
         {
@@ -95,14 +94,16 @@ public class LifeManager : NetworkBehaviour
                 RpcPlayerDeath();
             }
         }
+
+        RpcPlayHitSound();
+
     }
 
 
     [ClientRpc]
     private void RpcPlayHitSound()
     {
-        AudioClip randomClip = _hitAudioClip[Random.Range(0, _hitAudioClip.Length)];
-        _audioSource[1].clip = randomClip;
+        _audioSource[1].clip = _hitAudioClip;
         _audioSource[1].Play();
     }
 

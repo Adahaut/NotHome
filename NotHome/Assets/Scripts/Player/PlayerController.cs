@@ -258,7 +258,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
-                || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
+                || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder") || hit.collider.CompareTag("DecompressionExit")))
             {
                 _textPress.text = "Press " + _changeControl._control.ToUpper() + " to interact";
 
@@ -441,6 +441,7 @@ public class PlayerController : NetworkBehaviour
             else
             {
                 CheckIfHotBarIsShowed();
+                
                 ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
                 
             }
@@ -490,8 +491,16 @@ public class PlayerController : NetworkBehaviour
 
     private void ChangeToHotBarSlot(int _newIndex)
     {
+        //_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
         _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
+        SetNewIndex(_newIndex);
         _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
+    }
+
+    [Command]
+    void SetNewIndex(int i)
+    {
+        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = i;
     }
 
     private int UpdateHotBarIndex(int _index, int _indexAddition)
@@ -506,6 +515,8 @@ public class PlayerController : NetworkBehaviour
         {
             _index = 0;
         }
+
+        SetNewIndex(_index);
         return _index;
     }
 
