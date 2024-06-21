@@ -25,7 +25,6 @@ public class PlayerAttack : NetworkBehaviour
     private Animator _animator;
     private ProximityVoiceChat _proximityVoiceChat;
 
-
     [SerializeField] private float _cadence;
     private float _cadenceTimer;
 

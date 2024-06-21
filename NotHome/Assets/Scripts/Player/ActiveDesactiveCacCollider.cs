@@ -5,9 +5,11 @@ using UnityEngine;
 public class ActiveDesactiveCacCollider : MonoBehaviour
 {
     public Collider _enemyDetectionCollider;
+    public AudioSource _audioSource;
 
     public void ActiveCollider()
     {
+        _audioSource.Play();
         _enemyDetectionCollider.enabled = true;
     }
 
