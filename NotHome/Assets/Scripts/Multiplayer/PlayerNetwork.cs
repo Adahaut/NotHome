@@ -62,9 +62,9 @@ public class PlayerNetwork : NetworkBehaviour
         {
             foreach (var playerCamera in _playerCameras)
             {
-                if (nameTagText.text == "-")
+                if (playerCamera.transform.root.GetComponent<PlayerNetwork>().nameTagText.text == "-")
                 {
-                    nameTagText.text = playerCamera.transform.root.GetComponent<PlayerNetwork>()._displayName;
+                    playerCamera.transform.root.GetComponent<PlayerNetwork>().nameTagText.text = playerCamera.transform.root.GetComponent<PlayerNetwork>()._displayName;
                 }
 
                 nameTagInstance.transform.LookAt(playerCamera.transform);
