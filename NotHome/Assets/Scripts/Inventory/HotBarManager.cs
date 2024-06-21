@@ -24,7 +24,7 @@ public class HotBarManager : NetworkBehaviour
 
     private PlayerAttack _playerAttack;
 
-    public int _hotBarSlotIndex;
+    [SyncVar] public int _hotBarSlotIndex;
     private float _timeToHide;
     private bool _isOpen;
     private bool _isCoroutineRunning;
@@ -98,7 +98,8 @@ public class HotBarManager : NetworkBehaviour
         {
             _hotBarMesh[i].SetActive(false);
         }
-        _hotBarMesh[1].SetActive(true);
+        print(_hotBarSlotIndex);
+        _hotBarMesh[_hotBarSlotIndex].SetActive(true);
     }
 
     [ClientRpc]
