@@ -504,7 +504,19 @@ public class PlayerController : NetworkBehaviour
     private int UpdateHotBarIndex(int _index, int _indexAddition)
     {
         CmdModifyIndex(_indexAddition);
-        return _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex;
+
+        int temp = _index;
+        temp -= _indexAddition;
+
+        if (temp < 0)
+        {
+            temp = 2;
+        }
+        else if (temp > 2)
+        {
+            temp = 0;
+        }
+        return temp;
     }
 
     [Command]
