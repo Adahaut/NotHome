@@ -1,4 +1,5 @@
 using Steamworks;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class UseCrafter : MonoBehaviour
     [SerializeField] private List<GameObject> _materialsText = new List<GameObject>();
     [SerializeField] private InventoryManager _playerInventory;
     [SerializeField] private PlayerStockageUI _inventoryBase;
+    public TextMeshProUGUI _textFeedBack;
+    private Coroutine _feedback;
 
     private List<string> _materialsNameForCraft = new List<string>();
     private List<int> _materialsNumberForCraft = new List<int>();
@@ -84,7 +87,7 @@ public class UseCrafter : MonoBehaviour
     {
         if (!_playerInventory.HasRemainingPlace(_currentCraft._resultName))
         {
-            print("plus de place");
+            _feedback = StartCoroutine(CraftFeedBack(1));
             return;
         }
 
@@ -94,12 +97,43 @@ public class UseCrafter : MonoBehaviour
         if (_canCraft)
         {
             CraftItem();
-            print("craft");
+            _feedback = StartCoroutine(CraftFeedBack(0));
         }
         else
         {
-            print("pas assez de ressources");
+            _feedback = StartCoroutine(CraftFeedBack(2));
+            return;
         }
+    }
+
+    private void ChangeText(string _text, Color _color)
+    {
+        _textFeedBack.text = _text;
+        _textFeedBack.color = _color;
+    }
+
+    private IEnumerator CraftFeedBack(int _case)
+    {
+        switch (_case)
+        {
+            case 0:
+                ChangeText("Item crafted !", Color.green);
+                break;
+            case 1:
+                ChangeText("Not enough resources !", Color.red);
+                break;
+            case 2:
+                ChangeText("No more inventory space !", Color.red);
+                break;
+        }
+        _textFeedBack.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        _textFeedBack.gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(_feedback);
     }
 
     private void CraftItem()
