@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40e91907f74d364799544ecff4b246b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   linkedCam: {fileID: 5571988994038543630}
   cam: {fileID: 6736726927068361524}
 --- !u!1 &506647514477210105
@@ -2266,6 +2269,7 @@ GameObject:
   - component: {fileID: 6755889540051996593}
   - component: {fileID: -8099557937050308039}
   - component: {fileID: 7586044731967317591}
+  - component: {fileID: 5769907836176627418}
   m_Layer: 7
   m_Name: PlayerMesh2
   m_TagString: Player
@@ -2799,6 +2803,21 @@ MonoBehaviour:
   - {fileID: 9199943733419005488}
   - {fileID: 3645262663908923447}
   - {fileID: 1078873549196695435}
+--- !u!114 &5769907836176627418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236232325511716344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af339a9a9b9d7f3488c8dbfd46da02cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &5397962913501001781
 GameObject:
   m_ObjectHideFlags: 0
