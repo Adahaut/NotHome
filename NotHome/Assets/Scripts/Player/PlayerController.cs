@@ -503,17 +503,23 @@ public class PlayerController : NetworkBehaviour
 
     private int UpdateHotBarIndex(int _index, int _indexAddition)
     {
-        _index -= _indexAddition;
+        CmdModifyIndex(_indexAddition);
+        return _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex;
+    }
 
-        if (_index < 0)
+    [Command]
+    void CmdModifyIndex(int add)
+    {
+        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex -= add;
+
+        if (_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex < 0)
         {
-            _index = 2;
+            _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = 2;
         }
-        else if (_index > 2)
+        else if (_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex > 2)
         {
-            _index = 0;
+            _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = 0;
         }
-        return _index;
     }
 
     private void CmdPickUpObject()
