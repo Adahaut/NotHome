@@ -20,6 +20,7 @@ public class HotBarManager : NetworkBehaviour
     [SerializeField] private Color _hotBarSlotSelectedColor;
     [SerializeField] private Color _hotBarSlotUnselectedColor = Color.white;
     private ProximityVoiceChat _poximityVoiceChat;
+    [SerializeField] private GameObject _textAmmo;
 
     private PlayerAttack _playerAttack;
 
@@ -81,6 +82,10 @@ public class HotBarManager : NetworkBehaviour
 
         UnActiveAll();
         _hotBarItems[_hotBarSlotIndex].SetActive(true);
+        if (_hotBarSlotIndex == 0)
+            _textAmmo.SetActive(true);
+        else
+            _textAmmo.SetActive(false);
         if (!isOwned)
             _hotBarMesh[_hotBarSlotIndex].SetActive(true);
         SetWeaponActive();
