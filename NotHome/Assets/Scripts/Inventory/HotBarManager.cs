@@ -87,8 +87,16 @@ public class HotBarManager : NetworkBehaviour
         else
             _textAmmo.SetActive(false);
         if (!isOwned)
-            _hotBarMesh[_hotBarSlotIndex].SetActive(true);
+            ActiveGun(_hotBarMesh[_hotBarSlotIndex]);
         SetWeaponActive();
+    }
+
+    [Command]
+    void ActiveGun(GameObject weapon)
+    {
+        weapon.SetActive(true);
+        if (isOwned)
+            weapon.SetActive(false);
     }
 
     private void SetWeaponActive()
