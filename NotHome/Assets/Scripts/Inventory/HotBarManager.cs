@@ -98,7 +98,7 @@ public class HotBarManager : NetworkBehaviour
         {
             _hotBarMesh[i].SetActive(false);
         }
-        _hotBarMesh[_hotBarSlotIndex].SetActive(true);
+        _hotBarMesh[1].SetActive(true);
     }
 
     [ClientRpc]
