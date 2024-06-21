@@ -107,6 +107,8 @@ public class HotBarManager : NetworkBehaviour
             p._hotBarMesh[i].SetActive(false);
         }
         p._hotBarMesh[index].SetActive(true);
+        if(isOwned)
+            p._hotBarMesh[index].SetActive(false);
     }
 
     private void SetWeaponActive()
