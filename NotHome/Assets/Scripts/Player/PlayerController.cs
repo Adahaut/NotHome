@@ -535,6 +535,10 @@ public class PlayerController : NetworkBehaviour
             {
                 QuestManager.Instance.SetQuestMetal();
             }
+            else if (item.ItemName() == "Leaf")
+            {
+                QuestManager.Instance.SetQuestMetal();
+            }
             _inventory.GetComponent<InventoryManager>().AddItem(item.ItemName(), item.ItemSprite(), false);
             CmdDestroyItem(hit.collider.gameObject);
         }
