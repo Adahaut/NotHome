@@ -70,6 +70,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _damages: 5
+  _bloodParticle: {fileID: 0}
 --- !u!1001 &761638819515431769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,13 +145,13 @@ PrefabInstance:
       addedObject: {fileID: 5618582661610403564}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 955a9f8ad1003474fa2d142d0347b01a, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5801278291117847641}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 955a9f8ad1003474fa2d142d0347b01a, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 4579799566768807858}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 955a9f8ad1003474fa2d142d0347b01a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5265441873842633443}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 955a9f8ad1003474fa2d142d0347b01a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5801278291117847641}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 955a9f8ad1003474fa2d142d0347b01a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7492038890848328439}
@@ -230,9 +231,7 @@ MonoBehaviour:
   _maxLife: 100
   _currentLife: 0
   _healthSlider: {fileID: 0}
-  _hitAudioClip:
-  - {fileID: 8300000, guid: 615884579ae15394fab2962d4d3dabd9, type: 3}
-  - {fileID: 8300000, guid: 1d6daaa2f6867554e8080e506a2d0a70, type: 3}
+  _hitAudioClip: {fileID: 0}
   _damageGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -264,32 +263,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   _damageIndicator: {fileID: 0}
---- !u!114 &4579799566768807858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455017122214462984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e5ad7a9b41eab48ace96448af7e227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _walkingRadius: 10
-  _timeBetweenAttacks: 3
-  _sightRange: 10
-  _attackRange: 2
-  _audioSources:
-  - {fileID: 5265441873842633443}
-  - {fileID: 5801278291117847641}
-  - {fileID: 7492038890848328439}
-  _playerDetectionCollider: {fileID: 0}
-  _players: []
---- !u!82 &5265441873842633443
+--- !u!82 &5801278291117847641
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,12 +272,12 @@ AudioSource:
   m_GameObject: {fileID: 455017122214462984}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 5556835567951023702, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 0cd1916fadaec3d4295a219fd63d62ba, type: 3}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -385,7 +359,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &5801278291117847641
+--- !u!114 &4579799566768807858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455017122214462984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e5ad7a9b41eab48ace96448af7e227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _walkingRadius: 10
+  _timeBetweenAttacks: 3
+  _sightRange: 10
+  _attackRange: 2
+  _audioSources:
+  - {fileID: 5801278291117847641}
+  - {fileID: 5265441873842633443}
+  - {fileID: 7492038890848328439}
+  _playerDetectionCollider: {fileID: 0}
+  _players: []
+--- !u!82 &5265441873842633443
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -394,12 +393,12 @@ AudioSource:
   m_GameObject: {fileID: 455017122214462984}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  OutputAudioMixerGroup: {fileID: 5556835567951023702, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 0cd1916fadaec3d4295a219fd63d62ba, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

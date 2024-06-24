@@ -15,7 +15,7 @@ public class LifeManager : NetworkBehaviour
     [SerializeField] private Slider _healthSlider;
 
     [SerializeField] private AudioClip _hitAudioClip;
-    private AudioSource[] _audioSource;
+    private AudioSource _audioSource;
 
     [Header("Only for the player")]
     [SerializeField] private Gradient _damageGradient;
@@ -26,7 +26,7 @@ public class LifeManager : NetworkBehaviour
 
     void Start()
     {
-        _audioSource = GetComponents<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         if(_damageIndicator != null)
         {
             _damageIndicator.color = new Color(0, 0, 0, 0);
@@ -52,11 +52,8 @@ public class LifeManager : NetworkBehaviour
 
     public void SetMaxHealth()
     {
-        if(isServer)
-        {
-            _currentLife = _maxLife;
-        }
-            StartBlinking(false);
+        _currentLife = _maxLife;
+        StartBlinking(false);
     }
 
     void OnLifeChanged(int oldLife, int newLife)
@@ -98,16 +95,17 @@ public class LifeManager : NetworkBehaviour
             }
         }
 
-        RpcPlayHitSound();
+        RpcPlayHitSound(transform.position);
 
     }
 
 
     [ClientRpc]
-    private void RpcPlayHitSound()
+    private void RpcPlayHitSound(Vector3 position)
     {
-        _audioSource[1].clip = _hitAudioClip;
-        _audioSource[1].Play();
+        //_audioSource.clip = _hitAudioClip;
+        //_audioSource.Play();
+        AudioSource.PlayClipAtPoint(_hitAudioClip, position);
     }
 
     [ClientRpc]
@@ -182,7 +180,7 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    private void StartBlinking(bool _takingDamage = false)
+    public void StartBlinking(bool _takingDamage = false)
     {
         float _force = _takingDamage == true ? 1f : (float)(_maxLife - _currentLife) / (float)_maxLife * 0.2f;
         _blinking = StartCoroutine(UIBlinking(50, _force, _takingDamage));

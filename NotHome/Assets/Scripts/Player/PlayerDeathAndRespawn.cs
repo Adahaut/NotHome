@@ -42,7 +42,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         transform.position = Vector3.zero;
-        
         StartCoroutine(DisableCamera(0.5f));
         
     }
@@ -50,9 +49,10 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     public void Respawn()
     {
         _noSignal.SetActive(false);
+        if(_playerLifeManager == null) _playerLifeManager = GetComponent<LifeManager>();
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
-        transform.position = _playerRespawnPoint;
+        transform.position = Vector3.Lerp(transform.position, _playerRespawnPoint, 1);
         transform.rotation = cameraSpawnRotation;
         cameraTransform.position = cameraSpawnTransform;
         cameraTransform.rotation = cameraSpawnRotation;
@@ -78,13 +78,14 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
                 cameraTransform.rotation = Quaternion.Euler(cameraTransform.rotation.x + (90 * time / totalTime), cameraTransform.rotation.y + (180*time/totalTime),cameraTransform.rotation.z) ;
                 yield return new WaitForEndOfFrame();
             }
-
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             _noSignal.SetActive(true);
             _timeToRespawn = 10;
             _canRespawn = true;
+            transform.position = Vector3.Lerp(transform.position, Vector3.zero, 1);
+
         }
-        
+
     }
 
     private IEnumerator RespawnAnimation()
