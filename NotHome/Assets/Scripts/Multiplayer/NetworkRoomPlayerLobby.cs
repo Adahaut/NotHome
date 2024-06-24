@@ -190,7 +190,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
 
         Room.NotifyPlayersOfReadyState();
 
-        NetworkServer.Destroy(gameObject);
+        NetworkServer.Destroy(gameObject); 
+
     }
 
     public void HandleReadyToStart(bool readyToStart)
