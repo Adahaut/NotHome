@@ -99,16 +99,11 @@ public class PlayerController : NetworkBehaviour
     bool _canJump;
 
     [SerializeField] private ChangeControl _changeControl;
-    [SerializeField] private GameObject[] _setActiveFalse;
     public PauseManager _pauseManager;
     private PlayerInput _playerInput;
 
     private void DisableControlPanelOnStart()
     {
-        for (int i = 0; i < _setActiveFalse.Length; i++)
-        {
-            _setActiveFalse[i].SetActive(false);
-        }
         Cursor.lockState = CursorLockMode.Locked;
         _pauseManager._playerInput.actions.actionMaps[0].Enable();
         //_pauseManager.Resume();
