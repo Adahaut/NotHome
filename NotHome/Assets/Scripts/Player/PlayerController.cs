@@ -577,7 +577,7 @@ public class PlayerController : NetworkBehaviour
     private IEnumerator RunningStamina()
     {
         _runningStaminaLose = true;
-        while (_isRunning && _playerManager.Stamina > 0)
+        while (_isRunning && _playerManager.Stamina > 0 && _moveDir != Vector2.zero)
         {
             _currentStaminaTime = _staminaTimer;
             ChangeStamina(-0.05f);
