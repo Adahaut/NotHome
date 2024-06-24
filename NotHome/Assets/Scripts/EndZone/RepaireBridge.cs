@@ -1,8 +1,10 @@
+using Mirror;
+using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class RepaireBridge : MonoBehaviour
+public class RepaireBridge : NetworkBehaviour
 {
     [SerializeField] private GameObject _bridge;
 
@@ -50,7 +52,7 @@ public class RepaireBridge : MonoBehaviour
         }
         for (int i = 0; i < _itemsNeeded.Count; i++)
         {
-            if(_playerInventory.ContainItem(_itemsNeeded[i]))
+            if (_playerInventory.ContainItem(_itemsNeeded[i]))
             {
                 if (!(_playerInventory._slotList[_playerInventory.GetIndexOfSlotByName(_itemsNeeded[i])].GetComponent<InventorySlot>().Number() == _itemsNumberNeeded[i]))
                 {
@@ -68,12 +70,26 @@ public class RepaireBridge : MonoBehaviour
                 _message.text += _itemsNeeded[i] + "\n";
             }
         }
-        if(_message.text == "")
+        if (_message.text == "" && isOwned)
         {
-            _bridge.GetComponent<BoxCollider>().enabled = true;
-            _bridge.GetComponent<MeshRenderer>().enabled = true;
+            CmdRepairBridgeVisual();
             _message.text = "Bridge Reparation Done!";
         }
+    }
+
+    [Command]
+    private void CmdRepairBridgeVisual()
+    {
+        RpcRepairBridgeVisual();
+    }
+
+    [ClientRpc]
+    private void RpcRepairBridgeVisual()
+    {
+        if(_bridge == null)
+            _bridge = GameObject.Find("Bridge");
+        _bridge.GetComponent<BoxCollider>().enabled = true;
+        _bridge.GetComponent<MeshRenderer>().enabled = true;
     }
 
 }

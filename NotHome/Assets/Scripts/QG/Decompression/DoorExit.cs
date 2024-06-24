@@ -17,6 +17,7 @@ public class DoorExit : NetworkBehaviour
     [SerializeField] private GameObject _light;
     [SerializeField] private AudioSource _soundDecompression;
     public AudioClip sasClip;
+    private PeopleInBaseChecker _checker;
 
     [SerializeField] private ItemSpawnerManager _spawnerManager;
     private EnemiesSpawner _enemiesSpawner;
@@ -37,6 +38,9 @@ public class DoorExit : NetworkBehaviour
             _spawnerManager = GameObject.Find("ItemsWaypoints").GetComponent<ItemSpawnerManager>();
         if(_enemiesSpawner == null)
             _enemiesSpawner = GameObject.Find("EnemiesSpawner").GetComponent<EnemiesSpawner>();
+        if(_checker == null)
+            _checker = GameObject.Find("BaseZone").GetComponent<PeopleInBaseChecker>();
+
     }
 
 
@@ -114,13 +118,18 @@ public class DoorExit : NetworkBehaviour
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
-            if(_spawnerManager._canSpawn)
+            print(_checker);
+            print(_checker.Check());
+            if(isServer && _checker.Check() && _spawnerManager._canSpawn)
+            {
                 _spawnerManager.DestroyAndSpawnItems();
 
-            for (int i = 0; i < 3; i++)
-            {
-                _enemiesSpawner.SpawnEnemies(i);
+                for (int i = 0; i < 3; i++)
+                {
+                    _enemiesSpawner.SpawnEnemies(i);
+                }
             }
+            
         }
     }
 

@@ -221,7 +221,7 @@ public class PlayerController : NetworkBehaviour
             //OfficeManager.Instance.MouvToChair();
             if (_timer <= 0)
             {
-                CmdPickUpObject();
+                PickUpObject();
                 _timer = 0.05f;
             }
         }
@@ -258,7 +258,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
-                || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder")))
+                || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder") || hit.collider.CompareTag("DecompressionExit")))
             {
                 _textPress.text = "Press " + _changeControl._control.ToUpper() + " to interact";
 
@@ -441,6 +441,7 @@ public class PlayerController : NetworkBehaviour
             else
             {
                 CheckIfHotBarIsShowed();
+                
                 ChangeToHotBarSlot(UpdateHotBarIndex(_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex, _indexAddition));
                 
             }
@@ -490,8 +491,16 @@ public class PlayerController : NetworkBehaviour
 
     private void ChangeToHotBarSlot(int _newIndex)
     {
+        //_hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
         _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = _newIndex;
+        SetNewIndex(_newIndex);
         _hotBar.GetComponent<HotBarManager>().UpdateSelectedHotBarSlot();
+    }
+
+    [Command]
+    void SetNewIndex(int i)
+    {
+        _hotBar.GetComponent<HotBarManager>()._hotBarSlotIndex = i;
     }
 
     private int UpdateHotBarIndex(int _index, int _indexAddition)
@@ -506,29 +515,47 @@ public class PlayerController : NetworkBehaviour
         {
             _index = 0;
         }
+
+        SetNewIndex(_index);
         return _index;
     }
 
-    private void CmdPickUpObject()
+    private void PickUpObject()
     {
-        if(Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag))
+        if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && hit.collider.CompareTag(_itemTag) && !hit.collider.GetComponent<Item>()._isPicked)
         {
-            if (!_inventory.GetComponent<InventoryManager>().HasRemainingPlace(hit.collider.GetComponent<Item>().ItemName()))
+            var item = hit.collider.GetComponent<Item>();
+            item._isPicked = true;
+            if (item != null && !_inventory.GetComponent<InventoryManager>().HasRemainingPlace(item.ItemName()))
             {
                 return;
             }
-            if (hit.collider.GetComponent<Item>().ItemName() == "Metal")
+
+            if (item.ItemName() == "Metal")
+            {
                 QuestManager.Instance.SetQuestMetal();
-            _inventory.GetComponent<InventoryManager>().AddItem(hit.collider.GetComponent<Item>().ItemName(), hit.collider.GetComponent<Item>().ItemSprite(), false);
+            }
+            else if (item.ItemName() == "Leaf")
+            {
+                QuestManager.Instance.SetQuestMetal();
+            }
+            _inventory.GetComponent<InventoryManager>().AddItem(item.ItemName(), item.ItemSprite(), false);
             CmdDestroyItem(hit.collider.gameObject);
         }
     }
 
+
     [Command]
     private void CmdDestroyItem(GameObject item)
     {
-        print("destroy " +  item.name);
-        NetworkServer.Destroy(item);
+        if (item != null)
+        {
+            NetworkServer.Destroy(item);
+        }
+        else
+        {
+            return;
+        }
     }
 
 

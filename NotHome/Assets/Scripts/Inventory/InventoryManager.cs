@@ -145,7 +145,7 @@ public class InventoryManager : NetworkBehaviour
             {
                 if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == _ItemName)
                 {
-                    _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() + _number);
+                    _slotList[i].GetComponent<InventorySlot>().SetNumberAndName(_slotList[i].GetComponent<InventorySlot>().Number() + _number, _ItemName);
                     return;
                 }
             }
@@ -153,7 +153,7 @@ public class InventoryManager : NetworkBehaviour
             {
                 if (_slotList[i].GetComponent<InventorySlot>().ItemContained().ItemName() == "None")
                 {
-                    _slotList[i].GetComponent<InventorySlot>().SetNumber(_number);
+                    _slotList[i].GetComponent<InventorySlot>().SetNumberAndName(_number, _ItemName);
                     _slotList[i].GetComponent<InventorySlot>().ChangeItem(_ItemName, _itemSprite, _isAnEquipement);
                     return;
                 }
@@ -194,7 +194,7 @@ public class InventoryManager : NetworkBehaviour
             {
                 if (_slotList[i].GetComponent<InventorySlot>().Number() > _number)
                 {
-                    _slotList[i].GetComponent<InventorySlot>().SetNumber(_slotList[i].GetComponent<InventorySlot>().Number() - _number);
+                    _slotList[i].GetComponent<InventorySlot>().SetNumberAndName(_slotList[i].GetComponent<InventorySlot>().Number() - _number, _itemName);
                     _number = _slotList[i].GetComponent<InventorySlot>().Number() - _number;
                     print(_number);
                 }
