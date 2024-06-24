@@ -1141,6 +1141,10 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1277377539896384041, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+      propertyPath: m_characterSpacing
+      value: -7.21
+      objectReference: {fileID: 0}
     - target: {fileID: 1394914044376154593, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_Name
       value: Option
@@ -1311,7 +1315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2887331573966811304, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3470003067048415887, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_Color.b
@@ -1690,6 +1694,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2b3338a3c3b3b274fa8765d6004ebe47, type: 2}
     - target: {fileID: 7419043371955941530, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7419043371955941530, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_fontColor.b
       value: 0.63529414
       objectReference: {fileID: 0}
@@ -1859,7 +1867,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1835374853528376323, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 687566778031313295, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+    - {fileID: 9118818998991350747, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+    - {fileID: 6533517381996843729, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+    - {fileID: 2144207990356820851, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+    - {fileID: 6473862250246814931, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+    - {fileID: 6010469935329179997, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8830743244435210284, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       insertIndex: -1
@@ -1877,37 +1891,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 302216769}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 1
+      insertIndex: 0
       addedObject: {fileID: 1591471968}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 1005371611}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 3
+      insertIndex: 2
       addedObject: {fileID: 1710402065}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 4
+      insertIndex: 3
       addedObject: {fileID: 1506666220}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 5
+      insertIndex: 4
       addedObject: {fileID: 1188703304}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 6
+      insertIndex: 5
       addedObject: {fileID: 1833856064}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 7
+      insertIndex: 6
       addedObject: {fileID: 303655855}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 8
+      insertIndex: 7
       addedObject: {fileID: 1858356886}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 9
+      insertIndex: 8
       addedObject: {fileID: 916657990}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 10
+      insertIndex: 9
       addedObject: {fileID: 363605237}
     - targetCorrespondingSourceObject: {fileID: 1733125353958638285, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
-      insertIndex: 11
+      insertIndex: 10
       addedObject: {fileID: 1751937821}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8740986251928125622, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
@@ -2793,8 +2807,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 268435455
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.05882353}
+    rgba: 100663295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.019607844}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2821,7 +2835,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -6.52
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
