@@ -103,6 +103,7 @@ public class PlayerController : NetworkBehaviour
 
     private void DisableControlPanelOnStart()
     {
+        print(_setActiveFalse.Length);
         for (int i = 0; i < _setActiveFalse.Length; i++)
         {
             _setActiveFalse[i].SetActive(false);
