@@ -1,12 +1,11 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckPlayerCollisionAttack : NetworkBehaviour
 {
     [SerializeField] private int _damages;
     public GameObject _bloodParticle;
+    public bool _hit;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,6 +28,7 @@ public class CheckPlayerCollisionAttack : NetworkBehaviour
         
         if (other.CompareTag("Enemy"))
         {
+            _hit = true;
             var enemyLifeManager = other.GetComponent<LifeManager>();
             if (enemyLifeManager != null)
             {
