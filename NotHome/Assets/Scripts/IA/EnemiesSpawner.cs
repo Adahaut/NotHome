@@ -16,12 +16,14 @@ public class EnemiesSpawner : NetworkBehaviour
     public List<SpawnZone> _spawnZones;
     public LayerMask _groundLayer;
     public Transform _enemiesParent;
+    public List<GameObject> _spawnedMobs = new List<GameObject>();
 
     private void Start()
     {
         //SpawnEnemies(0);
     }
 
+    [Server]
     public void SpawnEnemies(int _zoneIndex)
     {
         print("spawn " +  _zoneIndex);
@@ -42,10 +44,11 @@ public class EnemiesSpawner : NetworkBehaviour
 
             if (_spawnPosition != Vector3.zero && isServer)
             {
-                GameObject go = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity, _enemiesParent);
-                //CmdSpawnObject(go);
-                NetworkServer.Spawn(go);
-                //NetworkServer.Spawn(go);
+                GameObject _mob = Instantiate(_selectedZone._spawnablePrefabs[Random.Range(0, _selectedZone._spawnablePrefabs.Count)], _spawnPosition, Quaternion.identity, _enemiesParent);
+                NetworkServer.Spawn(_mob);
+                print(_enemiesParent);
+                RpcSetupMob(_mob, _mob.transform.position, _mob.transform.rotation, _enemiesParent);
+                _spawnedMobs.Add(_mob);
             }
         }
     }
@@ -54,6 +57,18 @@ public class EnemiesSpawner : NetworkBehaviour
     void CmdSpawnObject(GameObject obj)
     {
         
+    }
+
+    [ClientRpc]
+    private void RpcSetupMob(GameObject item, Vector3 position, Quaternion rotation, Transform parent)
+    {
+        if (parent == null)
+        {
+            parent = _enemiesParent;
+        }
+        item.transform.SetParent(parent);
+        item.transform.position = position;
+        item.transform.rotation = rotation;
     }
 
     public void DestroyAllEnemies()
