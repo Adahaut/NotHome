@@ -1,5 +1,6 @@
 using Mirror;
 using Steamworks;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class PlayerNetwork : NetworkBehaviour
     public Camera mainCamera;
 
     [SerializeField] private GameObject playerUI;
+    [SerializeField] private GameObject blackScreen;
 
     private void Start()
     {
@@ -53,8 +55,16 @@ public class PlayerNetwork : NetworkBehaviour
         if(isOwned)
         {
             playerUI.SetActive(active);
+            blackScreen.SetActive(!active);
+            DisableBlackScreen();
         }
             
+    }
+
+    IEnumerator DisableBlackScreen()
+    {
+        yield return new WaitForSeconds(0.5f);
+        blackScreen.SetActive(false);
     }
 
     private void OnNameChanged(string oldName, string newName)

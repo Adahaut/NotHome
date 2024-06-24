@@ -17,7 +17,7 @@ public class PlayCinematic : MonoBehaviour
         for (int i = 0; i < _playersRef.Length; i++)
         {
             _playersRef[i].GetComponent<PlayerNetwork>().SetActiveUI(false);
-            _playersRef[i].SetActive(false);
+            //_playersRef[i].SetActive(false);
         }
 
         _animator.speed = 3.0f;
