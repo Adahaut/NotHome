@@ -84,12 +84,12 @@ public class PlayCinematic : MonoBehaviour
 
     public void DisableCinematic()
     {
-        gameObject.SetActive(false);
-
         for (int i = 0; i < _playersRef.Length; i++)
         {
             _playersRef[i].SetActive(true);
             _playersRef[i].GetComponent<PlayerNetwork>().SetActiveUI(true);
         }
+
+        gameObject.SetActive(false);
     }
 }
