@@ -38,9 +38,8 @@ public class GetButton : MonoBehaviour
     }
     public void Any(InputAction.CallbackContext ctx)
     {
-        print("enter");
         InputSystem.onAnyButtonPress.CallOnce(ctrl => _text = ctrl.name);
-        if (_text.Length < 2 || _text == "space" || _text == "leftShift" || _text == "semicolon")
+        if ((_text.Length < 2 || _text == "space" || _text == "leftShift" || _text == "semicolon" || _text == "tab") && _text != "escape")
         {
             _listButton[_indexButton].GetComponent<ChangeControl>().Change();
         }
