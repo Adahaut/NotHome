@@ -84,6 +84,7 @@ public class PlayCinematic : MonoBehaviour
 
     public void DisableCinematic()
     {
+        _playersRef = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < _playersRef.Length; i++)
         {
             _playersRef[i].SetActive(true);
