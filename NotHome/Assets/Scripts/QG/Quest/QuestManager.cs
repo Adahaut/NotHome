@@ -19,6 +19,7 @@ public class QuestManager : NetworkBehaviour
     private int _counterSpider;
     private int _counterX;
     private int _counterMetal;
+    private int _counterLeaf;
 
 
     public List<QuestStruct> _listToFillInInspector = new List<QuestStruct>();
@@ -65,18 +66,6 @@ public class QuestManager : NetworkBehaviour
             }
         }
     }
-    public void SetQuestX()
-    {
-        int indexQuest = 6;
-        if (currentQuest == indexQuest)
-        {
-            _counterSpider++;
-            if (_counterX >= 10)
-            {
-                QuestComplete(indexQuest);
-            }
-        }
-    }
 
     public void SetQuestUpLevel2()
     {
@@ -108,6 +97,16 @@ public class QuestManager : NetworkBehaviour
         {
             _counterMetal++;
             if (_counterMetal >= 5)
+                QuestComplete(indexQuest);
+        }
+    }
+    public void SetQuestLeaf()
+    {
+        int indexQuest = 8;
+        if (currentQuest == indexQuest)
+        {
+            _counterLeaf++;
+            if (_counterLeaf >= 15)
                 QuestComplete(indexQuest);
         }
     }

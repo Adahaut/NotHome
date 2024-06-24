@@ -120,9 +120,9 @@ public class LifeManager : NetworkBehaviour
             {
                 QuestManager.Instance.SetQuestSpider();
             }
-            else if (gameObject.name == "X")
+            else if (gameObject.name == "SlenderManUpdate(Clone)")
             {
-                QuestManager.Instance.SetQuestX();
+                QuestManager.Instance.QuestComplete(6);
             }
 
             NetworkServer.Destroy(gameObject);
