@@ -77,20 +77,23 @@ public class DoorExit : NetworkBehaviour
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
-            if (hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._nameZone != "Final" || canOpenAllSAS)
+            if (hit.collider.transform.parent.GetComponentInChildren<DoorExit>() != null)
             {
-                if (hit.collider.CompareTag("Decompression") && !_isDecompression)
+                if (hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._nameZone != "Final" || canOpenAllSAS)
                 {
-                    hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
-                }
-                else if (hit.collider.CompareTag("DecompressionMountain") && !_isDecompression) // && heure <= 20h
-                {
-                    hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
-                }
-                else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
-                {
-                    hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
-                    hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
+                    if (hit.collider.CompareTag("Decompression") && !_isDecompression)
+                    {
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
+                    }
+                    else if (hit.collider.CompareTag("DecompressionMountain") && !_isDecompression) // && heure <= 20h
+                    {
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
+                    }
+                    else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
+                    {
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
+                    }
                 }
             }
         }
