@@ -9,7 +9,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject _uiOption;
     [SerializeField] private GameObject _uiControl;
 
-    [SerializeField] private PlayerInput _playerInput;
+    public PlayerInput _playerInput;
     public static bool _gameIsPaused;
     public static PauseManager Instance;
 
