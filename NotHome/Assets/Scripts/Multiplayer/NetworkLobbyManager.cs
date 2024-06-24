@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class NetworkLobbyManager : NetworkManager
 {
     [SerializeField] private int _minPlayer = 2;
+    public GameObject _uiMainMenu;
     [Scene] [SerializeField] private string menuScene;
 
     [Header("Room")]
