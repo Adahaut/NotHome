@@ -106,15 +106,15 @@ public class PlayerController : NetworkBehaviour
         StartCoroutine(DisableControlPanelOnStart());
     }
 
-    private IEnumerator DisableControlPanelOnStart()
+    private void DisableControlPanelOnStart()
     {
-        yield return new WaitForSeconds(0.01f);
-
-        for (int i = 0; i < _setActiveFalse.Length; i++)
-        {
-            _setActiveFalse[i].SetActive(false);
-        }
-        _pauseManager.Resume();
+      for (int i = 0; i < _setActiveFalse.Length; i++)
+      {
+          _setActiveFalse[i].SetActive(false);
+      }
+      Cursor.lockState = CursorLockMode.Locked;
+      _pauseManager._playerInput.actions.actionMaps[0].Enable();
+      //_pauseManager.Resume();
     }
     public override void OnStartAuthority()
     {
@@ -140,6 +140,8 @@ public class PlayerController : NetworkBehaviour
             playerMesh.SetActive(false);
             gunMesh.SetActive(false);
             machette.SetActive(false);
+           
+            Invoke("DisableControlPanelOnStart", 0.01f);
         }
 
         _inventoryInitialPosition = _inventory.transform.localPosition;
