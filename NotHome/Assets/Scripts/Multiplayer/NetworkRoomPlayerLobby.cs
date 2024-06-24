@@ -186,11 +186,10 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         {
             Room.StopHost();
         }
-
+        connectionToClient.identity.gameObject.GetComponent<NetworkRoomPlayerLobby>().room._uiMainMenu.SetActive(true);
 
         Room.NotifyPlayersOfReadyState();
 
-        room._uiMainMenu.SetActive(true);
         NetworkServer.Destroy(gameObject);
     }
 
