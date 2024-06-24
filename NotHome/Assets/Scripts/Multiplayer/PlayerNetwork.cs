@@ -56,14 +56,13 @@ public class PlayerNetwork : NetworkBehaviour
         {
             playerUI.SetActive(active);
             blackScreen.SetActive(!active);
-            DisableBlackScreen();
+            Invoke("DisableBlackScreen", 1f);
         }
             
     }
 
-    IEnumerator DisableBlackScreen()
+    void DisableBlackScreen()
     {
-        yield return new WaitForSeconds(0.5f);
         blackScreen.SetActive(false);
     }
 
