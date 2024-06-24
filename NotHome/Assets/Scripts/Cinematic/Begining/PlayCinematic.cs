@@ -16,6 +16,7 @@ public class PlayCinematic : MonoBehaviour
 
         for (int i = 0; i < _playersRef.Length; i++)
         {
+            _playersRef[i].GetComponent<PlayerNetwork>().SetActiveUI(false);
             _playersRef[i].SetActive(false);
         }
 
@@ -88,6 +89,7 @@ public class PlayCinematic : MonoBehaviour
         for (int i = 0; i < _playersRef.Length; i++)
         {
             _playersRef[i].SetActive(true);
+            _playersRef[i].GetComponent<PlayerNetwork>().SetActiveUI(true);
         }
     }
 }

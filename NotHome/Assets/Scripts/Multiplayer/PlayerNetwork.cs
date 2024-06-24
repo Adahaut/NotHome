@@ -26,7 +26,8 @@ public class PlayerNetwork : NetworkBehaviour
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
-            playerUI.SetActive(true);
+            //playerUI.SetActive(true);
+            SetActiveUI(false);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
 
@@ -45,6 +46,15 @@ public class PlayerNetwork : NetworkBehaviour
     public void CmdSetPlayerName(string name)
     {
         _displayName = name;
+    }
+
+    public void SetActiveUI(bool  active)
+    {
+        if(isOwned)
+        {
+            playerUI.SetActive(active);
+        }
+            
     }
 
     private void OnNameChanged(string oldName, string newName)
