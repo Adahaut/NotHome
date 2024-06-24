@@ -17,7 +17,8 @@ public class PlayCinematic : MonoBehaviour
 
         for (int i = 0; i < _playersRef.Length; i++)
         {
-            _playersRef[i].SetActive(false);
+            //_playersRef[i].SetActive(false);
+            _playersRef[i].GetComponent<PlayerNetwork>().SetActiveUI(false);
         }
 
         _animator.speed = 3.0f;
@@ -84,13 +85,15 @@ public class PlayCinematic : MonoBehaviour
 
     public void DisableCinematic()
     {
-        gameObject.SetActive(false);
+        _playersRef = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < _playersRef.Length; i++)
         {
             _playersRef[i].SetActive(true);
+            _playersRef[i].GetComponent<PlayerNetwork>().SetActiveUI(true);
         }
         RenderSettings.fog = true;
 
+        gameObject.SetActive(false);
     }
 }
