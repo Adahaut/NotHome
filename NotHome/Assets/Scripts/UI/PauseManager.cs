@@ -23,7 +23,7 @@ public class PauseManager : MonoBehaviour
 
     private void Start()
     {
-        _gameIsPaused = true;
+        _gameIsPaused = _uiPause.activeSelf;
     }
     public void Resume()
     {

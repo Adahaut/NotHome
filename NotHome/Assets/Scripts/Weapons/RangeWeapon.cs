@@ -59,10 +59,7 @@ public class RangeWeapon : NetworkBehaviour
             Instance = this;
         _playerCamera = GetComponentInParent<Camera>();
     }
-    private void OnEnable()
-    {
-        _isReloading = false;
-    }
+
     private void Start()
     {
         _transform = transform;
