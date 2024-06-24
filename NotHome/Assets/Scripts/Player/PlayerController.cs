@@ -65,6 +65,7 @@ public class PlayerController : NetworkBehaviour
     private CharacterController _characterController;
     private float _timer;
     private bool _isInBaseInventory;
+    [HideInInspector] public bool _canOpenAllSAS;
     private Animator _animator;
 
 
@@ -207,7 +208,7 @@ public class PlayerController : NetworkBehaviour
     {
         if(isOwned)
         {
-            DoorExit.Instance.OpenDoor(_startPointRaycast, _distRayCast);
+            DoorExit.Instance.OpenDoor(_startPointRaycast, _distRayCast, _canOpenAllSAS);
             if (ctx.performed)
             {
                 StartUi();
