@@ -16,6 +16,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private Button startGameButton = null;
     [SerializeField] private Button readyButton = null;
     [SerializeField] private Button[] _leaveKickButtons = new Button[4];
+    [SerializeField] private GameObject uiMainMenu;
    
     [SyncVar(hook = nameof(HandleSteamIdUpdated))]
     private ulong steamId;
@@ -26,6 +27,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public bool _isReady = false;
 
     public Texture2D _displayImage;
+    public Texture2D _waitImage;
 
     protected Callback<AvatarImageLoaded_t> _avatarImageLoaded;
 
@@ -166,17 +168,17 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         {
             playerNameTexts[j].text = "Waiting For Player...";
             playerReadyTexts[j].text = string.Empty;
-            _playerImages[j].texture = null;
+            _playerImages[j].texture = _waitImage;
         }
     }
 
     [Command]
     public void LeaveLobby()
     {
-        if (Room._roomPlayers[0] == this && Room._roomPlayers.Count > 1)
-        {
-            Room._roomPlayers[1].IsLeader = true;
-        }
+        //if (Room._roomPlayers[0] == this && Room._roomPlayers.Count > 1)
+        //{
+        //    Room._roomPlayers[1].IsLeader = true;
+        //}
 
         Room._roomPlayers.Remove(this);
 
@@ -185,9 +187,11 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             Room.StopHost();
         }
 
-        NetworkServer.Destroy(gameObject);
 
         Room.NotifyPlayersOfReadyState();
+
+        room._uiMainMenu.SetActive(true);
+        NetworkServer.Destroy(gameObject);
     }
 
     public void HandleReadyToStart(bool readyToStart)
