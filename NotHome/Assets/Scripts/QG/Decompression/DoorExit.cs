@@ -121,38 +121,31 @@ public class DoorExit : NetworkBehaviour
             SpawnItemAndMobsByZone();
             print(_checker);
             print(_checker.Check());
-            
-            
         }
     }
 
     private void SpawnItemAndMobsByZone()
     {
-        if (isServer && _checker.Check() && _spawnerManager._canSpawn)
+        if (isServer && _checker.Check())
         {
-            print(_nameZone);
             switch (_nameZone)
             {
                 case "Desert":
-                    print("desert");
                     _spawnerManager.DestroyAndSpawnItems(0);
                     _enemiesSpawner.SpawnMobOfZone(0);
                     break;
 
                 case "Mountain":
-                    print("mountain");
                     _spawnerManager.DestroyAndSpawnItems(1);
                     _enemiesSpawner.SpawnMobOfZone(1);
                     break;
 
                 case "Forest":
-                    print("forest");
                     _spawnerManager.DestroyAndSpawnItems(2);
                     _enemiesSpawner.SpawnMobOfZone(2);
                     break;
 
                 case "Final":
-                    print("final");
                     _enemiesSpawner.SpawnMobOfZone(3);
                     break;
 
@@ -160,6 +153,22 @@ public class DoorExit : NetworkBehaviour
                     print("wrong zone name");
                     break;
             }
+        }
+    }
+
+    private void SpawnItem(int _zone, bool _zoneSpawned)
+    {
+        if (_spawnerManager._canSpawn && !_zoneSpawned)
+        {
+            _spawnerManager.DestroyAndSpawnItems(_zone);
+            _enemiesSpawner.SpawnMobOfZone(_zone);
+            _zoneSpawned = true;
+        }
+        else if(!_zoneSpawned)
+        {
+            _spawnerManager.SpawnItems(_zone);
+            _enemiesSpawner.SpawnMobOfZone(_zone);
+            _zoneSpawned = true;
         }
     }
 
