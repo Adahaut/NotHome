@@ -52,6 +52,9 @@ public class SpawnItem : NetworkBehaviour
     [ClientRpc]
     private void RpcSetupItem(GameObject item, Vector3 position, Quaternion rotation, Transform parent)
     {
+        if(parent == null)
+            parent = transform;
+
         item.transform.SetParent(parent);
         item.transform.position = position;
         item.transform.rotation = rotation;

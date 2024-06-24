@@ -130,24 +130,29 @@ public class DoorExit : NetworkBehaviour
     {
         if (isServer && _checker.Check() && _spawnerManager._canSpawn)
         {
+            print(_nameZone);
             switch (_nameZone)
             {
                 case "Desert":
+                    print("desert");
                     _spawnerManager.DestroyAndSpawnItems(0);
                     _enemiesSpawner.SpawnMobOfZone(0);
                     break;
 
                 case "Mountain":
+                    print("mountain");
                     _spawnerManager.DestroyAndSpawnItems(1);
                     _enemiesSpawner.SpawnMobOfZone(1);
                     break;
 
                 case "Forest":
+                    print("forest");
                     _spawnerManager.DestroyAndSpawnItems(2);
                     _enemiesSpawner.SpawnMobOfZone(2);
                     break;
 
                 case "Final":
+                    print("final");
                     _enemiesSpawner.SpawnMobOfZone(3);
                     break;
 
