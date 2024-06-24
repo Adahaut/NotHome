@@ -108,7 +108,9 @@ public class PlayerController : NetworkBehaviour
         {
             _setActiveFalse[i].SetActive(false);
         }
-        _pauseManager.Resume();
+        Cursor.lockState = CursorLockMode.Locked;
+        _pauseManager._playerInput.actions.actionMaps[0].Enable();
+        //_pauseManager.Resume();
     }
     public override void OnStartAuthority()
     {
