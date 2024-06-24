@@ -364,10 +364,10 @@ GameObject:
   - component: {fileID: 6425726606167294683}
   - component: {fileID: 1657566960200731797}
   - component: {fileID: 108624817541453123}
-  - component: {fileID: 6102608265249039179}
   - component: {fileID: 4479497069815593326}
   - component: {fileID: 7553037808414605996}
   - component: {fileID: 3495473089211711969}
+  - component: {fileID: 6102608265249039179}
   - component: {fileID: 5899072111830685302}
   - component: {fileID: 3843375602284500440}
   - component: {fileID: -7922844651117747431}
@@ -461,7 +461,9 @@ MonoBehaviour:
   _maxLife: 100
   _currentLife: 0
   _healthSlider: {fileID: 0}
-  _hitAudioClip: {fileID: 0}
+  _hitAudioClip:
+  - {fileID: 8300000, guid: e00b834e1cada2343b2aa793a2adc225, type: 3}
+  - {fileID: 8300000, guid: afa08f2686950c945bb9db44fc652154, type: 3}
   _damageGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -493,7 +495,53 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   _damageIndicator: {fileID: 0}
---- !u!82 &6102608265249039179
+--- !u!114 &4479497069815593326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2688555801328580682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e5ad7a9b41eab48ace96448af7e227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _walkingRadius: 10
+  _timeBetweenAttacks: 3
+  _sightRange: 10
+  _attackRange: 2
+  _audioSources:
+  - {fileID: 3495473089211711969}
+  - {fileID: 6102608265249039179}
+  - {fileID: 5899072111830685302}
+  _playerDetectionCollider: {fileID: 871265365987951822}
+  _players: []
+--- !u!95 &7553037808414605996
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2688555801328580682}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 695b28dd132c9fd4fb8363c0d8563464, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &3495473089211711969
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -503,11 +551,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5556835567951023702, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: b26427e7951260c44bc719aa81f02dc6, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -589,53 +637,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4479497069815593326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2688555801328580682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e5ad7a9b41eab48ace96448af7e227, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _walkingRadius: 10
-  _timeBetweenAttacks: 3
-  _sightRange: 10
-  _attackRange: 2
-  _audioSources:
-  - {fileID: 3495473089211711969}
-  - {fileID: 6102608265249039179}
-  - {fileID: 5899072111830685302}
-  _playerDetectionCollider: {fileID: 871265365987951822}
-  _players: []
---- !u!95 &7553037808414605996
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2688555801328580682}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 695b28dd132c9fd4fb8363c0d8563464, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!82 &3495473089211711969
+--- !u!82 &6102608265249039179
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -645,11 +647,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5556835567951023702, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
-  m_audioClip: {fileID: 8300000, guid: b26427e7951260c44bc719aa81f02dc6, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1748,7 +1750,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _damages: 5
-  _bloodParticle: {fileID: 0}
 --- !u!1 &7747943683210300603
 GameObject:
   m_ObjectHideFlags: 0

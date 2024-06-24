@@ -9,17 +9,7 @@ public class PeopleInBaseChecker : MonoBehaviour
     private void Start()
     {
         _lobbyManager = GameObject.Find("NetworkManager").GetComponent<NetworkLobbyManager>();
-        if(_lobbyManager != null )
-        {
-            _numberOfPlayers = _lobbyManager._gamePlayers.Count;
-        }
-        else
-        {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            _numberOfPlayers = players.Length;
-        }
-
-            
+        _numberOfPlayers = _lobbyManager._gamePlayers.Count;
         _numberOfPlayersInBase = 0;
     }
 

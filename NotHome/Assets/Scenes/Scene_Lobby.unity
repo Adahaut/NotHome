@@ -342,7 +342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &302216769
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2376,6 +2376,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8408612212861286637, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
+      propertyPath: m_TagString
+      value: UIMAIN
+      objectReference: {fileID: 0}
     - target: {fileID: 8418459340786719771, guid: 56c633b401a2b364494fdd9b97fd5849, type: 3}
       propertyPath: m_fontColor.b
       value: 0.6666667
@@ -2698,7 +2702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1097781160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2982,7 +2986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1226300433
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4783,6 +4787,7 @@ MonoBehaviour:
   evaluationInterval: 3
   timeInterpolationGui: 0
   _minPlayer: 1
+  _uiMainMenu: {fileID: 950222259}
   menuScene: Assets/Scenes/Scene_Lobby.unity
   roomPlayerPrefab: {fileID: 834074631676447198, guid: 76ec420bcad1d4444ae8ccd87c705a00, type: 3}
   _gamePlayerPrefab: {fileID: 8941434417011862747, guid: 996503dcfd4fe6248a6d35bac95856fd, type: 3}

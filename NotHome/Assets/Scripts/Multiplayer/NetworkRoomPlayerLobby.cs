@@ -16,6 +16,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private Button startGameButton = null;
     [SerializeField] private Button readyButton = null;
     [SerializeField] private Button[] _leaveKickButtons = new Button[4];
+    [SerializeField] private GameObject uiMainMenu;
    
     [SyncVar(hook = nameof(HandleSteamIdUpdated))]
     private ulong steamId;
@@ -26,6 +27,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public bool _isReady = false;
 
     public Texture2D _displayImage;
+    public Texture2D _waitImage;
 
     protected Callback<AvatarImageLoaded_t> _avatarImageLoaded;
 
@@ -166,29 +168,31 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         {
             playerNameTexts[j].text = "Waiting For Player...";
             playerReadyTexts[j].text = string.Empty;
-            _playerImages[j].texture = null;
+            _playerImages[j].texture = _waitImage;
         }
     }
 
     [Command]
     public void LeaveLobby()
     {
-        if (Room._roomPlayers[0] == this && Room._roomPlayers.Count > 1)
+        if (NetworkClient.isConnected)
         {
-            Room._roomPlayers[1].IsLeader = true;
+            if (NetworkServer.active)
+            {
+                // Si le joueur est l'hôte, arrêter le serveur
+                NetworkManager.singleton.StopHost();
+            }
+            else
+            {
+                // Si le joueur est un client, arrêter le client
+                NetworkManager.singleton.StopClient();
+            }
         }
 
-        Room._roomPlayers.Remove(this);
-
-        if (Room._roomPlayers.Count == 0)
-        {
-            Room.StopHost();
-        }
-
-        NetworkServer.Destroy(gameObject);
-
-        Room.NotifyPlayersOfReadyState();
-    }
+        // Charger la scène de menu principal
+        SceneManager.LoadScene("Scene_Lobby");
+    
+}
 
     public void HandleReadyToStart(bool readyToStart)
     {

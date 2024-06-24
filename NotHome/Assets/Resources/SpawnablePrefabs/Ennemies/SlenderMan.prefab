@@ -747,8 +747,8 @@ GameObject:
   - component: {fileID: 4884307892998830534}
   - component: {fileID: 2708453619607528885}
   - component: {fileID: 2532857024065000214}
-  - component: {fileID: 7507787648685412992}
   - component: {fileID: 329338120500040795}
+  - component: {fileID: 7507787648685412992}
   - component: {fileID: 7763466235942355169}
   - component: {fileID: -6575452190355887639}
   - component: {fileID: -7551586542130590298}
@@ -855,7 +855,9 @@ MonoBehaviour:
   _maxLife: 100
   _currentLife: 0
   _healthSlider: {fileID: 0}
-  _hitAudioClip: {fileID: 0}
+  _hitAudioClip:
+  - {fileID: 8300000, guid: e00b834e1cada2343b2aa793a2adc225, type: 3}
+  - {fileID: 8300000, guid: afa08f2686950c945bb9db44fc652154, type: 3}
   _damageGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -887,7 +889,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   _damageIndicator: {fileID: 0}
---- !u!82 &7507787648685412992
+--- !u!82 &329338120500040795
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -897,11 +899,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5556835567951023702, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: b26427e7951260c44bc719aa81f02dc6, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -983,7 +985,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &329338120500040795
+--- !u!82 &7507787648685412992
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -993,11 +995,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5556835567951023702, guid: bbc1d63e371db3a4f9d8a9394d7b6bb3, type: 2}
-  m_audioClip: {fileID: 8300000, guid: b26427e7951260c44bc719aa81f02dc6, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

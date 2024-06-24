@@ -101,16 +101,20 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private GameObject[] _setActiveFalse;
     public PauseManager _pauseManager;
 
+    private void Start()
+    {
+        StartCoroutine(DisableControlPanelOnStart());
+    }
+
     private void DisableControlPanelOnStart()
     {
-        print(_setActiveFalse.Length);
-        for (int i = 0; i < _setActiveFalse.Length; i++)
-        {
-            _setActiveFalse[i].SetActive(false);
-        }
-        Cursor.lockState = CursorLockMode.Locked;
-        _pauseManager._playerInput.actions.actionMaps[0].Enable();
-        //_pauseManager.Resume();
+      for (int i = 0; i < _setActiveFalse.Length; i++)
+      {
+          _setActiveFalse[i].SetActive(false);
+      }
+      Cursor.lockState = CursorLockMode.Locked;
+      _pauseManager._playerInput.actions.actionMaps[0].Enable();
+      //_pauseManager.Resume();
     }
     public override void OnStartAuthority()
     {
@@ -136,7 +140,7 @@ public class PlayerController : NetworkBehaviour
             playerMesh.SetActive(false);
             gunMesh.SetActive(false);
             machette.SetActive(false);
-             
+           
             Invoke("DisableControlPanelOnStart", 0.01f);
         }
 
