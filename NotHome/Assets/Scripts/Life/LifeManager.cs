@@ -95,16 +95,17 @@ public class LifeManager : NetworkBehaviour
             }
         }
 
-        RpcPlayHitSound();
+        RpcPlayHitSound(transform.position);
 
     }
 
 
     [ClientRpc]
-    private void RpcPlayHitSound()
+    private void RpcPlayHitSound(Vector3 position)
     {
-        _audioSource.clip = _hitAudioClip;
-        _audioSource.Play();
+        //_audioSource.clip = _hitAudioClip;
+        //_audioSource.Play();
+        AudioSource.PlayClipAtPoint(_hitAudioClip, position);
     }
 
     [ClientRpc]
