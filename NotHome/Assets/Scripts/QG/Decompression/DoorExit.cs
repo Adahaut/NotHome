@@ -79,16 +79,26 @@ public class DoorExit : NetworkBehaviour
         {
             if (hit.collider.CompareTag("Decompression")  && !_isDecompression)
             {
-                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
-            }
-            else if (hit.collider.CompareTag("DecompressionMountain") && !_isDecompression) // && heure <= 20h
-            {
-                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
-            }
-            else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
-            {
-                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
-                hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
+
+                if (hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._nameZone != "Final" /*|| canOpenAllSAS*/)
+                {
+                    if (hit.collider.CompareTag("Decompression") && !_isDecompression)
+                    {
+                        print("try 1");
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
+                    }
+                    else if (hit.collider.CompareTag("DecompressionMountain") && !_isDecompression) // && heure <= 20h
+                    {
+                        print("try 2");
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().SetActiveObject();
+                    }
+                    else if (hit.collider.CompareTag("DecompressionExit") && !_isDecompression)
+                    {
+                        print("try 3");
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().exitDoorAnimator.SetBool("Open", true);
+                        hit.collider.transform.parent.GetComponentInChildren<DoorExit>().enterDoorAnimator.SetBool("Open", false);
+                    }
+                }
             }
         }
     }
@@ -108,6 +118,7 @@ public class DoorExit : NetworkBehaviour
         }
         else if (_nbPlayer >= 1 && !_isDecompression)
         {
+            print("decompression");
             bool door = false;
             _light.SetActive(true);
             _alarmSAS.SetActive(true);
@@ -126,27 +137,42 @@ public class DoorExit : NetworkBehaviour
 
     private void SpawnItemAndMobsByZone()
     {
+        print("dedans spawn");
         if (isServer && _checker.Check())
         {
+            print("serveur");
             switch (_nameZone)
             {
                 case "Desert":
+                    print("desert");
                     _spawnerManager.DestroyAndSpawnItems(0);
+                    print("items fini");
                     _enemiesSpawner.SpawnMobOfZone(0);
+                    print("fini");
                     break;
 
                 case "Mountain":
+                    print("mountain");
                     _spawnerManager.DestroyAndSpawnItems(1);
+                    print("items fini");
+
                     _enemiesSpawner.SpawnMobOfZone(1);
+                    print("fini");
                     break;
 
                 case "Forest":
+                    print("forest");
                     _spawnerManager.DestroyAndSpawnItems(2);
+                    print("items fini");
+
                     _enemiesSpawner.SpawnMobOfZone(2);
+                    print("fini");
                     break;
 
                 case "Final":
+                    print("desert");
                     _enemiesSpawner.SpawnMobOfZone(3);
+                    print("fini");
                     break;
 
                 default:

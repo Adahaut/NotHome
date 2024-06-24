@@ -24,11 +24,14 @@ public class ItemSpawnerManager : MonoBehaviour
     [Server]
     public void DestroyAndSpawnItems(int _zone)
     {
+        print("dedans");
         if (!_canSpawn)
             return;
 
+        print("exe");
         for (int i = 0; i < _spawnItems.Count; i++)
         {
+            print(_spawnItems[_zone][i]);
             _spawnItems[_zone][i].DestroyAndSpawn();
         }
         _canSpawn = false;
