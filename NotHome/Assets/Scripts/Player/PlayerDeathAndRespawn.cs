@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerDeathAndRespawn : NetworkBehaviour
@@ -37,6 +38,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     public void PlayerDeath()
     {
+        _playerController = GetComponent < PlayerController > ();
+        if (_playerInputs == null) print("player input null"); 
         if (_playerController.IsDead) return;
         _canRespawn = false;
         _playerController.IsDead = true;
