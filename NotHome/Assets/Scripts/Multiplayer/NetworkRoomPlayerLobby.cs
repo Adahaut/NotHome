@@ -175,23 +175,24 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [Command]
     public void LeaveLobby()
     {
-        //if (Room._roomPlayers[0] == this && Room._roomPlayers.Count > 1)
-        //{
-        //    Room._roomPlayers[1].IsLeader = true;
-        //}
-
-        Room._roomPlayers.Remove(this);
-
-        if (Room._roomPlayers.Count == 0)
+        if (NetworkClient.isConnected)
         {
-            Room.StopHost();
+            if (NetworkServer.active)
+            {
+                // Si le joueur est l'hôte, arrêter le serveur
+                NetworkManager.singleton.StopHost();
+            }
+            else
+            {
+                // Si le joueur est un client, arrêter le client
+                NetworkManager.singleton.StopClient();
+            }
         }
-        connectionToClient.identity.gameObject.GetComponent<NetworkRoomPlayerLobby>().room._uiMainMenu.SetActive(true);
 
-        Room.NotifyPlayersOfReadyState();
-
-        NetworkServer.Destroy(gameObject);
-    }
+        // Charger la scène de menu principal
+        SceneManager.LoadScene("Scene_Lobby");
+    
+}
 
     public void HandleReadyToStart(bool readyToStart)
     {
