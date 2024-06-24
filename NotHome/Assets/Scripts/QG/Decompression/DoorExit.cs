@@ -150,6 +150,10 @@ public class DoorExit : NetworkBehaviour
                 case "Final":
                     _enemiesSpawner.SpawnMobOfZone(3);
                     break;
+
+                default:
+                    print("wrong zone name");
+                    break;
             }
         }
     }
