@@ -1,6 +1,5 @@
 using Mirror;
 using Steamworks;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -28,7 +27,6 @@ public class PlayerNetwork : NetworkBehaviour
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
-            //playerUI.SetActive(true);
             SetActiveUI(false);
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
@@ -50,21 +48,22 @@ public class PlayerNetwork : NetworkBehaviour
         _displayName = name;
     }
 
-    public void SetActiveUI(bool  active)
+    public void SetActiveUI(bool active)
     {
-        if(isOwned)
+        if (isOwned)
         {
             playerUI.SetActive(active);
             blackScreen.SetActive(!active);
             Invoke("DisableBlackScreen", 1f);
         }
-            
+
     }
 
     void DisableBlackScreen()
     {
         blackScreen.SetActive(false);
     }
+
 
     private void OnNameChanged(string oldName, string newName)
     {

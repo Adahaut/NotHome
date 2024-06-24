@@ -121,18 +121,43 @@ public class DoorExit : NetworkBehaviour
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
+            SpawnItemAndMobsByZone();
             print(_checker);
             print(_checker.Check());
-            if(isServer && _checker.Check() && _spawnerManager._canSpawn)
-            {
-                _spawnerManager.DestroyAndSpawnItems();
-
-                for (int i = 0; i < 3; i++)
-                {
-                    _enemiesSpawner.SpawnEnemies(i);
-                }
-            }
             
+            
+        }
+    }
+
+    private void SpawnItemAndMobsByZone()
+    {
+        if (isServer && _checker.Check() && _spawnerManager._canSpawn)
+        {
+            switch (_nameZone)
+            {
+                case "Desert":
+                    _spawnerManager.DestroyAndSpawnItems(0);
+                    _enemiesSpawner.SpawnMobOfZone(0);
+                    break;
+
+                case "Mountain":
+                    _spawnerManager.DestroyAndSpawnItems(1);
+                    _enemiesSpawner.SpawnMobOfZone(1);
+                    break;
+
+                case "Forest":
+                    _spawnerManager.DestroyAndSpawnItems(2);
+                    _enemiesSpawner.SpawnMobOfZone(2);
+                    break;
+
+                case "Final":
+                    _enemiesSpawner.SpawnMobOfZone(3);
+                    break;
+
+                default:
+                    print("wrong zone name");
+                    break;
+            }
         }
     }
 

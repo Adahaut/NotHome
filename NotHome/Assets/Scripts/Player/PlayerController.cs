@@ -104,7 +104,6 @@ public class PlayerController : NetworkBehaviour
 
     private void DisableControlPanelOnStart()
     {
-        print(_setActiveFalse.Length);
         for (int i = 0; i < _setActiveFalse.Length; i++)
         {
             _setActiveFalse[i].SetActive(false);
@@ -129,7 +128,7 @@ public class PlayerController : NetworkBehaviour
         _camera.gameObject.SetActive(true);
         enabled = true;
 
-        if(isOwned)
+        if (isOwned)
         {
             playerUiCanvas.SetActive(true);
             GetComponent<AudioListener>().enabled = true;
@@ -137,7 +136,6 @@ public class PlayerController : NetworkBehaviour
             playerMesh.SetActive(false);
             gunMesh.SetActive(false);
             machette.SetActive(false);
-
             Invoke("DisableControlPanelOnStart", 0.01f);
         }
 
