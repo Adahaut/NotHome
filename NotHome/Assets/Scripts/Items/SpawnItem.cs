@@ -89,6 +89,11 @@ public class SpawnItem : NetworkBehaviour
         }
     }
 
+    public void Spawn()
+    {
+        ItemSpawn();
+    }
+
     public void DestroyAndSpawn()
     {
         DeleteResources();

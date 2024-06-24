@@ -9,6 +9,9 @@ public class ItemSpawnerManager : MonoBehaviour
     public List<SpawnItem> _mountainSpawnItems = new List<SpawnItem>();
     public List<SpawnItem> _forestSpawnItems = new List<SpawnItem>();
     public bool _canSpawn;
+    public bool _desertSpawn;
+    public bool _mountainSpawn;
+    public bool _forestSpawn;
 
 
     private void Start()
@@ -27,6 +30,19 @@ public class ItemSpawnerManager : MonoBehaviour
         for (int i = 0; i < _spawnItems.Count; i++)
         {
             _spawnItems[_zone][i].DestroyAndSpawn();
+        }
+        _canSpawn = false;
+    }
+
+    [Server]
+    public void SpawnItems(int _zone)
+    {
+        if (!_canSpawn)
+            return;
+
+        for (int i = 0; i < _spawnItems.Count; i++)
+        {
+            _spawnItems[_zone][i].Spawn();
         }
         _canSpawn = false;
     }
