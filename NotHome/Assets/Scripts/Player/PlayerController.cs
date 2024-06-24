@@ -101,6 +101,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private ChangeControl _changeControl;
     [SerializeField] private GameObject[] _setActiveFalse;
     public PauseManager _pauseManager;
+    private PlayerInput _playerInput;
 
     private void DisableControlPanelOnStart()
     {
@@ -114,6 +115,7 @@ public class PlayerController : NetworkBehaviour
     }
     public override void OnStartAuthority()
     {
+        _playerInput = GetComponentInChildren<PlayerInput>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         _animCam.GetComponent<Animator>().speed = _speedAnimCam;
@@ -257,7 +259,7 @@ public class PlayerController : NetworkBehaviour
             if (Physics.Raycast(_startPointRaycast.position, _startPointRaycast.forward, out RaycastHit hit, _distRayCast) && (hit.collider.gameObject.layer == 8 || hit.collider.gameObject.layer == 6
                 || hit.collider.CompareTag("Decompression") || hit.collider.CompareTag("Ladder") || hit.collider.CompareTag("DecompressionExit")))
             {
-                _textPress.text = "Press " + _changeControl._control.ToUpper() + " to interact";
+                _textPress.text = "Press " + _playerInput.actions.actionMaps[0].actions[4].bindings[0].path[11..] + " to interact";
 
                 _canOpen = true;
             }
