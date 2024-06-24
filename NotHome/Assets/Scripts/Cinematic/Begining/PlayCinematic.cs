@@ -12,7 +12,6 @@ public class PlayCinematic : MonoBehaviour
 
     private void Start()
     {
-        RenderSettings.fog = false;
         _playersRef = GameObject.FindGameObjectsWithTag("Player");
 
         for (int i = 0; i < _playersRef.Length; i++)
@@ -92,7 +91,6 @@ public class PlayCinematic : MonoBehaviour
             _playersRef[i].SetActive(true);
             _playersRef[i].GetComponent<PlayerNetwork>().SetActiveUI(true);
         }
-        RenderSettings.fog = true;
 
         gameObject.SetActive(false);
     }
