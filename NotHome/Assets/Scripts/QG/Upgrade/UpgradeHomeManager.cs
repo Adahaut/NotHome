@@ -84,6 +84,7 @@ public class UpgradeHomeManager : MonoBehaviour
                 QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 4:
+                GetComponentInParent<PlayerController>()._canOpenAllSAS = true;
                 //_bridge.SetActive(true);
                 break;
         }
