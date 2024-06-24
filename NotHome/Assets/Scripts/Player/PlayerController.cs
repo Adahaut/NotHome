@@ -136,7 +136,7 @@ public class PlayerController : NetworkBehaviour
             playerMesh.SetActive(false);
             gunMesh.SetActive(false);
             machette.SetActive(false);
-
+             
             Invoke("DisableControlPanelOnStart", 0.01f);
         }
 
