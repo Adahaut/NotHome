@@ -341,7 +341,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 150
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -462,6 +462,7 @@ MonoBehaviour:
   syncInterval: 0
   _damages: 35
   _bloodParticle: {fileID: 7547619243636061098, guid: c0b9bc7d304eafa4f84618e03abe2ab6, type: 3}
+  _hit: 0
 --- !u!1 &1674295310323656054
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +962,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDetectionCollider: {fileID: 6134492554753304191}
   _audioSource: {fileID: 6606181961227061863}
+  _swordSfx:
+  - {fileID: 8300000, guid: c542bff041fe37e46a1b56485637b4ff, type: 3}
+  - {fileID: 8300000, guid: 81caf976516025346b3b6e43365a78ef, type: 3}
+  _playerEnemieDetection: {fileID: 0}
 --- !u!114 &4867149558243495206
 MonoBehaviour:
   m_ObjectHideFlags: 0
