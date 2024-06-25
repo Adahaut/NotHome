@@ -2,6 +2,7 @@ using Mirror;
 using Steamworks;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
@@ -33,6 +34,7 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+        GetComponent<PlayerDeathAndRespawn>().playerMesh.Add(nameTagInstance);
 
         if (isOwned) nameTagInstance.SetActive(false);
     }

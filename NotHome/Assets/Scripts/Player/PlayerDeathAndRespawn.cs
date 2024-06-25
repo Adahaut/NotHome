@@ -1,5 +1,6 @@
 using Mirror;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +18,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     private bool _hasStartedRespawn;
 
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private GameObject[] playerMesh;
+    public List<GameObject> playerMesh = new List<GameObject>();
 
     private Vector3 cameraSpawnTransform;
     private Quaternion cameraSpawnRotation;
@@ -53,18 +54,13 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     [Command]
     public void CmdSendPositionToServer()
     {
-        for (int i = 0; i < playerMesh.Length; i++)
+        for (int i = 0; i < playerMesh.Count; i++)
         {
             playerMesh[i].SetActive(false);
         }
+        GetComponent<CapsuleCollider>().enabled = false;
         EnableDisableMeshes(false);
     }
-
-    //[ClientRpc]
-    //void RpcUpdatePositionOnClients(Vector3 position, Transform player)
-    //{
-    //    player.position = position;
-    //}
 
     public void Respawn()
     {
@@ -79,23 +75,26 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
         StartCoroutine(RespawnAnimation());
     }
+
     [Command]
     void EnableMeshes()
     {
-        for (int i = 0; i < playerMesh.Length; i++)
+        for (int i = 0; i < playerMesh.Count; i++)
         {
             playerMesh[i].SetActive(true);
         }
+        GetComponent<CapsuleCollider>().enabled = true;
         EnableDisableMeshes(true);
     }
 
     [ClientRpc]
     void EnableDisableMeshes(bool enable)
     {
-        for (int i = 0; i < playerMesh.Length; i++)
+        for (int i = 0; i < playerMesh.Count; i++)
         {
             playerMesh[i].SetActive(enable);
         }
+        GetComponent<CapsuleCollider>().enabled = enable;
     }
 
     private IEnumerator DisableCamera(float totalTime)
