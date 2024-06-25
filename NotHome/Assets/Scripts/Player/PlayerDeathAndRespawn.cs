@@ -24,7 +24,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     private Quaternion cameraSpawnRotation;
     private Vector3 _playerRespawnPoint;
     private float _timeToRespawn;
-    private bool _canRespawn;
+    public bool _canRespawn;
 
     private void Start()
     {
@@ -68,6 +68,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         for (int i = 0; i < playerMesh.Count; i++)
         {
             playerMesh[i].SetActive(enable);
+            if (i == 2 && isOwned)
+                playerMesh[i].SetActive(false);
         }
         GetComponent<CapsuleCollider>().enabled = enable;
         EnableDisableMeshes(enable);
@@ -79,6 +81,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         for (int i = 0; i < playerMesh.Count; i++)
         {
             playerMesh[i].SetActive(enable);
+            if (i == 2 && isOwned)
+                playerMesh[i].SetActive(false);
         }
         GetComponent<CapsuleCollider>().enabled = enable;
     }

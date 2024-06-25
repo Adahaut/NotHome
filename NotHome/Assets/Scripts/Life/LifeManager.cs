@@ -64,9 +64,13 @@ public class LifeManager : NetworkBehaviour
             {
                 RpcEnemyDeath();
             }
-            else if (gameObject.tag == "Player" && !gameObject.GetComponent<PlayerController>().IsDead)
+            else if (gameObject.tag == "Player" && GetComponent<PlayerDeathAndRespawn>()._canRespawn)
             {
                 RpcPlayerDeath();
+            }
+            else
+            {
+                SetMaxHealth();
             }
         }
     }
