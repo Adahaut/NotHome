@@ -45,8 +45,8 @@ public class Book : MonoBehaviour
 
     private void Awake()
     {
-        Mobs = CreationSection(4);
-        Maps = CreationSection(5);
+        Mobs = CreationSection(6);
+        Maps = CreationSection(7);
         //Foods = CreationSection(6);
 
         _sections.Add(Mobs);
@@ -57,8 +57,8 @@ public class Book : MonoBehaviour
         _maxIndex = _bookDescriptions.Count - 1;
         _actualBookSection = 0;
 
-        _sectionsGameObject.Add(transform.GetChild(4).gameObject);
-        _sectionsGameObject.Add(transform.GetChild(5).gameObject);
+        _sectionsGameObject.Add(transform.GetChild(6).gameObject);
+        _sectionsGameObject.Add(transform.GetChild(7).gameObject);
         //_sectionsGameObject.Add(transform.GetChild(6).gameObject);
 
         _bookDescriptions.Add(_bookMobsDescriptions);
@@ -70,19 +70,15 @@ public class Book : MonoBehaviour
         //_buttons.Add(transform.GetChild(2));
         _buttonOriginalPosY = _buttons[0].transform.position.y;
         ChangeSection(0);
-        SetTextsAndImage(0);
     }
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
 
     private void UndactiveAll()
     {
         for(int i = 0; i < _bookDescriptions.Count; i++)
         {
             _sectionsGameObject[i].SetActive(false);
+            print(_sectionsGameObject[i]);
             _buttons[i].position = new Vector2(_buttons[i].position.x, _buttonOriginalPosY);
         }
     }
