@@ -39,13 +39,13 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     public void PlayerDeath()
     {
         print("function called");
+        GetComponent<PlayerController>().TP();
         _playerController = GetComponent < PlayerController > ();
         if (_playerInputs == null) print("player input null"); 
         if (_playerController.IsDead) return;
         _canRespawn = false;
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
-        transform.position = Vector3.zero;
         StartCoroutine(DisableCamera(0.5f));
     }
 
