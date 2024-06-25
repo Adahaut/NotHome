@@ -73,7 +73,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
         //transform.position = _playerRespawnPoint;
-
+        EnableMeshes();
         transform.rotation = cameraSpawnRotation;
         cameraTransform.position = cameraSpawnTransform;
         cameraTransform.rotation = cameraSpawnRotation;
