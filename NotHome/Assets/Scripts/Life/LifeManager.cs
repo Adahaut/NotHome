@@ -74,7 +74,7 @@ public class LifeManager : NetworkBehaviour
     [Server]
     public void TakeDamage(int damage)
     {
-        if(gameObject.tag == "Player" && !GetComponent<PlayerController>().IsDead)
+        if(gameObject.tag == "Player")
         {
             _currentLife -= damage;
             StartBlinking(true);
