@@ -172,6 +172,9 @@ public class LifeManager : NetworkBehaviour
 
     private void Update()
     {
+        if (isOwned)
+            print(_currentLife);
+
         if (gameObject.tag == "Player")
         {
             if(!_isBlinking && _currentLife < 20 && !_isTackingDamage && !GetComponent<PlayerController>().IsDead)
