@@ -68,7 +68,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         for (int i = 0; i < playerMesh.Count; i++)
         {
             playerMesh[i].SetActive(enable);
-            if (i == 2 && isOwned)
+            if (isOwned)
                 playerMesh[i].SetActive(false);
         }
         GetComponent<CapsuleCollider>().enabled = enable;
@@ -81,7 +81,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         for (int i = 0; i < playerMesh.Count; i++)
         {
             playerMesh[i].SetActive(enable);
-            if (i == 2 && isOwned)
+            if (isOwned)
                 playerMesh[i].SetActive(false);
         }
         GetComponent<CapsuleCollider>().enabled = enable;
