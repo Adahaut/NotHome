@@ -45,10 +45,9 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         transform.position = Vector3.zero;
-        GetComponent<PlayerController>().CmdSendPositionToServer(transform.position, Quaternion.identity);
         
         StartCoroutine(DisableCamera(0.5f));
-        
+        print("PlayerDeath end function");
     }
 
     public void Respawn()
@@ -62,6 +61,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         cameraTransform.rotation = cameraSpawnRotation;
 
         StartCoroutine(RespawnAnimation());
+        print("PlayeRespawn end function");
     }
 
     private IEnumerator DisableCamera(float totalTime)
