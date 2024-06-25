@@ -625,10 +625,6 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    public void TP()
-    {
-        _transform.position = Vector3.zero;
-    }
     public void EnableCanvasAfterUsingDrone()
     {
         if (isOwned)
