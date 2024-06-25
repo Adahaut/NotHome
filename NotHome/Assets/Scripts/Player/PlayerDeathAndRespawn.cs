@@ -38,6 +38,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     public void PlayerDeath()
     {
+        print("function called");
         _playerController = GetComponent < PlayerController > ();
         if (_playerInputs == null) print("player input null"); 
         if (_playerController.IsDead) return;
@@ -47,7 +48,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         transform.position = Vector3.zero;
         
         StartCoroutine(DisableCamera(0.5f));
-        print("PlayerDeath end function");
     }
 
     public void Respawn()
@@ -61,7 +61,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         cameraTransform.rotation = cameraSpawnRotation;
 
         StartCoroutine(RespawnAnimation());
-        print("PlayeRespawn end function");
     }
 
     private IEnumerator DisableCamera(float totalTime)
