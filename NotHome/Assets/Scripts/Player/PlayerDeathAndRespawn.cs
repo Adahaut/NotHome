@@ -38,10 +38,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     public void PlayerDeath()
     {
-        print("function called");
-        //transform.position = Vector3.zero;
-        if(isOwned)
-            CmdSendPositionToServer();
+        CmdEnableMeshes(false);
         _playerController = GetComponent <PlayerController>();
         if (_playerInputs == null) print("player input null"); 
         if (_playerController.IsDead) return;
@@ -51,24 +48,13 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         StartCoroutine(DisableCamera(0.5f));
     }
 
-    [Command]
-    public void CmdSendPositionToServer()
-    {
-        for (int i = 0; i < playerMesh.Count; i++)
-        {
-            playerMesh[i].SetActive(false);
-        }
-        GetComponent<CapsuleCollider>().enabled = false;
-        EnableDisableMeshes(false);
-    }
-
     public void Respawn()
     {
         _noSignal.SetActive(false);
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
-        //transform.position = _playerRespawnPoint;
-        EnableMeshes();
+        CmdEnableMeshes(true);
+        transform.position = _playerRespawnPoint;
         transform.rotation = cameraSpawnRotation;
         cameraTransform.position = cameraSpawnTransform;
         cameraTransform.rotation = cameraSpawnRotation;
@@ -77,14 +63,14 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     }
 
     [Command]
-    void EnableMeshes()
+    void CmdEnableMeshes(bool enable)
     {
         for (int i = 0; i < playerMesh.Count; i++)
         {
-            playerMesh[i].SetActive(true);
+            playerMesh[i].SetActive(enable);
         }
-        GetComponent<CapsuleCollider>().enabled = true;
-        EnableDisableMeshes(true);
+        GetComponent<CapsuleCollider>().enabled = enable;
+        EnableDisableMeshes(enable);
     }
 
     [ClientRpc]
