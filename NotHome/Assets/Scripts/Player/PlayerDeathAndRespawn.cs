@@ -46,7 +46,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         transform.position = Vector3.zero;
-        _playerLifeManager._currentLife = _playerLifeManager.MaxLife();
         StartCoroutine(DisableCamera(0.5f));
     }
 
