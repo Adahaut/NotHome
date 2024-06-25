@@ -2,7 +2,6 @@ using Mirror;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerDeathAndRespawn : NetworkBehaviour
@@ -55,17 +54,13 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     public void CmdSendPositionToServer(Vector3 position, Transform player)
     {
         transform.position = position;
-
         RpcUpdatePositionOnClients(position, player);
     }
 
     [ClientRpc]
     void RpcUpdatePositionOnClients(Vector3 position, Transform player)
     {
-        if (!isOwned)
-        {
-            player.position = position;
-        }
+        player.position = position;
     }
 
     public void Respawn()
