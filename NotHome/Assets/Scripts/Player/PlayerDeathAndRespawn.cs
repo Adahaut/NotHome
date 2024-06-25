@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerDeathAndRespawn : NetworkBehaviour
 {
@@ -39,7 +40,9 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     public void PlayerDeath()
     {
         print("function called");
-        transform.position = Vector3.zero;
+        //transform.position = Vector3.zero;
+        if(isOwned)
+            CmdSendPositionToServer(Vector3.zero, transform);
         _playerController = GetComponent < PlayerController > ();
         if (_playerInputs == null) print("player input null"); 
         if (_playerController.IsDead) return;
@@ -47,6 +50,23 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         StartCoroutine(DisableCamera(0.5f));
+    }
+
+    [Command]
+    public void CmdSendPositionToServer(Vector3 position, Transform player)
+    {
+        transform.position = position;
+
+        RpcUpdatePositionOnClients(position, player);
+    }
+
+    [ClientRpc]
+    void RpcUpdatePositionOnClients(Vector3 position, Transform player)
+    {
+        if (!isOwned)
+        {
+            player.position = position;
+        }
     }
 
     public void Respawn()
