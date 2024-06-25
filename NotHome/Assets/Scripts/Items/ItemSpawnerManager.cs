@@ -27,7 +27,8 @@ public class ItemSpawnerManager : MonoBehaviour
         if (!_canSpawn)
             return;
 
-        for (int i = 0; i < _spawnItems.Count; i++)
+        print("spawn item");
+        for (int i = 0; i < _spawnItems[_zone].Count; i++)
         {
             _spawnItems[_zone][i].DestroyAndSpawn();
         }

@@ -13,10 +13,7 @@ public class SpawnZone
 
 public class EnemiesSpawner : NetworkBehaviour
 {
-    public List<List<SpawnZone>> _allZones = new();
-    public List<SpawnZone> _spawnDesert;
-    public List<SpawnZone> _spawnMountain;
-    public List<SpawnZone> _spawnForest;
+    public List<SpawnZone> _allZones = new();
     public LayerMask _groundLayer;
     public Transform _enemiesParent;
     public List<GameObject> _spawnedMobs = new List<GameObject>();
@@ -24,31 +21,25 @@ public class EnemiesSpawner : NetworkBehaviour
     private void Start()
     {
         //SpawnEnemies(0);
-        _allZones.Add(_spawnDesert);
-        _allZones.Add(_spawnMountain);
-        _allZones.Add(_spawnForest);
     }
 
 
     public void SpawnMobOfZone(int _zone)
     {
-        for (int i = 0; i < 3; i++)
-        {
-            SpawnEnemies(i, _zone);
-        }
+        SpawnEnemies(_zone);
     }
 
     [Server]
-    public void SpawnEnemies(int _zoneIndex, int _zone)
+    public void SpawnEnemies(int _zoneIndex)
     {
         print("spawn " +  _zoneIndex);
-        if (_zoneIndex < 0 || _zoneIndex >= _allZones[_zone].Count)
+        if (_zoneIndex < 0 || _zoneIndex >= _allZones.Count)
         {
             Debug.LogError("Invalid spawn zone index.");
             return;
         }
 
-        SpawnZone _selectedZone = _allZones[_zone][_zoneIndex];
+        SpawnZone _selectedZone = _allZones[_zoneIndex];
 
         for (int i = 0; i < _selectedZone._numberOfEnemiesToSpawn; i++)
         {

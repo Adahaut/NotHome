@@ -1,6 +1,8 @@
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
+using UnityEngine.UIElements;
 
 public class SpawnItem : NetworkBehaviour
 {
@@ -42,6 +44,7 @@ public class SpawnItem : NetworkBehaviour
                         GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
                         NetworkServer.Spawn(_newItem);
                         RpcSetupItem(_newItem, _newItem.transform.position, _newItem.transform.rotation, transform);
+                        //_newItem.transform.SetParent(transform);
                         _spawnedItems.Add(_newItem);
                     }
                 }
@@ -52,12 +55,16 @@ public class SpawnItem : NetworkBehaviour
     [ClientRpc]
     private void RpcSetupItem(GameObject item, Vector3 position, Quaternion rotation, Transform parent)
     {
-        if(parent == null)
+        Debug.Log("RpcSetupItem called");
+
+        if (parent == null)
             parent = transform;
+
 
         item.transform.SetParent(parent);
         item.transform.position = position;
         item.transform.rotation = rotation;
+
     }
 
     public override void OnStartClient()
@@ -97,6 +104,7 @@ public class SpawnItem : NetworkBehaviour
     public void DestroyAndSpawn()
     {
         DeleteResources();
+        print("spawn " + gameObject.name);
         ItemSpawn();
     }
 }

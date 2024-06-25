@@ -120,8 +120,9 @@ public class DoorExit : NetworkBehaviour
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
             SpawnItemAndMobsByZone();
-            print(_checker);
-            print(_checker.Check());
+            print("fini spawn");
+            //print(_checker);
+            //print(_checker.Check());
         }
     }
 
@@ -133,16 +134,19 @@ public class DoorExit : NetworkBehaviour
             {
                 case "Desert":
                     _spawnerManager.DestroyAndSpawnItems(0);
+                    print("fini spawn");
                     _enemiesSpawner.SpawnMobOfZone(0);
                     break;
 
                 case "Mountain":
                     _spawnerManager.DestroyAndSpawnItems(1);
+                    print("fini spawn");
                     _enemiesSpawner.SpawnMobOfZone(1);
                     break;
 
                 case "Forest":
                     _spawnerManager.DestroyAndSpawnItems(2);
+                    print("fini spawn");
                     _enemiesSpawner.SpawnMobOfZone(2);
                     break;
 
