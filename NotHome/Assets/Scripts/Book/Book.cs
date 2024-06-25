@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,15 +8,16 @@ public class Book : MonoBehaviour
 {
     [Header("descriptions")]
     private List<List<BookDesciption>> _bookDescriptions = new List<List<BookDesciption>>();
+    [SerializeField] private List<BookDesciption> _bookTutoDescriptions = new List<BookDesciption>();
     [SerializeField] private List<BookDesciption> _bookMobsDescriptions = new List<BookDesciption>();
     [SerializeField] private List<BookDesciption> _bookMapsDescriptions = new List<BookDesciption>();
-    [SerializeField] private List<BookDesciption> _bookFoodsDescriptions = new List<BookDesciption>();
+    
 
     private List<Transform> _buttons = new List<Transform>();
     private float _buttonOriginalPosY;
 
     private BookSection Mobs;
-    //private BookSection Foods;
+    private BookSection Tuto;
     private BookSection Maps;
 
     List<BookSection> _sections = new List<BookSection>();
@@ -45,29 +47,29 @@ public class Book : MonoBehaviour
 
     private void Awake()
     {
-        Mobs = CreationSection(6);
-        Maps = CreationSection(7);
-        //Foods = CreationSection(6);
+        Tuto = CreationSection(7);
+        Mobs = CreationSection(8);
+        Maps = CreationSection(9);
 
+        _sections.Add(Tuto);
         _sections.Add(Mobs);
         _sections.Add(Maps);
-        //_sections.Add(Foods);
 
         _actualIndex = 0;
         _maxIndex = _bookDescriptions.Count - 1;
         _actualBookSection = 0;
 
-        _sectionsGameObject.Add(transform.GetChild(6).gameObject);
         _sectionsGameObject.Add(transform.GetChild(7).gameObject);
-        //_sectionsGameObject.Add(transform.GetChild(6).gameObject);
+        _sectionsGameObject.Add(transform.GetChild(8).gameObject);
+        _sectionsGameObject.Add(transform.GetChild(9).gameObject);
 
+        _bookDescriptions.Add(_bookTutoDescriptions);
         _bookDescriptions.Add(_bookMobsDescriptions);
         _bookDescriptions.Add(_bookMapsDescriptions);
-        //_bookDescriptions.Add(_bookFoodsDescriptions);
 
         _buttons.Add(transform.GetChild(0));
         _buttons.Add(transform.GetChild(1));
-        //_buttons.Add(transform.GetChild(2));
+        _buttons.Add(transform.GetChild(2));
         _buttonOriginalPosY = _buttons[0].transform.position.y;
         ChangeSection(0);
     }
