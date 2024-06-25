@@ -15,7 +15,7 @@ public class Book : MonoBehaviour
     private float _buttonOriginalPosY;
 
     private BookSection Mobs;
-    private BookSection Foods;
+    //private BookSection Foods;
     private BookSection Maps;
 
     List<BookSection> _sections = new List<BookSection>();
@@ -36,9 +36,9 @@ public class Book : MonoBehaviour
     private BookSection CreationSection(int _childIndex)
     {
         BookSection _newSection = new BookSection();
-        _newSection._image = transform.GetChild(_childIndex).GetChild(2).GetComponent<Image>();
-        _newSection._description = transform.GetChild(_childIndex).GetChild(3).GetComponent<TextMeshProUGUI>();
-        _newSection._other = transform.GetChild(_childIndex).GetChild(4).GetComponent<TextMeshProUGUI>();
+        _newSection._image = transform.GetChild(_childIndex).GetChild(1).GetComponent<Image>();
+        _newSection._description = transform.GetChild(_childIndex).GetChild(2).GetComponent<TextMeshProUGUI>();
+        _newSection._other = transform.GetChild(_childIndex).GetChild(3).GetComponent<TextMeshProUGUI>();
 
         return _newSection;
     }
@@ -47,11 +47,11 @@ public class Book : MonoBehaviour
     {
         Mobs = CreationSection(4);
         Maps = CreationSection(5);
-        Foods = CreationSection(6);
+        //Foods = CreationSection(6);
 
         _sections.Add(Mobs);
         _sections.Add(Maps);
-        _sections.Add(Foods);
+        //_sections.Add(Foods);
 
         _actualIndex = 0;
         _maxIndex = _bookDescriptions.Count - 1;
@@ -59,15 +59,15 @@ public class Book : MonoBehaviour
 
         _sectionsGameObject.Add(transform.GetChild(4).gameObject);
         _sectionsGameObject.Add(transform.GetChild(5).gameObject);
-        _sectionsGameObject.Add(transform.GetChild(6).gameObject);
+        //_sectionsGameObject.Add(transform.GetChild(6).gameObject);
 
         _bookDescriptions.Add(_bookMobsDescriptions);
         _bookDescriptions.Add(_bookMapsDescriptions);
-        _bookDescriptions.Add(_bookFoodsDescriptions);
+        //_bookDescriptions.Add(_bookFoodsDescriptions);
 
         _buttons.Add(transform.GetChild(0));
         _buttons.Add(transform.GetChild(1));
-        _buttons.Add(transform.GetChild(2));
+        //_buttons.Add(transform.GetChild(2));
         _buttonOriginalPosY = _buttons[0].transform.position.y;
         ChangeSection(0);
         SetTextsAndImage(0);
