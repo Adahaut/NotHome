@@ -2378,9 +2378,8 @@ MonoBehaviour:
   _playerUI: {fileID: 8680814710366168942}
   cameraTransform: {fileID: 7364811270353970392}
   playerMesh:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3252623965070538605}
+  _canRespawn: 0
 --- !u!1 &5397962913501001781
 GameObject:
   m_ObjectHideFlags: 0
@@ -6354,9 +6353,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 359312179909449575, guid: 9a415bd25bd6c21469b44611b8228701, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9a415bd25bd6c21469b44611b8228701, type: 3}
       propertyPath: m_Name
       value: Player_textured
+      objectReference: {fileID: 0}
+    - target: {fileID: 8918163765447925716, guid: 9a415bd25bd6c21469b44611b8228701, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
