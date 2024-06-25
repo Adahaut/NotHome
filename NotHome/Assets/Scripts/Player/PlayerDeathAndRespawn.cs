@@ -45,6 +45,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         transform.position = Vector3.zero;
+        GetComponent<PlayerController>().CmdSendPositionToServer(transform.position, Quaternion.identity);
         
         StartCoroutine(DisableCamera(0.5f));
         

@@ -139,7 +139,7 @@ public class PlayerController : NetworkBehaviour
         _inventoryInitialPosition = _inventory.transform.localPosition;
     }
 
-    void CmdSendPositionToServer(Vector3 position, Quaternion cameraRotation)
+    public void CmdSendPositionToServer(Vector3 position, Quaternion cameraRotation)
     {
         transform.position = position;
         _camera.rotation = cameraRotation;
