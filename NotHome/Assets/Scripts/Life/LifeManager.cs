@@ -64,7 +64,7 @@ public class LifeManager : NetworkBehaviour
             {
                 RpcEnemyDeath();
             }
-            else if (gameObject.tag == "Player")
+            else if (gameObject.tag == "Player" && !gameObject.GetComponent<PlayerController>().IsDead)
             {
                 RpcPlayerDeath();
             }
