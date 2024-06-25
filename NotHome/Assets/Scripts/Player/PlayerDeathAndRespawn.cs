@@ -53,27 +53,40 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     [Command]
     public void CmdSendPositionToServer(Vector3 position, Transform player)
     {
-        transform.position = position;
-        RpcUpdatePositionOnClients(position, player);
+        //transform.position = position;
+        //RpcUpdatePositionOnClients(position, player);
+        for (int i = 0; i < playerMesh.Length; i++)
+        {
+            playerMesh[i].SetActive(false);
+        }
     }
 
-    [ClientRpc]
-    void RpcUpdatePositionOnClients(Vector3 position, Transform player)
-    {
-        player.position = position;
-    }
+    //[ClientRpc]
+    //void RpcUpdatePositionOnClients(Vector3 position, Transform player)
+    //{
+    //    player.position = position;
+    //}
 
     public void Respawn()
     {
         _noSignal.SetActive(false);
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
-        transform.position = _playerRespawnPoint;
+        //transform.position = _playerRespawnPoint;
+
         transform.rotation = cameraSpawnRotation;
         cameraTransform.position = cameraSpawnTransform;
         cameraTransform.rotation = cameraSpawnRotation;
 
         StartCoroutine(RespawnAnimation());
+    }
+    [Command]
+    void EnableMeshes()
+    {
+        for (int i = 0; i < playerMesh.Length; i++)
+        {
+            playerMesh[i].SetActive(true);
+        }
     }
 
     private IEnumerator DisableCamera(float totalTime)
