@@ -125,7 +125,7 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
+    //[ClientRpc]
     private void RpcPlayerDeath()
     {
         if (_playerDeathAndRespawnManager != null)
