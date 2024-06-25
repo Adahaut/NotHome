@@ -24,6 +24,8 @@ public class LifeManager : NetworkBehaviour
     private bool _isTackingDamage;
     private Coroutine _blinking;
 
+    bool isDead;
+
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -54,6 +56,7 @@ public class LifeManager : NetworkBehaviour
     {
         _currentLife = _maxLife;
         StartBlinking(false);
+        isDead = false;
     }
 
     void OnLifeChanged(int oldLife, int newLife)
@@ -64,13 +67,10 @@ public class LifeManager : NetworkBehaviour
             {
                 RpcEnemyDeath();
             }
-            else if (gameObject.tag == "Player" /*&& GetComponent<PlayerDeathAndRespawn>()._canRespawn*/)
+            else if (gameObject.tag == "Player" &&!isDead)
             {
                 RpcPlayerDeath();
-            }
-            else
-            {
-                SetMaxHealth();
+                isDead = true;
             }
         }
     }
