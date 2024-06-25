@@ -39,7 +39,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     public void PlayerDeath()
     {
         print("function called");
-        CmdSendPositionToServer(Vector3.zero);
+        transform.position = Vector3.zero;
         _playerController = GetComponent < PlayerController > ();
         if (_playerInputs == null) print("player input null"); 
         if (_playerController.IsDead) return;
@@ -47,22 +47,6 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
         StartCoroutine(DisableCamera(0.5f));
-    }
-
-    public void CmdSendPositionToServer(Vector3 position)
-    {
-        transform.position = position;
-
-        RpcUpdatePositionOnClients(position);
-    }
-
-    [ClientRpc]
-    void RpcUpdatePositionOnClients(Vector3 position)
-    {
-        if (!isOwned)
-        {
-            transform.position = position;
-        }
     }
 
     public void Respawn()
