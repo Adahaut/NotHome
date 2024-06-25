@@ -43,9 +43,9 @@ public class SpawnItem : NetworkBehaviour
                     {
                         GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
                         NetworkServer.Spawn(_newItem);
-                        //RpcSetupItem(_newItem, _newItem.transform.position, _newItem.transform.rotation, transform);
-                        _newItem.transform.SetParent(transform);
-                        //_spawnedItems.Add(_newItem);
+                        RpcSetupItem(_newItem, _newItem.transform.position, _newItem.transform.rotation, transform);
+                        //_newItem.transform.SetParent(transform);
+                        _spawnedItems.Add(_newItem);
                     }
                 }
             }
@@ -104,6 +104,7 @@ public class SpawnItem : NetworkBehaviour
     public void DestroyAndSpawn()
     {
         DeleteResources();
+        print("spawn " + gameObject.name);
         ItemSpawn();
     }
 }
