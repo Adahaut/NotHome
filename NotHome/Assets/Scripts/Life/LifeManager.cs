@@ -81,17 +81,17 @@ public class LifeManager : NetworkBehaviour
             StartBlinking(true);
         }
 
-        if (_currentLife <= 0)
-        {
-            if (gameObject.tag == "Enemy")
-            {
-                RpcEnemyDeath();
-            }
-            else if (gameObject.tag == "Player")
-            {
-                RpcPlayerDeath();
-            }
-        }
+        //if (_currentLife <= 0)
+        //{
+        //    if (gameObject.tag == "Enemy")
+        //    {
+        //        RpcEnemyDeath();
+        //    }
+        //    else if (gameObject.tag == "Player")
+        //    {
+        //        RpcPlayerDeath();
+        //    }
+        //}
 
         RpcPlayHitSound(transform.position);
 
