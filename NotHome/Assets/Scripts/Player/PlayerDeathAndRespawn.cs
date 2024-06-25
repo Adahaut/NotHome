@@ -40,8 +40,8 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         print("function called");
         //transform.position = Vector3.zero;
         if(isOwned)
-            CmdSendPositionToServer(Vector3.zero, transform);
-        _playerController = GetComponent < PlayerController > ();
+            CmdSendPositionToServer();
+        _playerController = GetComponent <PlayerController>();
         if (_playerInputs == null) print("player input null"); 
         if (_playerController.IsDead) return;
         _canRespawn = false;
@@ -51,14 +51,13 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSendPositionToServer(Vector3 position, Transform player)
+    public void CmdSendPositionToServer()
     {
-        //transform.position = position;
-        //RpcUpdatePositionOnClients(position, player);
         for (int i = 0; i < playerMesh.Length; i++)
         {
             playerMesh[i].SetActive(false);
         }
+        EnableDisableMeshes(false);
     }
 
     //[ClientRpc]
@@ -86,6 +85,16 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         for (int i = 0; i < playerMesh.Length; i++)
         {
             playerMesh[i].SetActive(true);
+        }
+        EnableDisableMeshes(true);
+    }
+
+    [ClientRpc]
+    void EnableDisableMeshes(bool enable)
+    {
+        for (int i = 0; i < playerMesh.Length; i++)
+        {
+            playerMesh[i].SetActive(enable);
         }
     }
 
