@@ -8,7 +8,6 @@ public class DoorExit : NetworkBehaviour
     //[SerializeField] private GameObject _doorExit;
     private int _nbPlayer;
     public static DoorExit Instance;
-    private bool _qgIsLevel3;
     private bool _isDecompression;
     private bool _isGoingOut = true;
     [SerializeField] private string _nameZone;
@@ -46,14 +45,14 @@ public class DoorExit : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !_qgIsLevel3)
+        if (other.CompareTag("Player"))
         {
             _nbPlayer += 1;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && !_qgIsLevel3)
+        if (other.CompareTag("Player"))
         {
             _nbPlayer -= 1;
             if(exitDoorAnimator.GetBool("Open"))
@@ -67,10 +66,6 @@ public class DoorExit : NetworkBehaviour
             if (_nbPlayer <= 0)
                 enterDoorAnimator.SetBool("Open", false);
         }
-    }
-    public void QGLevel3()
-    {
-        _qgIsLevel3 = true;
     }
 
     public void OpenDoor(Transform camera, float distRayCast, bool canOpenAllSAS)

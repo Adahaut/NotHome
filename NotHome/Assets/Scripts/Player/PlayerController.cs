@@ -205,7 +205,7 @@ public class PlayerController : NetworkBehaviour
     {
         if(isOwned)
         {
-            DoorExit.Instance.OpenDoor(_startPointRaycast, _distRayCast, _canOpenAllSAS);
+            DoorExit.Instance.OpenDoor(_startPointRaycast, _distRayCast, UpgradeBuilding.Instance._canOpenAllSAS);
             if (ctx.performed)
             {
                 StartUi();
@@ -600,10 +600,6 @@ public class PlayerController : NetworkBehaviour
 
             if(hit.collider.GetComponent<BuildInterractable>())
             {
-                if (hit.collider.GetComponentInChildren<ParticleSystem>() != null && hit.collider.GetComponent<BuildInterractable>()._index < 9)
-                {
-                    _uiPlayer[hit.collider.GetComponent<BuildInterractable>()._index].GetComponent<UpgradeHomeManager>()._particleLevelUp = hit.collider.GetComponentInChildren<ParticleSystem>();
-                }
                 OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
                 hit.collider.GetComponent<BuildInterractable>()._isOpen = true;
                 return;

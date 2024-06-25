@@ -1,5 +1,4 @@
 using Mirror;
-using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -38,8 +37,8 @@ public class RepaireBridge : NetworkBehaviour
 
     private bool CanUpgrade()
     {
-        print("HQ " + _hq.GetLevel() + " CT " + _ct.GetLevel());
-        return _hq.GetLevel() == 4 && _ct.GetLevel() == 3;
+        print("HQ " + UpgradeBuilding.Instance._levelBuildingList[0]._levelBuilding + " CT " + UpgradeBuilding.Instance._levelBuildingList[1]._levelBuilding);
+        return UpgradeBuilding.Instance._levelBuildingList[0]._levelBuilding == 4 && UpgradeBuilding.Instance._levelBuildingList[1]._levelBuilding == 3;
     }
 
     public void CreateBridge()
