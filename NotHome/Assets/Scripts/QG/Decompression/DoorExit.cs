@@ -61,10 +61,12 @@ public class DoorExit : NetworkBehaviour
                 QuestManager.Instance.SetZoneQuest(_nameZone);
             }
             _smokeParticle.SetActive(false);
-            exitDoorAnimator.SetBool("Open", false);
-            _isDecompression = false;
             if (_nbPlayer <= 0)
+            {
+                _isDecompression = false;
+                exitDoorAnimator.SetBool("Open", false);
                 enterDoorAnimator.SetBool("Open", false);
+            }  
         }
     }
 
