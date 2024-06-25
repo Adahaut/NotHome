@@ -9,12 +9,17 @@ public class EndCinematic : MonoBehaviour
     [SerializeField] private ParticleSystem[] _smoke;
     [SerializeField] private GameObject[] _explosion;
     private AudioSource[] _audioSources;
+    public Material _newSkyboxMaterial;
 
     private void Start()
     {
         _audioSources = GetComponents<AudioSource>();
 
         _audioSources[0].Play();
+
+        //RenderSettings.skybox = _newSkyboxMaterial;
+
+        RenderSettings.fog = false;
     }
 
     public void ActiveSpaceSkybox()
