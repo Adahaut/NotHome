@@ -41,13 +41,10 @@ public class SpawnItem : NetworkBehaviour
                 {
                     if (_spawnChance > Random.Range(0f, _maxChanceFactor))
                     {
-                        Debug.Log("spawn");
                         GameObject _newItem = Instantiate(_items[Random.Range(0, _items.Count)], hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
                         NetworkServer.Spawn(_newItem);
-                        Debug.Log("Item spawned, calling RpcSetupItem");
                         //RpcSetupItem(_newItem, _newItem.transform.position, _newItem.transform.rotation, transform);
                         _newItem.transform.SetParent(transform);
-                        print("parent mis");
                         //_spawnedItems.Add(_newItem);
                     }
                 }
@@ -106,10 +103,7 @@ public class SpawnItem : NetworkBehaviour
 
     public void DestroyAndSpawn()
     {
-        print("del");
         DeleteResources();
-        print("spawn items");
         ItemSpawn();
-        print("fini");
     }
 }
