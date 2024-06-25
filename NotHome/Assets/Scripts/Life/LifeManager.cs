@@ -74,11 +74,14 @@ public class LifeManager : NetworkBehaviour
     [Server]
     public void TakeDamage(int damage)
     {
-        _currentLife -= damage;
-
-        if(gameObject.tag == "Player")
+        if(gameObject.tag == "Player" && !GetComponent<PlayerController>().IsDead)
         {
+            _currentLife -= damage;
             StartBlinking(true);
+        }
+        else if(gameObject.tag == "Enemy")
+        {
+            _currentLife -= damage;
         }
 
         //if (_currentLife <= 0)
@@ -169,12 +172,6 @@ public class LifeManager : NetworkBehaviour
 
     private void Update()
     {
-
-        if (isOwned)
-        {
-            print(_currentLife);
-        }
-
         if (gameObject.tag == "Player")
         {
             if(!_isBlinking && _currentLife < 20 && !_isTackingDamage && !GetComponent<PlayerController>().IsDead)
