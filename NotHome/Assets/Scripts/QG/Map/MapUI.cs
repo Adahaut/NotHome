@@ -10,7 +10,7 @@ public class MapUI : MonoBehaviour
     private List<GameObject> _mapsList = new List<GameObject>();
     private List<ItemObject> _usbKeysList = new List<ItemObject>();
     private List<GameObject> _Buttons = new List<GameObject>();
-    [SerializeField] private List<Camera> _minimapsCamera = new List<Camera>();
+    private List<Camera> _minimapsCamera = new List<Camera>();
     [SerializeField] private RawImage _mapImage;
     [SerializeField] private List<RenderTexture> _minimapsRenderSprite = new List<RenderTexture>();
 
@@ -31,6 +31,16 @@ public class MapUI : MonoBehaviour
     private void Awake()
     {
         _playerInventory = GetComponentInParent<PlayerController>()._inventory.GetComponent<InventoryManager>();
+    }
+
+    private void Start()
+    {
+        _minimapsCamera.Clear();
+        _minimapsCamera.Add(GameObject.Find("DesertMinimapCam").GetComponent<Camera>());
+        _minimapsCamera.Add(GameObject.Find("MuntainMinimapCam").GetComponent<Camera>());
+        _minimapsCamera.Add(GameObject.Find("ForestMinimapCam").GetComponent<Camera>());
+        _minimapsCamera.Add(GameObject.Find("FinalZoneMinimapCam").GetComponent<Camera>());
+        _minimapsCamera.Add(GameObject.Find("OverAllMinimapCam").GetComponent<Camera>());
     }
 
     private void OnEnable()
@@ -217,6 +227,8 @@ public class MapUI : MonoBehaviour
 
     private void ResetCamera()
     {
+        if (_minimapsCamera.Count - 1 < _currentMapIndex)
+            return;
         Camera _currentCamera = _minimapsCamera[_currentMapIndex];
         _currentCamera.fieldOfView = _cameraMaxZoom;
         _currentCamera.transform.localPosition = Vector3.zero;

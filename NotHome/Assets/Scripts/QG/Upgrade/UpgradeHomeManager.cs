@@ -76,12 +76,12 @@ public class UpgradeHomeManager : MonoBehaviour
                 QuestManager.Instance.SetQuestUpLevel2();
                 QuestManager.Instance.QuestComplete(3);
                 _mapManager._canOpenUiMap = true;
-                QG_Manager.Instance.SetMaxHealthBar(1.20f);
+                //QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 3:
                 QuestManager.Instance.SetQuestUpLevel3();
                 DoorExit.Instance.QGLevel3();
-                QG_Manager.Instance.SetMaxHealthBar(1.20f);
+                //QG_Manager.Instance.SetMaxHealthBar(1.20f);
                 break;
             case 4:
                 GetComponentInParent<PlayerController>()._canOpenAllSAS = true;
