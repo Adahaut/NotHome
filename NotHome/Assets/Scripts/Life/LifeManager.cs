@@ -64,7 +64,7 @@ public class LifeManager : NetworkBehaviour
             {
                 RpcEnemyDeath();
             }
-            else if (gameObject.tag == "Player" && GetComponent<PlayerDeathAndRespawn>()._canRespawn)
+            else if (gameObject.tag == "Player" /*&& GetComponent<PlayerDeathAndRespawn>()._canRespawn*/)
             {
                 RpcPlayerDeath();
             }
