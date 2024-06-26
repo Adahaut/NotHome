@@ -3,6 +3,7 @@ using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -96,6 +97,11 @@ public class PlayerNetwork : NetworkBehaviour
                 break;
             }
         }
+    }
+
+    public override void OnStopServer()
+    {
+        SceneManager.LoadScene("Scene_Lobby");
     }
 
 }
