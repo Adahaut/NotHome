@@ -71,14 +71,14 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    [Server]
+    //[Server]
     public void TakeDamage(int damage)
     {
         if (_currentLife <= 0) return;
 
         _currentLife -= damage;
 
-        if(gameObject.tag == "Player")
+        if(isOwned && gameObject.tag == "Player")
         {
             print("Blinking");
             StartBlinking(true);
