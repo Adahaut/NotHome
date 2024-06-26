@@ -215,10 +215,15 @@ public class PlayerController : NetworkBehaviour
         {
             if (_isOpen)
             {
+                print("ferme " + _currentIndexOpen);
                 OpenUi(_currentIndexOpen);
             }
             else
+            {
+                print("pause");
                 PauseManager.Instance.Resume();
+            }
+                
         }
             
     }
