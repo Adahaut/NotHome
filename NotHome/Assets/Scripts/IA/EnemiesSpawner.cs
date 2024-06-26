@@ -24,9 +24,12 @@ public class EnemiesSpawner : NetworkBehaviour
     }
 
 
-    public void SpawnMobOfZone(int _zone)
+    public void SpawnMobOfZone()
     {
-        SpawnEnemies(_zone);
+        for(int i = 0; i < _allZones.Count; i++)
+        {
+            SpawnEnemies(i);
+        }
     }
 
     [Server]

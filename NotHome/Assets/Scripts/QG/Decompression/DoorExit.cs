@@ -121,7 +121,13 @@ public class DoorExit : NetworkBehaviour
             }
             else
             {
-                SpawnItemAndMobsByZone();
+                if (_spawnerManager._canSpawn)
+                {
+                    _spawnerManager.DestroyAll();
+                    _enemiesSpawner.DestroyAllEnemies();
+                    _spawnerManager.DestroyAndSpawnItems();
+                    _enemiesSpawner.SpawnMobOfZone();
+                }
             }
 
             enterDoorAnimator.SetBool("Open", false);
@@ -130,57 +136,6 @@ public class DoorExit : NetworkBehaviour
             StartCoroutine(StartParticle(1, door));
             //print(_checker);
             //print(_checker.Check());
-        }
-    }
-
-    private void SpawnItemAndMobsByZone()
-    {
-        if (isServer && _checker.Check())
-        {
-            switch (_nameZone)
-            {
-                case "Desert":
-                    _spawnerManager.DestroyAndSpawnItems(0);
-                    print("fini spawn");
-                    _enemiesSpawner.SpawnMobOfZone(0);
-                    break;
-
-                case "Mountain":
-                    _spawnerManager.DestroyAndSpawnItems(1);
-                    print("fini spawn");
-                    _enemiesSpawner.SpawnMobOfZone(1);
-                    break;
-
-                case "Forest":
-                    _spawnerManager.DestroyAndSpawnItems(2);
-                    print("fini spawn");
-                    _enemiesSpawner.SpawnMobOfZone(2);
-                    break;
-
-                case "Final":
-                    _enemiesSpawner.SpawnMobOfZone(3);
-                    break;
-
-                default:
-                    print("wrong zone name");
-                    break;
-            }
-        }
-    }
-
-    private void SpawnItem(int _zone, bool _zoneSpawned)
-    {
-        if (_spawnerManager._canSpawn && _spawnerManager.NoZoneSpawned())
-        {
-            _spawnerManager.DestroyAll();
-            _spawnerManager.DestroyAndSpawnItems(_zone);
-            _enemiesSpawner.DestroyAllEnemies();
-            _enemiesSpawner.SpawnMobOfZone(_zone);
-        }
-        else if (!_zoneSpawned)
-        {
-            _spawnerManager.SpawnItems(_zone);
-            _enemiesSpawner.SpawnMobOfZone(_zone);
         }
     }
 

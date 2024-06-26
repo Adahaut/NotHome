@@ -28,8 +28,6 @@ public class PeopleInBaseChecker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _numberOfPlayersInBase++;
-            if (_numberOfPlayersInBase == _numberOfPlayers)
-                _spawnerManager.SetAllBoolFalse();
         }
 
     }
