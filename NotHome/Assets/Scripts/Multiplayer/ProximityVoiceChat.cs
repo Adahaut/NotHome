@@ -45,6 +45,7 @@ public class ProximityVoiceChat : NetworkBehaviour
         if (context.performed && isOwned && ownTalkieWalkie)
         {
             buttonPressed = true;
+            print("yes");
         }
 
         if (context.canceled && isOwned && ownTalkieWalkie)
