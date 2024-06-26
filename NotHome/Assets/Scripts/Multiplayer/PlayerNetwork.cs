@@ -22,17 +22,24 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private GameObject playerUI;
     [SerializeField] private GameObject blackScreen;
 
+    [SerializeField] private GameObject[] objectToDisable;
+
     private void Start()
     {
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
             SetActiveUI(false);
+            foreach (GameObject obj in objectToDisable)
+            {
+                obj.SetActive(false);
+            }
             if (mainCamera != null && !_playerCameras.Contains(mainCamera)) _playerCameras.Add(mainCamera);
         }
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+        GetComponent<PlayerDeathAndRespawn>().playerMesh.Add(nameTagInstance);
 
         if (isOwned) nameTagInstance.SetActive(false);
     }
