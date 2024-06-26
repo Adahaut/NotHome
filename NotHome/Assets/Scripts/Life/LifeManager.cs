@@ -80,20 +80,21 @@ public class LifeManager : NetworkBehaviour
 
         if(gameObject.tag == "Player")
         {
+            print("Blinking");
             StartBlinking(true);
         }
 
-        if (_currentLife <= 0)
-        {
-            if (gameObject.tag == "Enemy")
-            {
-                RpcEnemyDeath();
-            }
-            else if (gameObject.tag == "Player")
-            {
-                RpcPlayerDeath();
-            }
-        }
+        //if (_currentLife <= 0)
+        //{
+        //    if (gameObject.tag == "Enemy")
+        //    {
+        //        RpcEnemyDeath();
+        //    }
+        //    else if (gameObject.tag == "Player")
+        //    {
+        //        RpcPlayerDeath();
+        //    }
+        //}
 
         RpcPlayHitSound(transform.position);
 
@@ -175,7 +176,6 @@ public class LifeManager : NetworkBehaviour
         {
             if(!_isBlinking && _currentLife < 20 && !_isTackingDamage && !GetComponent<PlayerController>().IsDead)
             {
-                print("blinking");
                 StartBlinking();
             }
         }
