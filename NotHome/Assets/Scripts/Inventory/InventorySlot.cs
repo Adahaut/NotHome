@@ -24,6 +24,7 @@ public class InventorySlot : MonoBehaviour
         ResetItem();
         _numberText.text = "";
         _nameText.text = "";
+        _itemImage.color = new Color(255, 255, 255, 0);
     }
 
     public int Number() { return _number; }
@@ -34,9 +35,17 @@ public class InventorySlot : MonoBehaviour
         _numberText.text = _number.ToString();
         _name = _newName;
         if (_name == "None")
+        {
+            _itemImage.color = new Color(255, 255, 255, 0);
             _nameText.text = "";
+        }
+
         else
+        {
+            _itemImage.color = Color.white;
             _nameText.text = _name;
+        }
+            
     }
 
     public void AddNumber() 
@@ -60,19 +69,20 @@ public class InventorySlot : MonoBehaviour
             
     }
 
-    public void UpdateItem(int _newNumber, Sprite _newSprite, string _name)
+    public void UpdateItem(int _newNumber, Sprite _newSprite, string _namee)
     {
         if(_itemImage == null)
             _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
 
         ResetItem();
 
+        _name = _namee;
         _itemImage.sprite = _newSprite;
         _number = _newNumber;
         UpdateNumberAndName();
+        UpdateItemVisuel(); 
 
-        
-        _itemContained.SetItem(_name, _newSprite);
+        _itemContained.SetItem(_namee, _newSprite);
     }
 
     public void UpdateNumberAndName()
@@ -87,6 +97,7 @@ public class InventorySlot : MonoBehaviour
     {
         if (!_isAnEquipement)
         {
+            _itemImage.color = Color.white;
             _itemContained.SetItem(_ItemName, _itemSprite);
             UpdateNumberAndName();
             UpdateItemVisuel();
@@ -98,6 +109,7 @@ public class InventorySlot : MonoBehaviour
     {
         _itemContained = new ItemObject();
         _itemContained.SetItem("None", null);
+        _name = "None";
         _number = 0;
         _numberText.text = "";
         _nameText.text = "";
@@ -109,6 +121,17 @@ public class InventorySlot : MonoBehaviour
         if (_itemImage == null)
             _itemImage = transform.GetChild(0).gameObject.GetComponent<Image>();
 
+        if (_name == "None")
+        {
+            print("none");
+            _itemImage.color = new Color(255, 255, 255, 0);
+        }
+
+        else
+        {
+            print("qquechose");
+            _itemImage.color = Color.white;
+        }
         _itemImage.sprite = _itemContained.ItemSprite();
     }
 }

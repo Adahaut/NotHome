@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5809743472006700729}
   - component: {fileID: 8848645830000981782}
   m_Layer: 6
-  m_Name: Ammo
+  m_Name: GunPowderItem
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8429492753359114345}
+  - {fileID: 6100709530084074232}
   - {fileID: 8229825172787355392}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 686394169
+  _assetId: 3781862041
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -156,8 +156,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _name: Ammo
-  _sprite: {fileID: 21300000, guid: 3fb9b4b09430c364e86e95e660ffbf9e, type: 3}
+  _name: GunPowder
+  _sprite: {fileID: 21300000, guid: 54abd329e49d722429459847ed5842fd, type: 3}
   _radius: 5
   _isOnAnotherGameObject: 0
   _isMetalicPart: 0
@@ -180,8 +180,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.40281963, y: 0.3347118, z: 0.50438595}
-  m_Center: {x: -0.005756855, y: 0.35734987, z: 0.002626419}
+  m_Size: {x: 0.512743, y: 0.39639294, z: 0.4935031}
+  m_Center: {x: 0.015854836, y: 0.22524852, z: 0.01284194}
 --- !u!1 &5410909122472056736
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +266,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &8318477824311588738
+--- !u!1001 &5989976087226811667
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -274,73 +274,73 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3395609731696321283}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.15
+      value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.15
+      value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.24999999
+      value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.336
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalRotation.x
+      value: 0.00000003774895
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
+      propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
+    - target: {fileID: 919132149155446097, guid: 03848a3cefe4a35469be327996986278, type: 3}
       propertyPath: m_Name
-      value: ammobox
+      value: Gunpowder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
---- !u!4 &8429492753359114345 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 03848a3cefe4a35469be327996986278, type: 3}
+--- !u!4 &6100709530084074232 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8766cc76823ba2f45b2070546f21866d, type: 3}
-  m_PrefabInstance: {fileID: 8318477824311588738}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03848a3cefe4a35469be327996986278, type: 3}
+  m_PrefabInstance: {fileID: 5989976087226811667}
   m_PrefabAsset: {fileID: 0}
