@@ -81,7 +81,7 @@ public class LifeManager : NetworkBehaviour
         if(gameObject.tag == "Player")
         {
             _damageIndicator.color = Color.black;
-            StartBlinking(true);
+            //StartBlinking(true);
         }
 
         //if (_currentLife <= 0)
