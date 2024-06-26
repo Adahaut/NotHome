@@ -41,6 +41,8 @@ public class ItemSpawnerManager : MonoBehaviour
         //_canSpawn = false;
     }
 
+    public bool NoZoneSpawned() { return !_desertSpawn && !_mountainSpawn && !_forestSpawn; }
+
     [Server]
     public void SpawnItems(int _zone)
     {

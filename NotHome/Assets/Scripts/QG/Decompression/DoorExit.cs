@@ -163,10 +163,11 @@ public class DoorExit : NetworkBehaviour
 
     private void SpawnItem(int _zone, bool _zoneSpawned)
     {
-        if (_spawnerManager._canSpawn && !_zoneSpawned)
+        if (_spawnerManager._canSpawn && _spawnerManager.NoZoneSpawned())
         {
             _spawnerManager.DestroyAll();
             _spawnerManager.DestroyAndSpawnItems(_zone);
+            _enemiesSpawner.DestroyAllEnemies();
             _enemiesSpawner.SpawnMobOfZone(_zone);
         }
         else if(!_zoneSpawned)
