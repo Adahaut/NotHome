@@ -50,7 +50,7 @@ public class NetworkLobbyManager : NetworkManager
     {
         // Rediriger vers le menu principal
         // Assurez-vous que le nom de la scène du menu principal est correct
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Scene_Lobby");
     }
     public override void OnStartServer()
     {
