@@ -3,13 +3,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapManager : MonoBehaviour
+public class MapManagker : MonoBehaviour
 {
     public GameObject _uiMap;
     public GameObject _mapButton;
     public Item _itemMap;
     private bool _itemGet;
-    public static MapManager Instance;
+    public static MapManagker Instance;
     [SerializeField] private Image _worldMap;
     [HideInInspector] public bool _canOpenUiMap;
     private PlayerController _playerController;

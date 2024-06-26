@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UpgradeHomeManager : MonoBehaviour
 {
-    [SerializeField] private MapManager _mapManager;
     [SerializeField] private TextMeshProUGUI _textLevel;
     [SerializeField] private TextMeshProUGUI _ressourcesNeeded;
     public List<DictionnaryElement<string, List<DictionnaryElement<string, int>>>> _upgarde;

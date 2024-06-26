@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,10 @@ public class MapUI : MonoBehaviour
             print(CheckForValidKey(_usbKeysList[i].ItemName()));
             _Buttons[i].SetActive(CheckForValidKey(_usbKeysList[i].ItemName()));
         }
+    }
+    public void ActiveMaps(int index)
+    {
+        _mapImage.texture = _minimapsRenderSprite[index];
     }
 
     private void DesactiveAllMaps()
