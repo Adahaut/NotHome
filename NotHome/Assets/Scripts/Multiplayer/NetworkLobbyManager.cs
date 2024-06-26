@@ -108,7 +108,7 @@ public class NetworkLobbyManager : NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         if (conn.identity != null)
-        {
+        {    
             var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
             if (player != null)
             {
@@ -230,5 +230,5 @@ public class NetworkLobbyManager : NetworkManager
         }
     }
 
-    
+
 }

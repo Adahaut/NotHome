@@ -756,18 +756,5 @@ public class PlayerController : NetworkBehaviour
     }
 
 
-    [Command]
-    private void OnApplicationQuit()
-    {
-        if (isServer)
-        {
-            QuitAll();
-        }
-    }
 
-    [ClientRpc]
-    private void QuitAll()
-    {
-        SceneManager.LoadScene("Scene_Lobby");
-    }
 }
