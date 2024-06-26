@@ -116,9 +116,16 @@ public class DoorExit : NetworkBehaviour
             _alarmSAS.SetActive(true);
             _isDecompression = true;
             if (!enterDoorAnimator.GetBool("Open"))
+            {
+                print("rentre");
                 door = true;
+            }
             else
+            {
                 SpawnItemAndMobsByZone();
+                print("sort");
+            }
+                
             enterDoorAnimator.SetBool("Open", false);
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
