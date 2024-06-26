@@ -1,10 +1,6 @@
 using Mirror;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public struct QuestNotificationMessage : NetworkMessage
 {
@@ -56,7 +52,7 @@ public class QuestManager : NetworkBehaviour
     }
     public void SetQuestSpider()
     {
-        int indexQuest = 2;
+        int indexQuest = 3;
         if (currentQuest == indexQuest)
         {
             _counterSpider++;
@@ -70,11 +66,11 @@ public class QuestManager : NetworkBehaviour
     public void SetQuestUpLevel2()
     {
         _questUpLevel2 += 1;
-        if (_questUpLevel2 >= 4)
+        if (_questUpLevel2 >= 2)
         {
-            QuestStruct temp = _listQuests[7];
+            QuestStruct temp = _listQuests[8];
             temp._isComplet = true;
-            _listQuests[7] = temp;
+            _listQuests[8] = temp;
             NextQuest();
         }
     }
@@ -82,17 +78,17 @@ public class QuestManager : NetworkBehaviour
     public void SetQuestUpLevel3()
     {
         _questUpLevel3 += 1;
-        if (_questUpLevel3 >= 3)
+        if (_questUpLevel3 >= 2)
         {
-            QuestStruct temp = _listQuests[11];
+            QuestStruct temp = _listQuests[12];
             temp._isComplet = true;
-            _listQuests[11] = temp;
+            _listQuests[12] = temp;
             NextQuest();
         }
     }
     public void SetQuestMetal()
     {
-        int indexQuest = 1;
+        int indexQuest = 2;
         if (currentQuest == indexQuest)
         {
             _counterMetal++;
@@ -102,7 +98,7 @@ public class QuestManager : NetworkBehaviour
     }
     public void SetQuestLeaf()
     {
-        int indexQuest = 8;
+        int indexQuest = 9;
         if (currentQuest == indexQuest)
         {
             _counterLeaf++;
@@ -115,10 +111,10 @@ public class QuestManager : NetworkBehaviour
         switch (zone)
         {
             case "Forest":
-                QuestComplete(4);
+                QuestComplete(5);
                 break;
             case "Mountain":
-                QuestComplete(9);
+                QuestComplete(10);
                 break;
             default:
                 Debug.Log("No zone name");

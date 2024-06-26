@@ -622,6 +622,8 @@ public class PlayerController : NetworkBehaviour
             if(hit.collider.GetComponent<BuildInterractable>())
             {
                 OpenUi(hit.collider.GetComponent<BuildInterractable>()._index);
+                if (hit.collider.GetComponent<BuildInterractable>()._index == 13)
+                    QuestManager.Instance.QuestComplete(0);
                 hit.collider.GetComponent<BuildInterractable>()._isOpen = true;
                 return;
             }

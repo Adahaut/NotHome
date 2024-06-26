@@ -223,7 +223,7 @@ public class DroneManager : NetworkBehaviour
             _cameraPlayer = playerCam;
             _playerInput = playerInput;
             _canUseDrone = false;
-            QuestManager.Instance.QuestComplete(10);
+            QuestManager.Instance.QuestComplete(11);
             _canMove = true;
             _characterController.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
