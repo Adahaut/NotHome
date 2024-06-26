@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
@@ -101,6 +102,16 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private ChangeControl _changeControl;
     public PauseManager _pauseManager;
     private PlayerInput _playerInput;
+    private NetworkLobbyManager room;
+
+    public NetworkLobbyManager Room
+    {
+        get
+        {
+            if (room != null) { return room; }
+            return room = NetworkManager.singleton as NetworkLobbyManager;
+        }
+    }
 
     private void DisableControlPanelOnStart()
     {
@@ -735,11 +746,18 @@ public class PlayerController : NetworkBehaviour
     }
 
 
+    [Command]
     private void OnApplicationQuit()
     {
         if (isServer)
         {
-            
+            QuitAll();
         }
+    }
+
+    [ClientRpc]
+    private void QuitAll()
+    {
+        SceneManager.LoadScene("Scene_Lobby");
     }
 }
