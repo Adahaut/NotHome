@@ -95,7 +95,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject machette;
     public GameObject cameraGunMesh;
 
-    public bool IsDead;
+    [SyncVar] public bool IsDead;
     bool _canJump;
 
     [SerializeField] private ChangeControl _changeControl;
