@@ -71,6 +71,7 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
+    [Server]
     public void TakeDamage(int damage)
     {
         if (_currentLife <= 0) return;
