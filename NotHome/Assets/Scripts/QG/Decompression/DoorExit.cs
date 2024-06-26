@@ -57,7 +57,7 @@ public class DoorExit : NetworkBehaviour
             _nbPlayer -= 1;
             if(exitDoorAnimator.GetBool("Open"))
             {
-                QuestManager.Instance.QuestComplete(0);
+                QuestManager.Instance.QuestComplete(1);
                 QuestManager.Instance.SetZoneQuest(_nameZone);
             }
             _smokeParticle.SetActive(false);
