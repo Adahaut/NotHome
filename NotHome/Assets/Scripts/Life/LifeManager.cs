@@ -78,10 +78,9 @@ public class LifeManager : NetworkBehaviour
 
         _currentLife -= damage;
 
-        if(gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
-            _damageIndicator.color = Color.black;
-            //StartBlinking(true);
+            RpcTriggerBlinkingEffect();
         }
 
         //if (_currentLife <= 0)
@@ -97,8 +96,15 @@ public class LifeManager : NetworkBehaviour
         //}
 
         RpcPlayHitSound(transform.position);
-
     }
+
+    [ClientRpc]
+    private void RpcTriggerBlinkingEffect()
+    {
+        _damageIndicator.color = Color.black;
+        StartBlinking(true);
+    }
+
 
 
     [ClientRpc]
