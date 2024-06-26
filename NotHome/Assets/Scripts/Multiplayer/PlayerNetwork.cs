@@ -103,7 +103,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     void OnDisconnectMessageReceived(DisconnectMessage msg)
     {
-        // Déconnecter le client et charger le menu principal
+        print("receive network messahe");
         NetworkManager.singleton.StopClient();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }

@@ -135,8 +135,8 @@ public class NetworkLobbyManager : NetworkManager
     public override void OnStopServer()
     {
         InformClientsToDisconnect();
-        //_roomPlayers.Clear();
-        //_gamePlayers.Clear();
+        _roomPlayers.Clear();
+        _gamePlayers.Clear();
     }
     void InformClientsToDisconnect()
     {
