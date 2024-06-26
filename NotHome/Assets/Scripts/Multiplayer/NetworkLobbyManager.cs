@@ -128,16 +128,13 @@ public class NetworkLobbyManager : NetworkManager
                 NotifyPlayersOfReadyState();
             }
         }
-        else
-        {
-            InformClientsToDisconnect();
-        }
 
         base.OnServerDisconnect(conn);
     }
 
     public override void OnStopServer()
     {
+        InformClientsToDisconnect();
         _roomPlayers.Clear();
         _gamePlayers.Clear();
     }
