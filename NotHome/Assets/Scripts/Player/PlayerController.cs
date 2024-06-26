@@ -663,10 +663,6 @@ public class PlayerController : NetworkBehaviour
     {
         if (_fartCooldown > 0)
             _fartCooldown -= Time.deltaTime;
-        if (!NetworkServer.active)
-        {
-            SceneManager.LoadScene("Scene_Lobby");
-        }
     }
 
     public void OpenUi(int index)
