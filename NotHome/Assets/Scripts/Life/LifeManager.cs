@@ -71,9 +71,10 @@ public class LifeManager : NetworkBehaviour
         }
     }
 
-    //[Server]
+    [Server]
     public void TakeDamage(int damage)
     {
+        print("Take DAmages");
         if (_currentLife <= 0) return;
 
         _currentLife -= damage;
@@ -182,7 +183,6 @@ public class LifeManager : NetworkBehaviour
 
     public void StartBlinking(bool _takingDamage = false)
     {
-        print("Take Damages");
         float _force = _takingDamage == true ? 1f : (float)(_maxLife - _currentLife) / (float)_maxLife * 0.2f;
         _blinking = StartCoroutine(UIBlinking(50, _force, _takingDamage));
     }
