@@ -27,6 +27,8 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void Start()
     {
+
+        NetworkClient.RegisterHandler<DisconnectMessage>(OnDisconnectMessageReceived);
         if (isOwned)
         {
             CmdSetPlayerName(SteamFriends.GetPersonaName());
@@ -99,9 +101,11 @@ public class PlayerNetwork : NetworkBehaviour
         }
     }
 
-    public override void OnStopServer()
+    void OnDisconnectMessageReceived(DisconnectMessage msg)
     {
-        SceneManager.LoadScene("Scene_Lobby");
+        // Déconnecter le client et charger le menu principal
+        NetworkManager.singleton.StopClient();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
 }

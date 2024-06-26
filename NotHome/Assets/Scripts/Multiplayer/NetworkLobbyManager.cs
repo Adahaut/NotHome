@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public struct DisconnectMessage : NetworkMessage { }
+
 public class NetworkLobbyManager : NetworkManager
 {
     [SerializeField] private int _minPlayer = 2;
@@ -107,21 +109,24 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        if (conn.identity != null)
-        {    
-            var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
-            if (player != null)
+        if(SceneManager.GetActiveScene().path == menuScene)
+        {
+            if (conn.identity != null)
             {
-                _roomPlayers.Remove(player);
-            }
+                var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+                if (player != null)
+                {
+                    _roomPlayers.Remove(player);
+                }
 
-            var gamePlayer = conn.identity.GetComponent<NetworkGamePlayerLobby>();
-            if (gamePlayer != null)
-            {
-                _gamePlayers.Remove(gamePlayer);
-            }
+                var gamePlayer = conn.identity.GetComponent<NetworkGamePlayerLobby>();
+                if (gamePlayer != null)
+                {
+                    _gamePlayers.Remove(gamePlayer);
+                }
 
-            NotifyPlayersOfReadyState();
+                NotifyPlayersOfReadyState();
+            }
         }
 
         base.OnServerDisconnect(conn);
@@ -129,8 +134,22 @@ public class NetworkLobbyManager : NetworkManager
 
     public override void OnStopServer()
     {
+        InformClientsToDisconnect();
         _roomPlayers.Clear();
         _gamePlayers.Clear();
+    }
+
+    // Méthode pour informer les clients de se déconnecter
+    void InformClientsToDisconnect()
+    {
+        // Envoyer un message personnalisé à tous les clients
+        foreach (var conn in NetworkServer.connections)
+        {
+            if (conn.Value != NetworkServer.localConnection)
+            {
+                conn.Value.Send(new DisconnectMessage());
+            }
+        }
     }
 
     public override void ServerChangeScene(string newSceneName)
@@ -168,6 +187,7 @@ public class NetworkLobbyManager : NetworkManager
 
         OnServerReadied?.Invoke(conn);
     }
+
 
     #endregion
 
