@@ -5,6 +5,7 @@ public class PeopleInBaseChecker : MonoBehaviour
     public int _numberOfPlayers;
     public int _numberOfPlayersInBase;
     public NetworkLobbyManager _lobbyManager;
+    public ItemSpawnerManager _spawnerManager;
 
     private void Start()
     {
@@ -27,8 +28,10 @@ public class PeopleInBaseChecker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _numberOfPlayersInBase++;
+            if (_numberOfPlayersInBase == _numberOfPlayers)
+                _spawnerManager.SetAllBoolFalse();
         }
-            
+
     }
 
     private void OnTriggerExit(Collider other)

@@ -116,13 +116,18 @@ public class DoorExit : NetworkBehaviour
             _alarmSAS.SetActive(true);
             _isDecompression = true;
             if (!enterDoorAnimator.GetBool("Open"))
+            {
                 door = true;
+            }
+            else
+            {
+                SpawnItemAndMobsByZone();
+            }
+
             enterDoorAnimator.SetBool("Open", false);
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
-            SpawnItemAndMobsByZone();
-            print("fini spawn");
             //print(_checker);
             //print(_checker.Check());
         }
@@ -165,17 +170,17 @@ public class DoorExit : NetworkBehaviour
 
     private void SpawnItem(int _zone, bool _zoneSpawned)
     {
-        if (_spawnerManager._canSpawn && !_zoneSpawned)
+        if (_spawnerManager._canSpawn && _spawnerManager.NoZoneSpawned())
         {
+            _spawnerManager.DestroyAll();
             _spawnerManager.DestroyAndSpawnItems(_zone);
+            _enemiesSpawner.DestroyAllEnemies();
             _enemiesSpawner.SpawnMobOfZone(_zone);
-            _zoneSpawned = true;
         }
-        else if(!_zoneSpawned)
+        else if (!_zoneSpawned)
         {
             _spawnerManager.SpawnItems(_zone);
             _enemiesSpawner.SpawnMobOfZone(_zone);
-            _zoneSpawned = true;
         }
     }
 

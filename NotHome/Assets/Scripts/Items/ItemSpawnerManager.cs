@@ -21,11 +21,18 @@ public class ItemSpawnerManager : MonoBehaviour
         _spawnItems.Add(_forestSpawnItems);
     }
 
+    public void SetAllBoolFalse()
+    {
+        _desertSpawn = false;
+        _mountainSpawn = false;
+        _forestSpawn = false;
+    }
+
     [Server]
     public void DestroyAndSpawnItems(int _zone)
     {
-        //if (!_canSpawn)
-        //    return;
+        if (!_canSpawn)
+            return;
 
         print("spawn item");
         for (int i = 0; i < _spawnItems[_zone].Count; i++)
@@ -38,8 +45,8 @@ public class ItemSpawnerManager : MonoBehaviour
     [Server]
     public void SpawnItems(int _zone)
     {
-        //if (!_canSpawn)
-        //    return;
+        if (!_canSpawn)
+            return;
 
         for (int i = 0; i < _spawnItems.Count; i++)
         {
@@ -48,11 +55,21 @@ public class ItemSpawnerManager : MonoBehaviour
         //_canSpawn = false;
     }
 
+    public bool NoZoneSpawned() { return !_desertSpawn && !_mountainSpawn && !_forestSpawn; }
+
     public void DestroyAllItems(int _zone)
     {
         for (int i = 0; i < _spawnItems.Count; i++)
         {
             _spawnItems[_zone][i].DeleteResources();
+        }
+    }
+
+    public void DestroyAll()
+    {
+        for (int i = 0; i < _spawnItems.Count; i++)
+        {
+            DestroyAllItems(i);
         }
     }
 }
