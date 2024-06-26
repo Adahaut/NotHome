@@ -1,4 +1,5 @@
 using Mirror;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private List<GameObject> _uiPlayer;
     private bool _canOpen;
     private bool _isOpen;
+    private int _currentIndexOpen;
 
     [Header("Inventory")]
     [SerializeField] public GameObject _inventory;
@@ -210,7 +212,15 @@ public class PlayerController : NetworkBehaviour
     public void OpenMenuPause(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            PauseManager.Instance.Resume();
+        {
+            if (_isOpen)
+            {
+                OpenUi(_currentIndexOpen);
+            }
+            else
+                PauseManager.Instance.Resume();
+        }
+            
     }
     public void Interaction(InputAction.CallbackContext ctx)
     {
@@ -659,6 +669,7 @@ public class PlayerController : NetworkBehaviour
     {
         _uiPlayer[index].SetActive(!_uiPlayer[index].activeSelf);
         DisablePlayer(_uiPlayer[index].activeSelf);
+        _currentIndexOpen = index;
     }
 
     public void DisablePlayer(bool active)
@@ -729,7 +740,6 @@ public class PlayerController : NetworkBehaviour
             return;
         for(int i = 0; i < _slotSelected.Number(); i++)
         {
-            print(_inventory.GetComponent<InventoryManager>().GetItemPrefab(_slotSelected.ItemContained().ItemName()));
             GameObject _droppedItem = Instantiate(_inventory.GetComponent<InventoryManager>().GetItemPrefab(_slotSelected.ItemContained().ItemName()), 
                 GenerateRandomSpawnPoint(-1.5f, 1.5f), Quaternion.identity);
             NetworkServer.Spawn(_droppedItem);

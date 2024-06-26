@@ -95,6 +95,8 @@ public class MinimapSwaper : MonoBehaviour
 
     private void AddUSBKey(InventorySlot _playerInventorySlot)
     {
+        if (!_usbKeysName.Contains(_playerInventorySlot.ItemContained().ItemName()))
+            return;
         _usbKeySlot.ChangeItem(_playerInventorySlot.ItemContained().ItemName(), _playerInventorySlot.ItemContained().ItemSprite(), false);
         _playerInventorySlot.ResetItem();
         EnableMap(_usbKeySlot.ItemContained().ItemName());
