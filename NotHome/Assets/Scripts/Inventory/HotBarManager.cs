@@ -120,11 +120,13 @@ public class HotBarManager : NetworkBehaviour
         {
             _playerAttack._isRangeWeaponEqupiped = true;
             _animator.SetBool("RangeWeapon", true);
+            _playerAttack._canUseTalkie = false;
         }
         else if (_hotBarSlotIndex == 1)
         {
             _playerAttack._isMeleeWeaponEqupiped = true;
             _animator.SetBool("MeleeWeapon", true);
+            _playerAttack._canUseTalkie = false;
         }
         else if ( _hotBarSlotIndex == 2)
         {

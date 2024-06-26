@@ -47,11 +47,10 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     public void OnTalkieWalkieActive(InputAction.CallbackContext context)
     {
-        if (context.performed && isOwned && ownTalkieWalkie)
+        if (context.performed && isOwned && ownTalkieWalkie /*&& GetComponentInChildren<PlayerAttack>()._canUseTalkie*/)
         {
             buttonPressed = true;
             _talkieSound.Play();
-            print("yes");
         }
 
         if (context.canceled && isOwned && ownTalkieWalkie)
