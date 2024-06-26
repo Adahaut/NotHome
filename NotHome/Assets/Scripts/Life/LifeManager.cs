@@ -77,7 +77,6 @@ public class LifeManager : NetworkBehaviour
         if (_currentLife <= 0) return;
 
         _currentLife -= damage;
-            print("take damages");
 
         if(gameObject.tag == "Player")
         {
@@ -183,6 +182,7 @@ public class LifeManager : NetworkBehaviour
 
     public void StartBlinking(bool _takingDamage = false)
     {
+        print("Take Damages");
         float _force = _takingDamage == true ? 1f : (float)(_maxLife - _currentLife) / (float)_maxLife * 0.2f;
         _blinking = StartCoroutine(UIBlinking(50, _force, _takingDamage));
     }
