@@ -74,14 +74,12 @@ public class LifeManager : NetworkBehaviour
     [Server]
     public void TakeDamage(int damage)
     {
-        print("damages");
         if (_currentLife <= 0) return;
 
         _currentLife -= damage;
 
         if (gameObject.tag == "Player")
         {
-            print("apl RpcTriggerBlinkingEffect");
             RpcTriggerBlinkingEffect();
         }
 
@@ -103,8 +101,6 @@ public class LifeManager : NetworkBehaviour
     [ClientRpc]
     private void RpcTriggerBlinkingEffect()
     {
-        print("dans RpcTriggerBlinkingEffect");
-        _damageIndicator.color = Color.black;
         StartBlinking(true);
     }
 
