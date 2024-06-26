@@ -24,28 +24,27 @@ public class ItemSpawnerManager : MonoBehaviour
     [Server]
     public void DestroyAndSpawnItems(int _zone)
     {
-        //if (!_canSpawn)
-        //    return;
+        if (!_canSpawn)
+            return;
 
-        print("spawn item");
         for (int i = 0; i < _spawnItems[_zone].Count; i++)
         {
             _spawnItems[_zone][i].DestroyAndSpawn();
         }
-        //_canSpawn = false;
+        _canSpawn = false;
     }
 
     [Server]
     public void SpawnItems(int _zone)
     {
-        //if (!_canSpawn)
-        //    return;
+        if (!_canSpawn)
+            return;
 
         for (int i = 0; i < _spawnItems.Count; i++)
         {
             _spawnItems[_zone][i].Spawn();
         }
-        //_canSpawn = false;
+        _canSpawn = false;
     }
 
     public void DestroyAllItems(int _zone)
