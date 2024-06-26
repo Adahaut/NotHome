@@ -1,5 +1,6 @@
 using Mirror;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,13 +18,13 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
     private bool _hasStartedRespawn;
 
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private GameObject[] playerMesh;
+    public List<GameObject> playerMesh = new List<GameObject>();
 
     private Vector3 cameraSpawnTransform;
     private Quaternion cameraSpawnRotation;
     private Vector3 _playerRespawnPoint;
     private float _timeToRespawn;
-    private bool _canRespawn;
+    public bool _canRespawn;
 
     private void Start()
     {
@@ -37,14 +38,14 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     public void PlayerDeath()
     {
+        CmdEnableMeshes(false);
+        _playerController = GetComponent<PlayerController>();
+        if (_playerInputs == null) print("player input null");
         if (_playerController.IsDead) return;
         _canRespawn = false;
         _playerController.IsDead = true;
         _playerInputs.SetActive(false);
-        transform.position = Vector3.zero;
-        
         StartCoroutine(DisableCamera(0.5f));
-        
     }
 
     public void Respawn()
@@ -52,6 +53,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         _noSignal.SetActive(false);
         _playerLifeManager.SetMaxHealth();
         _playerController.IsDead = false;
+        CmdEnableMeshes(true);
         transform.position = _playerRespawnPoint;
         transform.rotation = cameraSpawnRotation;
         cameraTransform.position = cameraSpawnTransform;
@@ -60,9 +62,34 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
         StartCoroutine(RespawnAnimation());
     }
 
+    [Command]
+    void CmdEnableMeshes(bool enable)
+    {
+        for (int i = 0; i < playerMesh.Count; i++)
+        {
+            playerMesh[i].SetActive(enable);
+            if (isOwned)
+                playerMesh[i].SetActive(false);
+        }
+        GetComponent<CapsuleCollider>().enabled = enable;
+        EnableDisableMeshes(enable);
+    }
+
+    [ClientRpc]
+    void EnableDisableMeshes(bool enable)
+    {
+        for (int i = 0; i < playerMesh.Count; i++)
+        {
+            playerMesh[i].SetActive(enable);
+            if (isOwned)
+                playerMesh[i].SetActive(false);
+        }
+        GetComponent<CapsuleCollider>().enabled = enable;
+    }
+
     private IEnumerator DisableCamera(float totalTime)
     {
-        if(isOwned)
+        if (isOwned)
         {
             Vector3 _initCamPos = cameraTransform.position;
             if (_hasStartedRespawn)
@@ -71,11 +98,11 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             _hasStartedRespawn = true;
 
             float time = 0f;
-            while(time / totalTime < 1)
+            while (time / totalTime < 1)
             {
                 time += Time.deltaTime;
                 cameraTransform.position = Vector3.Lerp(_initCamPos, _initCamPos + new Vector3(2, -1.5f, 2), time / totalTime);
-                cameraTransform.rotation = Quaternion.Euler(cameraTransform.rotation.x + (90 * time / totalTime), cameraTransform.rotation.y + (180*time/totalTime),cameraTransform.rotation.z) ;
+                cameraTransform.rotation = Quaternion.Euler(cameraTransform.rotation.x + (90 * time / totalTime), cameraTransform.rotation.y + (180 * time / totalTime), cameraTransform.rotation.z);
                 yield return new WaitForEndOfFrame();
             }
 
@@ -84,12 +111,12 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
             _timeToRespawn = 10;
             _canRespawn = true;
         }
-        
+
     }
 
     private IEnumerator RespawnAnimation()
     {
-        if(isOwned)
+        if (isOwned)
         {
             _respawnScreen.gameObject.SetActive(true);
             float _factor = 1f / 10f;
@@ -114,10 +141,10 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
 
     private IEnumerator StartBlink(float _waitingTime)
     {
-        if(isOwned)
+        if (isOwned)
             _playerUI.SetActive(false);
         yield return new WaitForSeconds(_waitingTime);
-        if(isOwned)
+        if (isOwned)
         {
             _playerUI.SetActive(true);
             transform.position = _playerRespawnPoint;
@@ -139,7 +166,7 @@ public class PlayerDeathAndRespawn : NetworkBehaviour
                 _timer.text = "wait " + Mathf.RoundToInt(_timeToRespawn).ToString();
             }
         }
-        
+
     }
 
 }

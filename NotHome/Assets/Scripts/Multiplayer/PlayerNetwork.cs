@@ -33,6 +33,7 @@ public class PlayerNetwork : NetworkBehaviour
 
         nameTagInstance = Instantiate(nameTagPrefab, transform.position + nameTagOffset, Quaternion.identity, transform);
         nameTagText = nameTagInstance.GetComponentInChildren<TMP_Text>();
+        GetComponent<PlayerDeathAndRespawn>().playerMesh.Add(nameTagInstance);
 
         if (isOwned) nameTagInstance.SetActive(false);
     }
