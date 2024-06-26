@@ -1,5 +1,6 @@
 using Mirror;
 using Steamworks;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,7 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private bool buttonPressed = false;
 
+    public AudioSource _talkieSound;
 
     private void Start()
     {
@@ -45,12 +47,14 @@ public class ProximityVoiceChat : NetworkBehaviour
         if (context.performed && isOwned && ownTalkieWalkie)
         {
             buttonPressed = true;
+            _talkieSound.Play();
             print("yes");
         }
 
         if (context.canceled && isOwned && ownTalkieWalkie)
         {
             buttonPressed = false;
+            _talkieSound.Play();
         }
     }
 
