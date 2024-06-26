@@ -1,5 +1,6 @@
 using Mirror;
 using Steamworks;
+using System.ComponentModel;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,9 +23,13 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     public AudioSource _talkieSound;
 
+    private float _timer = 0f;
+    private float _timerRate = 1f;
+    bool _cancelTalkie = false;
+
     private void Start()
     {
-
+        _timerRate = 1f;
         if (isOwned)
         {
             SteamUser.StartVoiceRecording();
@@ -53,8 +58,9 @@ public class ProximityVoiceChat : NetworkBehaviour
 
         if (context.canceled && isOwned && ownTalkieWalkie)
         {
-            buttonPressed = false;
             _talkieSound.Play();
+            _timer = 0f;
+            _cancelTalkie = true;
         }
     }
 
@@ -62,6 +68,14 @@ public class ProximityVoiceChat : NetworkBehaviour
     {
         if (isOwned)
         {
+            if (buttonPressed)
+            {
+                _timer += Time.deltaTime;
+                if (_timer > _timerRate && _cancelTalkie) { 
+                    buttonPressed = false;
+                    _cancelTalkie = false;
+                }
+            }
             uint compressed;
             EVoiceResult ret = SteamUser.GetAvailableVoice(out compressed);
             if (ret == EVoiceResult.k_EVoiceResultOK && compressed > 1024)
@@ -88,10 +102,12 @@ public class ProximityVoiceChat : NetworkBehaviour
             {
                 if (players[i].ownTalkieWalkie)
                 {
+                    players[i].audioSource.spatialBlend = 0;
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
                     continue;
                 }
             }
+            players[i].audioSource.spatialBlend = 1;
             float distance = Vector3.Distance(transform.position, players[i].gameObject.transform.position);
             float volume = Mathf.Clamp(1 - (distance / maxDistance), 0, 1);
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, volume);
