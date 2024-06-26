@@ -745,4 +745,8 @@ public class PlayerController : NetworkBehaviour
     }
 
 
+    private void OnApplicationQuit()
+    {
+        
+    }
 }
