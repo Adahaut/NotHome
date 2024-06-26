@@ -138,18 +138,10 @@ public class NetworkLobbyManager : NetworkManager
         _roomPlayers.Clear();
         _gamePlayers.Clear();
     }
-
-    // Méthode pour informer les clients de se déconnecter
     void InformClientsToDisconnect()
     {
-        // Envoyer un message personnalisé à tous les clients
-        foreach (var conn in NetworkServer.connections)
-        {
-            if (conn.Value != NetworkServer.localConnection)
-            {
-                conn.Value.Send(new DisconnectMessage());
-            }
-        }
+        DisconnectMessage msg = new DisconnectMessage();
+        NetworkServer.SendToAll(msg);
     }
 
     public override void ServerChangeScene(string newSceneName)
