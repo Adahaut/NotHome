@@ -45,7 +45,6 @@ public class UpgradeBuilding : MonoBehaviour
             case 2:
                 QuestManager.Instance.SetQuestUpLevel2();
                 QuestManager.Instance.QuestComplete(3);
-                //_mapManager._canOpenUiMap = true;
                 break;
             case 3:
                 QuestManager.Instance.SetQuestUpLevel3();

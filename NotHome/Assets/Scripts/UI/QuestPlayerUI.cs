@@ -1,6 +1,4 @@
 using Mirror;
-using System.Collections;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,10 +31,7 @@ public class QuestPlayerUI : NetworkBehaviour
 
         //Enable quest & disable map
         _uiQuest.SetActive(true);
-        MapManager.Instance._uiMap.SetActive(false);
         //Change colors of buttons
-        _questButton.GetComponent<Image>().color = new Color(132f / 255f, 132f / 255f, 132f / 255f);
-        MapManager.Instance._mapButton.GetComponent<Image>().color = Color.white;
     }
     public void OpenQuest()
     {
