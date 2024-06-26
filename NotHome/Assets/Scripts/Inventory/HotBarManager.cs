@@ -114,7 +114,6 @@ public class HotBarManager : NetworkBehaviour
     {
         _playerAttack._isRangeWeaponEqupiped = false;
         _playerAttack._isMeleeWeaponEqupiped = false;
-        _poximityVoiceChat.ownTalkieWalkie = false;
         _animator.SetBool("RangeWeapon", false);
         _animator.SetBool("MeleeWeapon", false);
         if (_hotBarSlotIndex == 0)
@@ -130,7 +129,6 @@ public class HotBarManager : NetworkBehaviour
         else if ( _hotBarSlotIndex == 2)
         {
             _playerAttack._canUseTalkie = true;
-            _poximityVoiceChat.ownTalkieWalkie = true;
         }
     }
 
