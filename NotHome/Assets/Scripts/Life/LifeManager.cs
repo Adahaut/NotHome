@@ -78,7 +78,7 @@ public class LifeManager : NetworkBehaviour
 
         _currentLife -= damage;
 
-        if(isOwned && gameObject.tag == "Player")
+        if(gameObject.tag == "Player")
         {
             print("Blinking");
             StartBlinking(true);
