@@ -2128,6 +2128,9 @@ MonoBehaviour:
   mainCamera: {fileID: 5571988994038543630}
   playerUI: {fileID: 5944692255240726238}
   blackScreen: {fileID: 4490718560064702191}
+  objectToDisable:
+  - {fileID: 2867127210774808399}
+  - {fileID: 238131494457646565}
 --- !u!114 &6111432323842770088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2447,6 +2450,7 @@ MonoBehaviour:
   playerMesh:
   - {fileID: 83517551506310436}
   - {fileID: 2966353255701697535}
+  _canRespawn: 0
 --- !u!1 &5397962913501001781
 GameObject:
   m_ObjectHideFlags: 0
@@ -7445,6 +7449,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 158.0543
       objectReference: {fileID: 0}
+    - target: {fileID: 5846194154651347025, guid: a059bdd046da0584aa94bf97c6d58cf2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6367042084693076627, guid: a059bdd046da0584aa94bf97c6d58cf2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -81.76116
@@ -7546,9 +7554,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -593497275445482950, guid: a059bdd046da0584aa94bf97c6d58cf2, type: 3}
   m_PrefabInstance: {fileID: 8569170976869429022}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &238131494457646565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -745964972771069189, guid: a059bdd046da0584aa94bf97c6d58cf2, type: 3}
+  m_PrefabInstance: {fileID: 8569170976869429022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1558666749097567471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2068646755430315023, guid: a059bdd046da0584aa94bf97c6d58cf2, type: 3}
+  m_PrefabInstance: {fileID: 8569170976869429022}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2867127210774808399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5846194154651347025, guid: a059bdd046da0584aa94bf97c6d58cf2, type: 3}
   m_PrefabInstance: {fileID: 8569170976869429022}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2966353255701697535 stripped
