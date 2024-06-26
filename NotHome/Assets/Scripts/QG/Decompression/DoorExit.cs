@@ -74,7 +74,7 @@ public class DoorExit : NetworkBehaviour
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, distRayCast))
         {
-            if (hit.collider.transform.parent.GetComponentInChildren<DoorExit>() != null)
+            if (hit.collider.transform.parent && hit.collider.transform.parent.GetComponentInChildren<DoorExit>() != null)
             {
                 if (hit.collider.transform.parent.GetComponentInChildren<DoorExit>()._nameZone != "Final" || canOpenAllSAS)
                 {
