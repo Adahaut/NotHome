@@ -22,7 +22,6 @@ public class ProximityVoiceChat : NetworkBehaviour
 
     private void Start()
     {
-        ownTalkieWalkie = false;
 
         if (isOwned)
         {
