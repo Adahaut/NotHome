@@ -82,7 +82,6 @@ public class HotBarManager : NetworkBehaviour
 
         UnActiveAll();
         _hotBarItems[_hotBarSlotIndex].SetActive(true);
-        print(_hotBarSlotIndex);
         if (_hotBarSlotIndex == 0)
             _textAmmo.SetActive(true);
         else
