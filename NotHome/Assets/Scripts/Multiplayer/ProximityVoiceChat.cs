@@ -1,15 +1,12 @@
-using UnityEngine;
 using Mirror;
 using Steamworks;
-using UnityEditor;
+using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
-using System;
 
 public class ProximityVoiceChat : NetworkBehaviour
 {
     public AudioSource audioSource;
-    public bool ownTalkieWalkie = true;
+    [SyncVar] public bool ownTalkieWalkie = true;
 
 
     [SerializeField] private float maxDistance = 15f;
@@ -85,7 +82,6 @@ public class ProximityVoiceChat : NetworkBehaviour
         {
             if (talkieUsed)
             {
-                Debug.Log("test");
                 if (players[i].ownTalkieWalkie)
                 {
                     Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size, 1f);
