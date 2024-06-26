@@ -206,7 +206,6 @@ public class PlayerManager : MonoBehaviour
                 color.a = 1 - (time / totalTime);
                 _stamParent.GetComponent<Image>().color = color;
                 _staminaSlider.GetComponent<Image>().color = color;
-                print("notttttt goood");
                 yield return new WaitForEndOfFrame();
             }
             _stamParent.SetActive(false);
