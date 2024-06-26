@@ -13,7 +13,10 @@ public class UpgradeHomeManager : MonoBehaviour
 
     private void Start()
     {
-        _textLevel.text = "Level 1";
+        int index = 0;
+        if (_nameBuilding == "TDC")
+            index = 1;
+        _textLevel.text = "Level " + UpgradeBuilding.Instance._levelBuildingList[index]._levelBuilding;
     }
 
     private void OnEnable()
