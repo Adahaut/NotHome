@@ -45,13 +45,6 @@ public class NetworkLobbyManager : NetworkManager
 
     #region Server
 
-    [ClientRpc]
-    private void RpcHandleHostDisconnect()
-    {
-        // Rediriger vers le menu principal
-        // Assurez-vous que le nom de la scène du menu principal est correct
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Scene_Lobby");
-    }
     public override void OnStartServer()
     {
         spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
@@ -115,15 +108,8 @@ public class NetworkLobbyManager : NetworkManager
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         if (conn.identity != null)
-        {
-            
-                // Vérifier si l'hôte est en train de se déconnecter
-                if (conn.identity.isServer)
-                {
-                    // Appeler le RPC pour tous les clients
-                    RpcHandleHostDisconnect();
-                }
-                var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+        {    
+            var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
             if (player != null)
             {
                 _roomPlayers.Remove(player);
@@ -244,5 +230,5 @@ public class NetworkLobbyManager : NetworkManager
         }
     }
 
-    
+
 }
