@@ -117,12 +117,12 @@ public class DoorExit : NetworkBehaviour
             _isDecompression = true;
             if (!enterDoorAnimator.GetBool("Open"))
                 door = true;
+            else
+                SpawnItemAndMobsByZone();
             enterDoorAnimator.SetBool("Open", false);
             exitDoorAnimator.SetBool("Open", false);
             //_doorExit.SetActive(true);
             StartCoroutine(StartParticle(1, door));
-            SpawnItemAndMobsByZone();
-            print("fini spawn");
             //print(_checker);
             //print(_checker.Check());
         }
@@ -132,24 +132,22 @@ public class DoorExit : NetworkBehaviour
     {
         if (isServer && _checker.Check())
         {
+            print("dedans");
             switch (_nameZone)
             {
                 case "Desert":
-                    _spawnerManager.DestroyAndSpawnItems(0);
-                    print("fini spawn");
-                    _enemiesSpawner.SpawnMobOfZone(0);
+                    SpawnItem(0, _spawnerManager._desertSpawn);
+                    _spawnerManager._desertSpawn = true;
                     break;
 
                 case "Mountain":
-                    _spawnerManager.DestroyAndSpawnItems(1);
-                    print("fini spawn");
-                    _enemiesSpawner.SpawnMobOfZone(1);
+                    SpawnItem(1, _spawnerManager._mountainSpawn);
+                    _spawnerManager._mountainSpawn = true;
                     break;
 
                 case "Forest":
-                    _spawnerManager.DestroyAndSpawnItems(2);
-                    print("fini spawn");
-                    _enemiesSpawner.SpawnMobOfZone(2);
+                    SpawnItem(2, _spawnerManager._forestSpawn);
+                    _spawnerManager._forestSpawn = true;
                     break;
 
                 case "Final":
@@ -167,15 +165,14 @@ public class DoorExit : NetworkBehaviour
     {
         if (_spawnerManager._canSpawn && !_zoneSpawned)
         {
+            _spawnerManager.DestroyAll();
             _spawnerManager.DestroyAndSpawnItems(_zone);
             _enemiesSpawner.SpawnMobOfZone(_zone);
-            _zoneSpawned = true;
         }
         else if(!_zoneSpawned)
         {
             _spawnerManager.SpawnItems(_zone);
             _enemiesSpawner.SpawnMobOfZone(_zone);
-            _zoneSpawned = true;
         }
     }
 
