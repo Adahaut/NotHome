@@ -44,17 +44,6 @@ public class NetworkLobbyManager : NetworkManager
     #endregion
 
     #region Server
-    public override void OnServerDisconnect(NetworkConnectionToClient conn)
-    {
-        // Vérifier si l'hôte est en train de se déconnecter
-        if (conn.identity != null && conn.identity.isServer)
-        {
-            // Appeler le RPC pour tous les clients
-            RpcHandleHostDisconnect();
-        }
-
-        base.OnServerDisconnect(conn);
-    }
 
     [ClientRpc]
     private void RpcHandleHostDisconnect()
@@ -127,7 +116,14 @@ public class NetworkLobbyManager : NetworkManager
     {
         if (conn.identity != null)
         {
-            var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
+            
+                // Vérifier si l'hôte est en train de se déconnecter
+                if (conn.identity.isServer)
+                {
+                    // Appeler le RPC pour tous les clients
+                    RpcHandleHostDisconnect();
+                }
+                var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
             if (player != null)
             {
                 _roomPlayers.Remove(player);
