@@ -130,7 +130,7 @@ public class DoorExit : NetworkBehaviour
 
     private void SpawnItemAndMobsByZone()
     {
-        if (isServer && _checker.Check())
+        if (isServer/* && _checker.Check()*/)
         {
             print("dedans");
             switch (_nameZone)
