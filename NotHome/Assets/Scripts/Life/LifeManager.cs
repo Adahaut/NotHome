@@ -77,10 +77,10 @@ public class LifeManager : NetworkBehaviour
         if (_currentLife <= 0) return;
 
         _currentLife -= damage;
+            print("take damages");
 
         if(gameObject.tag == "Player")
         {
-            print("Blinking");
             StartBlinking(true);
         }
 
