@@ -745,4 +745,11 @@ public class PlayerController : NetworkBehaviour
     }
 
 
+    private void OnApplicationQuit()
+    {
+        if (isServer)
+        {
+            
+        }
+    }
 }
