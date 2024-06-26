@@ -1,8 +1,6 @@
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
-using UnityEngine.UIElements;
 
 public class SpawnItem : NetworkBehaviour
 {
